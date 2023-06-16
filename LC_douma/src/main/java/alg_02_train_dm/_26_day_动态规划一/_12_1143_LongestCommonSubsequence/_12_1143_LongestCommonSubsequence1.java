@@ -8,7 +8,7 @@ package alg_02_train_dm._26_day_动态规划一._12_1143_LongestCommonSubsequenc
 public class _12_1143_LongestCommonSubsequence1 {
 
     /*
-        1143. 最长公共子序列
+        1143. 最长公共子序列 (LCS)
         给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。
         如果不存在 公共子序列 ，返回 0 。
         两个字符串的 公共子序列 是这两个字符串所共同拥有的子序列。

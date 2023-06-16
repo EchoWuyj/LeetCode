@@ -17,7 +17,7 @@ public class _03_35_SearchInsert {
      */
 
     // KeyPoint 思路一：在循环体内查找目标值
-    // 找第一个'大于等于' target 的元素的下标
+    //  => 找第一个'大于等于' target 的元素的下标
     public int searchInsert1(int[] nums, int target) {
         if (nums == null) return -1;
         // 判空条件有点不同，如果数组中一个元素都没有，则将 target 插入到第一个位置
@@ -44,7 +44,7 @@ public class _03_35_SearchInsert {
     }
 
     // KeyPoint 思路二：在循环体内排除没有目标值的区间 => 重点掌握
-    // 找第一个'大于等于' target 的元素的下标
+    //  => 找第一个'大于等于' target 的元素的下标
     public int searchInsert(int[] nums, int target) {
         if (nums == null) return -1;
         if (nums.length == 0) return 0;
@@ -61,7 +61,7 @@ public class _03_35_SearchInsert {
             int mid = left + (right - left) / 2;
             // target <= nums[mid] 反面 => target > nums[mid]
             if (target > nums[mid]) {
-                left = mid + 1; // 严格排除一半区间
+                left = mid + 1; // 严格排除一半区间(左侧)
             } else {
                 // target <= nums[mid]
                 // 找'第一个' => 从右往左找

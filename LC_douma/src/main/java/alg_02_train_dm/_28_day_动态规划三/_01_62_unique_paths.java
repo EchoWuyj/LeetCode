@@ -69,7 +69,9 @@ public class _01_62_unique_paths {
         // 不能跳过 for 循环，直接对 memo 初始化
         // Arrays.fill(memo, -1);
 
+        // KeyPoint 后序遍历，可以理解成从叶子到 root，每一分支都累加路径，最后 root 返回值即为路径总和
         return dfs(m, n, 0, 0, memo);
+        // 注意，不是返回 memo[m-1][n-1]，记忆化搜索 memo 只是作为缓存来使用的，不是 dp 数组
     }
 
     // 每个节点 => 位置索引(i,j)

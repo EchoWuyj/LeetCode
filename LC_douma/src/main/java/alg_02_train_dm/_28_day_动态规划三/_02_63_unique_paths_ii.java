@@ -102,7 +102,7 @@ public class _02_63_unique_paths_ii {
                     dp[i][j] = 0;
                     continue;
                 }
-                // 根据不同的位置，进行不同的 dp[i][j] 赋值操作
+                // KeyPoint 根据不同的位置，进行不同的 dp[i][j] 赋值操作，合并 dp[i][j] 状态初始化
                 // 左上角
                 if (i == 0 && j == 0) {
                     dp[i][j] = 1;

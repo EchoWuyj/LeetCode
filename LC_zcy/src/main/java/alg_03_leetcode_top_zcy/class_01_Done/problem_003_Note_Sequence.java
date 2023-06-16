@@ -46,6 +46,7 @@ public class problem_003_Note_Sequence {
           2.抽象字母(i,j,m,k)实在绕不清楚，通过具体数字来分析规律
 
         等比数列通项公式
-          an=a₁+(n-1)×d => n=(an-a₁)/d+1 ，n为项数
+          an = a₁ + (n - 1) × d
+           => 项数 n = (an-a₁) / d + 1
      */
 }

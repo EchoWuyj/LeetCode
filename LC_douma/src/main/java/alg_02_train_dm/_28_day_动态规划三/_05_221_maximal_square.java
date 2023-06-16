@@ -24,18 +24,20 @@ public class _05_221_maximal_square {
 
      */
 
+    // KeyPoint 动态规划
     // 正方形面积：边长^2
     // => 简化问题
     // => 二维矩阵内最大正方形的边长
     public int maximalSquare1(char[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
-        int ans = 0;
+        int maxLen = 0;
 
         // dp[i][j] 表示以 [i, j] 这个元素为'右下角'的最大的正方形的边长
+        // 一般和坐标有关都是选择 [i, j] 作为状态参数
         int[][] dp = new int[m][n];
 
-        // 通过找规律，分析出状态转移方程
+        // 通过填表，找规律，从而分析出状态转移方程
         // dp[i][j] 一般都是从四周，上下左右，左右斜上，左右斜下
         // => 从而分析出：dp[i][j] 和 dp[i-1][j-1]，dp[i-1][j]，...，之间的关系
 
@@ -43,7 +45,8 @@ public class _05_221_maximal_square {
         for (int i = 0; i < m; i++) {
             if (matrix[i][0] == '1') {
                 dp[i][0] = 1;
-                ans = Math.max(ans, dp[i][0]);
+                // 每次都要更新 maxLen，不要遗漏了
+                maxLen = Math.max(maxLen, dp[i][0]);
             }
         }
 
@@ -51,63 +54,65 @@ public class _05_221_maximal_square {
         for (int i = 0; i < n; i++) {
             if (matrix[0][i] == '1') {
                 dp[0][i] = 1;
-                ans = Math.max(ans, dp[0][i]);
+                maxLen = Math.max(maxLen, dp[0][i]);
             }
         }
 
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
                 if (matrix[i][j] == '1') {
+                    // 木桶效应，选择周边最短 dp，
+                    // 同时 dp[i][j] 需要还需要 +1，体现 matrix[i][j] == '1' 带来的变化，从而对 dp[i][j] 更新
                     dp[i][j] = Math.min(dp[i][j - 1],
                             Math.min(dp[i - 1][j - 1], dp[i - 1][j])) + 1;
                     // 最大的正方形的边长
-                    ans = Math.max(ans, dp[i][j]);
+                    maxLen = Math.max(maxLen, dp[i][j]);
                 }
             }
         }
 
         // 最大的正方形的边长^2 => 最大面积
-        return ans * ans;
+        return maxLen * maxLen;
     }
 
+    // KeyPoint 动态规划 + 合并状态初始化
     public int maximalSquare2(char[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
 
-        int ans = 0;
+        int maxLen = 0;
 
         // dp[i][j] 表示以 [i, j] 这个元素为'右下角'的最大的正方形的边长
-        // 行的长度和列的长度都增加 1，有利于边界条件的处理
-        // => 将第一行和第一列并入到状态转移方程中，不要单独额外处理
+        // 合并状态初始化
+        // => 行的长度和列的长度都增加 1，有利于边界条件的处理
+        // => 将第一行和第一列并入到状态转移方程中，不要单独额外处理，学习这种方式
         int[][] dp = new int[m + 1][n + 1];
 
+        // KeyPoint 修改 dp[m+1][n+1] 后，对应的 i 和 j 需要进行变换
+        // 修改 i 和 j 从 1 开始
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
-                //
+                // 修改 i,j 变成 i-1,j-1
                 if (matrix[i - 1][j - 1] == '1') {
                     dp[i][j] = Math.min(dp[i][j - 1],
                             Math.min(dp[i - 1][j - 1], dp[i - 1][j])) + 1;
-                    ans = Math.max(ans, dp[i][j]);
-                } else {
-                    // 对于以 0 为右下角的最大正方形边长设置为 0
-                    // 这里可加可不加，因为 dp[i][j] 初始化的时候就是 0
-                    dp[i][j] = 0;
+                    maxLen = Math.max(maxLen, dp[i][j]);
                 }
             }
         }
-
-        return ans * ans;
+        return maxLen * maxLen;
     }
 
-    // 状态压缩：压缩为一维数组
-    // 计算当前的状态只依赖于上(preRow)、左上 (preRowPreCol) 以及左边 (dp[j - 1]) 三个状态
-    // 对于 preRow 和 preRowPreCol 的计算逻辑请参考
-    // 课程 B 刷题篇第 26 天的力扣 1143 号算法题，视频讲解链接：https://ke.qq.com/course/3614291
+    // KeyPoint 动态规划 + 状态压缩(压缩为一维数组)
+    // => 没有仔细看，感觉压缩状态有点麻烦，后面有空再看吧
+    // 计算当前的状态 dp[i][j] 只依赖于上(preRow)、左上 (preRowPreCol) 以及左边 (dp[j - 1]) 三个状态
+    // 注意不是：dp[i][j] 依赖的不仅是：上一行 dp[i-1][j] 或者 下一行 dp[i+1][j]，还有 dp[i-1][j-1]，故不能直接将行索引去掉
+    // 对于 preRow 和 preRowPreCol 的计算逻辑请参考：第 26 天的力扣 1143 号算法题
     public int maximalSquare(char[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
 
-        int ans = 0;
+        int maxLen = 0;
 
         // 状态压缩为一维数组
         // 行的长度和列的长度都增加 1，有利于边界条件的处理
@@ -122,7 +127,7 @@ public class _05_221_maximal_square {
                 if (matrix[i - 1][j - 1] == '1') {
                     dp[j] = Math.min(dp[j - 1],
                             Math.min(preRowPreCol, preRow)) + 1;
-                    ans = Math.max(ans, dp[j]);
+                    maxLen = Math.max(maxLen, dp[j]);
                 } else {
                     // 对于以 0 为右下角的最大正方形边长设置为 0
                     // 这里必须加上，因为经过若干个循环，dp[j] 已经不等于 0 了
@@ -130,8 +135,7 @@ public class _05_221_maximal_square {
                 }
             }
         }
-
-        return ans * ans;
+        return maxLen * maxLen;
     }
 
     public static void main(String[] args) {

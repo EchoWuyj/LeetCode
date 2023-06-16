@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 public class _11_300_LengthOfLongestIncrementSubSeq {
     /*
-        300. 最长递增子序列
+        300. 最长递增子序列(LIS)
 
         给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
         子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。
@@ -36,13 +36,13 @@ public class _11_300_LengthOfLongestIncrementSubSeq {
         // 状态：dp[i] 表示以 nums[i] 结尾时最长递增子序列的长度
         int[] dp = new int[n];
 
+        // 状态初始化：单个元素最少有一个递增子序列元素
+        Arrays.fill(dp, 1);
+
         // 直接使用 Arrays.fill(dp, 1) 代替
 //        for (int i = 0; i < n; i++) {
 //            dp[i] = 1;
 //        }
-
-        // 状态初始化：单个元素最少有一个递增子序列元素
-        Arrays.fill(dp, 1);
 
         // 索引   0 1 2 3 4 5
         // nums: -2 1 -3 4 -1
@@ -50,7 +50,7 @@ public class _11_300_LengthOfLongestIncrementSubSeq {
         // dp     1 2 1  3 2
 
         // 说明：因为是子序列，元素之间可以不连续，故不能只看前一个位置
-        //      前面多个元素都是需要比较的，所以得使用 i 和 j 两个指针
+        //       前面多个元素都是需要比较的，所以得使用 i 和 j 两个指针
 
         // 状态转移方程：
         // nums[j] > nums[i]：dp[j]= max(1+dp[i],dp[j])
@@ -61,13 +61,18 @@ public class _11_300_LengthOfLongestIncrementSubSeq {
             // j 遍历 i 指针之前的每个元素，都要与 nums[i] 进行比较
             for (int j = 0; j < i; j++) {
                 if (nums[i] > nums[j]) {
+
+                    // dp[i] = dp[j] + 1
+                    // 不能直接赋值，dp[i] 保证是最大值，是需要参与比较的
                     // dp[i] 赋值中，i 位置之前存在较小值 j，对应的 dp[j] 也较小，将原本大值 dp[i] 覆盖
+
                     // 索引  0 1 2 3 4 5
                     // 数组  1 2 1 3 1 4
                     // dp    1 2 1 3
                     //             i
-                    //         j     nums[3] > nums[1]，dp[3] = dp[1] + 1 = 3
-                    //           j   nums[3] > nums[2]，dp[3] = dp[2] + 1 = 2，将原来 3 给覆盖了
+                    //         j     => i = 3，j = 1，nums[3](3) > nums[1](2)，dp[3] = dp[1](2) + 1 = 3
+                    //           j   => i = 3，j = 2，nums[3](3) > nums[2](1)，dp[3] = dp[2](1) + 1 = 2
+                    //               => 将原来 3 给覆盖了，从而导致错误结果
                     // 故需要 max(dp[j] + 1, dp[i])
                     dp[i] = Math.max(dp[j] + 1, dp[i]);
                     maxLen = Math.max(maxLen, dp[i]);
