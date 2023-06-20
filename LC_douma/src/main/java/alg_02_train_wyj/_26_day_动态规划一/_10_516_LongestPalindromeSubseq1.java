@@ -11,14 +11,21 @@ import java.util.List;
 public class _10_516_LongestPalindromeSubseq1 {
     public List<String> subSeqs(String s) {
         List<String> res = new ArrayList<>();
-        findSubSeq(s, 0, "", res);
+        dfs(s, 0, "", res);
         return res;
     }
 
-    public void findSubSeq(String s, int start, String subSeq, List<String> res) {
-        if (start != 0) res.add(subSeq);
-        for (int i = start; i < s.length(); i++) {
-            findSubSeq(s, i + 1, subSeq + s.charAt(i), res);
+    private void dfs(String s, int index, String subSeq, List<String> res) {
+        if (index != 0) {
+            res.add(subSeq);
         }
+
+        for (int i = index; i < s.length(); i++) {
+            dfs(s, i + 1, subSeq + s.charAt(i), res);
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new _10_516_LongestPalindromeSubseq1().subSeqs("bbbab"));
     }
 }

@@ -6,38 +6,27 @@ package alg_02_train_wyj._26_day_动态规划一;
  * @Version 1.0
  */
 public class _04_64_MinPathSum1 {
+
     private int minPathSum = Integer.MAX_VALUE;
-    private int[][] dirs = {{0, 1}, {1, 0}};
+    private int[][] dirs = {{1, 0}, {0, 1}};
 
     public int minPathSum(int[][] grid) {
         dfs(grid, 0, 0, grid[0][0]);
         return minPathSum;
     }
 
-    private void dfs(int[][] grid, int row, int col, int sum) {
-        if (row == grid.length - 1 && col == grid[0].length - 1) {
-            minPathSum = Math.min(minPathSum, sum);
-            return;
+    public void dfs(int[][] grid, int i, int j, int pathSum) {
+        if (i == grid.length - 1 && j == grid[0].length - 1) {
+            minPathSum = Math.min(minPathSum, pathSum);
         }
-        for (int[] dir : dirs) {
-            int nextRow = row + dir[0];
-            int nextCol = col + dir[1];
-            if (nextRow < 0 || nextRow >= grid.length
-                    || nextCol < 0 || nextCol >= grid[0].length) {
-                continue;
-            }
-            sum += grid[nextRow][nextCol];
-            dfs(grid, nextRow, nextCol, sum);
-            sum -= grid[nextRow][nextCol];
-        }
-    }
 
-    public static void main(String[] args) {
-        int[][] grid = {
-                {1, 3, 1},
-                {1, 5, 1},
-                {4, 2, 1}
-        };
-        System.out.println(new _04_64_MinPathSum1().minPathSum(grid));
+        for (int[] dir : dirs) {
+            int nexti = i + dir[0];
+            int nextj = j + dir[1];
+            if (nexti == grid.length || nextj == grid[0].length) continue;
+            pathSum += grid[nexti][nextj];
+            dfs(grid, nexti, nextj, pathSum);
+            pathSum -= grid[nexti][nextj];
+        }
     }
 }

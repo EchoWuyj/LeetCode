@@ -32,8 +32,8 @@ public class _06_CompleteKnapsack1 {
     // 在容量为 capacity 的背包里放入第 index 号物品，得到的最大价值
     // int[] w 和 int[] v 是全局变量，故不需要作为形参传入
     private int dfs(int index, int capacity) { // 状态参数
-        // 处理当前节点（父节点）
-        int maxValue = 0;
+        // 父节点所有分支中，子节点最大值中的最大值
+        int bestSubMaxValue = 0;
 
         // 从 index 开始是为了控制顺序
         for (int i = index; i < w.length; i++) {
@@ -41,21 +41,21 @@ public class _06_CompleteKnapsack1 {
             // KeyPoint 核心区别
             // 1.0-1背包：子节点物品索引 > 父节点物品索引 (严格大于)
             // 2.完全背包：子节点物品索引 >= 父节点物品索引，但是子节点不能选祖父节点索引
-
             // 子节点索引
-            int childIndex = i;
+            int subIndex = i;
 
             // 剪枝 => 剔除无效 dfs
-            //  跳过 -1
-            if (childIndex == -1
-                    || childIndex == w.length
-                    || capacity < w[childIndex]) continue;
+            // 添加 subIndex = -1， 否则 w[subIndex] 越界
+            if (subIndex == -1
+                    || subIndex == w.length
+                    || capacity < w[subIndex]) continue;
 
-            int childMaxValue = dfs(childIndex, capacity - w[childIndex]);
-            maxValue = Math.max(maxValue, childMaxValue);
+            // 子节点索引：subIndex，不是 i+1
+            int subMaxValue = dfs(subIndex, capacity - w[subIndex]);
+            bestSubMaxValue = Math.max(bestSubMaxValue, subMaxValue);
         }
 
-        return maxValue + (index == -1 ? 0 : v[index]);
+        return bestSubMaxValue + (index == -1 ? 0 : v[index]);
     }
 
     // 完全背包回溯法 => 另一种实现 => 了解即可

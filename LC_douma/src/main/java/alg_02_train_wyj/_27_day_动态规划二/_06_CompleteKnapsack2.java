@@ -11,8 +11,8 @@ public class _06_CompleteKnapsack2 {
         int n = w.length;
         int[][] dp = new int[n][capacity + 1];
 
-        for (int i = 0; i <= capacity; i++) {
-            dp[0][i] = (i / w[0]) * v[0];
+        for (int j = 0; j <= capacity; j++) {
+            dp[0][j] = (j / w[0]) * v[0];
         }
 
         for (int i = 1; i < n; i++) {
@@ -33,6 +33,4 @@ public class _06_CompleteKnapsack2 {
 
         System.out.println(k.knapsackComplete(w, v, 10)); // 46
     }
-
-
 }

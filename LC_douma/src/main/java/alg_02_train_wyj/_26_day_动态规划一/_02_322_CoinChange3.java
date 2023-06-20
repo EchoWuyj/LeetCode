@@ -15,18 +15,18 @@ public class _02_322_CoinChange3 {
         return dfs(coins, amount, memo);
     }
 
-    public int dfs(int[] coins, int target, int[] memo) {
-        if (target == 0) return 0;
-        if (memo[target] != Integer.MAX_VALUE) return memo[target];
-
+    public int dfs(int[] coins, int amount, int[] memo) {
+        if (amount == 0) return 0;
+        if (memo[amount] != Integer.MAX_VALUE) return memo[amount];
         int minCoins = Integer.MAX_VALUE;
         for (int i = 0; i < coins.length; i++) {
-            if (target - coins[i] < 0) continue;
-            int subMinCoins = dfs(coins, target - coins[i], memo);
+            if (amount - coins[i] < 0) continue;
+            int subMinCoins = dfs(coins, amount - coins[i], memo);
             if (subMinCoins == -1) continue;
             minCoins = Math.min(minCoins, subMinCoins + 1);
         }
-        memo[target] = minCoins == Integer.MAX_VALUE ? -1 : minCoins;
-        return memo[target];
+
+        memo[amount] = (minCoins == Integer.MAX_VALUE) ? -1 : minCoins;
+        return memo[amount];
     }
 }

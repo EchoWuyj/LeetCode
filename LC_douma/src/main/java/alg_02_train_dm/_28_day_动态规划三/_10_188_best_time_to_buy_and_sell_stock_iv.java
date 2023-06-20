@@ -21,6 +21,7 @@ public class _10_188_best_time_to_buy_and_sell_stock_iv {
     /*
         dp[i][k][0] = max(dp[i - 1][k][0], dp[i - 1][k][1] + prices[i])
         dp[i][k][1] = max(dp[i - 1][k][1], dp[i - 1][k - 1][0] - prices[i])
+        增加了：'交易次数' 和 '是否持有股票' 两个维度
      */
 
     // 执行用时：7 ms , 在所有 Java 提交中击败了22.23% 的用户

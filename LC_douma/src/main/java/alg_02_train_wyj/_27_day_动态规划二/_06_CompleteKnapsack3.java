@@ -8,14 +8,15 @@ package alg_02_train_wyj._27_day_动态规划二;
 public class _06_CompleteKnapsack3 {
 
     public int knapsackComplete(int[] w, int[] v, int capacity) {
-        int n = w.length;
-        int[] dp = new int[capacity + 1];
 
-        for (int i = 0; i <= capacity; i++) {
-            dp[i] = (i / w[0]) * v[0];
+        int[] dp = new int[capacity + 1];
+        for (int i = 0; i < w.length; i++) {
+            for (int j = w[i]; j <= capacity; j++) {
+                dp[j] = Math.max(dp[j], v[i] + dp[j - w[i]]);
+            }
         }
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < w.length; i++) {
             for (int j = 0; j <= capacity; j++) {
                 int count = (j / w[i]);
                 for (int k = 0; k < count; k++) {

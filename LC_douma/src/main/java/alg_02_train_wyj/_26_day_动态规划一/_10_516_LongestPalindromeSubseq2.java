@@ -1,5 +1,8 @@
 package alg_02_train_wyj._26_day_动态规划一;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Author Wuyj
  * @DateTime 2023-06-08 14:08
@@ -7,22 +10,24 @@ package alg_02_train_wyj._26_day_动态规划一;
  */
 public class _10_516_LongestPalindromeSubseq2 {
 
-    private int len = Integer.MIN_VALUE;
+    private int maxLen = Integer.MIN_VALUE;
 
-    public int longestPalindromeSubseq(String s) {
-        findSubSeq(s, 0, "");
-        return len;
+    public List<String> subSeqs(String s) {
+        List<String> res = new ArrayList<>();
+        dfs(s, 0, "", res);
+        return res;
     }
 
-    private void findSubSeq(String s, int start, String subSeq) {
-        if (start != 0) {
+    private void dfs(String s, int index, String subSeq, List<String> res) {
+        if (index != 0) {
+
             if (help(subSeq)) {
-                len = Math.max(len, subSeq.length());
+                maxLen = Math.max(maxLen, subSeq.length());
             }
         }
 
-        for (int i = start; i < s.length(); i++) {
-            findSubSeq(s, i + 1, subSeq + s.charAt(i));
+        for (int i = index; i < s.length(); i++) {
+            dfs(s, i + 1, subSeq + s.charAt(i), res);
         }
     }
 

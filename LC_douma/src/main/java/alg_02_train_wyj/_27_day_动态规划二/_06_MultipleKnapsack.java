@@ -7,10 +7,8 @@ package alg_02_train_wyj._27_day_动态规划二;
  */
 public class _06_MultipleKnapsack {
 
-    public int knapsack(int[] w, int[] v, int[] p, int capacity) {
+    public static int knapsack1(int[] w, int[] v, int[] p, int capacity) {
         int n = w.length;
-        if (n == 0) return 0;
-
         int newN = 0;
         for (int i = 0; i < n; i++) {
             newN += p[i];
@@ -35,5 +33,12 @@ public class _06_MultipleKnapsack {
             }
         }
         return dp[capacity];
+    }
+
+    public static void main(String[] args) {
+        int[] w = {3, 4, 5, 2};
+        int[] v = {15, 10, 12, 8};
+        int[] p = {1, 2, 2, 1};
+        System.out.println(knapsack1(w, v, p, 10));
     }
 }

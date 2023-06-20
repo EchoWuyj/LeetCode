@@ -16,17 +16,14 @@ public class _06_CompleteKnapsack1 {
     }
 
     public int dfs(int index, int capacity) {
-        int maxValue = 0;
-
+        int bestSubMaxValue = 0;
         for (int i = index; i < w.length; i++) {
-            int childIndex = i;
-            if (childIndex == -1
-                    || childIndex == w.length
-                    || capacity < w[childIndex]) continue;
-            int childMaxValue = dfs(childIndex, capacity - w[childIndex]);
-            maxValue = Math.max(maxValue, childMaxValue);
+            int subIndex = i;
+            if (subIndex == -1 || subIndex == w.length || capacity < w[subIndex]) continue;
+            int subMaxValue = dfs(subIndex, capacity - w[subIndex]);
+            bestSubMaxValue = Math.max(bestSubMaxValue, subMaxValue);
         }
-        return maxValue + (index == -1 ? 0 : v[index]);
+        return bestSubMaxValue + (index == -1 ? 0 : v[index]);
     }
 
     public static void main(String[] args) {

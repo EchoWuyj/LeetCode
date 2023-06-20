@@ -7,21 +7,17 @@ package alg_02_train_wyj._26_day_动态规划一;
  */
 public class _06_53_MaxSubArray1 {
     public int maxSubArray(int[] nums) {
-        int maxSum = Integer.MIN_VALUE;
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = i; j < nums.length; j++) {
+        int maxValue = Integer.MIN_VALUE;
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= i; j++) {
                 int sum = 0;
-                for (int k = i; k <= j; k++) {
+                for (int k = j; k <= i; k++) {
                     sum += nums[k];
                 }
-                maxSum = Math.max(maxSum, sum);
+                maxValue = Math.max(maxValue, sum);
             }
         }
-        return maxSum;
-    }
-
-    public static void main(String[] args) {
-        int res = new _06_53_MaxSubArray1().maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4});
-        System.out.println(res);
+        return maxValue;
     }
 }

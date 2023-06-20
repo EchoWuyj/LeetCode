@@ -8,12 +8,12 @@ package alg_02_train_wyj._27_day_动态规划二;
 public class _06_CostKnapsack {
 
     public int knapsack(int[] w, int[] g, int W, int G, int[] v) {
-
         int[][] dp = new int[W + 1][G + 1];
+
         for (int i = 0; i < w.length; i++) {
             for (int j = W; j >= w[i]; j--) {
                 for (int k = G; k >= g[i]; k--) {
-                    dp[j][k] = Math.max(dp[j][k], dp[j - w[i]][k - g[i]]);
+                    dp[j][k] = Math.max(dp[j][k], v[i] + dp[j - w[i]][k - g[i]]);
                 }
             }
         }

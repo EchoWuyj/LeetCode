@@ -12,18 +12,18 @@ public class _02_746_min_cost_climbing_stairs {
     public int minCostClimbingStairs1(int[] cost) {
         int n = cost.length;
         int[] memo = new int[n + 1];
-        Arrays.fill(memo, -1);
+        Arrays.fill(memo, Integer.MAX_VALUE);
         return dfs(cost, n, memo);
     }
 
-    public int dfs(int[] cost, int n, int[] memo) {
+    private int dfs(int[] cost, int n, int[] memo) {
         if (n == 0 || n == 1) return 0;
-        if (memo[n] != -1) return memo[n];
+        if (memo[n] != Integer.MAX_VALUE) return memo[n];
 
-        int left = dfs(cost, n - 1, memo);
-        int right = dfs(cost, n - 2, memo);
+        int left = cost[n - 1] + dfs(cost, n - 1, memo);
+        int right = cost[n - 2] + dfs(cost, n - 2, memo);
+        memo[n] = Math.min(left, right);
 
-        memo[n] = Math.min(left + cost[n - 1], right + cost[n - 2]);
         return memo[n];
     }
 
@@ -33,7 +33,7 @@ public class _02_746_min_cost_climbing_stairs {
         dp[0] = 0;
         dp[1] = 0;
         for (int i = 2; i <= n; i++) {
-            dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+            dp[i] = Math.min(cost[i - 1] + dp[i - 1], cost[i - 2] + dp[i - 2]);
         }
         return dp[n];
     }
@@ -43,7 +43,7 @@ public class _02_746_min_cost_climbing_stairs {
         int prev = 0;
         int curr = 0;
         for (int i = 2; i <= n; i++) {
-            int tmp = Math.min(curr + cost[i - 1], prev + cost[i - 2]);
+            int tmp = Math.min(cost[i - 1] + curr, cost[i - 2] + prev);
             prev = curr;
             curr = tmp;
         }

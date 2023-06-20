@@ -11,13 +11,15 @@ public class _02_322_CoinChange2 {
         return dfs(coins, amount);
     }
 
-    public int dfs(int[] coins, int target) {
-        if (target == 0) return 0;
+    public int dfs(int[] coins, int amount) {
+        if (amount == 0) {
+            return 0;
+        }
 
         int minCoins = Integer.MAX_VALUE;
         for (int i = 0; i < coins.length; i++) {
-            if (target - coins[i] < 0) continue;
-            int subMinCoins = dfs(coins, target - coins[i]);
+            if (amount - coins[i] < 0) continue;
+            int subMinCoins = dfs(coins, amount - coins[i]);
             if (subMinCoins == -1) continue;
             minCoins = Math.min(minCoins, subMinCoins + 1);
         }

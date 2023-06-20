@@ -12,9 +12,10 @@ public class _06_53_MaxSubArray6 {
 
         dp[0] = nums[0];
         int maxSum = dp[0];
+
         for (int i = 1; i < n; i++) {
             dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]);
-            maxSum = Math.max(maxSum, dp[i]);
+            maxSum = Math.max(dp[i], maxSum);
         }
         return maxSum;
     }

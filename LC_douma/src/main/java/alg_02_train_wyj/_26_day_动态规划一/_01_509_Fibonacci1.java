@@ -18,11 +18,12 @@ public class _01_509_Fibonacci1 {
     }
 
     public int dfs(int n) {
-        if (n == 1) return 1;
         if (n == 0) return 0;
+        if (n == 1) return 1;
 
-        int leftFib = dfs(n - 1);
-        int rightFib = dfs(n - 2);
-        return leftFib + rightFib;
+        int left = dfs(n - 1);
+        int right = dfs(n - 2);
+
+        return left + right;
     }
 }

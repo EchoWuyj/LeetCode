@@ -9,10 +9,11 @@ public class _08_05_PalindromeSubstring {
     public String longestPalindrome(String s) {
         if (s == null || s.length() == 0) return "";
         if (s.length() == 1) return s;
-        int n = s.length();
 
+        int n = s.length();
         boolean[][] dp = new boolean[n][n];
         String res = s.charAt(0) + "";
+
         for (int i = 0; i < n; i++) {
             dp[i][i] = true;
         }

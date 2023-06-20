@@ -11,11 +11,11 @@ public class _14_139_word_break {
     public boolean wordBreak(String s, List<String> wordDict) {
         boolean[] dp = new boolean[s.length() + 1];
         dp[0] = true;
-        for (int i = 1; i <= s.length(); i++) {
-            for (String word : wordDict) {
-                int len = word.length();
-                if (i >= len && s.substring(i - len, i).equals(word)) {
-                    dp[i] = dp[i] || dp[i - len];
+        for (int j = 0; j <= s.length(); j++) {
+            for (String str : wordDict) {
+                int strLen = str.length();
+                if (j >= strLen && s.substring(j - strLen, j).equals(str)) {
+                    dp[j] = dp[j] || dp[j -strLen];
                 }
             }
         }

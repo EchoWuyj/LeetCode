@@ -12,9 +12,7 @@ public class _09_377_combination_sum_iv {
 
         for (int j = 1; j <= target; j++) {
             for (int i = 0; i < nums.length; i++) {
-                if (j >= nums[i]) {
-                    dp[j] = dp[j] + dp[j - nums[i]];
-                }
+                if (j - nums[i] >= 0) dp[j] = dp[j] + dp[j - nums[i]];
             }
         }
         return dp[target];

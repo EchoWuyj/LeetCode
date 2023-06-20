@@ -15,13 +15,13 @@ public class _01_509_Fibonacci3 {
     }
 
     public int dfs(int n, int[] memo) {
-        if (n == 0 || n == 1) return n;
-        if (memo[n] != -1) {
-            return memo[n];
-        }
-        int leftFib = dfs(n - 1, memo);
-        int rightFib = dfs(n - 2, memo);
-        memo[n] = leftFib + rightFib;
-        return leftFib + rightFib;
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        if (memo[n] != -1) return memo[n];
+
+        int left = dfs(n - 1, memo);
+        int right = dfs(n - 2, memo);
+        memo[n] = left + right;
+        return memo[n];
     }
 }

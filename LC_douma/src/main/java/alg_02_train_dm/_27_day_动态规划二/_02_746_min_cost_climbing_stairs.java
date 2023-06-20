@@ -35,30 +35,51 @@ public class _02_746_min_cost_climbing_stairs {
 
      */
 
-    // KeyPoint 方法一 记忆化搜索
+    // KeyPoint 方法一  dfs + 记忆化搜索 => 自己想出来的！
+    public int minCostClimbingStairs(int[] cost) {
+        int n = cost.length;
+        int[] memo = new int[n + 1];
+        Arrays.fill(memo, Integer.MAX_VALUE);
+        return dfs(cost, n, memo);
+    }
+
+    private int dfs(int[] cost, int n, int[] memo) {
+        if (n == 0 || n == 1) return 0;
+        if (memo[n] != Integer.MAX_VALUE) return memo[n];
+
+        // KeyPoint 调试 bug，通过最简单的例子，来模拟程序执行，从而找到问题所在
+        int left = cost[n - 1] + dfs(cost, n - 1, memo);
+        int right = cost[n - 2] + dfs(cost, n - 2, memo);
+        memo[n] = Math.min(left, right);
+
+        return memo[n];
+    }
+
+    // KeyPoint 方法一 dfs + 记忆化搜索
     // 时间复杂度 O(n)
     public int minCostClimbingStairs1(int[] cost) {
         int n = cost.length;
         // 包含索引 n 位置，表示楼顶
         int[] memo = new int[n + 1];
         Arrays.fill(memo, -1);
-        return dfs(cost, n, memo);
+        return dfs1(cost, n, memo);
     }
 
-    // dfs 后序遍历
-    // 返回值 int：到达该节点(台阶)花费最小的体力值
-    private int dfs(int[] cost, int i, int[] memo) {
-        // 注意：最开始到达 0 和 1 位置体力消耗为 0，但是从 0 或者 1 往上走，是需要自身消耗体力值 cost[0] 或 cost[1]
+    // dfs 后序遍历，返回值 int：到达该节点(台阶)花费最小的体力值
+    private int dfs1(int[] cost, int i, int[] memo) {
+        // 注意：最开始到达 0 和 1 位置体力消耗为 0
+        // 但是从 0 或者 1 往上走，是需要自身消耗体力值 cost[0] 或 cost[1]
         if (i == 0 || i == 1) return 0;
         if (memo[i] != -1) return memo[i];
 
         // 左子树，爬一个阶梯
-        int left = dfs(cost, i - 1, memo);
+        int left = dfs1(cost, i - 1, memo);
         // 右子树，爬两个阶梯
-        int right = dfs(cost, i - 2, memo);
+        int right = dfs1(cost, i - 2, memo);
 
         // left 左子树花费最小的体力值 + cost[i - 1] 当前节点花费的体力值
-        // 如：最开始到达 0 和 1 位置体力消耗为 0，但是从 0 或者 1 往上走，是需要自身消耗体力值 cost[0] 或 cost[1]
+        // 如：最开始到达 0 和 1 位置体力消耗为 0
+        // 但是从 0 或者 1 往上走，是需要自身消耗体力值 cost[0] 或 cost[1]
         memo[i] = Math.min(left + cost[i - 1], right + cost[i - 2]);
         return memo[i];
     }
@@ -79,10 +100,12 @@ public class _02_746_min_cost_climbing_stairs {
     // KeyPoint 方法三 动态规划 + 状态空间压缩
     public int minCostClimbingStairs3(int[] cost) {
         int n = cost.length;
+        //  prev     curr     tmp
+        // dp[i-2]  dp[i-1]  dp[i]
         int prev = 0, curr = 0;
         for (int i = 2; i <= n; i++) {
-            //   prev    curr     tmp
-            // dp[i-2]  dp[i-1]  dp[i]
+            // 不是每题都是 tmp = prev + curr
+            // 每道题的状态转移方程都是不同的
             int tmp = Math.min(curr + cost[i - 1], prev + cost[i - 2]);
             prev = curr;
             curr = tmp;

@@ -12,11 +12,10 @@ public class _01_509_Fibonacci6 {
         int prev = 0;
         int curr = 1;
         for (int i = 2; i <= n; i++) {
-            int sum = curr + prev;
+            int sum = prev + curr;
             prev = curr;
             curr = sum;
         }
-
         return curr;
     }
 }

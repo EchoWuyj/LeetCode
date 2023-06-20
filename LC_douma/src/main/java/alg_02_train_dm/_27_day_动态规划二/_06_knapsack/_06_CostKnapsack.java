@@ -20,23 +20,25 @@ public class _06_CostKnapsack {
         // dp[i][j]：表示选择物品时，付出两种代价分别为 i 和 j 可获得的最大价值
         int[][] dp = new int[W + 1][G + 1];
 
+        // 两种代价：状态转移方程
         for (int i = 0; i < w.length; i++) {
             for (int j = W; j >= w[i]; j--) {
                 for (int k = G; k >= g[i]; k--) {
-                    // 两种代价：状态转移方程
+                    // dp 中索引为代价的循环变量 j，k，不是 i，j
                     dp[j][k] = Math.max(dp[j][k], dp[j - w[i]][k - g[i]] + v[i]);
                 }
             }
         }
         return dp[W][G];
 
-        // KeyPoint 区别：一维 0-1 背包代码
-//        for (int i = 0; i < n; i++) {
-        // 只有一种代价，容量 capacity
-//            for (int j = capacity; j >= w[i]; j--) {
-//                dp[j] = Math.max(dp[j], v[i] + dp[j - w[i]]);
-//            }
-//        }
+        /*
+              KeyPoint 区别：一维 0-1 背包代码 => 只有一种代价，容量 capacity
+              for (int i = 0; i < n; i++) {
+                  for (int j = capacity; j >= w[i]; j--) {
+                      dp[j] = Math.max(dp[j], v[i] + dp[j - w[i]]);
+                  }
+              }
+         */
 
     }
 }

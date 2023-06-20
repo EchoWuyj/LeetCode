@@ -1,5 +1,7 @@
 package alg_02_train_wyj._26_day_动态规划一;
 
+import java.util.Arrays;
+
 /**
  * @Author Wuyj
  * @DateTime 2023-06-07 21:04
@@ -10,10 +12,9 @@ public class _11_300_LengthOfLongestIncrementSubSeq {
         if (nums == null || nums.length == 0) return 0;
         int n = nums.length;
         int[] dp = new int[n];
-        for (int i = 0; i < n; i++) {
-            dp[i] = 1;
-        }
+        Arrays.fill(dp, 1);
         int maxLen = 1;
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < i; j++) {
                 if (nums[i] > nums[j]) {

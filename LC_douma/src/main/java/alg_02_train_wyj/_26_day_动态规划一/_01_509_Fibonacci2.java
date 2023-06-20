@@ -9,7 +9,6 @@ import java.util.Map;
  * @Version 1.0
  */
 public class _01_509_Fibonacci2 {
-
     private Map<Integer, Integer> map;
 
     public int fib(int n) {
@@ -21,13 +20,10 @@ public class _01_509_Fibonacci2 {
         if (n == 0) return 0;
         if (n == 1) return 1;
 
-        if (map.containsKey(n)) {
-            return map.get(n);
-        }
-
-        int leftFib = dfs(n - 1);
-        int rightFib = dfs(n - 2);
-        map.put(n, leftFib + rightFib);
-        return leftFib + rightFib;
+        if (map.containsKey(n)) return map.get(n);
+        int left = dfs(n - 1);
+        int right = dfs(n - 2);
+        map.put(n, left + right);
+        return map.get(n);
     }
 }

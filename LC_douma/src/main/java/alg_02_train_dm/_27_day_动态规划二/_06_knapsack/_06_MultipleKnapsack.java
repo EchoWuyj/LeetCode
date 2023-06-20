@@ -8,13 +8,13 @@ package alg_02_train_dm._27_day_动态规划二._06_knapsack;
 public class _06_MultipleKnapsack {
     /*
         多重背包：
-            有 n 种物品和一个容量为 C 的背包
-            第 i 种物品的重量是 w[i]，价值是 v[i]，件数是 p[i]
-            求将哪些物品装入背包可使得价值总和最大
+        有 n 种物品和一个容量为 C 的背包
+        第 i 种物品的重量是 w[i]，价值是 v[i]，件数是 p[i]
+        求将哪些物品装入背包可使得价值总和最大
  */
 
     // 多重背包问题 => 转化成 0-1 背包问题
-    public int knapsack1(int[] w, int[] v, int[] p, int capacity) {
+    public static int knapsack1(int[] w, int[] v, int[] p, int capacity) {
 
         // 比如：
         // 2 件价值为 5，重量为 2 的同一物品，对应：p[i] = 2，v[i] = 5，w[i] = 2
@@ -39,7 +39,7 @@ public class _06_MultipleKnapsack {
         int index = 0;
         // 将同一物品看成不同的物品，对 newW 和 newV 进行赋值
         for (int i = 0; i < n; i++) {
-            // p[i]：i 索引物品的件数，循环 p[i] 次进行赋值
+            // p[i] 为 i 号索引物品的件数，对同一个物品循环 p[i] 次进行赋值
             for (int j = 0; j < p[i]; j++) {
                 newW[index] = w[i];
                 newV[index] = v[i];
@@ -53,11 +53,11 @@ public class _06_MultipleKnapsack {
         // dp[c]：将物品放入容量为 c 的背包中产生的最大价值
         int[] dp = new int[capacity + 1];
 
-        // 2. 状态初始化
-
         // 3. 状态转移
+        // 统一使用 newN，newW，newV 替换原来的变量
         for (int i = 0; i < newN; i++) {
             for (int j = capacity; j >= newW[i]; j--) {
+                // 0-1 背包，选择 or 不选
                 dp[j] = Math.max(dp[j], newV[i] + dp[j - newW[i]]);
             }
         }
@@ -66,30 +66,10 @@ public class _06_MultipleKnapsack {
         return dp[capacity];
     }
 
-    // KeyPoint knapsack 方法实现有 bug，看上面 knapsack1 方法
-    public int knapsack(int[] w, int[] v, int[] p, int C) {
-        int len = w.length;
-        if (len == 0) {
-            return 0;
-        }
-        // 1. 状态定义：
-        // dp[c]：将物品放入容量为 c 的背包中产生的最大价值
-        int[] dp = new int[C + 1];
-
-        // 2. 状态初始化
-
-        // 3. 状态转移
-        // 时间复杂度：
-        for (int i = 0; i < len; i++) {
-            for (int c = 0; c <= C; c++) {
-                int count = Math.min(c / w[i], p[i]);
-                for (int k = 0; k <= count; k++) {
-                    dp[c] = Math.max(dp[c], k * v[i] + dp[c - k * w[i]]);
-                }
-            }
-        }
-
-        // 4. 返回结果
-        return dp[C];
+    public static void main(String[] args) {
+        int[] w = {3, 4, 5, 2};
+        int[] v = {15, 10, 12, 8};
+        int[] p = {1, 2, 2, 1};
+        System.out.println(knapsack1(w, v, p, 10)); // 35
     }
 }

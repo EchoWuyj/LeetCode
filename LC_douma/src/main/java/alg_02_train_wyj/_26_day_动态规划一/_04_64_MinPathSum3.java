@@ -18,31 +18,20 @@ public class _04_64_MinPathSum3 {
         return dfs(grid, 0, 0, memo);
     }
 
-    private int dfs(int[][] grid, int row, int col, int[][] memo) {
-        if (row == grid.length-1 && col == grid[0].length-1) {
-            return grid[row][col];
+    public int dfs(int[][] grid, int i, int j, int[][] memo) {
+        if (i == grid.length - 1 && j == grid[0].length - 1) {
+            return grid[i][j];
         }
-        if (memo[row][col] != Integer.MAX_VALUE) return memo[row][col];
-
+        if (memo[i][j] != Integer.MAX_VALUE) return memo[i][j];
         int minPathSum = Integer.MAX_VALUE;
         for (int[] dir : dirs) {
-            int nextRow = row + dir[0];
-            int nextCol = col + dir[1];
-            if (nextRow < 0 || nextRow >= grid.length
-                    || nextCol < 0 || nextCol >= grid[0].length) continue;
-            int ChildMinPathSum = dfs(grid, nextRow, nextCol, memo);
-            minPathSum = Math.min(minPathSum, ChildMinPathSum);
+            int nexti = i + dir[0];
+            int nextj = j + dir[1];
+            if (nexti == grid.length || nextj == grid[0].length) continue;
+            int subMinPathSum = dfs(grid, nexti, nextj, memo);
+            minPathSum = Math.min(minPathSum, subMinPathSum);
         }
-        memo[row][col] = minPathSum + grid[row][col];
-        return memo[row][col];
-    }
-
-    public static void main(String[] args) {
-        int[][] grid = {
-                {1, 3, 1},
-                {1, 5, 1},
-                {4, 2, 1}
-        };
-        System.out.println(new _04_64_MinPathSum3().minPathSum(grid));
+        memo[i][j] = minPathSum + grid[i][j];
+        return memo[i][j];
     }
 }

@@ -8,7 +8,6 @@ package alg_02_train_wyj._27_day_动态规划二;
 public class _05_337_house_robber_iii {
 
     public int rob(TreeNode root) {
-        if (root == null) return -1;
         int[] res = dfs(root);
         return Math.max(res[0], res[1]);
     }

@@ -12,7 +12,8 @@ public class _06_53_MaxSubArray4 {
         int[][] dp = new int[n][n];
 
         dp[0][0] = nums[0];
-        int maxSum = dp[0][0];
+        int maxSum = nums[0];
+
         for (int i = 1; i < n; i++) {
             dp[0][i] = dp[0][i - 1] + nums[i];
             maxSum = Math.max(maxSum, dp[0][i]);
@@ -27,9 +28,26 @@ public class _06_53_MaxSubArray4 {
         return maxSum;
     }
 
-    public static void main(String[] args) {
-        int res = new _06_53_MaxSubArray4().maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4});
-        System.out.println(res);
+
+    public int maxSubArray1(int[] nums) {
+        int n = nums.length;
+        int[] dp = new int[n];
+
+        dp[0] = nums[0];
+        int maxSum = nums[0];
+
+        for (int i = 1; i < n; i++) {
+            dp[i] = dp[i - 1] + nums[i];
+            maxSum = Math.max(maxSum, dp[i]);
+        }
+
+        for (int i = 1; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                dp[j] = dp[j] - dp[i - 1];
+                maxSum = Math.max(maxSum, dp[j]);
+            }
+        }
+        return maxSum;
     }
 }
 
