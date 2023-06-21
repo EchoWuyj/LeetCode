@@ -24,7 +24,7 @@ public class _12_1143_LongestCommonSubsequence3 {
 
         // 当前的状态依赖于 '上一行' 和 '当前行' 的状态值
         // 若想要压缩状态，即使用一维数组来代替二维数组，则 '上一行' 不要了
-        // 将 dp[i-1][j-1] 和 dp[i-1][j] 记录在 preRowPreCol 和 preRow 两个变量中，从而减少一行
+        // => 将 dp[i-1][j-1] 和 dp[i-1][j] 记录在 preRowPreCol 和 preRow 两个变量中，从而减少一行
 
         // dp[i][j]：text1 前 i 个字符和 text2 前 j 个字符的最长公共子序列长度
         int[] dp = new int[n + 1];

@@ -10,7 +10,6 @@ public class _08_122_best_time_to_buy_and_sell_stock_ii {
     public int maxProfit1(int[] prices) {
         int n = prices.length;
         int[][] dp = new int[n][2];
-
         dp[0][0] = 0;
         dp[0][1] = -prices[0];
 
@@ -24,7 +23,6 @@ public class _08_122_best_time_to_buy_and_sell_stock_ii {
     public int maxProfit2(int[] prices) {
         int n = prices.length;
         int[] dp = new int[2];
-
         dp[0] = 0;
         dp[1] = -prices[0];
 
@@ -50,8 +48,7 @@ public class _08_122_best_time_to_buy_and_sell_stock_ii {
 
     public int maxProfit4(int[] prices) {
         int res = 0;
-        int n = prices.length;
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; i < prices.length; i++) {
             if (prices[i] > prices[i - 1]) {
                 res += prices[i] - prices[i - 1];
             }

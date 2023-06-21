@@ -42,4 +42,21 @@ public class _09_123_best_time_to_buy_and_sell_stock_iii {
         }
         return dp[2][0];
     }
+
+    public int maxProfit2(int[] prices) {
+        int n = prices.length;
+
+        int profit10 = 0;
+        int profit11 = -prices[0];
+        int profit20 = 0;
+        int profit21 = -prices[0];
+
+        for (int i = 1; i < n; i++) {
+            profit10 = Math.max(profit10, profit11 + prices[i]);
+            profit11 = Math.max(profit11, -prices[i]);
+            profit20 = Math.max(profit20, profit21 + prices[i]);
+            profit21 = Math.max(profit21, profit10 - prices[i]);
+        }
+        return profit20;
+    }
 }
