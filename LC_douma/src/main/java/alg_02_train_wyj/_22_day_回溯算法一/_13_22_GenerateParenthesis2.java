@@ -12,24 +12,23 @@ public class _13_22_GenerateParenthesis2 {
 
     public List<String> generateParenthesis(int n) {
         List<String> res = new ArrayList<>();
-        if (n <= 0) return res;
-        dfs(n, "", res, 0, 0);
+        dfs(n, "", 0, 0, res);
         return res;
     }
 
-    private void dfs(int n, String path, List<String> res, int open, int close) {
+    public void dfs(int n, String path, int open, int close, List<String> res) {
+
         if (open > n || close > open) return;
         if (path.length() == 2 * n) {
             res.add(path);
             return;
         }
-
-        dfs(n, path + "(", res, open + 1, close);
-        dfs(n, path + ")", res, open, close + 1);
+        dfs(n, path + '(', open + 1, close, res);
+        dfs(n, path + ")", open, close + 1, res);
     }
 
     public static void main(String[] args) {
-         System.out.println(new _13_22_GenerateParenthesis2().generateParenthesis(3));
-         // [((())), (()()), (())(), ()(()), ()()()]
+        System.out.println(new _13_22_GenerateParenthesis2().generateParenthesis(3));
+        // [((())), (()()), (())(), ()(()), ()()()]
     }
 }

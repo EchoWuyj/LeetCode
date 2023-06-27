@@ -10,24 +10,23 @@ import java.util.List;
  */
 public class _13_22_GenerateParenthesis1 {
 
-    public List<String> generateParenthesis(int n) {
+    private List<String> generateParenthesis(int n) {
         List<String> res = new ArrayList<>();
-        if (n < 0) return res;
         dfs(n, "", res);
         return res;
     }
 
-    private void dfs(int n, String path, List<String> res) {
+    public void dfs(int n, String path, List<String> res) {
         if (path.length() == 2 * n) {
             res.add(path);
             return;
         }
-        dfs(n, path + "(", res);
-        dfs(n, path + ")", res);
+        dfs(n, path + '(', res);
+        dfs(n, path + ')', res);
     }
 
     public static void main(String[] args) {
         System.out.println(new _13_22_GenerateParenthesis1().generateParenthesis(2));
-        // [((((, (((), (()(, (()), ()((, ()(), ())(, ())), )(((, )((), )()(, )()), ))((, ))(), )))(, ))))]
+        // [((((, (((), (()(, (()), ()((, ()(), ())(, ())),)(((, )((), )()(, )()), ))((, ))(), )))(, ))))]
     }
 }

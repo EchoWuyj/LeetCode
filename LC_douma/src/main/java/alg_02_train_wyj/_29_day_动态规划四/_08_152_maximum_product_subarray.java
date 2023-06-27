@@ -15,11 +15,11 @@ public class _08_152_maximum_product_subarray {
 
         maxP[0] = nums[0];
         minP[0] = nums[0];
-        int res = nums[0];
+        int res = maxP[0];
 
         for (int i = 1; i < n; i++) {
-            maxP[i] = Math.max(maxP[i - 1] * nums[i], Math.max(nums[i], minP[i - 1] * nums[i]));
-            minP[i] = Math.min(minP[i - 1] * nums[i], Math.min(nums[i], maxP[i - 1] * nums[i]));
+            maxP[i] = Math.max(maxP[i - 1] * nums[i], Math.max(nums[i], nums[i] * minP[i - 1]));
+            minP[i] = Math.min(minP[i - 1] * nums[i], Math.min(nums[i], nums[i] * maxP[i - 1]));
             res = Math.max(maxP[i], res);
         }
         return res;
@@ -27,15 +27,16 @@ public class _08_152_maximum_product_subarray {
 
     public int maxProduct2(int[] nums) {
         int n = nums.length;
-        int maxP = nums[0];
-        int minP = nums[0];
-        int res = nums[0];
+
+        int curMaxP = nums[0];
+        int curMinP = nums[0];
+        int res = curMaxP;
 
         for (int i = 1; i < n; i++) {
-            int preMax = maxP, preMin = minP;
-            maxP = Math.max(preMax * nums[i], Math.max(nums[i], preMin * nums[i]));
-            minP = Math.min(preMin * nums[i], Math.min(nums[i], preMax * nums[i]));
-            res = Math.max(maxP, res);
+            int preMaxP = curMaxP, preMinP = curMinP;
+            curMaxP = Math.max(curMaxP * nums[i], Math.max(nums[i], nums[i] * preMinP));
+            curMinP = Math.min(preMinP * nums[i], Math.min(nums[i], nums[i] * preMaxP));
+            res = Math.max(curMaxP, res);
         }
         return res;
     }

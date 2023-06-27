@@ -12,32 +12,33 @@ import java.util.Map;
  */
 public class _11_17_LetterCombinationsOfAPhoneNumber1 {
 
-    private Map<Character, String> phone = new HashMap<Character, String>() {{
-        put('2', "abc");
-        put('3', "def");
-        put('4', "ghi");
-        put('5', "jkl");
-        put('6', "mno");
-        put('7', "pqrs");
-        put('8', "tuv");
-        put('9', "wxyz");
-    }};
+    private Map<Character, String> map;
 
-    public List<String> letterCombinations(String digits) {
+    private List<String> letterCombinations(String digits) {
         List<String> res = new ArrayList<>();
-        if (digits == null || digits.isEmpty()) return res;
+        if (digits == null || digits.length() == 0) return res;
+        map = new HashMap<>();
+        map.put('2', "abc");
+        map.put('3', "def");
+        map.put('4', "ghi");
+        map.put('5', "jkl");
+        map.put('6', "mno");
+        map.put('7', "pqrs");
+        map.put('8', "tuv");
+        map.put('9', "wxyz");
+
         dfs(digits, 0, new StringBuilder(), res);
         return res;
     }
 
-    private void dfs(String digits, int index, StringBuilder sb, List<String> res) {
+    public void dfs(String digits, int index, StringBuilder sb, List<String> res) {
         if (index == digits.length()) {
             res.add(sb.toString());
             return;
         }
-        char numChar = digits.charAt(index);
-        char[] letter = phone.get(numChar).toCharArray();
-        for (char c : letter) {
+        char num = digits.charAt(index);
+        String letters = map.get(num);
+        for (char c : letters.toCharArray()) {
             sb.append(c);
             dfs(digits, index + 1, sb, res);
             sb.deleteCharAt(sb.length() - 1);

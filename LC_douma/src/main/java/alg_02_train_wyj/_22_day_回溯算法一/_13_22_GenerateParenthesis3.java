@@ -23,10 +23,11 @@ public class _13_22_GenerateParenthesis3 {
         }
 
         if (open < n) {
-            dfs(n, path + "(", res, open + 1, close);
+            dfs(n, path + '(', res, open + 1, close);
         }
+
         if (close < open) {
-            dfs(n, path + ")", res, open, close + 1);
+            dfs(n, path + ')', res, open, close + 1);
         }
     }
 

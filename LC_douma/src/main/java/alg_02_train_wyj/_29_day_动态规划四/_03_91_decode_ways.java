@@ -16,9 +16,10 @@ public class _03_91_decode_ways {
         return dfs(s, 0, memo);
     }
 
-    private int dfs(String s, int index, int[] memo) {
+    public int dfs(String s, int index, int[] memo) {
         if (index == s.length()) return 1;
         if (memo[index] != -1) return memo[index];
+
         if (s.charAt(index) == '0') return 0;
         int res = 0;
         res += dfs(s, index + 1, memo);
@@ -30,10 +31,10 @@ public class _03_91_decode_ways {
             }
         }
         memo[index] = res;
-        return memo[index];
+        return res;
     }
 
-    public int numDecodings1(String s) {
+    public int numDecodings2(String s) {
         int n = s.length();
         int[] dp = new int[n + 1];
         dp[n] = 1;

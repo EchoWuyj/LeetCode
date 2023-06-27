@@ -14,9 +14,9 @@ public class _05_10_regular_expression_matching {
         boolean[][] dp = new boolean[m + 1][n + 1];
         dp[0][0] = true;
 
-        for (int i = 1; i <= n; i++) {
-            if (p.charAt(i - 1) == '*' && (i < 2 || dp[0][i - 2])) {
-                dp[0][i] = true;
+        for (int j = 1; j <= n; j++) {
+            if (p.charAt(j - 1) == '*' && (j >= 2 && dp[0][j - 2])) {
+                dp[0][j] = true;
             }
         }
 
@@ -26,8 +26,8 @@ public class _05_10_regular_expression_matching {
                     dp[i][j] = dp[i - 1][j - 1];
                 } else if (p.charAt(j - 1) == '*') {
                     if (s.charAt(i - 1) == p.charAt(j - 2) || p.charAt(j - 2) == '.') {
-                        dp[i][j] = dp[i][j - 2] || dp[i - 1][j];
-                    } else {
+                        dp[i][j] = dp[i - 1][j] || dp[i][j - 2];
+                    } else if (s.charAt(i - 1) != p.charAt(j - 2)) {
                         dp[i][j] = dp[i][j - 2];
                     }
                 }

@@ -16,10 +16,11 @@ public class _03_46_Permutations1 {
         return res;
     }
 
-    private void dfs(int[] nums, int index, List<Integer> path, List<List<Integer>> res) {
-        if (nums.length == path.size()) return;
+    public void dfs(int[] nums, int index,
+                    List<Integer> path, List<List<Integer>> res) {
+        if (path.size() == nums.length) return;
         if (index != -1) path.add(nums[index]);
-        if (nums.length == path.size()) {
+        if (path.size() == nums.length) {
             res.add(new ArrayList<>(path));
         }
         for (int i = 0; i < nums.length; i++) {
@@ -31,6 +32,5 @@ public class _03_46_Permutations1 {
 
     public static void main(String[] args) {
         System.out.println(new _03_46_Permutations1().permute(new int[]{1, 2, 3}));
-        //
     }
 }

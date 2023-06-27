@@ -28,16 +28,10 @@ public class _07_40_CombinationSum2 {
         }
 
         for (int i = start; i < nums.length; i++) {
-            if (i > start && nums[i] == nums[i - 1]) continue;
+            if (i >= start + 1 && nums[i] == nums[i - 1]) continue;
             combination.add(nums[i]);
             dfs(nums, i + 1, target - nums[i], combination, res);
             combination.remove(combination.size() - 1);
         }
-    }
-
-    public static void main(String[] args) {
-        int[] data = new int[]{2, 5, 2, 1, 2};
-        System.out.println(new _07_40_CombinationSum2().combinationSum(data, 5));
-        // [[1, 2, 2], [5]]
     }
 }

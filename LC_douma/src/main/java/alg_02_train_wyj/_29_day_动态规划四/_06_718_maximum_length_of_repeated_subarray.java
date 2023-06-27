@@ -7,8 +7,10 @@ package alg_02_train_wyj._29_day_动态规划四;
  */
 public class _06_718_maximum_length_of_repeated_subarray {
     public int findLength(int[] nums1, int[] nums2) {
-        int m = nums1.length, n = nums2.length;
+        int m = nums1.length;
+        int n = nums2.length;
         int[][] dp = new int[m + 1][n + 1];
+
         int res = 0;
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {

@@ -38,7 +38,7 @@ public class _20_Note_StringBuilder {
 
         // 删掉指定位置间字符
         sb.delete(0, 3); // [ )
-        System.out.println("删除以后的字符串是 : " + sb); // 删除以后的字符串是 : ctrue
+        System.out.println("删除以后的字符串是 : " + sb); // Aabctrue，删除以后的字符串是 : ctrue
 
         // 删除指定位置上的字符
         sb.deleteCharAt(0);

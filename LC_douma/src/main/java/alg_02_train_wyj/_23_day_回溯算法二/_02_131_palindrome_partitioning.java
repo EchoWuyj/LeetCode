@@ -9,35 +9,32 @@ import java.util.List;
  * @Version 1.0
  */
 public class _02_131_palindrome_partitioning {
-    private String s;
-    private List<List<String>> res;
-
     public List<List<String>> partition(String s) {
-        this.s = s;
-        this.res = new ArrayList<>();
-        List<String> path = new ArrayList<>();
-        dfs(0, path);
+        List<List<String>> res = new ArrayList<>();
+        if (s == null || s.length() == 0) return res;
+        dfs(s, 0, new ArrayList<>(), res);
         return res;
     }
 
-    private void dfs(int startIndex, List<String> path) {
-        if (startIndex == s.length()) {
+    public void dfs(String s, int index, List<String> path, List<List<String>> res) {
+        if (index == s.length()) {
             res.add(new ArrayList<>(path));
             return;
         }
 
-        for (int i = startIndex; i < s.length(); i++) {
-            int endIndex = i;
-            if (!checkPalindrome(s, startIndex, endIndex)) continue;
-            path.add(s.substring(startIndex, endIndex + 1));
-            dfs(i + 1, path);
+        for (int i = index; i < s.length(); i++) {
+            String subStr = s.substring(index, i+1);
+            if (!isValid(subStr)) continue;
+            path.add(subStr);
+            dfs(s, i + 1, path, res);
             path.remove(path.size() - 1);
         }
     }
 
-    private boolean checkPalindrome(String s, int left, int right) {
+    public boolean isValid(String str) {
+        int left = 0, right = str.length() - 1;
         while (left < right) {
-            if (s.charAt(left) != s.charAt(right)) return false;
+            if (str.charAt(left) != str.charAt(right)) return false;
             left++;
             right--;
         }

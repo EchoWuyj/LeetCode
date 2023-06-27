@@ -61,7 +61,7 @@ public class _10_516_LongestPalindromeSubseq1 {
 
      */
 
-    // KeyPoint 准备工作：求字符串所有子序列
+    // KeyPoint 准备工作：求字符串所有：子序列
     // 时间复杂度指数级别，1 <= s.length <= 1000，必然超时
     public List<String> subSeqs(String s) {
         List<String> res = new ArrayList<>();
@@ -70,7 +70,8 @@ public class _10_516_LongestPalindromeSubseq1 {
     }
 
     // 一个字符串子序列(一个数组子序列)
-    // => 本质：求字符串(数组)子集
+    // => 本质：求字符串(数组)，类似于：求子集
+    // => 类比：09_78_Subsets1
     private void findSubSeq(String s, int index, String subSeq, List<String> res) {
         // 将 "" 排除在外
         // 此外每次添加一个子节点形成的新组合，都是一个子序列，需要将其添加到 res 中

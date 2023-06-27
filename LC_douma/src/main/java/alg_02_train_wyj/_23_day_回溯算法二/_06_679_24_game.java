@@ -9,9 +9,10 @@ import java.util.List;
  * @Version 1.0
  */
 public class _06_679_24_game {
-    static final int TARGET = 24;
-    static final double EPSILON = 1e-6;
-    static final int ADD = 0, MULTIPLY = 1, SUBTRACT = 2, DIVIDE = 3;
+
+    private final int TARGET = 24;
+    private final double EPSILON = 1e-6;
+    private final int ADD = 0, MULTIPLY = 1, SUBTRACT = 2, DIVIDE = 3;
 
     public boolean judgePoint24(int[] nums) {
         List<Double> list = new ArrayList<>();
@@ -21,39 +22,39 @@ public class _06_679_24_game {
         return dfs(list);
     }
 
-    private boolean dfs(List<Double> list) {
+    public boolean dfs(List<Double> list) {
         if (list.size() == 0) return false;
         if (list.size() == 1) {
             return Math.abs(list.get(0) - TARGET) < EPSILON;
         }
-
         int size = list.size();
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (i != j) {
-                    List<Double> childList = new ArrayList<>();
+        for (int num1 = 0; num1 < size; num1++) {
+            for (int num2 = 0; num2 < size; num2++) {
+                if (num1 != num2) {
+                    List<Double> subList = new ArrayList<>();
                     for (int k = 0; k < size; k++) {
-                        if (k != i && k != j) {
-                            childList.add(list.get(k));
+                        if (k != num1 && k != num2) {
+                            subList.add(list.get(k));
                         }
                     }
+
                     for (int k = 0; k < 4; k++) {
-                        if (k < 2 && i > j) continue;
+                        if (k < 2 && num1 > num2) continue;
                         if (k == ADD) {
-                            childList.add(list.get(i) + list.get(j));
+                            subList.add(list.get(num1) + list.get(num2));
                         } else if (k == MULTIPLY) {
-                            childList.add(list.get(i) * list.get(j));
+                            subList.add(list.get(num1) * list.get(num2));
                         } else if (k == SUBTRACT) {
-                            childList.add(list.get(i) - list.get(j));
+                            subList.add(list.get(num1) - list.get(num2));
                         } else if (k == DIVIDE) {
-                            if (Math.abs(list.get(j)) < EPSILON) {
+                            if (Math.abs(list.get(num2)) < EPSILON) {
                                 continue;
                             } else {
-                                childList.add(list.get(i) / list.get(j));
+                                subList.add(list.get(num1) / list.get(num2));
                             }
                         }
-                        if (dfs(childList)) return true;
-                        childList.remove(childList.size() - 1);
+                        if (dfs(subList)) return true;
+                        subList.remove(subList.size() - 1);
                     }
                 }
             }

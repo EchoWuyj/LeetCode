@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class GraphDFS {
     public List<Integer> dfs(Graph graph) {
-        List<Integer> res = new ArrayList<>();
+        ArrayList<Integer> res = new ArrayList<>();
         boolean[] visited = new boolean[graph.getV()];
         for (int v = 0; v < graph.getV(); v++) {
             if (!visited[v]) {
@@ -20,10 +20,10 @@ public class GraphDFS {
         return res;
     }
 
-    private void dfs(Graph graph, int v, List<Integer> res, boolean[] visited) {
+    public void dfs(Graph graph, int v, ArrayList<Integer> res, boolean[] visited) {
         res.add(v);
         visited[v] = true;
-        for (int w : graph.adg(v)) {
+        for (int w : graph.adj(v)) {
             if (!visited[w]) {
                 dfs(graph, w, res, visited);
             }

@@ -27,16 +27,12 @@ public class _04_47_Permutations {
         }
         for (int i = 0; i < nums.length; i++) {
             if (visited[i]) continue;
-            if (i > 0 && nums[i] == nums[i - 1] && !visited[i - 1]) continue;
+            if (i >= 1 && nums[i] == nums[i - 1] && !visited[i - 1]) continue;
             path.add(nums[i]);
             visited[i] = true;
             dfs(nums, visited, path, res);
             path.remove(path.size() - 1);
             visited[i] = false;
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new _04_47_Permutations().permuteUnique(new int[]{1, 2, 1}));
     }
 }

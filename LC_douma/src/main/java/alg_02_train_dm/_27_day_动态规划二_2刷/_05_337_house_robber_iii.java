@@ -102,11 +102,8 @@ public class _05_337_house_robber_iii {
             for (int i = 0; i < size; i++) {
                 TreeNode cur = queue.poll();
 
-                // KeyPoint 三元运算符
-                // 在 Java 中，三元运算符的返回值是一个表达式，而不是一个语句，不能执行操作
-                // 条件表达式 ? 表达式 1: 表达式 2;
-                // 错误写法：level % 2 == 1 ? odd += cur.val : even += cur.val;
-                // odd += cur.val 和 even += cur.val 是语句，而不是表达式，只能写成 if else 代码
+                // 错误的三元运算符写法
+                // (level % 2 == 1) ? odd += cur.val : even += cur.val
 
                 if (level % 2 == 1) {
                     odd += cur.val;

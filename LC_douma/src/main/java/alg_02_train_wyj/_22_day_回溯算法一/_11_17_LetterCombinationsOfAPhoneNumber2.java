@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class _11_17_LetterCombinationsOfAPhoneNumber2 {
 
-    private Map<Character, String> phone = new HashMap<Character, String>() {{
+    private Map<Character, String> map = new HashMap<Character, String>() {{
         put('2', "abc");
         put('3', "def");
         put('4', "ghi");
@@ -35,18 +35,11 @@ public class _11_17_LetterCombinationsOfAPhoneNumber2 {
             res.add(combination);
             return;
         }
-        char numChar = digits.charAt(index);
-        char[] letter = phone.get(numChar).toCharArray();
-        for (char c : letter) {
+
+        char num = digits.charAt(index);
+        String letters = map.get(num);
+        for (char c : letters.toCharArray()) {
             dfs(digits, index + 1, combination + c, res);
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new _11_17_LetterCombinationsOfAPhoneNumber1()
-                .letterCombinations("234"));
-
-        // [adg, adh, adi, aeg, aeh, aei, afg, afh, afi, bdg, bdh, bdi, beg,
-        // beh, bei, bfg, bfh, bfi, cdg, cdh, cdi, ceg, ceh, cei, cfg, cfh, cfi]
     }
 }

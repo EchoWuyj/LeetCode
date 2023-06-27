@@ -46,6 +46,7 @@ public class problem_003_Note_Sequence {
           2.抽象字母(i,j,m,k)实在绕不清楚，通过具体数字来分析规律
 
         等比数列通项公式
+        数列一共有 n 项数，an 是第 n 项，首项 a1，公差为 d
           an = a₁ + (n - 1) × d
            => 项数 n = (an-a₁) / d + 1
      */

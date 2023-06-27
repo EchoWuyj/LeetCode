@@ -24,7 +24,18 @@ public class _12_1143_LongestCommonSubsequence3 {
 
         // 当前的状态依赖于 '上一行' 和 '当前行' 的状态值
         // 若想要压缩状态，即使用一维数组来代替二维数组，则 '上一行' 不要了
-        // => 将 dp[i-1][j-1] 和 dp[i-1][j] 记录在 preRowPreCol 和 preRow 两个变量中，从而减少一行
+        // =>   if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
+        //                    dp[i][j] = 1 + dp[i - 1][j - 1];
+        //
+        //                    // 注意 1：
+        //                    // 区间 [i,j] 范围 dp，是 dp[i][j] 与 dp[i+1][j-1]
+        //                    // 但这里是两个字符串，逐一字符比较，是 dp[i][j] 与 dp[i-1][j-1]
+        //
+        //                    // 注意 2：
+        //                    // 最长公共子序列，text1 和 text2 字符相同算 1 字符，故 +1
+        //                    // 最长回文子序列，首尾相同，算作 2 个字符，故 +2
+        //                } else {
+        //                    dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);将 dp[i-1][j-1] 和 dp[i-1][j] 记录在 preRowPreCol 和 preRow 两个变量中，从而减少一行
 
         // dp[i][j]：text1 前 i 个字符和 text2 前 j 个字符的最长公共子序列长度
         int[] dp = new int[n + 1];

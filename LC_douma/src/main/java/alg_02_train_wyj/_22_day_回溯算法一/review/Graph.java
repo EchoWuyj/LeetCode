@@ -14,7 +14,7 @@ public interface Graph {
 
     boolean hasEdge(int v, int w);
 
-    Collection<Integer> adg(int v);
+    Collection<Integer> adj(int v);
 
     int degree(int v);
 }

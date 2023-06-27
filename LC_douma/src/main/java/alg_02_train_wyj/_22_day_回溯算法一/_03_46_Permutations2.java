@@ -17,10 +17,11 @@ public class _03_46_Permutations2 {
     }
 
     private void dfs(int[] nums, List<Integer> path, List<List<Integer>> res) {
-        if (nums.length == path.size()) {
+        if (path.size() == nums.length) {
             res.add(new ArrayList<>(path));
             return;
         }
+
         for (int i = 0; i < nums.length; i++) {
             path.add(nums[i]);
             dfs(nums, path, res);
