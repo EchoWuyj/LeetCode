@@ -6,7 +6,7 @@ package alg_02_train_dm._08_day_二分查找;
  * @Version 1.0
  */
 
-// KeyPoint 详细注释 _03_35_SearchInsert
+// KeyPoint 详细注释 03_35_SearchInsert
 public class _03_35_search_insert_position {
 
 }

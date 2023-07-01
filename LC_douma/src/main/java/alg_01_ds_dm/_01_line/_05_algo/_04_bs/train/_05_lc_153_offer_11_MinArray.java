@@ -6,24 +6,58 @@ package alg_01_ds_dm._01_line._05_algo._04_bs.train;
  * @Version 1.0
  */
 
-// 153. 寻找旋转排序数组中的最小值
+//
 public class _05_lc_153_offer_11_MinArray {
 
       /*
-           4 5 6 7 0 1 2
-                   ↑
-                 旋转点
+            153. 寻找旋转排序数组中的最小值
 
-           旋转数组特点
-           1 前半部分有序，后半部分有序
-           2 前半部分所有有序元素的值都大于后半部分所有有序元素的值
-           => 部分有序旋转数组查找目标元素，也可以使用二分查找
+            已知一个长度为 n 的数组，预先按照升序排列，经由 1 到 n 次 旋转 后，得到输入数组。
+            例如，原数组 nums = [0,1,2,4,5,6,7] 在变化后可能得到：
+            若旋转 4 次，则可以得到 [4,5,6,7,0,1,2]
+            若旋转 7 次，则可以得到 [0,1,2,4,5,6,7]
+
+            注意，数组 [a[0], a[1], a[2], ..., a[n-1]] 旋转一次 的结果为数组
+             [a[n-1], a[0], a[1], a[2], ..., a[n-2]] 。
+
+            给你一个元素值 互不相同 的数组 nums ，它原来是 一个升序排列 的数组，
+            并按上述情形进行了多次旋转。请你找出并返回数组中的 最小元素 。
+
+            你必须设计一个时间复杂度为O(log n) 的算法解决此问题。
+
+            示例 1：
+            输入：nums = [3,4,5,1,2]
+            输出：1
+            解释：原数组为 [1,2,3,4,5] ，旋转 3 次得到输入数组。
+
+            示例 2：
+            输入：nums = [4,5,6,7,0,1,2]
+            输出：0
+            解释：原数组为 [0,1,2,4,5,6,7] ，旋转 4 次得到输入数组。
+
+            提示：
+            n == nums.length
+            1 <= n <= 5000
+            -5000 <= nums[i] <= 5000
+            nums 中的所有整数 互不相同
+            nums 原来是一个升序排序的数组，并进行了 1 至 n 次旋转
+
+           KeyPoint 补充说明：旋转排序数组
+
+            4 5 6 7 0 1 2
+                    ↑
+                  旋转点
+
+            旋转数组特点
+            1 前半部分有序，后半部分有序
+            2 前半部分所有有序元素的值都大于后半部分所有有序元素的值
+            => 部分有序旋转数组查找目标元素，也可以使用二分查找
      */
 
     // KeyPoint 方法一 暴力解法：遍历一遍数组找到最小值
     // 时间复杂度：O(n)
     // 空间复杂度：O(1)
-    public int findMin_1(int[] nums) {
+    public int findMin1(int[] nums) {
         int minVal = nums[0];
         for (int i = 1; i < nums.length; i++) {
             minVal = Math.min(minVal, nums[i]);
@@ -34,12 +68,14 @@ public class _05_lc_153_offer_11_MinArray {
     // KeyPoint 方法二 暴力解法：遍历数组，但是找到了比前一位小的数字，就是最小值
     // 时间复杂度：O(n)
     // 空间复杂度：O(1)
-    public int findMin_2(int[] nums) {
+    public int findMin2(int[] nums) {
         for (int i = 1; i < nums.length; i++) {
+            // 数据走势上：类似山脉数组  ↗↘
             if (nums[i] < nums[i - 1]) {
                 return nums[i];
             }
         }
+        // 数组严格递增，且数组旋转一圈又变成已原样，则返回 nums[0]
         return nums[0];
     }
 
@@ -47,7 +83,7 @@ public class _05_lc_153_offer_11_MinArray {
     //                  => 存在 bug，该方法只是适用于数组中没有重复元素的情况
     // 时间复杂度是： O(logn)
     // 空间复杂度是：O(1)
-    public int findMin_3(int[] nums) {
+    public int findMin3(int[] nums) {
         int left = 0;
         int right = nums.length - 1;
         while (left < right) {

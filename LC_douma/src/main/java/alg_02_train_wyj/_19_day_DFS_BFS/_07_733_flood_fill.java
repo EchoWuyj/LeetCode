@@ -10,44 +10,41 @@ import java.util.Queue;
  */
 public class _07_733_flood_fill {
 
-    int[][] image;
-    int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-    int rows;
-    int cols;
-    int oldColor;
-
     public int[][] floodFill1(int[][] image, int sr, int sc, int newColor) {
-        if (image[sr][sc] == newColor) {
-            return image;
-        }
-        this.image = image;
-        rows = image.length;
-        cols = image[0].length;
-        oldColor = image[sr][sc];
-
-        dfs(sr, sc, newColor);
+        int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        int rows = image.length;
+        int cols = image[0].length;
+        int oldColor = image[sr][sc];
+        if (oldColor == newColor) return image;
+        dfs(image, dirs, sr, sc, rows, cols, newColor, oldColor);
         return image;
     }
 
-    public void dfs(int row, int col, int newColor) {
-        if (row < 0 || row >= rows || col < 0 || col >= cols
-                || image[row][col] != oldColor) {
+    public void dfs(int[][] image, int[][] dirs, int i, int j,
+                    int rows, int cols, int newColor, int oldColor) {
+
+        if (i < 0 || i >= rows || j < 0 || j >= cols
+                || image[i][j] != oldColor) {
             return;
         }
-        image[row][col] = newColor;
+
+        image[i][j] = newColor;
         for (int[] dir : dirs) {
-            int nextRow = row + dir[0];
-            int nextCol = col + dir[1];
-            dfs(nextRow, nextCol, newColor);
+            int nexti = i + dir[0];
+            int nextj = j + dir[1];
+            dfs(image, dirs, nexti, nextj, rows, cols, newColor, oldColor);
         }
     }
 
-    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
-        if (image[sr][sc] == newColor) return image;
+    public int[][] floodFill11(int[][] image, int sr, int sc, int newColor) {
+
         int oldColor = image[sr][sc];
-        int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        if (oldColor == newColor) return image;
+
         int rows = image.length;
         int cols = image[0].length;
+
+        int[][] dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
 
         Queue<int[]> queue = new ArrayDeque<>();
         queue.offer(new int[]{sr, sc});
@@ -57,12 +54,12 @@ public class _07_733_flood_fill {
             int[] cur = queue.poll();
             int row = cur[0];
             int col = cur[1];
+
             for (int[] dir : dirs) {
                 int nextRow = row + dir[0];
                 int nextCol = col + dir[1];
 
-                if (nextRow >= 0 && nextRow < rows
-                        && nextCol >= 0 && nextCol < cols
+                if (nextRow >= 0 && nextRow < rows && nextCol >= 0 && nextCol < cols
                         && image[nextRow][nextCol] == oldColor) {
                     queue.offer(new int[]{nextRow, nextCol});
                     image[nextRow][nextCol] = newColor;

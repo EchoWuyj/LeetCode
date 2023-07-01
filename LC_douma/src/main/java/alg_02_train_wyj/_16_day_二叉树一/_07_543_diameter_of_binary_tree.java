@@ -11,15 +11,16 @@ public class _07_543_diameter_of_binary_tree {
 
     public int diameterOfBinaryTree(TreeNode root) {
         if (root == null) return 0;
-        postOrder(root);
+        dfs(root);
         return ans;
     }
 
-    public int postOrder(TreeNode root) {
+    public int dfs(TreeNode root) {
         if (root == null) return 0;
-        int leftMaxDepth = postOrder(root.left);
-        int rightMaxDepth = postOrder(root.right);
-        ans = Math.max(ans, rightMaxDepth + leftMaxDepth);
-        return Math.max(leftMaxDepth, rightMaxDepth) + 1;
+        int left = dfs(root.left);
+        int right = dfs(root.right);
+
+        ans = Math.max(ans, left + right);
+        return Math.max(left, right) + 1;
     }
 }

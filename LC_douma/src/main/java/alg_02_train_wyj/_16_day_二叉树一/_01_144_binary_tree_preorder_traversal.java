@@ -1,9 +1,8 @@
 package alg_02_train_wyj._16_day_二叉树一;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * @Author Wuyj
@@ -14,10 +13,10 @@ public class _01_144_binary_tree_preorder_traversal {
     public List<Integer> preorderTraversal1(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         if (root == null) return res;
-        Deque<TreeNode> stack = new ArrayDeque<>();
+        Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
         while (!stack.isEmpty()) {
-            TreeNode cur = stack.poll();
+            TreeNode cur = stack.pop();
             res.add(cur.val);
             if (cur.right != null) stack.push(cur.right);
             if (cur.left != null) stack.push(cur.left);

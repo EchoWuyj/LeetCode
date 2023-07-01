@@ -57,12 +57,12 @@ public class BinaryTreeTest {
 
         System.out.println("===============");
 
-        System.out.println(BinaryTree_04_LevelOrder.levelOrder(root_23));
+        System.out.println(BinaryTree_04_LevelOrder.levelOrder1(root_23));
         // [23, 34, 21, 99, 45, 60, 77, 90]
 
         System.out.println("===============");
 
-        System.out.println(BinaryTree_04_LevelOrder.levelOrder_2(root_23));
+        System.out.println(BinaryTree_04_LevelOrder.levelOrder2(root_23));
         // [[23], [34, 21], [99, 45, 60], [77, 90]]
     }
 }

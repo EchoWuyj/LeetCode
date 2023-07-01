@@ -2,7 +2,6 @@ package alg_01_ds_wyj._01_line._05_algo._04_bs;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,13 +12,23 @@ import java.util.Comparator;
  * @Version 1.0
  */
 public class IpLocationParser {
+
     private static class IpLocation {
-        public long startIp;
-        public long endIp;
-        public String locationCity;
+        Long startIp;
+        Long endIp;
+        String locationCity;
+
+        IpLocation() {
+        }
+
+        IpLocation(Long startIp, Long endIp, String locationCity) {
+            this.startIp = startIp;
+            this.endIp = endIp;
+            this.locationCity = locationCity;
+        }
     }
 
-    private static ArrayList<IpLocation> sortedIpLocations = new ArrayList<>();
+    private static ArrayList<IpLocation> list = new ArrayList<>();
 
     static {
         try {
@@ -27,18 +36,18 @@ public class IpLocationParser {
                     new BufferedReader(new FileReader("LC_douma/data/ip_location.txt"));
             String line = null;
             while ((line = reader.readLine()) != null) {
-                String[] temps = line.split(" ");
+                String[] strArr = line.split(" ");
                 IpLocation ipLocation = new IpLocation();
-                ipLocation.startIp = ip2Score(temps[0]);
-                ipLocation.endIp = ip2Score(temps[1]);
-                ipLocation.locationCity = temps[2];
-                sortedIpLocations.add(ipLocation);
+                ipLocation.startIp = ip2Score(strArr[0]);
+                ipLocation.endIp = ip2Score(strArr[1]);
+                ipLocation.locationCity = strArr[2];
+                list.add(ipLocation);
             }
-        } catch (IOException e) {
-            throw new RuntimeException("解析 ip 地址库出错" + e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        Collections.sort(sortedIpLocations, new Comparator<IpLocation>() {
+        Collections.sort(list, new Comparator<IpLocation>() {
             @Override
             public int compare(IpLocation o1, IpLocation o2) {
                 return Long.compare(o1.startIp, o2.startIp);
@@ -46,26 +55,25 @@ public class IpLocationParser {
         });
     }
 
-    private static Long ip2Score(String ip) {
-        String[] temps = ip.split("\\.");
-        Long score = 256 * 256 * 256 * Long.parseLong(temps[0])
-                + 256 * 256 * Long.parseLong(temps[1])
-                + 256 * Long.parseLong(temps[2])
-                + Long.parseLong(temps[3]);
-        return score;
+    public static Long ip2Score(String ip) {
+        String[] strArr = ip.split("\\.");
+        Long Score = 256 * 256 * 256 * Long.parseLong(strArr[0])
+                + 256 * 256 * Long.parseLong(strArr[1])
+                + 256 * Long.parseLong(strArr[2])
+                + Long.parseLong(strArr[3]);
+
+        return Score;
     }
 
     public static String getIpLocation(String ip) {
-        long score = ip2Score(ip);
-        int left = 0;
-        int right = sortedIpLocations.size() - 1;
+        Long score = ip2Score(ip);
+        int left = 0, right = list.size() - 1;
         while (left <= right) {
             int mid = left + (right - left) / 2;
-            if (sortedIpLocations.get(mid).startIp <= score) {
-                if (mid == sortedIpLocations.size() - 1
-                        || sortedIpLocations.get(mid + 1).startIp > score) {
-                    if (score <= sortedIpLocations.get(mid).endIp) {
-                        return sortedIpLocations.get(mid).locationCity;
+            if (list.get(mid).startIp <= score) {
+                if (mid == list.size() - 1 || list.get(mid + 1).startIp > score) {
+                    if (score <= list.get(mid).endIp) {
+                        return list.get(mid).locationCity;
                     } else {
                         break;
                     }
@@ -80,7 +88,7 @@ public class IpLocationParser {
     }
 
     public static void main(String[] args) {
-        System.out.println(getIpLocation("202.102.56.198")); //江西上饶市
+        System.out.println(getIpLocation("202.102.56.198")); // 江西上饶市
         System.out.println(getIpLocation("202.101.48.198")); // 浙江杭州市
     }
 }

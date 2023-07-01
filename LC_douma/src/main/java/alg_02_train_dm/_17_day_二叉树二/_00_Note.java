@@ -8,7 +8,7 @@ package alg_02_train_dm._17_day_二叉树二;
 public class _00_Note {
     /*
         1 二叉树的遍历算法
-        2 特别是DFS(前序遍历和后序遍历)
+        2 特别是DFS(前序遍历 和 后序遍历)
         3 二叉树路径相关的算法题
      */
 }

@@ -7,57 +7,49 @@ package alg_02_train_wyj._19_day_DFS_BFS;
  */
 public class _12_1034_coloring_a_border {
 
-    int[][] grid;
-    int rows;
-    int cols;
-    boolean[][] visited;
-    int[][] dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
-    int curColor;
-    int color;
+    private int rows;
+    private int cols;
+    private boolean[][] visited;
+    private int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    private int oldColor;
 
     public int[][] colorBorder(int[][] grid, int row, int col, int color) {
-        this.grid = grid;
-        this.color = color;
-        curColor = grid[row][col];
-        rows = this.grid.length;
+        rows = grid.length;
         cols = grid[0].length;
         visited = new boolean[rows][cols];
-        if (curColor == color) return grid;
-//        dfs(row, col);
-        dfs_op(row, col);
+        oldColor = grid[row][col];
+        if (oldColor == color) return grid;
+        dfs(grid, row, col, color);
         return grid;
     }
 
-    public void dfs(int i, int j) {
-        if (!inArea(i, j) || grid[i][j] != curColor || visited[i][j]) {
+    public void dfs(int[][] grid, int i, int j, int color) {
+        if (!inArea(i, j) || visited[i][j] || grid[i][j] != oldColor) {
             return;
         }
-
         visited[i][j] = true;
+
         for (int[] dir : dirs) {
             int nexti = i + dir[0];
             int nextj = j + dir[1];
-            if (!inArea(nexti, nextj) || (grid[nexti][nextj] != curColor && !visited[nexti][nextj])) {
+            if (!inArea(nexti, nextj) || (grid[nexti][nextj] != oldColor && !visited[nexti][nextj])) {
                 grid[i][j] = color;
             }
-            dfs(nexti, nextj);
+
+            dfs(grid, nexti, nextj, color);
         }
     }
 
-    public void dfs_op(int i, int j) {
-        visited[i][j] = true;
-        for (int[] dir : dirs) {
-            int nexti = i + dir[0];
-            int nextj = j + dir[1];
-            if (!inArea(nexti, nextj) || (grid[nexti][nextj] != curColor && !visited[nexti][nextj])) {
-                grid[i][j] = color;
-            } else if (!visited[nexti][nextj]) {
-                dfs_op(nexti, nextj);
-            }
-        }
+    private boolean inArea(int row, int col) {
+        return row >= 0 && row < rows && col >= 0 && col < cols;
     }
 
-    public boolean inArea(int i, int j) {
-        return i >= 0 && i < rows && j >= 0 && j < cols;
-    }
+    // [[1,1,1],[1,1,1],[1,1,1]]
+    //1
+    //1
+    //2
+
+    // [[2,2,2],[2,2,2],[2,2,2]]
+
+    // [[2,2,2],[2,1,2],[2,2,2]]
 }

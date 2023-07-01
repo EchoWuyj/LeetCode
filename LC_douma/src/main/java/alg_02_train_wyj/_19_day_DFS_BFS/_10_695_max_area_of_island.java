@@ -6,11 +6,12 @@ package alg_02_train_wyj._19_day_DFS_BFS;
  * @Version 1.0
  */
 public class _10_695_max_area_of_island {
-    int[][] grid;
-    boolean[][] visited;
-    int rows;
-    int cols;
-    int[][] dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+
+    private int[][] grid;
+    private boolean[][] visited;
+    private int rows;
+    private int cols;
+    private int[][] dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
 
     public int maxAreaOfIsland(int[][] grid) {
         this.grid = grid;

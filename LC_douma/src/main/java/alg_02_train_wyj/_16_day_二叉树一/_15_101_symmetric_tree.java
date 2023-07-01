@@ -12,65 +12,41 @@ public class _15_101_symmetric_tree {
 
     public boolean isSymmetric(TreeNode root) {
         if (root == null) return true;
-        return isSymmetric1(root, root);
+        return isMirror(root.left, root.right);
     }
 
-    private boolean isSymmetric1(TreeNode p, TreeNode q) {
-        if (p == null && q == null) return true;
-        Queue<TreeNode> queue1 = new LinkedList<>();
-        Queue<TreeNode> queue2 = new LinkedList<>();
-        queue1.offer(p);
-        queue2.offer(q);
-        while (!queue1.isEmpty() && !queue2.isEmpty()) {
-            TreeNode node1 = queue1.poll();
-            TreeNode node2 = queue2.poll();
-            if (node1 == null && node2 == null) continue;
-            if (node1.val != node2.val) return false;
+    private boolean isMirror(TreeNode t1, TreeNode t2) {
+        if (t1 == null && t2 == null) return true;
+        if (t1 == null || t2 == null) return false;
+        if (t1.val != t2.val) return false;
 
-            TreeNode left1 = node1.left, right1 = node1.right;
-            TreeNode left2 = node2.left, right2 = node2.right;
-
-            if (left1 == null ^ right2 == null) return false;
-            if (right1 == null ^ left2 == null) return false;
-
-            queue1.offer(left1);
-            queue1.offer(right1);
-
-            queue2.offer(right2);
-            queue2.offer(left2);
-        }
-        return queue1.isEmpty() && queue2.isEmpty();
+        return isMirror(t1.left, t2.right) && isMirror(t1.right, t2.left);
     }
 
     public boolean isSymmetric1(TreeNode root) {
         if (root == null) return true;
+
         Queue<TreeNode> queue1 = new LinkedList<>();
         Queue<TreeNode> queue2 = new LinkedList<>();
+
         queue1.offer(root);
         queue2.offer(root);
+
         while (!queue1.isEmpty() && !queue2.isEmpty()) {
-            TreeNode node1 = queue1.poll();
-            TreeNode node2 = queue2.poll();
-            if (node1 == null && node2 == null) continue;
-            if (node1 == null || node2 == null) return false;
-            if (node1.val != node2.val) return false;
-            queue1.offer(node1.left);
-            queue1.offer(node1.right);
-            queue2.offer(node2.right);
-            queue2.offer(node2.left);
+            TreeNode cur1 = queue1.poll();
+            TreeNode cur2 = queue2.poll();
+
+            if (cur1 == null && cur2 == null) continue;
+            if (cur1 == null || cur2 == null) return false;
+            if (cur1.val != cur2.val) return false;
+
+            queue1.offer(cur1.left);
+            queue1.offer(cur1.right);
+
+            queue2.offer(cur2.right);
+            queue2.offer(cur2.left);
         }
-        return true;
-    }
 
-    public boolean isSymmetric2(TreeNode root) {
-        if (root == null) return true;
-        return preOrder(root.left, root.right);
-    }
-
-    public boolean preOrder(TreeNode p, TreeNode q) {
-        if (p == null && q == null) return true;
-        if (p == null || q == null) return false;
-        if (p.val != q.val) return false;
-        return preOrder(p.left, q.right) && preOrder(p.right, q.left);
+        return queue1.isEmpty() && queue2.isEmpty();
     }
 }

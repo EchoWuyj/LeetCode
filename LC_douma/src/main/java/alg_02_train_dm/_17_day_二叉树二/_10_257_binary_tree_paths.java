@@ -74,10 +74,10 @@ public class _10_257_binary_tree_paths {
     private static void dfs(TreeNode root, StringBuilder builder, List<String> res) {
         if (root == null) return;
         if (root.left == null && root.right == null) {
-            builder.append(root.val + "");
+            builder.append(root.val);
             res.add(new String(builder));
         } else {
-            builder.append(root.val + "->");
+            builder.append(root.val).append("->");
         }
         dfs(root.left, builder, res);
         dfs(root.right, builder, res);

@@ -13,40 +13,42 @@ import java.util.Queue;
 public class _12_515_find_largest_value_in_each_tree_row {
 
     public List<Integer> largestValues1(TreeNode root) {
-        ArrayList<Integer> res = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
         if (root == null) return res;
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         while (!queue.isEmpty()) {
             int size = queue.size();
-            int levelMax = Integer.MIN_VALUE;
+            int maxValue = Integer.MIN_VALUE;
+            List<Integer> levelList = new ArrayList<>();
             for (int i = 0; i < size; i++) {
                 TreeNode cur = queue.poll();
-                levelMax = Math.max(cur.val, levelMax);
+                maxValue = Math.max(maxValue, cur.val);
                 if (cur.left != null) queue.offer(cur.left);
                 if (cur.right != null) queue.offer(cur.right);
             }
-            res.add(levelMax);
+            res.add(maxValue);
         }
         return res;
     }
 
-    public List<Integer> largestValues(TreeNode root) {
-        ArrayList<Integer> res = new ArrayList<>();
-        if (root == null) return res;
-        preOrder(root, 0, res);
+    public List<Integer> largestValues2(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        dfs(root, 0, res);
         return res;
     }
 
-    public void preOrder(TreeNode root, int level, ArrayList<Integer> res) {
-        if (root == null) return;
-        if (res.size() == level) {
-            res.add(root.val);
+    public void dfs(TreeNode node, int level, List<Integer> res) {
+        if (node == null) return;
+
+        if (res.size() == 0) {
+            res.add(node.val);
         } else {
-            int max = Math.max(res.get(level), root.val);
-            res.set(level, max);
+            int maxValue = Math.max(node.val, res.get(level));
+            res.set(level, maxValue);
         }
-        preOrder(root.left, level + 1, res);
-        preOrder(root.right, level + 1, res);
+
+        dfs(node.left, level + 1, res);
+        dfs(node.right, level + 1, res);
     }
 }

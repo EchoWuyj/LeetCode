@@ -79,28 +79,28 @@ public class ArrayTest {
         int cols = arr[0].length;
 
         // 将多个移动的方向(x,y)，整理二维数组的方式
-        int[][] directions = {
+        int[][] dirs = {
                 // '上下左右' 元素位置
                 // x 控制上下，当前元素 (1,2)，- 则上 (0,2)，+ 则下 (2,2)
                 // y 控制左右，当前元素 (1,2)，- 则左 (1,1)，+ 则右 (1,3)
                 // 通过方向(上，下，左上，右下...)，即可确定 (x,y) 的正负
-                {-1, 0}, {1, 0}, {0, -1}, {0, 1}, // 上 下 左 右
-                {-1, -1}, {-1, 1}, {1, -1}, {1, 1} // 左上 右上 左下 右下(确定方向:从后往前理解)
+                {-1, 0}, {1, 0}, {0, -1}, {0, 1}, // 上 下 左 右  => (±1,0) 和 (0,±1)
+                {-1, -1}, {-1, 1}, {1, -1}, {1, 1} // 左上 右上 左下 右下 => (-1,±1) 和 (1,±1) 上下为基准，分为左右
         };
 
         // 控制输出 4 个元素一行输出
         int count = 0;
 
         // 二维数组中每个元素即为一维数组(x,y)
-        for (int[] dir : directions) {
-            int row = i + dir[0];
-            int col = j + dir[1];
+        for (int[] dir : dirs) {
+            int nexti = i + dir[0];
+            int nextj = j + dir[1];
 
             // 并不是每个元素都是存在四连通和八连通
-            // 需要判断索引是否越界，将索引限定在  一个区域内
-            // row 和 col 可以取 0
-            if (row < rows && col < cols && row >= 0 && col >= 0) {
-                System.out.print(arr[row][col] + " ");
+            // => 需要判断索引是否越界，将索引限定在一个区域内
+            // 注意：nexti 和 nextj 可以取 0，多次犯错了！
+            if (nexti < rows && nextj < cols && nexti >= 0 && nextj >= 0) {
+                System.out.print(arr[nexti][nextj] + " ");
             }
             count++;
             if (count == 4) {

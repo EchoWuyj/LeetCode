@@ -6,6 +6,6 @@ package alg_02_train_dm._08_day_二分查找;
  * @Version 1.0
  */
 
-// KeyPoint 详细注释 _01_704_BinarySearch
+// KeyPoint 详细注释 01_704_BinarySearch
 public class _01_704_binary_search {
 }

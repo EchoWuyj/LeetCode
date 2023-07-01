@@ -9,18 +9,16 @@ import java.util.*;
  */
 public class _03_145_binary_tree_postorder_traversal {
     public List<Integer> postorderTraversal1(TreeNode root) {
-//        LinkedList<Integer> res = new LinkedList<>();
-        List<Integer> res = new ArrayList<>();
+        LinkedList<Integer> res = new LinkedList<>();
         if (root == null) return res;
-        Deque<TreeNode> stack = new ArrayDeque<>();
+        Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
         while (!stack.isEmpty()) {
-            TreeNode cur = stack.poll();
-            res.add(cur.val);
+            TreeNode cur = stack.pop();
+            res.addFirst(cur.val);
             if (cur.left != null) stack.push(cur.left);
             if (cur.right != null) stack.push(cur.right);
         }
-        Collections.reverse(res);
         return res;
     }
 

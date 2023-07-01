@@ -11,15 +11,18 @@ import java.util.Stack;
  * @Version 1.0
  */
 
-// 变形的前序遍历：根 -> 右 -> 左
-// 反转 => 后续遍历：左 -> 右 -> 根
 public class BinaryTree_03_PostOrder {
-    // KeyPoint 方法一 后序遍历(迭达) => 后指的是根的位置
+
+    // 变形的前序遍历：根 -> 右 -> 左
+    // 反转 => 后续遍历：左 -> 右 -> 根
+
+    // KeyPoint 方法一 后序遍历(迭代) => 后指的是根的位置
     // 时间复杂度：O(n), n 表示二叉树节点个数
     // 空间复杂度：O(n)
     public static List<Integer> postOrder(TreeNode<Integer> root) {
 
         // 使用 LinkedList 为了后面使用 addFirst，每次都从头 add 元素，自然实现反转
+        // 父类引用，也必须是 LinkedList，不能是 List，否则无法调用 addFirst 方法
         LinkedList<Integer> res = new LinkedList<>();
         if (root == null) return res;
         Stack<TreeNode<Integer>> stack = new Stack<>();

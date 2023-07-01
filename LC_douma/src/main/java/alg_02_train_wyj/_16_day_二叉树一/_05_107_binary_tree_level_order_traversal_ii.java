@@ -15,14 +15,14 @@ public class _05_107_binary_tree_level_order_traversal_ii {
         queue.offer(root);
         while (!queue.isEmpty()) {
             int size = queue.size();
-            ArrayList<Integer> levelRes = new ArrayList<>();
+            List<Integer> levelList = new ArrayList<>();
             for (int i = 0; i < size; i++) {
                 TreeNode cur = queue.poll();
-                levelRes.add(cur.val);
+                levelList.add(cur.val);
                 if (cur.left != null) queue.offer(cur.left);
                 if (cur.right != null) queue.offer(cur.right);
             }
-            res.addFirst(levelRes);
+            res.addFirst(levelList);
         }
         return res;
     }

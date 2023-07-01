@@ -19,7 +19,7 @@ public class _01_704_BinarySearch {
         解释: 9 出现在 nums 中并且下标为 4
 
         提示：
-        你可以假设 nums 中的所有元素是不重复的。
+        你可以假设 nums 中的所有元素是 不重复 的。
         n 将在 [1, 10000]之间。
         nums 的每个元素都将在 [-9999, 9999]之间。
      */
@@ -31,7 +31,7 @@ public class _01_704_BinarySearch {
         int right = nums.length - 1;
         while (left <= right) {
             int mid = left + (right - left) / 2;
-            if (target == nums[mid])
+            if (nums[mid] == target)
                 return mid;
             else if (target < nums[mid])
                 right = mid - 1;
@@ -43,8 +43,16 @@ public class _01_704_BinarySearch {
         return -1;
     }
 
-    // KeyPoint 思路 2：在循环体中排除一定不存在目标元素的区间 => 重点掌握
-    //          既然是排除一定不存在目标元素的区间，则 if 判断条件为严格 > 或者 <
+
+
+    // KeyPoint 思路 2：在循环体中排除 一定不存在 目标元素的区间 => 重点掌握
+    //                 既然是排除 一定不存在 目标元素的区间 => if 判断条件为严格 > 或者 <
+    //                 逼近方向：从右往左移
+    // 注意事项
+    // 1.这种思路下 if 判断只有两种情况，> 和 <=
+    // 2.以 target 为中心，if 判断条件 target 在前
+    //   2.1 target > [mid]，mid 计算公式不变
+    //   2.2 target < [mid]，mid 计算公式需要加 1
     public int search2(int[] nums, int target) {
         if (nums == null || nums.length == 0) return -1;
         int left = 0;
@@ -52,32 +60,44 @@ public class _01_704_BinarySearch {
         // left == right 循环结束，此时只有一个元素，不在循环体内处理，而在 while 循环外处理
         while (left < right) {
             int mid = left + (right - left) / 2;
-            // 这种思路下 if 判断只有两种情况
+
+            // 严格排除 左侧，target > nums[mid]
+            // => target 必然不会在 mid 以左，包括 mid 本身
+            // => 故 [left,mid] 全部排除，即小的那一侧舍弃，移动 left 指针
+
             if (target > nums[mid])
-                // target > nums[mid] => target 必然不会在 mid 以左，包括 mid 本身，
-                // 故 [left,mid] 全部排除，即小的那一侧舍弃，移动 left 指针
                 left = mid + 1;
             else
                 // target <= nums[mid] => target 必然不会在 mid + 1 以右，但不包括 mid 本身
                 // 因为 target 有可能等于 nums[mid]，故 [mid+1,right] 全部排除
-                // KeyPoint 记忆：target <= nums[mid]，含有等号则只能取 mid
+                // KeyPoint 记忆：target <= nums[mid]，含有等号，则只能取 mid
                 right = mid; // 从右往左移
         }
-        // while 循环结束，将所有肯定不存在目标元素的区间全部排除，最后只剩一个元素，则处理该元素
+        // while 循环结束，将所有肯定不存在目标元素的区间全部排除
+        // 最后只剩一个元素，则处理该元素
         if (nums[left] == target) return left;
         return -1;
     }
 
     // KeyPoint 思路 2 变形 => 重点掌握
-    //          只是修改 if 比较表达式的不等号方向，原来 > 改成 <
+    //                     => 只是修改 if 比较表达式的不等号方向，原来 > 改成 <
+    //                     => 逼近方向：从左往右移
     public int search3(int[] nums, int target) {
         if (nums == null || nums.length == 0) return -1;
         int left = 0;
         int right = nums.length - 1;
         while (left < right) {
-            // KeyPoint 计算中间值 mid 需要靠右，否则会有死循环
+            // 特别注意：计算中间值 mid 需要靠右，否则会有死循环
+            //      left  right
+            //       ↓     ↓
+            //  ...  5     8    9 ...
+            //       ↑
+            //      mid
+            // target = 8
+            // 因为 mid 计算公式，向下取整的缘故，导致 mid 靠左，一直都有 nums[mid] <= target
             int mid = left + (right - left + 1) / 2;
-            if (target < nums[mid]) // 严格小于 =>  right = mid 严格减 1
+            // 严格小于 => right = mid 严格减 1
+            if (target < nums[mid])
                 right = mid - 1;
             else
                 // target >= nums[mid] 非严格大于 => left = mid
@@ -102,6 +122,7 @@ public class _01_704_BinarySearch {
             else
                 right = mid;
         }
+        // 循环体外，判断这两个元素，是否和 target 相等
         if (nums[left] == target) return left;
         if (nums[right] == target) return right;
         return -1;

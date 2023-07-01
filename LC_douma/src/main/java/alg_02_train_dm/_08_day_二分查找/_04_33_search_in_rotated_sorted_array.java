@@ -6,6 +6,6 @@ package alg_02_train_dm._08_day_二分查找;
  * @Version 1.0
  */
 
-// KeyPoint _04_33_SearchInRotatedSortedArray
+// KeyPoint 04_33_SearchInRotatedSortedArray
 public class _04_33_search_in_rotated_sorted_array {
 }

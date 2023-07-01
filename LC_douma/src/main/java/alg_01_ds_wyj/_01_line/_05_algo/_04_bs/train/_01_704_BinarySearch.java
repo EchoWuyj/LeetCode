@@ -9,25 +9,38 @@ public class _01_704_BinarySearch {
 
     public int search4(int[] nums, int target) {
         if (nums == null || nums.length == 0) return -1;
-        int left = 0;
-        int right = nums.length - 1;
-        while (left + 1 < right) {
+        int left = 0, right = nums.length - 1;
+        while (left <= right) {
             int mid = left + (right - left) / 2;
-            if (target > nums[mid]) {
-                left = mid;
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] > target) {
+                right = mid - 1;
             } else {
-                right = mid;
+                left = mid + 1;
             }
         }
-        if (nums[left] == target) return left;
-        if (nums[right] == target) return right;
         return -1;
     }
 
     public int search3(int[] nums, int target) {
         if (nums == null || nums.length == 0) return -1;
-        int left = 0;
-        int right = nums.length - 1;
+        int left = 0, right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (target > nums[mid]) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        if (nums[left] == target) return left;
+        return -1;
+    }
+
+    public int search2(int[] nums, int target) {
+        if (nums == null || nums.length == 0) return -1;
+        int left = 0, right = nums.length - 1;
         while (left < right) {
             int mid = left + (right - left + 1) / 2;
             if (target < nums[mid]) {
@@ -40,36 +53,36 @@ public class _01_704_BinarySearch {
         return -1;
     }
 
-    public int search2(int[] nums, int target) {
-        if (nums == null || nums.length == 0) return -1;
-        int left = 0;
-        int right = nums.length - 1;
-        while (left < right) {
+    public int search1(int[] nums, int target) {
+        if (nums == null || nums.length == 0) return 0;
+        int left = 0, right = nums.length - 1;
+        while (left + 1 < right) {
             int mid = left + (right - left) / 2;
             if (target > nums[mid]) {
-                left = mid + 1;
+                left = mid;
             } else {
                 right = mid;
             }
         }
+
         if (nums[left] == target) return left;
+        if (nums[right] == target) return right;
         return -1;
     }
 
-    public int search1(int[] nums, int target) {
-        if (nums == null || nums.length == 0) return -1;
-        int left = 0;
-        int right = nums.length - 1;
-        while (left <= right) {
+    public int search(int[] nums, int target) {
+        if (nums == null || nums.length == 0) return 0;
+        int left = 0, right = nums.length - 1;
+        while (left + 1 < right) {
             int mid = left + (right - left) / 2;
-            if (target == nums[mid]) {
-                return mid;
-            } else if (target < nums[mid]) {
-                right = mid - 1;
+            if (target < nums[mid]) {
+                right = mid;
             } else {
-                left = mid + 1;
+                left = mid;
             }
         }
+        if (nums[left] == target) return left;
+        if (nums[right] == target) return right;
         return -1;
     }
 }
