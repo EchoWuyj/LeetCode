@@ -24,4 +24,34 @@ public class _05_offer_11_MinArray {
         }
         return nums[0];
     }
+
+    public int findMin3(int[] nums) {
+        int left = 0, right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > nums[right]) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        return nums[left];
+    }
+
+    public int findMin4(int[] nums) {
+        int left = 0, right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > nums[right]) {
+                left = mid + 1;
+            } else if (nums[mid] < nums[right]) {
+                right = mid - 1;
+            } else {
+                right--;
+            }
+        }
+        return nums[left];
+    }
+
+
 }

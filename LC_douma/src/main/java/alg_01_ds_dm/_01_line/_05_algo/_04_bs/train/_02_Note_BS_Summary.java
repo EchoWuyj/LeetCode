@@ -91,4 +91,7 @@ public class _02_Note_BS_Summary {
                 2.target < nums[mid]
 
      */
+
+    // KeyPoint 特别注意：
+    // 之前 BS 代码模板，都是针对升序序列。若是降序序列，需要对 BS 模板进行修改
 }

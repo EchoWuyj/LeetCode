@@ -9,11 +9,10 @@ public class _11_240_search_a_2d_matrix_ii {
 
     public boolean searchMatrix1(int[][] matrix, int target) {
         int m = matrix.length;
-        if (m == 0) return false;
         int n = matrix[0].length;
-        for (int row = 0; row < m; row++) {
-            for (int col = 0; col < n; col++) {
-                if (matrix[row][col] == target) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == target) {
                     return true;
                 }
             }
@@ -21,65 +20,66 @@ public class _11_240_search_a_2d_matrix_ii {
         return false;
     }
 
-    public boolean searchMatrix2(int[][] matrix, int target) {
+    public static boolean searchMatrix2(int[][] matrix, int target) {
         int m = matrix.length;
-        if (m == 0) return false;
         int n = matrix[0].length;
 
-        int shortDim = Math.min(m, n);
-        for (int i = 0; i < shortDim; i++) {
-            boolean rowFind = BSRow(matrix, i, target);
-            boolean colFind = BSCol(matrix, i, target);
+        int times = Math.min(m, n);
+        for (int i = 0; i < times; i++) {
+            boolean isRowExist = BSRow(matrix, target, i, n);
+            boolean isColExist = BSCol(matrix, target, i, m);
+            if (isRowExist || isColExist) return true;
+        }
 
-            if (rowFind || colFind) {
+        return false;
+    }
+
+    public static boolean BSRow(int[][] matrix, int target, int i, int n) {
+        int left = i, right = n - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (target == matrix[i][mid]) {
                 return true;
+            } else if (target < matrix[i][mid]) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
             }
         }
         return false;
     }
 
-    public boolean BSRow(int[][] matrix, int row, int target) {
-        int low = row;
-        int high = matrix[0].length - 1;
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
-            if (matrix[row][mid] == target) {
+    public static boolean BSCol(int[][] matrix, int target, int i, int m) {
+        int left = i, right = m - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            System.out.println("mid = " + mid);
+            System.out.println("i = " + i);
+
+            if (target == matrix[mid][i]) {
                 return true;
-            } else if (target < matrix[row][mid]) {
-                high = mid - 1;
+            } else if (target < matrix[i][mid]) {
+                right = mid - 1;
             } else {
-                low = mid + 1;
+                left = mid + 1;
             }
         }
         return false;
     }
 
-    public boolean BSCol(int[][] matrix, int col, int target) {
-        int low = col;
-        int high = matrix.length - 1;
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
-            if (matrix[mid][col] == target) {
-                return true;
-            } else if (target < matrix[mid][col]) {
-                high = mid - 1;
-            } else {
-                low = mid + 1;
-            }
-        }
-        return false;
+    public static void main(String[] args) {
+        int[][] arr = {{-1}, {-1}};
+        searchMatrix2(arr, 0);
     }
 
     public boolean searchMatrix(int[][] matrix, int target) {
         int m = matrix.length;
-        if (m == 0) return false;
         int n = matrix[0].length;
 
-        int row = m - 1;
-        int col = 0;
-        while (row >= 0 && col < n) {
-            if (matrix[row][col] < target) col++;
-            else if (matrix[row][col] > target) row--;
+        int i = m - 1, j = 0;
+        while (i >= 0 && j < n) {
+            if (matrix[i][j] < target) j++;
+            else if (matrix[i][j] > target) i--;
             else return true;
         }
         return false;

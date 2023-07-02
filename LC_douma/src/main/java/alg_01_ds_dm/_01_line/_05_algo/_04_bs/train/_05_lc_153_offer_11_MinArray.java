@@ -6,7 +6,6 @@ package alg_01_ds_dm._01_line._05_algo._04_bs.train;
  * @Version 1.0
  */
 
-//
 public class _05_lc_153_offer_11_MinArray {
 
       /*
@@ -80,68 +79,92 @@ public class _05_lc_153_offer_11_MinArray {
     }
 
     //  KeyPoint 方法三 根据旋转数组特点，使用二分查找
-    //                  => 存在 bug，该方法只是适用于数组中没有重复元素的情况
+    //                  => 存在 bug，该方法只是适用于数组中 没有重复元素 的情况
     // 时间复杂度是： O(logn)
     // 空间复杂度是：O(1)
     public int findMin3(int[] nums) {
         int left = 0;
         int right = nums.length - 1;
+        // 本质：排除不能区间
         while (left < right) {
             int mid = left + (right - left) / 2;
-
-            // 关键是 if 条件，比较对象 nums[mid]，nums[left]，nums[right] 的选择问题
             // 旋转数组特点 => 最小值必然是旋转点，即找最小值 <=> 找旋转点
-            // nums[mid] > nums[right] 非正常情况，min 必然在右侧，mid 以左，包括 mid 全部舍弃
+            // 关键：if 条件的比较对象 nums[mid]，nums[left]，nums[right] 的选择问题
+            // nums[mid] > nums[right] 非正常情况，则 min 必然在该区间内，即 min 必然在右侧
+            // => mid 以左，包括 mid 全部舍弃
             if (nums[mid] > nums[right]) {
                 left = mid + 1;
             } else {
-                // 在数组中有重复元素时，nums[mid] <= nums[right]
-                // 若只是直接 right = mid，则存在 bug，right 移动太多，导致略过了最小值
+                // nums[mid] <= nums[right]
+                // right 只能移动到 mid 位置，因为 mid 有可能是最小值，故 right 不能为 mid-1
+                // 注意：力扣 153 题中保证：所有整数互不相同，故该解法没问题
                 right = mid;
             }
         }
         return nums[left];
+
+        // 补充说明：
+        // 若数组中有重复元素时，则存在 bug
+        // 当 nums[mid] <= nums[right]，若只是直接 right = mid
+        // 则存在 right 移动太多，导致略过了最小值
+        // 力扣 154 题中，没有保证：所有整数互不相同，故该解法存在问题
+        //
+
+        // 根据测试用例来调整代码
+        // 输入：
+        // [3,3,1,3]
+        // 输出：
+        // 3
+        // 预期结果：
+        // 1
     }
 
-    // KeyPoint 方法三 改进，修复 bug，适用于数组中存在重复元素的情况
+    // KeyPoint 错误代码
     public int findMin4(int[] nums) {
         int left = 0;
         int right = nums.length - 1;
-        // left < right，保证搜索区间中有 1 个元素存在
         while (left < right) {
             int mid = left + (right - left) / 2;
-            if (nums[mid] > nums[right]) {
-                left = mid + 1;
-            } else if (nums[mid] < nums[right]) {
-                right = mid;
-            } else {
-                // nums[mid] = nums[right] 时，只是移动一格，而不是 right = mid
-                right--;
-            }
-        }
-        // 最终 left == right，返回最小值，不是 left 索引
-        return nums[left];
-    }
 
-    // 错误代码
-    public int findMin(int[] nums) {
-        int left = 0;
-        int right = nums.length - 1;
-        while (left < right) {
-            int mid = left + (right - left) / 2;
-            // if 判断条件找的不对，测试用例不完全通过
-            // 有些情况可能一开始成立，但移动 left 指针之后就不成立
-            // 处理'旋转数组'和'正常数组'逻辑不统一
+            // 关于 if 条件说明
+            // if 判断条件找的不对，不是 nums[left] 和 nums[mid] 比较
+            // 有些测试用例，可能一开始是旋转数组，但是经过移动 left 指针之后，
+            // 就不是旋转数组了，而变成了正常数组了，处理'旋转数组'和'正常数组'逻辑不统一
+            // 最终结果，测试用例不能完全通过
+
             //  4 5 6 7 0 1 2
             //  ↑     ↑     ↑
-            // left  mid  right  => 成立
+            // left  mid  right => [left] <= [mid]，left = mid + 1 成立
+
             //  0   1   2
             //  ↑   ↑   ↑
-            // left mid right  => 不成立
+            // left mid right  => [left] <= [mid]，left = mid + 1 不成立
+
+            // 一般 if 比较条件，不是 nums[left] 和 nums[mid]，就是 nums[mid] 和 nums[right]
+            // => 可以逐个进行尝试
+
             if (nums[left] < nums[mid]) {
                 left = mid + 1;
             } else {
                 right = mid;
+            }
+        }
+        return nums[left];
+    }
+
+    public int findMin5(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            // 即使用 [left] 和 [mid] 大小关系，先判断异常区间，也是不行的
+            if (nums[left] > nums[mid]) {
+                right = mid;
+            } else if (nums[left] < nums[mid]) {
+                // nums[left] <= nums[mid] => 对其细化处理，也是不行的
+                left = mid + 1;
+            } else {
+                return nums[left];
             }
         }
         return nums[left];
