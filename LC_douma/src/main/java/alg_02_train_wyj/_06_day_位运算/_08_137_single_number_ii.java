@@ -10,24 +10,23 @@ import java.util.Set;
  */
 public class _08_137_single_number_ii {
     public int singleNumber1(int[] nums) {
-        Set<Integer> set1 = new HashSet<>();
-        Set<Integer> set2 = new HashSet<>();
+        Set<Integer> once = new HashSet<>();
+        Set<Integer> twice = new HashSet<>();
 
         for (int num : nums) {
-            if (set1.contains(num)) {
-                set1.remove(num);
-            } else if (!set2.contains(num)) {
-                set1.add(num);
+            if (once.contains(num)) {
+                once.remove(num);
+            } else if (!twice.contains(num)) {
+                once.add(num);
             }
 
-            if (set2.contains(num)) {
-                set2.remove(num);
-            } else if (!set1.contains(num)) {
-                set2.add(num);
+            if (twice.contains(num)) {
+                twice.remove(num);
+            } else if (!once.contains(num)) {
+                twice.add(num);
             }
         }
-
-        return set1.iterator().next();
+        return once.iterator().next();
     }
 
     public int singleNumber2(int[] nums) {
@@ -47,7 +46,7 @@ public class _08_137_single_number_ii {
                 oneCount += (num >> i) & 1;
             }
 
-            if (oneCount % 3 != 0) {
+            if (oneCount % 3 == 1) {
                 res |= (1 << i);
             }
         }

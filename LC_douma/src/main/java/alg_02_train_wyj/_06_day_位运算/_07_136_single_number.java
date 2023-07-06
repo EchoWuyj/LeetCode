@@ -11,15 +11,15 @@ import java.util.Set;
 public class _07_136_single_number {
 
     public int singleNumber1(int[] nums) {
-        Set<Integer> res = new HashSet<>();
+        Set<Integer> set = new HashSet<>();
         for (int num : nums) {
-            if (res.contains(num)) {
-                res.remove(num);
+            if (set.contains(num)) {
+                set.remove(num);
             } else {
-                res.add(num);
+                set.add(num);
             }
         }
-        return res.iterator().next();
+        return set.iterator().next();
     }
 
     public int singleNumber(int[] nums) {

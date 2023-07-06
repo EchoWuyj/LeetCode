@@ -31,6 +31,7 @@ public class _13_69_sqrtX {
 
     // KeyPoint 方法一 时间复杂度：O(x)
     // 0 <= x <= 2^(31) - 1 => 2147483647，即 21 亿 => 21 * 10^8 => 超时
+    //                      => 记忆：21 4748 3647 => 21 亿，死去死吧，36 47
     // 1亿，一共有 9 位数，包括最高位的 1 => 100 000 000 => 10^8
     public int mySqrt1(int x) {
         int res = -1;
@@ -70,24 +71,28 @@ public class _13_69_sqrtX {
     }
 
     // KeyPoint 方法二 二分查找
-    // 方法一是从 0 到 x 进行线性查找，且数列是严格升序的数组 => 二分查找
+    // 方法一：从 0 到 x 进行线性查找，每次只是增加 1，逐个判断，速度太慢
+    // 优化：考虑元素范围 [0,x]，且数列是严格升序的数组 => 二分查找
     // 时间复杂度：O(logx)
     public int mySqrt(int x) {
         // 遍历范围 [0,x] 的两端，就对应的 left 和 right
         int left = 0, right = x;
-        int ans = -1;
+        int res = -1;
         // 不断在循环体内找到 k
         while (left <= right) {
-            int k = left + (right - left) / 2;
-            if ((long) k * k <= x) {
-                // 需要将 k 记录下来，因为求解的是 k 的最大值
-                ans = k;
-                // k 不一定是最大值，让 left 右移，看看 k 是否还能再增大
-                left = k + 1;
+            // 这里 mid 等价于 k，
+            int mid = left + (right - left) / 2;
+            // 本身判断条件，就是 <= 一个整体
+            if ((long) mid * mid <= x) {
+                // 因为求解的是 k 的最大值，此时 mid 不一定是最大值
+                // 故先将 mid 记录下来，让 left 右移，看看 mid 是否还能再增大
+                // 此时，直接从 mid+1 开始判断，而不是 mid
+                res = mid;
+                left = mid + 1;
             } else {
-                right = k - 1;
+                right = mid - 1;
             }
         }
-        return ans;
+        return res;
     }
 }

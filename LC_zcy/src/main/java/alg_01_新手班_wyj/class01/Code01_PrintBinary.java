@@ -14,7 +14,7 @@ public class Code01_PrintBinary {
     }
 
     public static void main(String[] args) {
-        int num = 0;
+        int num = 7;
         print(num);
         print(Integer.MAX_VALUE); // -2147483648
 

@@ -7,20 +7,19 @@ package alg_02_train_wyj._08_day_二分查找;
  */
 public class _15_CutWood {
     public static int cutWood1(int k, int[] nums) {
+
         int maxValue = Integer.MIN_VALUE;
         for (int num : nums) {
-            maxValue = Math.max(num, maxValue);
+            maxValue = Math.max(maxValue, num);
         }
 
         int maxM = 0;
-        for (int m = 1; m <= maxValue; m++) {
+        for (int i = 1; i <= maxValue; i++) {
             int cnt = 0;
-            for (int i = 0; i < nums.length; i++) {
-                cnt += nums[i] / m;
+            for (int num : nums) {
+                cnt += num / i;
             }
-            if (cnt >= k) {
-                maxM = Math.max(maxM, m);
-            }
+            if (cnt >= k) maxM = Math.max(maxM, i);
         }
         return maxM;
     }
@@ -30,12 +29,13 @@ public class _15_CutWood {
         for (int num : nums) {
             maxValue = Math.max(maxValue, num);
         }
+
         int left = 1, right = maxValue;
         while (left < right) {
-            int mid = left + (right - left - 1) / 2;
-            if (calWoodCnt(mid, nums) < k) {
+            int mid = left + (right - left + 1) / 2;
+            if (k > calWoodCnt(mid, nums)) {
                 right = mid - 1;
-            } else { // calWoodCnt(mid, nums) >= k
+            } else {
                 left = mid;
             }
         }
@@ -44,8 +44,8 @@ public class _15_CutWood {
 
     private static int calWoodCnt(int mid, int[] nums) {
         int cnt = 0;
-        for (int i = 0; i < nums.length; i++) {
-            cnt += nums[i] / mid;
+        for (int num : nums) {
+            cnt += num / mid;
         }
         return cnt;
     }

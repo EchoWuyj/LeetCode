@@ -9,20 +9,20 @@ public class _14_1539_kth_missing_positive_number {
     public int findKthPositive1(int[] arr, int k) {
         int curNum = 1;
         int missCnt = 0;
-        int lastMissNum = -1;
+        int LastNum = -1;
 
-        int i = 0;
+        int n = arr.length;
+        int index = 0;
         while (missCnt < k) {
-            if (curNum == arr[i]) {
-                i = (i + 1 < arr.length) ? i + 1 : i;
+            if (index < n && arr[index] == curNum) {
+                index++;
             } else {
                 missCnt++;
-                lastMissNum = curNum;
+                LastNum = curNum;
             }
             curNum++;
         }
-
-        return lastMissNum;
+        return LastNum;
     }
 
     public int findKthPositive(int[] arr, int k) {
@@ -30,13 +30,15 @@ public class _14_1539_kth_missing_positive_number {
         int left = 0, right = arr.length;
         while (left < right) {
             int mid = left + (right - left) / 2;
-            if (arr[mid] - mid - 1 < k) {
+            if (k > arr[mid] - mid - 1) {
                 left = mid + 1;
             } else {
                 right = mid;
             }
         }
-        int leftMissCnt = arr[left - 1] - (left - 1) - 1;
-        return arr[left - 1] + (k - leftMissCnt);
+
+        int missCnt = arr[left - 1] - (left - 1) - 1;
+        int res = arr[left - 1] + (k - missCnt);
+        return res;
     }
 }

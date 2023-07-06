@@ -10,7 +10,7 @@ public class _11_201_bitwise_and_of_numbers_range {
     public int rangeBitwiseAnd1(int left, int right) {
         int res = left;
         for (int i = left + 1; i <= right; i++) {
-            res &= i;
+            res ^= i;
         }
         return res;
     }
@@ -22,10 +22,11 @@ public class _11_201_bitwise_and_of_numbers_range {
             right >>= 1;
             shift++;
         }
-        return left << shift;
+        left <<= shift;
+        return left;
     }
 
-    public int rangeBitwiseAnd(int left, int right) {
+    public int rangeBitwiseAnd3(int left, int right) {
         while (left < right) {
             right = right & (right - 1);
         }

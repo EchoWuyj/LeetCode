@@ -7,17 +7,21 @@ package alg_02_train_wyj._06_day_位运算;
  */
 public class _09_260_single_number_iii {
     public int[] singleNumber(int[] nums) {
-        int bitmask = 0;
-        for (int num : nums) bitmask ^= num;
-        int diff = bitmask & (-bitmask);
-        int[] ans = new int[2];
+        int bitMask = 0;
+        for (int num : nums) {
+            bitMask ^= num;
+        }
+
+        int diff = bitMask & (-bitMask);
+
+        int[] res = new int[2];
         for (int num : nums) {
             if ((diff & num) != 0) {
-                ans[0] ^= num;
+                res[0] ^= num;
             } else {
-                ans[1] ^= num;
+                res[1] ^= num;
             }
         }
-        return ans;
+        return res;
     }
 }

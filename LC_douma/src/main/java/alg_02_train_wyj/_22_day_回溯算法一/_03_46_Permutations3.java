@@ -1,6 +1,6 @@
 package alg_02_train_wyj._22_day_回溯算法一;
 
-import alg_02_train_dm._22_day_回溯算法一_2刷._03_46_Permutations4;
+import alg_02_train_dm._22_day_回溯算法一_二刷._03_46_Permutations4;
 
 import java.util.ArrayList;
 import java.util.List;

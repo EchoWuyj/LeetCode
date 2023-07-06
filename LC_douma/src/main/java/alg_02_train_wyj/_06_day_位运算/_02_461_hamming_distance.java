@@ -10,7 +10,7 @@ public class _02_461_hamming_distance {
         int diff = x ^ y;
         int res = 0;
         while (diff != 0) {
-            diff = diff & (diff - 1);
+            diff = (diff) & (diff - 1);
             res++;
         }
         return res;
