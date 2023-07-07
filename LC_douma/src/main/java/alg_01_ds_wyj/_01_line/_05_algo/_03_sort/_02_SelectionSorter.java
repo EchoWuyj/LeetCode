@@ -10,16 +10,16 @@ import java.util.Arrays;
 public class _02_SelectionSorter extends Sorter {
 
     public void sort(int[] data) {
+        if (data == null || data.length <= 1) return;
         int n = data.length;
-        if (data == null || n <= 1) return;
         for (int i = 0; i < n; i++) {
-            int minNumIndex = i;
+            int minValueIndex = i;
             for (int j = i + 1; j < n; j++) {
-                if (data[j] < data[minNumIndex]) {
-                    minNumIndex = j;
+                if (data[j] < data[minValueIndex]) {
+                    minValueIndex = j;
                 }
             }
-            swap(data, minNumIndex, i);
+            swap(data, i, minValueIndex);
         }
     }
 

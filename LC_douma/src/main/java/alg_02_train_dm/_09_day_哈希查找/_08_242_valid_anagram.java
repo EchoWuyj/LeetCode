@@ -11,9 +11,8 @@ import java.util.Map;
  */
 public class _08_242_valid_anagram {
       /*
-        leetcode 242 号算法题：有效的字母异位词
+        242 有效的字母异位词
         给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
-
         注意：若 s 和 t 中每个字符出现的次数都相同，则称 s 和 t 互为字母异位词
 
         输入: s = "anagram", t = "nagaram"
@@ -22,11 +21,17 @@ public class _08_242_valid_anagram {
         输入: s = "rat", t = "car"
         输出: false
 
-        - 你可以假设字符串只包含小写字母。
-        - 如果输入字符串包含 unicode 字符怎么办？你能否调整你的解法来应对这种情况？
+        提示:
+        1 <= s.length, t.length <= 5 * 104
+        s 和 t 仅包含小写字母
+
+        如果输入字符串包含 unicode 字符怎么办？你能否调整你的解法来应对这种情况？
+
      */
 
-    // 字符串只包含小写字母 => 字符串有限个字符个数，使用数组替换 HashMap
+    // KeyPoint 方法一 哈希查找
+    // 限制条件：字符串只包含小写字母 => 字符串有限个字符个数，使用数组替换 HashMap
+    // => 使用 HashMap，速度明显比数组慢了很多
     public boolean isAnagram1(String s, String t) {
         if (s.length() != t.length()) return false;
         int[] map = new int[26];
@@ -38,16 +43,17 @@ public class _08_242_valid_anagram {
         return true;
     }
 
-    // 字符串包含 unicode 字符 => 字符串法确定字符个数，无法使用数组替换 HashMap
-    // KeyPoint 使用 HashMap，速度明显比数组慢了很多
+    // KeyPoint  扩展：字符串包含 unicode 字符 => 哈希查找
+    // 字符串法确定字符个数，无法使用数组替换 HashMap
     public boolean isAnagram2(String s, String t) {
         if (s.length() != t.length()) return false;
+
         // 1. 统计字符串 s 中每个字符出现的次数
         Map<Character, Integer> map = new HashMap<>();
         for (char c : s.toCharArray()) {
             map.put(c, map.getOrDefault(c, 0) + 1);
 
-            // 使用 map.getOrDefault 简化 if else 判断逻辑，代码更加优雅
+            // 优化：使用 map.getOrDefault 简化 if else 判断逻辑，代码更加优雅
 //            if (map.containsKey(c)) {
 //                map.put(c, map.get(c) + 1);
 //            } else {
@@ -65,7 +71,7 @@ public class _08_242_valid_anagram {
         return true;
     }
 
-    // 排序
+    // KeyPoint 方法二 排序
     public boolean isAnagram(String s, String t) {
         if (s.length() != t.length()) return false;
         char[] sChars = s.toCharArray();
@@ -75,6 +81,7 @@ public class _08_242_valid_anagram {
         Arrays.sort(tChars);
 
         // 比较两个数组中元素是否相等
+        // 调用 数组比较 API Arrays.equals
         return Arrays.equals(sChars, tChars);
     }
 }

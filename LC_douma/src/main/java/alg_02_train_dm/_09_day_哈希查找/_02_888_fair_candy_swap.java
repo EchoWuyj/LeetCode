@@ -10,17 +10,17 @@ import java.util.Set;
  */
 public class _02_888_fair_candy_swap {
      /*
-        leetcode 888 号算法题：公平的糖果棒交换
-        爱丽丝和鲍勃有不同大小的糖果棒：
-            A[i] 是爱丽丝拥有的第 i 根糖果棒的大小，
-            B[j] 是鲍勃拥有的第 j 根糖果棒的大小。
+        888 号算法题：公平的糖果棒交换
+        Alice 和 Bob 有 不同大小 的糖果棒：
+        A[i] 是爱丽丝拥有的 第 i 根糖果棒的大小，
+        B[j] 是鲍勃拥有的 第 j 根糖果棒的大小。
 
         因为他们是朋友，所以他们想交换一根糖果棒，
-        这样交换后，他们都有相同的糖果总量 (一个人拥有的糖果总量是他们拥有的糖果棒大小的总和)
+        这样交换后，他们都有相同的糖果总量 (一个人拥有的糖果总量：是他们拥有的糖果棒大小的总和)
 
         返回一个整数数组 ans，其中
-            ans[0] 是爱丽丝必须交换的糖果棒的大小，
-            ans[1] 是 Bob 必须交换的糖果棒的大小。
+        ans[0] 是 Alice 必须交换的糖果棒的大小，
+        ans[1] 是 Bob 必须交换的糖果棒的大小。
 
         如果有多个答案，你可以返回其中任何一个。保证答案存在。
 
@@ -41,14 +41,14 @@ public class _02_888_fair_candy_swap {
 
         KeyPoint 分析
         思路：
-            爱丽丝糖果总数：sumA
-            鲍勃糖果总数：sumB
+        爱丽丝糖果总数：sumA
+        鲍勃糖果总数：sumB
         爱丽丝给 x 大小糖果给鲍勃，鲍勃给 y 大小糖果给爱丽丝
         有公式 sumA - x + y = sumB - y + x
                => x = y + (sumA - sumB) / 2
 
-        对于 B 中任意 y，只要 A 中存在一个数 x，满足 x = y + (sumA - sumB) / 2
-        那么 (x，y) 就是一个解
+        对于 B 中任意 y，只要 A 中存在一个数 x
+        满足 x = y + (sumA - sumB) / 2，那么 (x，y) 就是一个解
      */
 
     public int[] fairCandySwap(int[] A, int[] B) {
@@ -65,8 +65,13 @@ public class _02_888_fair_candy_swap {
         for (int num : A) set.add(num);
 
         int[] ans = new int[2];
+        // 注意：字符对应关系
+        // Alice => A => x
+        // Bob => B => y
+
+        // 遍历 B 中每个元素 y，通过公式计算 x，x = y + (sumA - sumB) / 2
+        // 再判断 A 是否存在 x，若存在将 x 和 y 分别记录 res[0] 和 res[1]
         for (int y : B) {
-            // 遍历 B 中元素，分析是否存在 y
             int x = y + delta;
             if (set.contains(x)) {
                 ans[0] = x;
@@ -74,7 +79,6 @@ public class _02_888_fair_candy_swap {
                 break;
             }
         }
-
         return ans;
     }
 }

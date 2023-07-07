@@ -1,7 +1,6 @@
 package alg_02_train_wyj._09_day_哈希查找;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Author Wuyj
@@ -12,20 +11,22 @@ public class _07_290_word_pattern {
 
     public boolean wordPattern(String pattern, String s) {
         String[] words = s.split(" ");
-        if (pattern.length() != words.length) return false;
+        //if (pattern.length() != words.length) return false;
 
-        Map<Character, String> char2Word = new HashMap<>();
-        Map<String, Character> word2Char = new HashMap<>();
+        HashMap<String, Character> str2Char = new HashMap<>();
+        HashMap<Character, String> char2Str = new HashMap<>();
 
-        for (int i = 0; i < pattern.length(); i++) {
+        int n = pattern.length();
+        for (int i = 0; i < n; i++) {
             char c = pattern.charAt(i);
             String word = words[i];
-            if (char2Word.containsKey(c) && !char2Word.get(c).equals(word)
-                    || word2Char.containsKey(word) && !word2Char.get(word).equals(c)) {
+
+            if (str2Char.containsKey(word) && !str2Char.get(word).equals(c)
+                    || char2Str.containsKey(c) && !char2Str.get(c).equals(word)) {
                 return false;
             }
-            char2Word.put(c, word);
-            word2Char.put(word, c);
+            str2Char.put(word, c);
+            char2Str.put(c, word);
         }
         return true;
     }

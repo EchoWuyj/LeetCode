@@ -8,7 +8,7 @@ package alg_01_ds_dm._01_line._05_algo._03_sort;
 public class _06_Note_Log_Operation {
 
     /*
-        对数运算
+        数学知识：对数运算
         https://zhuanlan.zhihu.com/p/72510602
      */
 }

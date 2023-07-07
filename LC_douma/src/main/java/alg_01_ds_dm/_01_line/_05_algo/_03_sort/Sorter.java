@@ -6,7 +6,7 @@ package alg_01_ds_dm._01_line._05_algo._03_sort;
  * @Version 1.0
  */
 
-// 排序父类
+// 排序父类 => 自定义
 public class Sorter {
 
     // 支持泛型 T，泛型方法需要方法签名中申明 <T>

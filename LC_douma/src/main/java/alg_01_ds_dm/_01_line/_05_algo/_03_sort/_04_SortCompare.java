@@ -53,7 +53,7 @@ public class _04_SortCompare {
         System.out.println(t1 / t2); // t1 > t2 => 用时，bubble > selection
         System.out.println(t2 / t3); // t2 > t3 => 用时，selection > insertion1
         System.out.println(t3 / t4); // t3 > t4 => 用时，交换 > 赋值
-        System.out.println(t3 / t5); // t3 > t5  => 用时，insertion1 > shell
+        System.out.println(t3 / t5); // t3 > t5  => 用时，insertion1 > shell => shell 性能优于 insertion1
 
         // 结论：插入排序性能最好，其次是选择排序，最后是冒泡排序
         // 补充说明：

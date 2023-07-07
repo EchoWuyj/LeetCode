@@ -27,7 +27,7 @@ public class _09_49_group_anagrams {
             int[] count = new int[26];
             for (char c : chars) count[c - 'a']++;
             String key = Arrays.toString(count);
-            if (! map.containsKey(key)) map.put(key, new ArrayList<>());
+            if (!map.containsKey(key)) map.put(key, new ArrayList<>());
             map.get(key).add(str);
         }
         return new ArrayList<>(map.values());

@@ -11,23 +11,29 @@ import java.util.Set;
 public class _02_888_fair_candy_swap {
 
     public int[] fairCandySwap(int[] A, int[] B) {
-        int sumA = 0;
-        for (int a : A) sumA += a;
-        int sumB = 0;
-        for (int b : B) sumB += b;
+        int sumA = 0, sumB = 0;
+        for (int a : A) {
+            sumA += a;
+        }
+
+        for (int b : B) {
+            sumB += b;
+        }
 
         int delta = (sumA - sumB) / 2;
-        Set<Integer> set = new HashSet<>();
-        for (int num : A) set.add(num);
 
-        int[] ans = new int[2];
+        Set<Integer> set = new HashSet<>();
+        for (int a : A) set.add(a);
+
+        int[] res = new int[2];
+
         for (int y : B) {
             int x = y + delta;
             if (set.contains(x)) {
-                ans[0] = x;
-                ans[1] = y;
+                res[0] = x;
+                res[1] = y;
             }
         }
-        return ans;
+        return res;
     }
 }

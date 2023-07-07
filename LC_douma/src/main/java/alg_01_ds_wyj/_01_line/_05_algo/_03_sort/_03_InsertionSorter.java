@@ -9,8 +9,8 @@ import java.util.Arrays;
  */
 public class _03_InsertionSorter extends Sorter {
     public void sort(int[] data) {
+        if (data == null || data.length <= 1) return;
         int n = data.length;
-        if (data == null || n <= 1) return;
         for (int i = 1; i < n; i++) {
             for (int j = i; j > 0; j--) {
                 if (data[j] < data[j - 1]) {
@@ -24,7 +24,7 @@ public class _03_InsertionSorter extends Sorter {
 
     public void sort1(int[] data) {
         int n = data.length;
-        if (data == null || n <= 1) return;
+        if (data == null || data.length <= 1) return;
         for (int i = 1; i < n; i++) {
             int tmp = data[i];
             int j;

@@ -1,7 +1,6 @@
 package alg_02_train_wyj._09_day_哈希查找;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Author Wuyj
@@ -11,21 +10,21 @@ import java.util.Map;
 public class _06_205_isomorphic_strings {
 
     public boolean isIsomorphic(String s, String t) {
-        Map<Character, Character> s2tMap = new HashMap<>();
-        Map<Character, Character> t2sMap = new HashMap<>();
+        HashMap<Character, Character> s2t = new HashMap<>();
+        HashMap<Character, Character> t2s = new HashMap<>();
 
-        for (int i = 0; i < s.length(); i++) {
-            char sc = s.charAt(i);
-            char tc = t.charAt(i);
-            if ((s2tMap.containsKey(sc) && s2tMap.get(sc) != tc)
-                    || (t2sMap.containsKey(tc) && t2sMap.get(tc) != sc)) {
+        int n = s.length();
+        for (int i = 0; i < n; i++) {
+            char cs = s.charAt(i);
+            char ct = t.charAt(i);
+
+            if (s2t.containsKey(cs) && s2t.get(cs) != ct
+                    || t2s.containsKey(ct) && t2s.get(ct) != cs) {
                 return false;
-            } else {
-                s2tMap.put(sc, tc);
-                t2sMap.put(tc, sc);
             }
+            s2t.put(cs, ct);
+            t2s.put(ct, cs);
         }
-
         return true;
     }
 }

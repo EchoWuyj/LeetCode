@@ -17,18 +17,18 @@ public class _05_ShellSorter extends Sorter {
         int k = 1;
         int h;
         do {
-            h = ((int) Math.pow(3, k) - 1) / 2;
-            if (h > n / 3 && n >= 3) break;
+            h = ((int) (Math.pow(3, k) - 1)) / 2;
+            if (n >= 3 && h > n / 3) break;
             list.add(h);
             k++;
         } while (h <= n / 3);
 
-        for (int ele = list.size() - 1; ele >= 0; ele--) {
-            h = list.get(ele);
+        for (int element = list.size() - 1; element >= 0; element--) {
+            h = list.get(element);
             for (int i = h; i < n; i++) {
                 for (int j = i; j >= h; j -= h) {
                     if (data[j] < data[j - h]) {
-                        swap(data, j, j - h);
+                        swap(data,j,j-h);
                     } else {
                         break;
                     }
@@ -58,7 +58,7 @@ public class _05_ShellSorter extends Sorter {
 
     public static void main(String[] args) {
         int[] data = new int[]{2, 5, 1, 23, 22, 33, 56, 12, 5, 3, 5, 6, 8, 2, 3, 4};
-        new _05_ShellSorter().sort1(data);
+        new _05_ShellSorter().sort(data);
         System.out.println(Arrays.toString(data)); // [1, 2, 2, 3, 3, 4, 5, 5, 5, 6, 8, 12, 22, 23, 33, 56]
     }
 }

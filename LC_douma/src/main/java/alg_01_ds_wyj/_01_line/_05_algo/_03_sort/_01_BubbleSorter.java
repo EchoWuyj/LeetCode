@@ -9,18 +9,18 @@ import java.util.Arrays;
  */
 public class _01_BubbleSorter extends Sorter {
     public void sort(int[] data) {
-        if (data == null || data.length <= 1) return;
+        if (data == null || data.length == 1) return;
         int n = data.length;
         for (int round = 1; round <= n; round++) {
             int compareTimes = n - round;
-            boolean hasSwap = false;
+            boolean isSwap = false;
             for (int i = 0; i < compareTimes; i++) {
                 if (data[i] > data[i + 1]) {
                     swap(data, i, i + 1);
-                    hasSwap = true;
+                    isSwap = true;
                 }
             }
-            if (!hasSwap) break;
+            if (!isSwap) break;
         }
     }
 

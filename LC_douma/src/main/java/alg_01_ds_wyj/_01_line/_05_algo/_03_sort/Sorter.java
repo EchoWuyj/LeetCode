@@ -6,21 +6,23 @@ package alg_01_ds_wyj._01_line._05_algo._03_sort;
  * @Version 1.0
  */
 public class Sorter {
-    public static void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
-    }
 
-    public static void swap(Integer[] nums, int i, int j) {
-        Integer tmp = nums[i];
+    // 支持泛型 T，泛型方法需要方法签名中申明 <T>
+    public static <T> void swap(T[] nums, int i, int j) {
+        T tmp = nums[i];
         nums[i] = nums[j];
         nums[j] = tmp;
     }
 
-    public <E> void swap(E[] data, int i, int j) {
-        E tmp = data[i];
-        data[i] = data[j];
-        data[j] = tmp;
+    public static void swap(Integer[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+
+    public static void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
     }
 }

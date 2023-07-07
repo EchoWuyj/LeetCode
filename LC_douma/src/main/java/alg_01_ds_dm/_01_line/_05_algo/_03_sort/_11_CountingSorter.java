@@ -9,6 +9,9 @@ import java.util.Arrays;
  */
 public class _11_CountingSorter {
 
+    // 计数排序
+    // 思路：
+    //
     public static void sort(int[] data) {
         int length = data.length;
         if (data == null || length <= 1) return;

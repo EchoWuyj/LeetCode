@@ -2,7 +2,6 @@ package alg_02_train_wyj._09_day_哈希查找;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author Wuyj
@@ -11,17 +10,18 @@ import java.util.Map;
  */
 public class _05_554_brick_wall {
     public int leastBricks(List<List<Integer>> wall) {
-        Map<Integer, Integer> edgeFreq = new HashMap<>();
-        int maxFreq = 0;
-        for (int row = 0; row < wall.size(); row++) {
-            int edgePosition = 0;
-            for (int col = 0; col < wall.get(row).size() - 1; col++) {
-                int curBrickLength = wall.get(row).get(col);
-                edgePosition += curBrickLength;
-                edgeFreq.put(edgePosition, edgeFreq.getOrDefault(edgePosition, 0) + 1);
-                maxFreq = Math.max(maxFreq, edgeFreq.get(edgePosition));
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int size = wall.size();
+        int maxCnt = 0;
+        for (int i = 0; i < size; i++) {
+            int edgePos = 0;
+            for (int j = 0; j < wall.get(i).size() - 1; j++) {
+                int curBrickLen = wall.get(i).get(j);
+                edgePos += curBrickLen;
+                map.put(edgePos, map.getOrDefault(edgePos, 0) + 1);
+                maxCnt = Math.max(maxCnt, map.get(edgePos));
             }
         }
-        return wall.size() - maxFreq;
+        return wall.size() - maxCnt;
     }
 }

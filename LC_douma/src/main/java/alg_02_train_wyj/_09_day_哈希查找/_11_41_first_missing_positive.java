@@ -10,24 +10,28 @@ import java.util.Set;
  */
 public class _11_41_first_missing_positive {
     public int firstMissingPositive1(int[] nums) {
-        for (int i = 1; i <= nums.length; i++) {
-            boolean isExists = false;
-            for (int j = 0; j < nums.length; j++) {
-                if (nums[j] == i) isExists = true;
+        int n = nums.length;
+        for (int i = 1; i <= n; i++) {
+            boolean isExist = false;
+            for (int j = 0; j < n; j++) {
+                if (i == nums[j]) {
+                    isExist = true;
+                    break;
+                }
             }
-            if (!isExists) return i;
+            if (!isExist) return i;
         }
-        return nums.length + 1;
+        return n + 1;
     }
 
     public int firstMissingPositive2(int[] nums) {
         Set<Integer> set = new HashSet<>();
         for (int num : nums) set.add(num);
-
-        for (int i = 1; i <= nums.length; i++) {
+        int n = nums.length;
+        for (int i = 1; i <= n; i++) {
             if (!set.contains(i)) return i;
         }
-        return nums.length + 1;
+        return n + 1;
     }
 
     public int firstMissingPositive3(int[] nums) {
@@ -42,8 +46,9 @@ public class _11_41_first_missing_positive {
                 nums[num - 1] = -Math.abs(nums[num - 1]);
             }
         }
+
         for (int i = 0; i < n; i++) {
-            if (nums[i] > 0) return (i + 1);
+            if (nums[i] > 0) return i + 1;
         }
         return n + 1;
     }

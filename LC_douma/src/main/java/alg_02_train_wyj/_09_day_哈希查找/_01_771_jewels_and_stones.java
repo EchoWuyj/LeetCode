@@ -1,6 +1,7 @@
 package alg_02_train_wyj._09_day_哈希查找;
 
 import alg_01_ds_wyj._03_high_level._02_set.HashSet;
+import alg_01_ds_wyj._03_high_level._02_set.Set;
 
 /**
  * @Author Wuyj
@@ -9,33 +10,38 @@ import alg_01_ds_wyj._03_high_level._02_set.HashSet;
  */
 public class _01_771_jewels_and_stones {
     public int numJewelsInStones1(String jewels, String stones) {
-        int ans = 0;
-        for (char c : stones.toCharArray()) {
+        int res = 0;
+        for (char s : stones.toCharArray()) {
             for (char j : jewels.toCharArray()) {
-                if (c == j) ans++;
+                if (s == j) {
+                    res++;
+                }
             }
         }
-        return ans;
+        return res;
     }
 
     public int numJewelsInStones2(String jewels, String stones) {
-        int ans = 0;
-        HashSet<Character> set = new HashSet<>();
-        for (char c : jewels.toCharArray()) set.add(c);
-        for (char c : stones.toCharArray()) {
-            if (set.contains(c)) ans++;
+        Set<Character> set = new HashSet<>();
+        int res = 0;
+        for (char j : jewels.toCharArray()) set.add(j);
+        for (char s : stones.toCharArray()) {
+            if (set.contains(s)) res++;
         }
-        return ans;
+        return res;
     }
 
     public int numJewelsInStones(String jewels, String stones) {
-        int ans = 0;
         int len = 'z' - 'A' + 1;
         int[] count = new int[len];
-        for (char c : jewels.toCharArray()) count[c - 'A'] = 1;
-        for (char c : stones.toCharArray()) {
-            if (count[c - 'A'] == 1) ans++;
+
+        for (char j : jewels.toCharArray()) {
+            count[j - 'A'] = 1;
         }
-        return ans;
+        int res = 0;
+        for (char s : stones.toCharArray()) {
+            if (count[s - 'A'] == 1) res++;
+        }
+        return res;
     }
 }

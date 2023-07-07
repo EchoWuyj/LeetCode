@@ -16,9 +16,7 @@ public class _08_242_valid_anagram {
         for (char c : s.toCharArray()) map[c - 'a']++;
         for (char c : t.toCharArray()) {
             map[c - 'a']--;
-            if (map[c - 'a'] < 0) {
-                return false;
-            }
+            if (map[c - 'a'] < 0) return false;
         }
         return true;
     }
@@ -26,12 +24,9 @@ public class _08_242_valid_anagram {
     public boolean isAnagram2(String s, String t) {
         if (s.length() != t.length()) return false;
         Map<Character, Integer> map = new HashMap<>();
+
         for (char c : s.toCharArray()) {
-            if (map.containsKey(c)) {
-                map.put(c, map.get(c) + 1);
-            } else {
-                map.put(c, 1);
-            }
+            map.put(c, map.getOrDefault(c, 0) + 1);
         }
 
         for (char c : t.toCharArray()) {
@@ -42,12 +37,11 @@ public class _08_242_valid_anagram {
     }
 
     public boolean isAnagram(String s, String t) {
-        if (s.length() != t.length())  return false;
-        char[] sChars = s.toCharArray();
-        char[] tChars = t.toCharArray();
-        Arrays.sort(sChars);
-        Arrays.sort(tChars);
-
-        return Arrays.equals(sChars, tChars);
+        if (s.length() != t.length()) return false;
+        char[] char1 = s.toCharArray();
+        char[] char2 = t.toCharArray();
+        Arrays.sort(char1);
+        Arrays.sort(char2);
+        return Arrays.equals(char1, char2);
     }
 }

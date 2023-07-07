@@ -7,11 +7,14 @@ package alg_02_train_wyj._09_day_哈希查找;
  */
 public class _04_389_find_the_difference {
     public char findTheDifference1(String s, String t) {
-        int[] countS = new int[26];
-        for (char c : s.toCharArray()) countS[c - 'a']++;
+        int[] count = new int[26];
+        for (char c : s.toCharArray()) {
+            count[c - 'a']++;
+        }
+
         for (char c : t.toCharArray()) {
-            countS[c - 'a']--;
-            if (countS[c - 'a'] < 0) return c;
+            count[c - 'a']--;
+            if (count[c - 'a'] < 0) return c;
         }
         return ' ';
     }

@@ -12,9 +12,10 @@ import java.util.Map;
 public class _04_136_single_number {
     public int singleNumber1(int[] nums) {
         if (nums.length == 1) return nums[0];
-        for (int i = 0; i < nums.length; i++) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
             boolean isExist = true;
-            for (int j = 0; j < nums.length; j++) {
+            for (int j = 0; j < n; j++) {
                 if (i != j && nums[i] == nums[j]) {
                     isExist = false;
                     break;
@@ -28,18 +29,22 @@ public class _04_136_single_number {
     public int singleNumber2(int[] nums) {
         if (nums.length == 1) return nums[0];
         Arrays.sort(nums);
-        for (int i = 0; i < nums.length; i++) {
-            if (i == 0 && nums[i] != nums[i + 1]) return nums[i];
-            else if (i == nums.length - 1 && nums[i] != nums[i - 1]) return nums[i];
-            else if (i > 0 && nums[i] != nums[i - 1] && nums[i] != nums[i + 1]) return nums[i];
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            if (i == 0 && nums[i] != nums[i + 1]) return nums[0];
+            else if (i == n - 1 && nums[i] != nums[i - 1]) return nums[n - 1];
+            else if (i > 0 && nums[i] != nums[i - 1] && i + 1 < n && nums[i] != nums[i + 1]) return nums[i];
         }
         return -1;
     }
 
     public int singleNumber3(int[] nums) {
         if (nums.length == 1) return nums[0];
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int num : nums) map.put(num, map.getOrDefault(num, 0) + 1);
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
             if (entry.getValue() == 1) return entry.getKey();
         }
@@ -47,10 +52,10 @@ public class _04_136_single_number {
     }
 
     public int singleNumber(int[] nums) {
-        int single = 0;
+        int res = 0;
         for (int num : nums) {
-            single ^= num;
+            res ^= num;
         }
-        return single;
+        return res;
     }
 }

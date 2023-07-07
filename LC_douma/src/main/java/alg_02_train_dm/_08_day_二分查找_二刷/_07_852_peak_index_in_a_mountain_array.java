@@ -1,4 +1,4 @@
-package alg_02_train_dm._08_day_二分查找;
+package alg_02_train_dm._08_day_二分查找_二刷;
 
 /**
  * @Author Wuyj
