@@ -61,7 +61,8 @@ public class _06_MergeSorter1 {
     // 在 sort 方法中，最开始创建 tmp，后面每次调用即可，局部使用
     private static void merge(int[] data, int left, int mid, int right, int[] tmp) {
 
-        // 思路：
+        // KeyPoint 思路：
+        // 核心：data 有序数组
         // 1.data 归并排序到 tmp    => 归并操作
         // 2.tmp 再往 data 上拷贝   => 无脑拷贝
 
@@ -106,7 +107,8 @@ public class _06_MergeSorter1 {
     // KeyPoint 合并两个有序的数组 => 实现二 => 经常使用，需要掌握
     private static void merge2(int[] data, int left, int mid, int right, int[] tmp) {
 
-        // 思路：
+        // KeyPoint 思路：
+        // 核心：data 有序数组
         // 1.先将 data 数组中元素，拷贝到 tmp 中 => 无脑拷贝
         // 2.再针对 tmp，将其归并到 data 中      => 归并操作
         //                                      => 归并算法题目，常在归并操作中有骚操作
@@ -127,6 +129,7 @@ public class _06_MergeSorter1 {
             // KeyPoint 编程技巧：
             // if else 分支中，先将极端情况放在前面，将极端情况排除之后就是一般情况
 
+            // KeyPoint 整个过程 tmp 赋值给 data，逻辑关系不要反了，很容易出错
             // 1.左边没有元素，右边有元素
             //   i 最右为 mid，i == mid+1 越界
             // 2.for 循环中，对 index 进行限制，不存在 i == mid+1 && j == right+1 情况
@@ -137,6 +140,9 @@ public class _06_MergeSorter1 {
                 // 2.左边有元素，右边没有元素
                 //   j 最右为 right，j == right+1 越界
                 data[index] = tmp[i++];
+                // KeyPoint 易错点
+                // 1.tmp 数组间比较
+                // 2.同时是 tmp 赋值给 data，不是 data 赋值 data
             } else if (tmp[i] <= tmp[j]) {
                 // 3.左边有元素，右边有元素，比较大小进行归并，谁小就先归并谁
                 // 注意：比较的是 tmp，被赋值的是 data

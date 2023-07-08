@@ -10,7 +10,8 @@ import java.util.Arrays;
 public class _07_QuickSort extends Sorter {
     public void sort(int[] data) {
         if (data == null || data.length <= 1) return;
-        sort(data, 0, data.length - 1);
+        int n = data.length;
+        sort(data, 0, n - 1);
     }
 
     public void sort(int[] data, int low, int high) {
@@ -21,12 +22,14 @@ public class _07_QuickSort extends Sorter {
     }
 
     private int partition(int[] data, int low, int high) {
+
         int pivot = data[high];
         int less = low;
         int great = low;
+
         for (; great <= high - 1; great++) {
             if (data[great] < pivot) {
-                swap(data, less, great);
+                swap(data, great, less);
                 less++;
             }
         }

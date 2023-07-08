@@ -10,16 +10,17 @@ import java.util.Arrays;
 public class _08_ThreeWayQuickSorter extends Sorter {
     public void sort(int[] data) {
         if (data == null || data.length <= 1) return;
-        sort(data, 0, data.length - 1);
+        int n = data.length;
+        sort(data, 0, n - 1);
     }
 
     public void sort(int[] data, int low, int high) {
         if (low >= high) return;
-        int pivot = data[high];
+        int i = low;
         int less = low;
         int great = high;
+        int pivot = data[high];
 
-        int i = low;
         while (i <= great) {
             if (data[i] < pivot) {
                 swap(data, i, less);
@@ -28,13 +29,13 @@ public class _08_ThreeWayQuickSorter extends Sorter {
             } else if (data[i] > pivot) {
                 swap(data, i, great);
                 great--;
-            } else {
+            } else if (data[i] == pivot) {
                 i++;
             }
         }
 
         sort(data, low, less - 1);
-        sort(data, less + 1, high);
+        sort(data, great + 1, high);
     }
 
     public static void main(String[] args) {

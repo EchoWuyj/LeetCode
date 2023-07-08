@@ -6,7 +6,7 @@ package alg_01_ds_dm._01_line._05_algo._03_sort.train;
  * @Version 1.0
  */
 
-// KeyPoint 详细注释 _18_164_maximum_gap
+// 详细注释 _18_164_maximum_gap
 public class _04_164_MaximumGap {
 
 }

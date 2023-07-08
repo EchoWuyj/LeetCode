@@ -44,13 +44,24 @@ public class _06_MergeSorter2 {
             // 元素 1 2  3 4  5 6 7
             //     |--| |--| |--|
 
+            // KeyPoint 对于抽象坐标变换，通过简单具体例子，来梳理数学关系
+            // 如：四四合并，size = 2
+            //   0   1   2      3
+            // left mid mid+1 right
+            // mid = left + size - 1
+            // right = left + 2 * size - 1;
             for (int left = 0; left < n - size; left += 2 * size) {
+                // mid 为第一组数组的结尾
                 int mid = left + size - 1;
+                // KeyPoint 处理数组 mid 和 right 可能越界的一种方式
+                // 更加保险，铁定不会错
+                // int mid = Math.min(left + size - 1, n - 1);
+
                 // 数组索引从 0 开始，故计算 right 还要 -1
                 // 同时 right 还不能超过 n-1，故两者中取最小值
                 int right = Math.min(left + 2 * size - 1, n - 1);
                 // merge 合并需要 left，mid，right 前中后三个位置指针
-                merge(data, left, mid, right, tmp);
+                merge1(data, left, mid, right, tmp);
             }
         }
     }
@@ -99,6 +110,28 @@ public class _06_MergeSorter2 {
             // data 又重新从 left 开始
             // tmp[index] 中不用 index 不用++，已经是在 for 循环中，存在 index++
             data[left++] = tmp[index];
+        }
+    }
+
+    // KeyPoint 合并两个有序的数组 => 实现二 => 经常使用，需要掌握
+    public static void merge1(int[] data, int left, int mid, int right, int[] tmp) {
+        for (int i = left; i <= right; i++) {
+            tmp[i] = data[i];
+        }
+
+        int i = left;
+        int j = mid + 1;
+
+        for (int index = left; index <= right; index++) {
+            if (i == mid + 1) {
+                data[index] = tmp[j++];
+            } else if (j == right + 1) {
+                data[index] = tmp[i++];
+            } else if (tmp[i] <= tmp[j]) {
+                data[index] = tmp[i++];
+            } else {
+                data[index] = tmp[j++];
+            }
         }
     }
 

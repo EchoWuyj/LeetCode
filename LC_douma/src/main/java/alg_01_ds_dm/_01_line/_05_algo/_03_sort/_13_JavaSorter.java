@@ -12,7 +12,7 @@ import java.util.Comparator;
  * @DateTime 2023-05-11 18:21
  * @Version 1.0
  */
-public class _13_JavaSorter {
+public class _14_JavaSorter {
     public static void main(String[] args) {
         System.out.println("=== test1 ====");
         test1();

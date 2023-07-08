@@ -16,7 +16,7 @@ public class Sorter {
         nums[j] = tmp;
     }
 
-    public void swap(Integer[] nums, int i, int j) {
+    public static void swap(Integer[] nums, int i, int j) {
         int tmp = nums[i];
         nums[i] = nums[j];
         nums[j] = tmp;

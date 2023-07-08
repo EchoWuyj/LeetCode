@@ -10,37 +10,38 @@ import java.util.Arrays;
 public class _12_RadixSorter {
     public void sort(int[] data) {
         if (data == null || data.length <= 1) return;
-        int max = data[0];
-        int len = data.length;
-        for (int i = 1; i < len; i++) {
-            max = Math.max(max, data[i]);
+
+        int maxValue = data[0];
+        for (int num : data) {
+            maxValue = Math.max(maxValue, num);
         }
 
-        for (int exp = 1; max / exp > 0; exp *= 10) {
+        for (int exp = 1; maxValue / exp > 0; exp *= 10) {
             countSort(data, exp);
         }
     }
 
-    private void countSort(int[] data, int exp) {
+    public void countSort(int[] data, int exp) {
         int[] count = new int[10];
-        for (int i = 0; i < data.length; i++) {
-            int digit = (data[i] / exp) % 10;
-            count[digit]++;
+        int n = data.length;
+        for (int i = 0; i < n; i++) {
+            int num = (data[i] / exp) % 10;
+            count[num]++;
         }
 
         for (int i = 1; i < count.length; i++) {
             count[i] += count[i - 1];
         }
 
-        int[] output = new int[data.length];
-        for (int i = data.length - 1; i >= 0; i--) {
-            int digit = (data[i] / exp) % 10;
-            int k = count[digit] - 1;
-            output[k] = data[i];
-            count[digit]--;
+        int[] output = new int[n];
+        for (int i = n - 1; i >= 0; i--) {
+            int num = (data[i] / exp) % 10;
+            int index = count[num] - 1;
+            output[index] = data[i];
+            count[num]--;
         }
 
-        for (int i = 0; i < data.length; i++) {
+        for (int i = 0; i < n; i++) {
             data[i] = output[i];
         }
     }

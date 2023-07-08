@@ -7,21 +7,22 @@ package alg_01_ds_dm._01_line._05_algo._03_sort;
  */
 public class _11_Note_Time_Complexity {
     /*
+
         1.加法规则(多项相加，只保留最高阶的项，且系数变为1)
             T(n) = T1(n) + T2(n) = O(f(n)) + O(g(n)) = O(max(f(n) , g(n)))
 
         2.乘法规则(多项相乘，都保留)
             T(n) = T1(n) × T2(n) = O(f(n)) × O(g(n)) = O(f(n) × g(n))
 
-        1、顺序执行代码中语句只会影响常数项，可以忽略
+        1、顺序执行代码中语句只会影响 常数项，可以忽略
         2、循环语句中，只需挑循环中的一个基本操作分析它的执行次数和 n 的关系即可；
         3、如果有多层嵌套循环，只需关注最深层循环循环了几次
 
         O(1) < O(log2n) < O(n) < O(nlog2n) < O(n2) 对应图像要牢记
 
         参考博客
-            https://blog.csdn.net/qq_43290883/article/details/127172599
-            https://blog.csdn.net/zhangt766/article/details/126611255
+        https://blog.csdn.net/qq_43290883/article/details/127172599
+        https://blog.csdn.net/zhangt766/article/details/126611255
 
             
      */

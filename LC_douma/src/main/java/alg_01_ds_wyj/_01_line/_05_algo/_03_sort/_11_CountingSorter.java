@@ -9,19 +9,17 @@ import java.util.Arrays;
  */
 public class _11_CountingSorter {
     public static void sort(int[] data) {
-        int length = data.length;
-        if (data == null || length <= 1) return;
+        if (data == null || data.length <= 1) return;
+        int n = data.length;
         int max = data[0];
         int min = data[0];
-
-        for (int i = 1; i < length; i++) {
-            max = Math.max(max, data[i]);
-            min = Math.min(min, data[i]);
+        for (int num : data) {
+            min = Math.min(num, min);
+            max = Math.max(num, max);
         }
-
         int[] count = new int[max - min + 1];
 
-        for (int i = 1; i < length; i++) {
+        for (int i = 0; i < n; i++) {
             count[data[i] - min]++;
         }
 
@@ -29,15 +27,15 @@ public class _11_CountingSorter {
             count[i] += count[i - 1];
         }
 
-        int[] output = new int[length];
-        for (int i = length - 1; i >= 0; i--) {
-            int j = data[i];
-            int k = count[data[i] - min] - 1;
-            output[k] = data[i];
-            count[j - min]--;
+        int[] output = new int[n];
+        for (int i = n - 1; i >= 0; i--) {
+            int num = data[i];
+            int index = count[num - min] - 1;
+            output[index] = data[i];
+            count[num - min]--;
         }
 
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < n; i++) {
             data[i] = output[i];
         }
     }
