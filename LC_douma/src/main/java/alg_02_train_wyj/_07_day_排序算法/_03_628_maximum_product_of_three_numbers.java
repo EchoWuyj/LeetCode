@@ -29,6 +29,7 @@ public class _03_628_maximum_product_of_three_numbers {
                 max3 = num;
             }
         }
-        return Math.max(max1 * max2 * max3, min1 * min2 * max1);
+
+        return Math.max(min1 * min2 * max1, max1 * max2 * max3);
     }
 }

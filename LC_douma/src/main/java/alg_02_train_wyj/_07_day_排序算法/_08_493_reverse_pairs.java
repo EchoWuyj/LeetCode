@@ -6,28 +6,28 @@ package alg_02_train_wyj._07_day_排序算法;
  * @Version 1.0
  */
 public class _08_493_reverse_pairs {
-
     public int reversePairs(int[] nums) {
-        if (nums == null || nums.length < 2) return 0;
         int n = nums.length;
         int[] tmp = new int[n];
-        return mergeSort(nums, 0, n - 1, tmp);
+        return sort(nums, 0, n - 1, tmp);
     }
 
-    public int mergeSort(int[] nums, int left, int right, int[] tmp) {
+    public int sort(int[] nums, int left, int right, int[] tmp) {
         if (left >= right) return 0;
         int mid = left + (right - left) / 2;
-        int leftCount = mergeSort(nums, left, mid, tmp);
-        int rightCount = mergeSort(nums, mid + 1, right, tmp);
-        int i = left, j = mid + 1;
+        int leftCount = sort(nums, left, mid, tmp);
+        int rightCount = sort(nums, mid + 1, right, tmp);
+
+        int i = left;
+        int j = mid + 1;
         int count = 0;
         while (i <= mid) {
-            while (j <= right && (long) nums[i] > (long) 2 * nums[j]) j++;
-            count += (j - mid - 1);
+            while (j <= right && (long) nums[i] > (2 * (long) nums[j])) j++;
+            count += j - (mid + 1);
             i++;
         }
         merge(nums, left, mid, right, tmp);
-        return leftCount + rightCount + count;
+        return count + leftCount + rightCount;
     }
 
     public void merge(int[] nums, int left, int mid, int right, int[] tmp) {
@@ -42,12 +42,10 @@ public class _08_493_reverse_pairs {
                 nums[index] = tmp[j++];
             } else if (j == right + 1) {
                 nums[index] = tmp[i++];
+            } else if (tmp[i] <= tmp[j]) {
+                nums[index] = tmp[i++];
             } else {
-                if (tmp[i] <= tmp[j]) {
-                    nums[index] = tmp[i++];
-                } else {
-                    nums[index] = tmp[j++];
-                }
+                nums[index] = tmp[j++];
             }
         }
     }

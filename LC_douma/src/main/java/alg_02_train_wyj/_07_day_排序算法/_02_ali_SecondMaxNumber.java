@@ -24,5 +24,8 @@ public class _02_ali_SecondMaxNumber {
     public static void main(String[] args) {
         int[] array = new int[]{1, 2, 3, 4, 5};
         System.out.println(getSecondMax(array)); // 4
+
+        int[] array1 = new int[]{1, 2, 3, 4, 5, 6};
+        System.out.println(getSecondMax(array1)); // 5
     }
 }

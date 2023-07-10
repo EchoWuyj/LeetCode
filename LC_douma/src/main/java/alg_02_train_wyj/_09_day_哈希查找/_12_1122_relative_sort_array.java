@@ -1,6 +1,9 @@
 package alg_02_train_wyj._09_day_哈希查找;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 
 /**
  * @Author Wuyj
@@ -10,48 +13,45 @@ import java.util.*;
 public class _12_1122_relative_sort_array {
 
     public int[] relativeSortArray1(int[] arr1, int[] arr2) {
-        if (arr1 == null || arr2 == null) return null;
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < arr2.length; i++) {
-            map.put(arr2[i], i);
-        }
-
-        List<Integer> list = new ArrayList<>();
-        for (int num : arr1) list.add(num);
-
-        Collections.sort(list, new Comparator<Integer>() {
+        HashMap<Integer, Integer> map2 = new HashMap<>();
+        for (int i = 0; i < arr2.length; i++) map2.put(arr2[i], i);
+        ArrayList<Integer> list1 = new ArrayList<>();
+        for (int num : arr1) list1.add(num);
+        Collections.sort(list1, new Comparator<Integer>() {
             @Override
             public int compare(Integer x, Integer y) {
-                if (map.containsKey(x)) {
-                    return map.containsKey(y) ? map.get(x) - map.get(y) : -1;
+                if (map2.containsKey(x)) {
+                    return map2.containsKey(y) ? map2.get(x) - map2.get(y) : -1;
                 } else {
-                    return map.containsKey(y) ? 1 : x - y;
+                    return map2.containsKey(y) ? 1 : x - y;
                 }
             }
         });
-
-        for (int i = 0; i < arr1.length; i++) {
-            arr1[i] = list.get(i);
+        for (int i = 0; i < list1.size(); i++) {
+            arr1[i] = list1.get(i);
         }
         return arr1;
     }
 
     public int[] relativeSortArray(int[] arr1, int[] arr2) {
-        if (arr1 == null || arr2 == null) return null;
-        int[] count = new int[1001];
-        for (int num : arr1) count[num]++;
 
-        int index = 0;
-        for (int num : arr2) {
-            for (int i = 0; i < count[num]; i++) {
-                arr1[index++] = num;
-            }
-            count[num] = 0;
+        int[] count = new int[1001];
+        for (int num : arr1) {
+            count[num]++;
         }
 
-        for (int num = 0; num < 1001; num++) {
-            for (int i = 0; i < count[num]; i++) {
-                arr1[index++] = num;
+        int index = 0;
+        for (int num2 : arr2) {
+            for (int i = 0; i < count[num2]; i++) {
+                arr1[index++] = num2;
+            }
+            count[num2] = 0;
+        }
+
+        int n = count.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < count[i]; j++) {
+                arr1[index++] = i;
             }
         }
         return arr1;

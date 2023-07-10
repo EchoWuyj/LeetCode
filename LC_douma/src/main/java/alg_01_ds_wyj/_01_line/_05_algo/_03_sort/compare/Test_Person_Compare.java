@@ -9,7 +9,8 @@ import java.util.Comparator;
  */
 public class Test_Person_Compare {
     public static void main(String[] args) {
-        test1();
+        // test1();
+        test2();
     }
 
     public static void test1() {
