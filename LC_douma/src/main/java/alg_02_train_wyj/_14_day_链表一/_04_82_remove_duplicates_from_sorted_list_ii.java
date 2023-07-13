@@ -9,10 +9,10 @@ public class _04_82_remove_duplicates_from_sorted_list_ii {
 
     public ListNode deleteDuplicates(ListNode head) {
         if (head == null || head.next == null) return head;
-        ListNode dummyNode = new ListNode(-1);
-        dummyNode.next = head;
+        ListNode dummy = new ListNode(-101);
+        dummy.next = head;
         ListNode cur = head;
-        ListNode pre = dummyNode;
+        ListNode pre = dummy;
         while (cur != null) {
             if (cur.next != null && cur.val == cur.next.val) {
                 do {
@@ -20,11 +20,12 @@ public class _04_82_remove_duplicates_from_sorted_list_ii {
                 } while (cur.next != null && cur.val == cur.next.val);
                 pre.next = cur.next;
                 cur.next = null;
+                cur = pre.next;
             } else {
                 pre = cur;
+                cur = cur.next;
             }
-            cur = pre.next;
         }
-        return dummyNode.next;
+        return dummy.next;
     }
 }

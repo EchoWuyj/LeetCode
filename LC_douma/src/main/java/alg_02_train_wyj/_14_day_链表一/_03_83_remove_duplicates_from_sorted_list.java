@@ -8,17 +8,20 @@ package alg_02_train_wyj._14_day_链表一;
 public class _03_83_remove_duplicates_from_sorted_list {
     public ListNode deleteDuplicates(ListNode head) {
         if (head == null || head.next == null) return head;
-        ListNode prev = head;
-        ListNode cur = head.next;
+        ListNode dummy = new ListNode(-101);
+        dummy.next = head;
+        ListNode pre = dummy;
+        ListNode cur = head;
         while (cur != null) {
-            if (cur.val == prev.val) {
-                prev.next = cur.next;
+            if (pre.val == cur.val) {
+                pre.next = cur.next;
                 cur.next = null;
+                cur = pre.next;
             } else {
-                prev = cur;
+                pre = cur;
+                cur = cur.next;
             }
-            cur = prev.next;
         }
-        return head;
+        return dummy.next;
     }
 }

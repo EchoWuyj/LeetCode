@@ -105,7 +105,7 @@ public class _07_QuickSort extends Sorter {
             // 严格小于，才进行交换
             if (data[great] < pivot) {
                 swap(data, less, great);
-                // less 右移 => 交换后区间发生变化了，不要遗留了
+                // KeyPoint 交换后区间发生变化了， less 右移 ，不要遗留了
                 less++;
             }
             // data[great] >= pivot，不用交换

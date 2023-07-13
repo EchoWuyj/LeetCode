@@ -19,6 +19,7 @@ public class IntegerArrayQuickSorter extends Sorter {
         Integer[] dataArr = data.toArray(new Integer[data.size()]);
         // 补充说明：
         // 集合转数组，只是引用类型数组，不能是基本数据类型 int
+        // 因为 ArrayList<Integer> data 集合中是 Integer 类型，不是 int 类型
         // Integer[] dataArr = data.toArray(new Integer[data.size()]);
 
         sort(dataArr, 0, dataArr.length - 1);

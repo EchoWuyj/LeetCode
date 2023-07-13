@@ -32,12 +32,10 @@ public class _06_67_add_binary {
         while (l1 >= 0 || l2 >= 0) {
             int x = l1 < 0 ? 0 : a.charAt(l1) - '0';
             int y = l2 < 0 ? 0 : b.charAt(l2) - '0';
-
             int sum = x + y + carry;
             // 将 10 进制替换成 2进制
             res.append(sum % 2);
             carry = sum / 2;
-
             l1--;
             l2--;
         }

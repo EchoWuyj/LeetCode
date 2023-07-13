@@ -29,14 +29,33 @@ public class Person implements Comparable<Person> {
     @Override
     public int compareTo(Person other) {
 
-        // KeyPoint 1.原始写法(升序排列)
+        // KeyPoint 1.原始写法(升序排列) => 本质：对应二叉搜索树
+
         /*
+            // KeyPoint 常规逻辑 => this.age < other.age => this.age - other.age < 0，故返回 -1
             if (this.age < other.age) {
                 // 说明当前对象比 other 对象小
                 // 实际上只要是返间负数就可以，不一定是 -1
                 return -1;
             } else if (this.age > other.age) {
                 // 说明当前对象比 other 对象大
+                // 实际上只要是返回正数就可以，不一定是 1
+                return 1;
+                // 说明当前对象和other对象一样人 return 0；
+            } else {
+                // 两者相等返回 0
+                return 0;
+            }
+
+        */
+
+         /* 降序排列
+            if (this.age > other.age) {
+                // 说明当前对象比 other 对象大
+                // 实际上只要是返间负数就可以，不一定是 -1
+                return -1;
+            } else if (this.age < other.age) {
+                // 说明当前对象比 other 对象小
                 // 实际上只要是返回正数就可以，不一定是 1
                 return 1;
                 // 说明当前对象和other对象一样人 return 0；

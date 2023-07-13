@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class _12_1122_relative_sort_array {
     /*
-        1122 号算法题：数组的相对排序
+        1122 数组的相对排序
         给你两个数组：arr1 和 arr2
         1. arr2 中的元素各不相同
         2. arr2 中的每个元素都出现在 arr1 中

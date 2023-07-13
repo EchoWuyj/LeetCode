@@ -13,8 +13,9 @@ public class _08_ThreeWayQuickSorter extends Sorter {
         sort(data, 0, data.length - 1);
     }
 
-    // 三路快排(三路切分) => 将数组分成 3 段
-    // => 针对数组中存在重复元素，快排提高排序效率
+    // KeyPoint 三路快排(三路切分) => 将数组分成 3 段
+    //  => 针对数组中存在重复元素，快排提高排序效率
+    //  => 升序排列
     private void sort(int[] data, int low, int high) {
 
         // 1.分区过程中 => 不变式
@@ -90,6 +91,33 @@ public class _08_ThreeWayQuickSorter extends Sorter {
         // [less,great] 区间和 pivot 相等，不用排序
         // 下次子数组排序，直接从 [low,less-1] 和 [great+1,high] 开始即可
         // KeyPoint 调用 sort，而不是 swap，不要混淆
+        sort(data, low, less - 1);
+        sort(data, great + 1, high);
+    }
+
+    // KeyPoint 降序排列
+    private void sort1(int[] data, int low, int high) {
+        if (low >= high) return;
+
+        int pivot = data[high];
+        int less = low;
+        int great = high;
+        int i = low;
+
+        while (i <= great) {
+            // 降序排列，将不等号对调即可
+            if (data[i] > pivot) {
+                swap(data, i, less);
+                less++;
+                i++;
+            } else if (data[i] < pivot) {
+                swap(data, i, great);
+                great--;
+            } else {
+                i++;
+            }
+        }
+
         sort(data, low, less - 1);
         sort(data, great + 1, high);
     }

@@ -7,30 +7,30 @@ package alg_02_train_wyj._05_day_数学;
  */
 public class _09_204_count_primes {
     public int countPrimes(int n) {
-        int ans = 0;
+        int res = 0;
         for (int i = 2; i < n; i++) {
-            if (isPrime(i)) ans++;
+            res += isPrime(i) ? 1 : 0;
         }
-        return ans;
+        return res;
     }
 
-    public boolean isPrime(int x) {
+    private boolean isPrime(int x) {
         for (int i = 2; i < x; i++) {
             if (x % i == 0) return false;
         }
         return true;
     }
 
-    public int countPrimes1(int n) {
-        int ans = 0;
-        boolean[] notPrimes = new boolean[n];
+    public int countPrimes2(int n) {
+        boolean[] notPrime = new boolean[n];
+        int res = 0;
         for (int i = 2; i < n; i++) {
-            if (notPrimes[i]) continue;
-            ans++;
-            for (int j = i + i; j < n; j += i) {
-                notPrimes[j] = true;
+            if (notPrime[i]) continue;
+            res++;
+            for (int j = i; j < n; j += i) {
+                notPrime[j] = true;
             }
         }
-        return ans;
+        return res;
     }
 }

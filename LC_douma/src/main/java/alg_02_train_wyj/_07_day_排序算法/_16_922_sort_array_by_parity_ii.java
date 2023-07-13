@@ -8,29 +8,26 @@ package alg_02_train_wyj._07_day_排序算法;
 public class _16_922_sort_array_by_parity_ii {
 
     public int[] sortArrayByParityII1(int[] nums) {
-        if (nums == null) return nums;
         int n = nums.length;
-        int index = 0;
         int[] res = new int[n];
-        for (int i = 0; i < n; i++) {
-            if (nums[i] % 2 == 0) {
-                res[index] = nums[i];
-                index += 2;
+        int i = 0;
+        for (int num : nums) {
+            if (num % 2 == 0) {
+                res[i] = num;
+                i += 2;
             }
         }
-
-        index = 1;
-        for (int i = 0; i < n; i++) {
-            if (nums[i] % 2 == 1) {
-                res[index] = nums[i];
-                index += 2;
+        i = 1;
+        for (int num : nums) {
+            if (num % 2 == 1) {
+                res[i] = num;
+                i += 2;
             }
         }
         return res;
     }
 
     public int[] sortArrayByParityII(int[] nums) {
-        if (nums == null) return nums;
         int n = nums.length;
         int i = 0, j = 1;
         while (i < n) {

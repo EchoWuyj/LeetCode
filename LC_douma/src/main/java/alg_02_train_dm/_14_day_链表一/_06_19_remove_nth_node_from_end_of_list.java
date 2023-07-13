@@ -6,6 +6,6 @@ package alg_02_train_dm._14_day_链表一;
  * @Version 1.0
  */
 
-// 详细注释 _04_19_RemoveNthNodeFromEndOfList
+//  详细注释 _04_19_RemoveNthNodeFromEndOfList
 public class _06_19_remove_nth_node_from_end_of_list {
 }

@@ -11,41 +11,37 @@ import java.util.List;
 public class _04_66_plus_one {
 
     public int[] plusOne1(int[] digits) {
-        int length = digits.length;
-        for (int i = length - 1; i >= 0; i--) {
-            digits[i]++;
-            digits[i] = digits[i] % 10;
-            if (digits[i] != 0) return digits;
-        }
-
-        int[] res = new int[length + 1];
-        res[0] = 1;
-        return res;
-    }
-
-    public int[] plusOne2(int[] digits) {
-        List<Integer> res = new ArrayList<>();
-        int k = 1;
-        int carry = 0;
         int l1 = digits.length - 1;
+        int carry = 0;
+        List<Integer> list = new ArrayList<>();
+        int k = 1;
         while (l1 >= 0 || k != 0) {
-            int x = l1 < 0 ? 0 : digits[l1];
-            int y = k == 0 ? 0 : k % 10;
+            int x = l1 >= 0 ? digits[l1] : 0;
+            int y = k != 0 ? k % 10 : 0;
             int sum = x + y + carry;
-            res.add(sum % 10);
+            list.add(sum % 10);
             carry = sum / 10;
             l1--;
             k /= 10;
         }
+        if (carry != 0) list.add(carry);
+        int size = list.size();
+        int[] res = new int[size];
+        for (int i = size - 1; i >= 0; i--) {
+            res[size - 1 - i] = list.get(i);
+        }
+        return res;
+    }
 
-        if (carry != 0) {
-            res.add(carry);
+    public int[] plusOne2(int[] digits) {
+        int n = digits.length;
+        for (int i = n - 1; i >= 0; i--) {
+            digits[i]++;
+            digits[i] = digits[i] % 10;
+            if (digits[i] != 0) return digits;
         }
-        int index = 0;
-        int[] arr = new int[res.size()];
-        for (int i = res.size() - 1; i >= 0; i--) {
-            arr[index++] = res.get(i);
-        }
-        return arr;
+        int[] res = new int[n + 1];
+        res[0] = 1;
+        return res;
     }
 }

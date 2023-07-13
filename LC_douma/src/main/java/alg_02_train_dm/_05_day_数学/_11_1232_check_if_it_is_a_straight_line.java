@@ -24,19 +24,25 @@ public class _11_1232_check_if_it_is_a_straight_line {
 
      */
 
-    // 思路：使用数组前两点确定一条直线，计算出其斜率 k，计算出后续点与数组第一个点斜率 k'，判断 k与 k'是否相同
+    // KeyPoint 方法一 直接模拟
     public boolean checkStraightLine(int[][] coordinates) {
+        // 思路：使用数组前两点，确定一条直线，计算出其斜率 k
+        //       计算出后续点与数组第一个点斜率 k'，判断 k与 k'是否相同
         // (x0,y0)
         int x0 = coordinates[0][0], y0 = coordinates[0][1];
         int deltaY = coordinates[1][1] - y0;
         int deltaX = coordinates[1][0] - x0;
+        int n = coordinates.length;
         // i = 2 开始判断
-        for (int i = 2; i < coordinates.length; i++) {
+        for (int i = 2; i < n; i++) {
             int deltaYi = coordinates[i][1] - y0;
             int deltaXi = coordinates[i][0] - x0;
             // 通过斜率来判断，所有的点是否在同一条直线上
-            // deltaY / deltaX = deltaYi / deltaXi，因为 int 使用 /，存在取整情况，将 / 转成 *
-            // => deltaY * deltaXi = deltaYi * deltaX
+            // deltaY / deltaX = deltaYi / deltaXi
+            // => 因为 int 使用 /，存在取整情况，将 / 转成 *
+            // => 等价转换：deltaY * deltaXi = deltaYi * deltaX
+            // KeyPoint true 要求很高，全部 true 才是真的 true
+            // 一个 true 不是真的 true，但是一个 false 是真的 false;
             if (deltaY * deltaXi != deltaYi * deltaX) return false;
         }
         return true;

@@ -7,17 +7,16 @@ package alg_02_train_wyj._14_day_链表一;
  */
 public class _02_237_delete_node_in_a_linked_list {
     public void deleteNode1(ListNode node) {
-        ListNode prev = null;
-        ListNode cur = node;
-        while (cur != null) {
-            ListNode next = cur.next;
-            if (next != null) {
-                cur.val = next.val;
+        ListNode pre = null;
+        while (node != null) {
+            ListNode next = node.next;
+            if (next == null) {
+                if (pre != null) pre.next = null;
             } else {
-                if (prev != null) prev.next = null;
+                node.val = next.val;
             }
-            prev = cur;
-            cur = cur.next;
+            pre = node;
+            node = node.next;
         }
     }
 

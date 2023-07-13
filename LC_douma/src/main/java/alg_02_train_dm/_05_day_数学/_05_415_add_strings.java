@@ -27,6 +27,7 @@ public class _05_415_add_strings {
      */
     public String addStrings(String num1, String num2) {
         StringBuilder sb = new StringBuilder();
+        // KeyPoint 注意：减 1，不要遗漏了
         int l1 = num1.length() - 1;
         int l2 = num2.length() - 1;
         int carry = 0;
@@ -40,8 +41,8 @@ public class _05_415_add_strings {
             l1--;
             l2--;
         }
-
         if (carry != 0) sb.append(carry);
+        // StringBuilder 中有 reverse API
         return sb.reverse().toString();
     }
 }

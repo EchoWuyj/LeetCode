@@ -9,7 +9,6 @@ import java.util.Arrays;
  */
 public class _17_1365_how_many_numbers_are_smaller_than_the_current_number {
     public int[] smallerNumbersThanCurrent1(int[] nums) {
-        if (nums == null) return nums;
         int n = nums.length;
         int[] res = new int[n];
         for (int i = 0; i < n; i++) {
@@ -25,42 +24,38 @@ public class _17_1365_how_many_numbers_are_smaller_than_the_current_number {
     }
 
     public int[] smallerNumbersThanCurrent2(int[] nums) {
-        if (nums == null) return nums;
         int n = nums.length;
-        int[] res = new int[n];
-
-        int[][] data = new int[n][2];
+        int[][] map = new int[n][2];
         for (int i = 0; i < n; i++) {
-            data[i][0] = nums[i];
-            data[i][1] = i;
+            map[i][0] = nums[i];
+            map[i][1] = i;
         }
-        Arrays.sort(data, (o1, o2) -> o1[0] - o2[0]);
+        Arrays.sort(map, (o1, o2) -> o1[0] - o2[0]);
+        int[] res = new int[n];
         int prev = -1;
         for (int i = 0; i < n; i++) {
-            if (prev == -1 || data[i][0] != data[i - 1][0]) {
+            if (prev == -1 || map[i][0] != map[i - 1][0]) {
                 prev = i;
             }
-
-            res[data[i][1]] = prev;
+            res[map[i][1]] = prev;
         }
         return res;
     }
 
     public int[] smallerNumbersThanCurrent3(int[] nums) {
-        if (nums == null) return nums;
         int n = nums.length;
-        int[] cnt = new int[101];
-        for (int i = 0; i < n; i++) {
-            cnt[nums[i]]++;
+        int[] count = new int[101];
+        for (int num : nums) {
+            count[num]++;
         }
 
-        for (int i = 1; i < cnt.length; i++) {
-            cnt[i] += cnt[i - 1];
+        for (int i = 1; i < count.length; i++) {
+            count[i] += count[i - 1];
         }
 
         int[] res = new int[n];
         for (int i = 0; i < n; i++) {
-            res[i] = nums[i] == 0 ? 0 : cnt[nums[i] - 1];
+            res[i] = nums[i] == 0 ? 0 : count[nums[i] - 1];
         }
         return res;
     }

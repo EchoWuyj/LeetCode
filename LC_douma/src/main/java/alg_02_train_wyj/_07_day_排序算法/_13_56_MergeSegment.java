@@ -18,24 +18,23 @@ public class _13_56_MergeSegment {
             }
         });
 
-        ArrayList<int[]> res = new ArrayList<>();
+        ArrayList<int[]> list = new ArrayList<>();
         for (int i = 0; i < intervals.length; i++) {
-            int[] curInterval = intervals[i];
-            if (res.isEmpty()) {
-                res.add(curInterval);
+            int[] cur = intervals[i];
+            if (list.isEmpty()) {
+                list.add(cur);
             } else {
-                int[] lastInterval = res.get(res.size() - 1);
-                int lastRight = lastInterval[1];
-                int curLeft = curInterval[0];
-
+                int[] last = list.get(list.size() - 1);
+                int lastRight = last[1];
+                int curLeft = cur[0];
                 if (lastRight < curLeft) {
-                    res.add(curInterval);
+                    list.add(cur);
                 } else {
-                    int curRight = curInterval[1];
-                    lastInterval[1] = Math.max(lastRight, curRight);
+                    int curRight = cur[1];
+                    last[1] = Math.max(lastRight, curRight);
                 }
             }
         }
-        return res.toArray(new int[res.size()][]);
+        return list.toArray(new int[list.size()][]);
     }
 }

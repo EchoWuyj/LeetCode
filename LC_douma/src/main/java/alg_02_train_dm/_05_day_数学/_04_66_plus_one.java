@@ -9,8 +9,8 @@ import java.util.List;
  * @Version 1.0
  */
 public class _04_66_plus_one {
-    /*
 
+    /*
         66. 加一
         给定一个由 整数 组成的 非空 数组所表示的非负整数，在该数的基础上加一。
         最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
@@ -56,23 +56,32 @@ public class _04_66_plus_one {
         for (int i = size - 1; i >= 0; i--) {
             res[index++] = temp.get(i);
         }
+
+        // KeyPoint 另外一种实现方式
+        // 利用数组首尾坐标索引和为 size-1，即 size-1-i + i => size-1
+//        for (int i = size - 1; i >= 0; i--) {
+//            res[size - 1 - i] = list.get(i);
+//        }
         return res;
     }
 
-    // KeyPoint 方法二 特殊题目，存在特殊解法，直接模拟
+    // KeyPoint 方法二 直接模拟
+    // 特殊题目，存在特殊解法
     public int[] plusOne(int[] digits) {
-        int length = digits.length;
-        // 从右往左遍历
-        for (int i = length - 1; i >= 0; i--) {
+        int n = digits.length;
+        // 从数字数组的个位开始往高位遍历，即从右往左遍历
+        for (int i = n - 1; i >= 0; i--) {
+            // i 位加数字加 1
             digits[i]++;
             // 不管是否有进位都取模
             digits[i] = digits[i] % 10;
-            // digits[i] 没有进位，则则直接返回，不需要进位，提前结束
+            // 若 digits[i] 没有进位，则则直接返回，不需要进位，提前结束
             if (digits[i] != 0) return digits;
         }
 
-        // for 循环结束都没有 return，则说明一直有进位，直到最高位，需要重新创建一个数组
-        digits = new int[length + 1];
+        // 若 for 循环结束都没有 return，则说明一直有进位，一直进位到最高位
+        // 需要重新创建一个数组，将其高位设置为 1
+        digits = new int[n + 1];
         digits[0] = 1;
         return digits;
     }

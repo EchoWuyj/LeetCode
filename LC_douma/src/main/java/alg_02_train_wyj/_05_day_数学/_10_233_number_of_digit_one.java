@@ -9,21 +9,17 @@ public class _10_233_number_of_digit_one {
 
     public int countDigitOne1(int n) {
         int res = 0;
+        int count = 0;
         for (int i = 1; i <= n; i++) {
             String str = String.valueOf(i);
             for (char c : str.toCharArray()) {
-                if (c == '1') res++;
+                if (c == '1') count++;
             }
         }
-        return res;
+        return count;
     }
 
     public int countDigitOne(int n) {
-        int count = 0;
-        for (long i = 1; i <= n; i *= 10) {
-            long divider = i * 10;
-            count += (n / divider) * i + Math.min(Math.max(n % divider - i + 1, 0L), i);
-        }
-        return count;
+        return -1;
     }
 }
