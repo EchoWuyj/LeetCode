@@ -10,13 +10,11 @@ import java.util.Set;
  */
 public class _04_160_intersection_of_two_linked_lists {
     public ListNode getIntersectionNode1(ListNode headA, ListNode headB) {
-        if (headA == null || headB == null) return null;
         Set<ListNode> set = new HashSet<>();
         while (headA != null) {
             set.add(headA);
             headA = headA.next;
         }
-
         while (headB != null) {
             if (set.contains(headB)) return headB;
             headB = headB.next;
@@ -25,14 +23,12 @@ public class _04_160_intersection_of_two_linked_lists {
     }
 
     public ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
-        if (headA == null || headB == null) return null;
-        ListNode first = headA;
-        ListNode second = headB;
-
-        while (first != second) {
-            first = (first == null) ? headB : first.next;
-            second = (second == null) ? headA : second.next;
+        ListNode a = headA;
+        ListNode b = headB;
+        while (a != b) {
+            a = (a == null) ? headB : a.next;
+            b = (b == null) ? headA : b.next;
         }
-        return first;
+        return a;
     }
 }

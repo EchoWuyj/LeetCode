@@ -29,9 +29,9 @@ public class _00_01_Note {
 
         堆存储
         二叉堆 => 完全二叉树 => 数组存储(节约空间)
-            leftChild(index) = index * 2 + 1
-            rightChild(index) = index * 2 + 2
-            parent(index) = (index-1) / 2
+        leftChild(index) = index * 2 + 1
+        rightChild(index) = index * 2 + 2
+        parent(index) = (index-1) / 2
 
 
         堆操作

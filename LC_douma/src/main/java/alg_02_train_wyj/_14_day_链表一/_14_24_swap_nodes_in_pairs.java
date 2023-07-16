@@ -9,32 +9,23 @@ public class _14_24_swap_nodes_in_pairs {
 
     public static ListNode swapPairs(ListNode head) {
         if (head == null || head.next == null) return head;
-        ListNode dummyNode = new ListNode(-1);
-        dummyNode.next = head;
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode pre = dummy;
         ListNode first = head;
         ListNode second = head.next;
-        ListNode prev = dummyNode;
-        ListNode next;
+        ListNode next = second.next;
+
         while (second != null) {
-            next = second.next;
-
             first.next = next;
-            second.next = prev.next;
-            prev.next = second;
-
-            System.out.println(dummyNode.next);
-
-            prev = first;
+            second.next = pre.next;
+            pre.next = second;
+            pre = first;
             first = next;
             if (first == null) break;
             second = first.next;
-            System.out.println(dummyNode.next);
+            if (second != null) next = second.next;
         }
-        return dummyNode.next;
-    }
-
-    public static void main(String[] args) {
-        ListNode head = ListNode.fromArray(new int[]{1, 2, 3, 4});
-        System.out.println(swapPairs(head));
+        return dummy.next;
     }
 }

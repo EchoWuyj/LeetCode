@@ -6,46 +6,68 @@ package alg_02_train_wyj._14_day_链表一;
  * @Version 1.0
  */
 public class _15_25_reverse_nodes_in_k_gro_up {
-    public ListNode reverseKGroup(ListNode head, int k) {
+    public static ListNode reverseKGroup(ListNode head, int k) {
         if (head == null || head.next == null || k == 1) return head;
-        ListNode dummyNode = new ListNode(-1);
-        dummyNode.next = head;
-
-        ListNode prev = dummyNode;
-        ListNode first = head;
-        ListNode last = first;
-        ListNode next;
-        while (first != null) {
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode pre = dummy;
+        ListNode first = head, last = first, next = first;
+        while (next != null) {
             for (int i = 0; i < k - 1; i++) {
+                if (last == null) return dummy.next;
                 last = last.next;
-                if (last == null) return dummyNode.next;
             }
-            next = last.next;
-            last.next = null;
+            if (last != null) next = last.next;
+            else return dummy.next;
 
+            pre.next = null;
+            last.next = null;
             reverse(first);
 
-            prev.next = last;
+            pre.next = last;
             first.next = next;
 
-            prev = first;
-            first = next;
+            pre = first;
+            if (next != null) first = next;
             last = first;
         }
-        return dummyNode.next;
+        return dummy.next;
     }
 
-    public ListNode reverse(ListNode head) {
-        if (head == null || head.next == null) return head;
-        ListNode prev = null;
-        ListNode curr = head;
+    public static ListNode reverse(ListNode head) {
+        ListNode pre = null;
+        ListNode cur = head;
         ListNode next;
-        while (curr != null) {
-            next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = next;
+        while (cur != null) {
+            next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
         }
-        return prev;
+        return pre;
+    }
+
+    public static void main(String[] args) {
+        ListNode head = createLinkedList(new int[]{1, 2, 3, 4, 5});
+        reverseKGroup(head, 2);
+    }
+
+    private static ListNode createLinkedList(int[] values) {
+        ListNode dummyHead = new ListNode(0);
+        ListNode curr = dummyHead;
+        for (int val : values) {
+            curr.next = new ListNode(val);
+            curr = curr.next;
+        }
+        return dummyHead.next;
+    }
+
+    private static void printLinkedList(ListNode head) {
+        ListNode curr = head;
+        while (curr != null) {
+            System.out.print(curr.val + " ");
+            curr = curr.next;
+        }
+        System.out.println();
     }
 }
