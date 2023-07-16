@@ -8,7 +8,6 @@ import java.util.ArrayDeque;
  * @Version 1.0
  */
 
-// 详细注释 _20_ValidParentheses
 public class _01_20_valid_parentheses1 {
     /*
         leetcode 20 号算法题：有效的括号
@@ -41,6 +40,7 @@ public class _01_20_valid_parentheses1 {
 
         // 有效括号 => 字符长度必须是偶数
         if (s.length() % 2 == 1) return false;
+
         // 循环数组实现双端队列 => 模拟栈
         // Java 推荐使用 ArrayDeque 代替 Stack
         ArrayDeque<Character> stack = new ArrayDeque<>();
@@ -49,6 +49,7 @@ public class _01_20_valid_parentheses1 {
             if (c == '(') {
                 stack.push(c);
             } else {
+                // c == ')'
                 if (stack.isEmpty()) return false;
                 // 代码严谨层面 => 在 stack 在 pop之前，需要判空，可能出现异常
                 // 题目逻辑层面 => 遇到的是 ')'，但'(' 已经没有了，无法 pop

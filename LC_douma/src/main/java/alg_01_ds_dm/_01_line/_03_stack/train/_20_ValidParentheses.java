@@ -8,6 +8,4 @@ package alg_01_ds_dm._01_line._03_stack.train;
 
 // 详细注释 _20_ValidParentheses
 public class _20_ValidParentheses {
-
-
 }
