@@ -1,45 +1,15 @@
-package alg_02_train_wyj._10_day_栈和队列;
+package alg_02_train_dm._10_day_栈和队列;
 
 import java.util.ArrayDeque;
 
 /**
  * @Author Wuyj
- * @DateTime 2023-04-25 20:40
+ * @DateTime 2023-07-17 15:49
  * @Version 1.0
  */
-public class _05_227_basic_calculator_ii {
-    public int calculate(String s) {
-        char preSign = '+';
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
-        int i = 0;
-        while (i < s.length()) {
-            if (s.charAt(i) != ' ') {
-                int num = 0;
-                while (i < s.length() && Character.isDigit(s.charAt(i))) {
-                    num = num * 10 + (s.charAt(i) - '0');
-                    i++;
-                }
-                if (preSign == '+') {
-                    stack.push(num);
-                } else if (preSign == '-') {
-                    stack.push(-num);
-                } else if (preSign == '*') {
-                    int tmp = stack.pop();
-                    stack.push(num * tmp);
-                } else if (preSign == '/') {
-                    int tmp = stack.pop();
-                    stack.push(tmp / num);
-                }
-                while (i < s.length() && s.charAt(i) == ' ') i++;
-                if (i < s.length()) preSign = s.charAt(i);
-            }
-            i++;
-        }
-        int res = 0;
-        while (!stack.isEmpty()) res += stack.pop();
-        return res;
-    }
+public class _05_227_basic_calculator_ii2 {
 
+    // KeyPoint 2.for 循环实现
     public int calculate2(String s) {
         char preSign = '+';
         ArrayDeque<Integer> stack = new ArrayDeque<>();

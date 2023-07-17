@@ -20,13 +20,13 @@ public class _02_71_simplify_path {
                 stack.push(dir);
             }
         }
+
         if (stack.isEmpty()) return "/";
         StringBuilder sb = new StringBuilder();
         while (!stack.isEmpty()) {
             sb.append("/");
             sb.append(stack.removeLast());
         }
-
         return sb.toString();
     }
 }

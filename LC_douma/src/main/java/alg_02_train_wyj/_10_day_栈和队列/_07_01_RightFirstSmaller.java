@@ -11,21 +11,23 @@ import java.util.Arrays;
 public class _07_01_RightFirstSmaller {
     // 右边第一个比其小的
     public static int[] findRightSmall(int[] nums) {
-        int[] ans = new int[nums.length];
+        int n = nums.length;
         ArrayDeque<Integer> stack = new ArrayDeque<>();
-        for (int i = 0; i < nums.length; i++) {
-            int x = nums[i];
-            while (!stack.isEmpty() && x < nums[stack.peek()]) {
-                ans[stack.peek()] = i;
+        int[] res = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            int num = nums[i];
+
+            while (!stack.isEmpty() && num < nums[stack.peek()]) {
+                res[stack.peek()] = i;
                 stack.pop();
             }
             stack.push(i);
         }
         while (!stack.isEmpty()) {
-            int top = stack.pop();
-            ans[top] = -1;
+            res[stack.pop()] = -1;
         }
-        return ans;
+        return res;
     }
 
     public static void main(String[] args) {

@@ -11,24 +11,26 @@ import java.util.Arrays;
 public class _07_03_LeftLastSmaller {
     public static int[] findLeftLastSmall(int[] nums) {
         int n = nums.length;
-        int[] ans = new int[n];
+        int[] res = new int[n];
         ArrayDeque<Integer> stack = new ArrayDeque<>();
         for (int i = n - 1; i >= 0; i--) {
-            int x = nums[i];
-            while (!stack.isEmpty() && x < nums[stack.peek()]) {
-                ans[stack.peek()] = i;
+            int num = nums[i];
+            while (!stack.isEmpty() && num < nums[stack.peek()]) {
+                res[stack.peek()] = i;
                 stack.pop();
             }
             stack.push(i);
         }
+
         while (!stack.isEmpty()) {
-            ans[stack.pop()] = -1;
+            res[stack.pop()] = -1;
         }
-        return ans;
+        return res;
     }
 
     public static void main(String[] args) {
         int[] arr = {6, 0, 2, 9, 5, 3, 1};
-        System.out.println(Arrays.toString(findLeftLastSmall(arr))); // [-1, -1, 1, 2, 2, 2, 1]
+        System.out.println(Arrays.toString(findLeftLastSmall(arr)));
+        // [-1, -1, 1, 2, 2, 2, 1]
     }
 }

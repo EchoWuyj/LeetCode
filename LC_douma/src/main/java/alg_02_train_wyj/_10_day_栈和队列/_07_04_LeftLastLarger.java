@@ -10,26 +10,27 @@ import java.util.Arrays;
  */
 public class _07_04_LeftLastLarger {
     public static int[] findLeftLastLarge(int[] nums) {
-        int[] ans = new int[nums.length];
+        int n = nums.length;
+        int[] res = new int[n];
         ArrayDeque<Integer> stack = new ArrayDeque<>();
-        for (int i = nums.length - 1; i >= 0; i--) {
-            int x = nums[i];
-            while (!stack.isEmpty() && x > nums[stack.peek()]) {
-                ans[stack.peek()] = i;
+        for (int i = n - 1; i >= 0; i--) {
+            int num = nums[i];
+            while (!stack.isEmpty() && num > nums[stack.peek()]) {
+                res[stack.peek()] = i;
                 stack.pop();
             }
             stack.push(i);
         }
 
         while (!stack.isEmpty()) {
-            int top = stack.pop();
-            ans[top] = -1;
+            res[stack.pop()] = -1;
         }
-        return ans;
+        return res;
     }
 
     public static void main(String[] args) {
         int[] arr = {6, 0, 2, 9, 1, 3, 5};
-        System.out.println(Arrays.toString(findLeftLastLarge(arr))); // [-1, 0, 0, -1, 3, 3, 3]
+        System.out.println(Arrays.toString(findLeftLastLarge(arr)));
+        // [-1, 0, 0, -1, 3, 3, 3]
     }
 }

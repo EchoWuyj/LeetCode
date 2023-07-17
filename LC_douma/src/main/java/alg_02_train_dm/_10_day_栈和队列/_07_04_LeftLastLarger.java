@@ -17,23 +17,25 @@ public class _07_04_LeftLastLarger {
        输出：[-1, 0]
 
        解释：
-           因为元素 2 的左边离我最近且比我小的位置应该是 nums[0]，
-           第一个元素 1 左边没有比 1 小的元素，所以应该输出 -1。
+       因为元素 2 的左边离我最近且比我小的位置应该是 nums[0]，
+       第一个元素 1 左边没有比 1 小的元素，所以应该输出 -1。
     */
     public static int[] findLeftLastLarge(int[] nums) {
-        int[] ans = new int[nums.length];
+        int n = nums.length;
+        int[] ans = new int[n];
         ArrayDeque<Integer> stack = new ArrayDeque<>();
-        // 时间复杂度：O(n)
-        for (int i = nums.length - 1; i >= 0; i--) {
-            int x = nums[i];
+        // 左边离我最近比我大的元素
+        // => 从右往左遍历
+        for (int i = n - 1; i >= 0; i--) {
+            int num = nums[i];
             // 单调递减栈
-            // KeyPoint 根据需求来写循环条件
-            // 左边离我最近比我大的元素 => x > nums[stack.peek()]
-            while (!stack.isEmpty() && x > nums[stack.peek()]) {
+            // KeyPoint 根据题目需求 => 来写循环条件
+            // 左边离我最近比我大的元素 => num > nums[stack.peek()]
+            while (!stack.isEmpty() && num > nums[stack.peek()]) {
                 ans[stack.peek()] = i;
                 stack.pop();
             }
-            stack.push(i); // 索引
+            stack.push(i);
         }
         while (!stack.isEmpty()) {
             ans[stack.peek()] = -1;
@@ -44,6 +46,7 @@ public class _07_04_LeftLastLarger {
 
     public static void main(String[] args) {
         int[] arr = {6, 0, 2, 9, 1, 3, 5};
-        System.out.println(Arrays.toString(findLeftLastLarge(arr))); // [-1, 0, 0, -1, 3, 3, 3]
+        System.out.println(Arrays.toString(findLeftLastLarge(arr)));
+        // [-1, 0, 0, -1, 3, 3, 3]
     }
 }

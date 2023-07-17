@@ -12,26 +12,26 @@ public class _07_02_RightFirstLarger {
 
     // 找出数组中右边第一个比我大的元素
     public static int[] findRightLarge(int[] nums) {
-        int[] ans = new int[nums.length];
+        int n = nums.length;
+        int[] res = new int[n];
         ArrayDeque<Integer> stack = new ArrayDeque<>();
-        for (int i = 0; i < nums.length; i++) {
-            int x = nums[i];
-            while (!stack.isEmpty() && x > nums[stack.peek()]) {
-                ans[stack.peek()] = i;
+        for (int i = 0; i < n; i++) {
+            int num = nums[i];
+            while (!stack.isEmpty() && num > nums[stack.peek()]) {
+                res[stack.peek()] = i;
                 stack.pop();
             }
             stack.push(i);
         }
-
         while (!stack.isEmpty()) {
-            int top = stack.pop();
-            ans[top] = -1;
+            res[stack.pop()] = -1;
         }
-        return ans;
+        return res;
     }
 
     public static void main(String[] args) {
         int[] arr = {6, 4, 3, 9, 5, 0, 6};
-        System.out.println(Arrays.toString(findRightLarge(arr))); // [3, 3, 3, -1, 6, 6, -1]
+        System.out.println(Arrays.toString(findRightLarge(arr)));
+        // [3, 3, 3, -1, 6, 6, -1]
     }
 }

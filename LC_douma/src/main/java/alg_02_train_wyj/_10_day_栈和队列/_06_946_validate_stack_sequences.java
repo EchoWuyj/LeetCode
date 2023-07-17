@@ -13,7 +13,9 @@ public class _06_946_validate_stack_sequences {
         int i = 0;
         for (int num : pushed) {
             stack.push(num);
-            while (!stack.isEmpty() && i < popped.length && stack.peek() == popped[i]) {
+            while (!stack.isEmpty()
+                    && i < popped.length
+                    && popped[i] == stack.peek()) {
                 stack.pop();
                 i++;
             }

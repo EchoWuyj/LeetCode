@@ -11,10 +11,10 @@ public class _08_739_daily_temperatures {
 
     public int[] dailyTemperatures1(int[] T) {
         if (T.length == 1) return new int[]{0};
-        int[] res = new int[T.length];
-
-        for (int i = 0; i < T.length; i++) {
-            for (int j = i + 1; j < T.length; j++) {
+        int n = T.length;
+        int[] res = new int[n];
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
                 if (T[j] > T[i]) {
                     res[i] = j - i;
                     break;
@@ -25,15 +25,15 @@ public class _08_739_daily_temperatures {
     }
 
     public int[] dailyTemperatures2(int[] T) {
+        if (T.length == 1) return new int[]{0};
         int n = T.length;
-        if (n == 1) return new int[]{0};
         int[] res = new int[n];
         ArrayDeque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
-            int x = T[i];
-            while (!stack.isEmpty() && x > T[stack.peek()]) {
-                int top = stack.pop();
-                res[top] = i - top;
+            int t = T[i];
+            while (!stack.isEmpty() && t > T[stack.peek()]) {
+                res[stack.peek()] = i - stack.peek();
+                stack.pop();
             }
             stack.push(i);
         }

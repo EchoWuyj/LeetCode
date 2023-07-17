@@ -16,34 +16,42 @@ public class _07_02_RightFirstLarger {
         输出：[1, -1]
 
         解释：
-            因为元素 5 的右边离我最近且比我大的位置应该是 nums[1]，
-            最后一个元素 6 右边没有比 6 小的元素，所以应该输出 -1。
+        因为元素 5 的右边离我最近且比我大的位置应该是 nums[1]，
+        最后一个元素 6 右边没有比 6 小的元素，所以应该输出 -1。
      */
+
+    // 时间复杂度：O(n)
     public static int[] findRightLarge(int[] nums) {
-        int[] ans = new int[nums.length];
+        int n = nums.length;
+        int[] res = new int[n];
         ArrayDeque<Integer> stack = new ArrayDeque<>();
-        // 时间复杂度：O(n)
-        // KeyPoint 右边 => 从左往右遍历
-        for (int i = 0; i < nums.length; i++) {
-            int x = nums[i];
-            // 单调递减栈
-            // KeyPoint 根据需求来写循环条件
-            // 右边第一个比我大的元素 => x > nums[stack.peek()]
-            while (!stack.isEmpty() && x > nums[stack.peek()]) {
-                ans[stack.peek()] = i;
+
+        // 右边第一个比我大的元素
+        // => 从左往右遍历
+        for (int i = 0; i < n; i++) {
+            int num = nums[i];
+            // KeyPoint 根据题目需求 => 来写循环条件
+            // 右边第一个比我大的元素 => num > nums[stack.peek()]
+            // KeyPoint 解释：单调递减栈
+            // 只有 num > nums[栈顶]，执行 while 循环
+            // => 说明：栈中元素一个比一个小，故栈是递减的
+            while (!stack.isEmpty() && num > nums[stack.peek()]) {
+                res[stack.peek()] = i;
                 stack.pop();
             }
-            stack.push(i); // 索引
+            // 只有 num <= nums[stack.peek()]
+            stack.push(i);
         }
         while (!stack.isEmpty()) {
-            ans[stack.peek()] = -1;
+            res[stack.peek()] = -1;
             stack.pop();
         }
-        return ans;
+        return res;
     }
 
     public static void main(String[] args) {
         int[] arr = {6, 4, 3, 9, 5, 0, 6};
-        System.out.println(Arrays.toString(findRightLarge(arr))); // [3, 3, 3, -1, 6, 6, -1]
+        System.out.println(Arrays.toString(findRightLarge(arr)));
+        // [3, 3, 3, -1, 6, 6, -1]
     }
 }

@@ -1,7 +1,6 @@
 package alg_02_train_dm._10_day_栈和队列;
 
 import java.util.ArrayDeque;
-import java.util.Arrays;
 
 /**
  * @Author Wuyj
@@ -60,17 +59,20 @@ public class _02_71_simplify_path {
 
     public static String simplifyPath(String path) {
 
+        // 1.循环遍历切分后的目录，通过栈确定最终简化后的目录
         // path ="/a/./b/../../../c/"
         // => 根据 "/" 切分，处理切分后的目录
         // => 空 a . b .. .. .. c
-        // => 最开始
+        // => 最开始目录，由后面的操作，决定是否在简化目录中
+        //    最先遇到的目录，先暂存，后面再去操作 => 栈
         String[] dirs = path.split("/");
-        System.out.println(Arrays.toString(dirs));
+        // System.out.println(Arrays.toString(dirs));
         ArrayDeque<String> stack = new ArrayDeque<>();
-
         for (String dir : dirs) {
             // 多种情况，使用 if 进行分支选择判断
-            // KeyPoint String 不能使用 ==，而是使用 equals
+            // 空格不处理，直接跳过
+            // . 不处理，直接跳过
+            // 注意：String 不能使用 ==，而是使用 equals
             if (dir.equals("") || dir.equals(".")) {
                 // 这种情况下，什么都不操作，不需要使用 continue 代码
                 // 因为是 if else 分支，执行该分支之后，后续分支不会再执行
@@ -83,18 +85,24 @@ public class _02_71_simplify_path {
                 // pop => 底层调用 removeFirst
                 stack.pop();
             } else {
-                // push => 底层调用 addFirst
+                // 其他情况，将字符压栈
+                // ArrayDeque 用作 stack，其中 push 操作，底层调用 addFirst
                 stack.push(dir);
             }
         }
 
+        // 2.拼接最终简化后的目录
+        // 栈为空，没有任何目录，直接返回 /
         if (stack.isEmpty()) return "/";
         StringBuilder sb = new StringBuilder();
         while (!stack.isEmpty()) {
             // 每个目录进行拼接都是需要 "/"
             sb.append("/");
-            // 因为 stack 是使用 ArrayDeque 实现，pop，push 都是从 First (栈顶) 进出
+            // stack 栈顶，存储路径中尾部目录，拼接时得从根路径开始
             // 考虑栈'先进后出'特点，故这里从'栈底'获取元素，而不是从'栈顶'获取元素
+            // stack 是使用 ArrayDeque 实现
+            // ArrayDeque First => 栈顶 =>  pop 和 push 操作
+            //             Last => 栈底
             sb.append(stack.removeLast());
         }
         return sb.toString();
@@ -102,7 +110,9 @@ public class _02_71_simplify_path {
 
     public static void main(String[] args) {
         simplifyPath("/a/./b/../../../c/"); // [, a, ., b, .., .., .., c]
-        simplifyPath("/a/b/"); // [, a, b] 最后一个 / 后面空格不算在内的
+        simplifyPath("/a/b/"); // [, a, b] => 最后一个 / 后面空串""不算在内的
+        System.out.println(" "); // 空格字符串
+        System.out.println(""); // 空串
         simplifyPath("/a/b"); // [, a, b]
     }
 }

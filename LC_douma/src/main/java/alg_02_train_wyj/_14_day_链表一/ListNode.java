@@ -18,26 +18,22 @@ public class ListNode {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        ListNode curr = this;
-        while (curr != null) {
-            sb.append(curr.val).append("->");
-            curr = curr.next;
+        ListNode cur = this;
+        while (cur != null) {
+            sb.append(cur.val).append("->");
+            cur = cur.next;
         }
         sb.append("null");
         return sb.toString();
     }
 
-    // 从数组中构建链表
     public static ListNode fromArray(int[] arr) {
         if (arr == null || arr.length == 0) return null;
-        // 创建 head 节点，保证其固定不懂
         ListNode head = new ListNode(arr[0]);
-        // curr 遍历指针
-        ListNode curr = head;
+        ListNode cur = head;
         for (int i = 1; i < arr.length; i++) {
-            curr.next = new ListNode(arr[i]);
-            // curr 后移
-            curr = curr.next;
+            cur.next = new ListNode(arr[i]);
+            cur = cur.next;
         }
         return head;
     }

@@ -11,7 +11,7 @@ import java.util.TreeMap;
 public class _13_456_132_pattern {
 
     /*
-        leetcode 456 号算法题：132 模式
+        456 号算法题：132 模式
         给你一个整数数组 nums ，数组中共有 n 个整数。
         132 模式的子序列 由三个整数 nums[i]、nums[j] 和 nums[k] 组成，
         并同时满足：i < j < k 和 nums[i] < nums[k] < nums[j] 。

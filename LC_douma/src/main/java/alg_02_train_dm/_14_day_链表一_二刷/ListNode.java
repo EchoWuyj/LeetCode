@@ -31,7 +31,7 @@ public class ListNode { // 构建链表节点
     // 从数组中构建链表
     public static ListNode fromArray(int[] arr) {
         if (arr == null || arr.length == 0) return null;
-        // 创建 head 节点，保证其固定不懂
+        // 创建 head 节点，保证其固定不动
         ListNode head = new ListNode(arr[0]);
         // curr 遍历指针
         ListNode curr = head;
@@ -40,6 +40,7 @@ public class ListNode { // 构建链表节点
             // curr 后移
             curr = curr.next;
         }
+        // 保证返回头结点
         return head;
     }
 
