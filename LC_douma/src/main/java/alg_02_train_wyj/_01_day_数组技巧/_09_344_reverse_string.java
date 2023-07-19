@@ -6,12 +6,13 @@ package alg_02_train_wyj._01_day_数组技巧;
  * @Version 1.0
  */
 public class _09_344_reverse_string {
-    public void reverseString(char[] chars) {
-        int left = 0, right = chars.length - 1;
+    public void reverseString(char[] s) {
+        int left = 0;
+        int right = s.length - 1;
         while (left < right) {
-            char temp = chars[right];
-            chars[right] = chars[left];
-            chars[left] = temp;
+            char tmp = s[left];
+            s[left] = s[right];
+            s[right] = tmp;
             left++;
             right--;
         }

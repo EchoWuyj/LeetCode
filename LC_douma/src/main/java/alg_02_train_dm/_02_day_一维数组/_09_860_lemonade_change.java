@@ -18,11 +18,6 @@ public class _09_860_lemonade_change {
         给你一个整数数组 bills ，其中 bills[i] 是第 i 位顾客付的账。
         如果你能给每位顾客正确找零，返回 true ，否则返回 false 。
 
-        提示
-        1 <= bills.length <= 10^5
-        bills[i] 不是 5 就是 10 或是 20
-
-
         输入：bills = [5,5,5,10,20]
         输出：true
         解释：
@@ -39,27 +34,38 @@ public class _09_860_lemonade_change {
         对于最后一位顾客，我们无法退回 15 美元，因为我们现在只有两张 10 美元的钞票。
         由于不是每位顾客都得到了正确的找零，所以答案是 false。
 
+        提示
+        1 <= bills.length <= 10^5
+        bills[i] 不是 5 就是 10 或是 20
+
      */
 
     // 直接模拟 => 照着葫芦画瓢
     public boolean lemonadeChange(int[] bills) {
         int five = 0;
         int ten = 0;
+        // KeyPoint 检查代码正确性
+        // 从局部到整体，局部没有问题，则放大到整体，不要紧盯着局部不放！
         for (int bill : bills) {
             if (bill == 5) {
                 five++;
             } else if (bill == 10) {
-                // KeyPoint 提高 if 条件的严苛性，能过滤掉不符合情况，提高代码的性能
+                // 提高 if 条件的严苛性，能过滤掉不符合情况，提高代码的性能
                 // if (five <= 0) 和 if (five == 0)
                 if (five == 0) return false;
                 five--;
                 ten++;
             } else { // 20
+                // 成立的 2 种情况
+                // KeyPoint 特别注意：if 判断逻辑递进性
+                // 1.有 10 块，5 块
                 if (ten > 0 && five > 0) {
                     ten--;
                     five--;
+                    // 2. 仅有 5 块
                 } else if (five >= 3) {
                     five -= 3;
+                    // 不成立条件
                 } else {
                     return false;
                 }

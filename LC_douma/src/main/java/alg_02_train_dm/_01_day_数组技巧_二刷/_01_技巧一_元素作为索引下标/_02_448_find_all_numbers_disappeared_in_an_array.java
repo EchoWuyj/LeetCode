@@ -1,4 +1,4 @@
-package alg_02_train_dm._01_day_数组技巧._01_元素作为索引;
+package alg_02_train_dm._01_day_数组技巧_二刷._01_技巧一_元素作为索引下标;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +21,31 @@ public class _02_448_find_all_numbers_disappeared_in_an_array {
         输入：nums = [1,1]
         输出：[2]
 
-       时间复杂度为 O(n)，空间复杂度 O(1)
+        要求：时间复杂度为 O(n)，空间复杂度 O(1)
      */
 
-    // KeyPoint +n
-    // 注意:不能使用改'负数'，一个元素出现两次，则负负得正，无法区分是否出现过
-    public List<Integer> findDisappearedNumbers(int[] nums) {
+    // KeyPoint 方法一 统计计数
+    // 时间复杂度 O(n)
+    // 空间复杂度 O(n) => 使用额外空间，不符合题目要求
+    public List<Integer> findDuplicates(int[] nums) {
+        List<Integer> res = new ArrayList<>();
+        int n = nums.length;
+        int[] count = new int[n + 1];
+        for (int num : nums) {
+            count[num]++;
+        }
+        for (int i = 1; i <= n; i++) {
+            if (count[i] == 0) res.add(i);
+        }
+        return res;
+    }
+
+    // KeyPoint 方法二 + n，n 为数组长度
+    // 标记数组元素出现的两种方式
+    // 1.标记负数
+    // 2.+ n
+    // 注意:不能使用标记'负数'，一个元素出现两次，则负负得正，无法区分是否出现过
+    public List<Integer> findDisappearedNumbers2(int[] nums) {
         int n = nums.length;
         for (int i = 0; i < n; i++) {
             // 元素值 => 索引值

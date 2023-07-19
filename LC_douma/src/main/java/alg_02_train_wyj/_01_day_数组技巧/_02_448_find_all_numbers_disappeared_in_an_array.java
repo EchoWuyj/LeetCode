@@ -17,6 +17,7 @@ public class _02_448_find_all_numbers_disappeared_in_an_array {
         }
 
         List<Integer> res = new ArrayList<>();
+
         for (int i = 0; i < n; i++) {
             if (nums[i] <= n) res.add(i + 1);
         }

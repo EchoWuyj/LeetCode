@@ -7,7 +7,6 @@ package alg_02_train_wyj._02_day_一维数组;
  */
 public class _01_941_valid_mountain_array {
     public boolean validMountainArray(int[] arr) {
-        if (arr == null || arr.length < 3) return false;
         int n = arr.length;
         int i = 0;
         while (i < n - 1 && arr[i] < arr[i + 1]) i++;

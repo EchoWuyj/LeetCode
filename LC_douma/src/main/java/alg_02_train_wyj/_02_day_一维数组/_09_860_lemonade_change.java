@@ -7,16 +7,17 @@ package alg_02_train_wyj._02_day_一维数组;
  */
 public class _09_860_lemonade_change {
     public boolean lemonadeChange(int[] bills) {
+        int n = bills.length;
         int five = 0;
         int ten = 0;
-        for (int i = 0; i < bills.length; i++) {
+        for (int i = 0; i < n; i++) {
             if (bills[i] == 5) {
                 five++;
             } else if (bills[i] == 10) {
                 if (five == 0) return false;
-                five--;
+                else five--;
                 ten++;
-            } else {
+            } else if (bills[i] == 20) {
                 if (ten > 0 && five > 0) {
                     ten--;
                     five--;

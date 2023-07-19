@@ -5,6 +5,8 @@ package alg_01_ds_dm._01_line._05_algo._01_twopoint;
  * @DateTime 2023-03-10 18:55
  * @Version 1.0
  */
+
+
 public class _01_283_MoveZeroes {
 
     /*

@@ -16,7 +16,16 @@ public class _12_1480_running_sum_of_1d_array {
             }
             prefixSum[i] = sum;
         }
+        return prefixSum;
+    }
 
+    public int[] runningSum2(int[] nums) {
+        int n = nums.length;
+        int[] prefixSum = new int[n + 1];
+        prefixSum[0] = 0;
+        for (int i = 1; i < n + 1; i++) {
+            prefixSum[i] = prefixSum[i - 1] + nums[i - 1];
+        }
         return prefixSum;
     }
 

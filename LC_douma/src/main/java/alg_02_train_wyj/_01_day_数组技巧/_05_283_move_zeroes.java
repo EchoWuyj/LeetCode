@@ -7,15 +7,15 @@ package alg_02_train_wyj._01_day_数组技巧;
  */
 public class _05_283_move_zeroes {
     public void moveZeroes(int[] nums) {
-        if (nums.length == 0) return;
-        int slow = 0;
+        int n = nums.length;
         int fast = 0;
-        while (fast < nums.length) {
+        int slow = 0;
+        while (fast < n) {
             if (nums[fast] != 0) {
-                if (slow != fast) {
-                    int temp = nums[slow];
+                if (fast != slow) {
+                    int tmp = nums[slow];
                     nums[slow] = nums[fast];
-                    nums[fast] = temp;
+                    nums[fast] = tmp;
                 }
                 slow++;
             }
@@ -24,22 +24,17 @@ public class _05_283_move_zeroes {
     }
 
     public void moveZeroes1(int[] nums) {
-        if (nums.length == 0) return;
-        int slow = 0;
+        int n = nums.length;
         int fast = 0;
-        while (fast < nums.length) {
+        int slow = 0;
+        while (fast < n) {
             if (nums[fast] != 0) {
-                if (slow != fast) {
-                    nums[slow] = nums[fast];
-                }
+                nums[slow] = nums[fast];
                 slow++;
             }
             fast++;
         }
 
-        for (int i = slow; i < nums.length; i++) {
-            nums[i] = 0;
-        }
-
+        while (slow < n) nums[slow++] = 0;
     }
 }

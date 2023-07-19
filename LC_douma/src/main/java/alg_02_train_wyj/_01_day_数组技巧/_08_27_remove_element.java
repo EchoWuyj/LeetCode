@@ -10,18 +10,23 @@ public class _08_27_remove_element {
         if (nums == null || nums.length == 0) return 0;
         int slow = 0;
         int fast = 0;
-        while (fast < nums.length) {
+        int n = nums.length;
+        while (fast < n) {
             if (nums[fast] != val) {
-                nums[slow] = nums[fast];
+                if (nums[fast] != nums[slow]) {
+                    nums[slow] = nums[fast];
+                }
                 slow++;
+                fast++;
+            } else {
+                fast++;
             }
-            fast++;
         }
         return slow;
     }
 
     public int removeElement(int[] nums, int val) {
-        if (nums.length == 0) return 0;
+        if (nums == null || nums.length == 0) return 0;
         int left = 0, right = nums.length - 1;
         while (left <= right) {
             if (nums[left] == val) {
