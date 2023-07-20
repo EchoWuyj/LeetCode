@@ -9,12 +9,12 @@ public class _01_867_transpose_matrix {
     public int[][] transpose(int[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
-        int[][] t = new int[n][m];
-        for (int row = 0; row < m; row++) {
-            for (int col = 0; col < n; col++) {
-                t[col][row] = matrix[row][col];
+        int[][] tmp = new int[n][m];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                tmp[j][i] = matrix[i][j];
             }
         }
-        return t;
+        return tmp;
     }
 }

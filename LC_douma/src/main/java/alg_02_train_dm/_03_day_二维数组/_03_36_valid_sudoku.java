@@ -38,10 +38,11 @@ public class _03_36_valid_sudoku {
                 // 保证在不为 '.'，即是数字的情况下判断
                 if (board[row][col] != '.') {
                     // 转索引，故需要减 1，同时
-                    // KeyPoint 数字 ascii 值，不是字面数字值
-                    //  1 '5' ascii 不是 5，而是 53
-                    //  2 '5' - '0'，这样的 ascii 才是 5
-                    //  int num = (int) board[row][col]; 53 数组肯定越界
+                    // KeyPoint 易错点
+                    // 数字 ascii 值，不是字面数字值
+                    // 1 '5' ascii 不是 5，而是 53
+                    // 2 '5' - '0'，这样的 ascii 才是 5
+                    // int num = (int) board[row][col]; 53 数组肯定越界
                     int num = board[row][col] - '1';
 
                     // KeyPoint 多个 if 并行独立判断，不能是 if else 分支选择
@@ -55,7 +56,7 @@ public class _03_36_valid_sudoku {
                     else colUsed[col][num] = true;
 
                     /*
-                    boxIndex 是如何推导出来的呢？
+                    KeyPoint boxIndex 是如何推导出来的呢？
 
                     补充知识：二维数组转一维数组
                     二维数组中，有个元素坐标索引 (row,col)

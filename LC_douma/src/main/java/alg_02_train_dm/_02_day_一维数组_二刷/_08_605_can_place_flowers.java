@@ -1,4 +1,4 @@
-package alg_02_train_dm._02_day_一维数组;
+package alg_02_train_dm._02_day_一维数组_二刷;
 
 /**
  * @Author Wuyj
@@ -47,26 +47,33 @@ public class _08_605_can_place_flowers {
                 i += 2;
             } else if (i == len - 1 || flowerbed[i + 1] == 0) {
                 // 上面 if 不成立 => 则有 flowerbed[i] == 0 => 在 i 位置没有种花
-                // 两种情况下确定能种花
-                // 1.i
-                // i 没有种花，且是最后一个花坛 || i 和 i + 1 的位置都没有种花， 那么 i 处肯定可以种植一朵花
-                // 注意：必须将 i == flowerbed.len - 1 放在前面先判断，若是直接判断 flowerbed[i + 1]，可能越界
+                // 注意：flowerbed[i] == 0 作为额外的附加条件
 
-                // KeyPoint || 语法
-                // || 前面为 true，后面不再判断，不执行 flowerbed[i + 1] ，避免越界
-                // || 前面为 false，再去判断 flowerbed[i + 1]，i != flowerbed.len - 1，也不存在越界
+                // KeyPoint 满足以下两种情况，才能确定能种花
+                // 1.flowerbed[i] == 0 && i == len-1
+                //   => i 位置没有种花，且是最后一个花坛
+                // 2.flowerbed[i] == 0 && flowerbed[i + 1] == 0
+                //   => i 和 i + 1 的位置都没有种花， 那么 i 处肯定可以种植一朵花
 
+                // KeyPoint || 语法 => 逻辑递进
+                // 必须将 i == len-1 放在前面先判断，若是直接判断 flowerbed[i+1]，可能越界
+                // 1.|| 前面为 true，后面不再判断，不执行 flowerbed[i+1] ，避免越界
+                // 2.|| 前面为 false，再去判断 flowerbed[i+1]，i != len - 1，也不存在越界
+
+                // 种一颗花，将 n 减 1
                 n--;
-                // 至此，至少需要到 i + 2 的地方才能种花
+                // 至少需要到 i+2 的地方才能种花
                 i += 2;
             } else {
-                // flowerbed[i] == 0 && i != flowerbed.len - 1 && flowerbed[i + 1] == 1
-                // i 处没有种花，但是 i + 1 处种花了
-                // 那么这个时候，至少需要到 i + 3 位置，判断该位置是否能种花
+                // KeyPoint else 语句隐藏逻辑条件：
+                // => flowerbed[i] == 0 && i != len-1 && flowerbed[i+1] == 1
+                // => i 处没有种花，但是 i + 1 处种花了
+                //    那么这个时候，至少需要到 i+3 位置，判断该位置是否能种花
+                //    只是判断能否种花，没有确定一定能种花
                 i += 3;
             }
         }
-        // len 太长，而 n 很小，导致有很多合适的位置，从而 n--，直到 n < 0
-        return n <= 0;
+        // n 为 0，则说明花种完了
+        return n == 0;
     }
 }

@@ -1,4 +1,4 @@
-package alg_02_train_dm._02_day_一维数组;
+package alg_02_train_dm._02_day_一维数组_二刷;
 
 /**
  * @Author Wuyj

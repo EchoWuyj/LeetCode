@@ -8,28 +8,34 @@ package alg_02_train_wyj._02_day_一维数组;
 public class _06_31_next_permutation {
 
     public void nextPermutation(int[] nums) {
-        int i = nums.length - 2;
-        int n = nums.length - 1;
+        int n = nums.length;
+        int i = n - 2;
         while (i >= 0 && nums[i] >= nums[i + 1]) i--;
+
         if (i >= 0) {
-            int j = nums.length - 1;
-            while (j >= 0 && nums[i] >= nums[j]) j--;
+            int j = n - 1;
+            while (j >= 0 && nums[j] <= nums[i]) j--;
             swap(nums, i, j);
         }
-        reverse(nums, i + 1, n);
+        reverse(nums, i + 1, n - 1);
     }
 
-    private void reverse(int[] nums, int start, int end) {
-        while (start < end) {
-            swap(nums, start, end);
-            start++;
-            end--;
+    private void reverse(int[] nums, int i, int j) {
+        while (i < j) {
+            int tmp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = tmp;
+            i++;
+            j--;
         }
     }
 
-    private void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
+    public void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
         nums[i] = nums[j];
-        nums[j] = temp;
+        nums[j] = tmp;
     }
 }
+
+
+

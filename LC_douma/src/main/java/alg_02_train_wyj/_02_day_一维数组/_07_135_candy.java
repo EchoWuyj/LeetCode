@@ -30,7 +30,7 @@ public class _07_135_candy {
                 }
             }
         }
-
+        // System.out.println(Arrays.toString(candies));
         int res = 0;
         for (int candy : candies) res += candy;
         return res;
@@ -39,26 +39,26 @@ public class _07_135_candy {
     public int candy2(int[] ratings) {
         int n = ratings.length;
         int[] left2right = new int[n];
-        int[] right2left = new int[n];
         Arrays.fill(left2right, 1);
+
+        int[] right2left = new int[n];
         Arrays.fill(right2left, 1);
 
         for (int i = 0; i < n; i++) {
-            if (i != 0 && ratings[i] > ratings[i - 1]
-                    && left2right[i] <= left2right[i - 1]) {
+            if (i != 0 && ratings[i] > ratings[i - 1]) {
                 left2right[i] = left2right[i - 1] + 1;
             }
         }
 
-        int sum = 0;
+        int res = 0;
         for (int i = n - 1; i >= 0; i--) {
-            if (i != n - 1 && ratings[i] > ratings[i + 1]
-                    && right2left[i] <= right2left[i + 1]) {
+            if (i != n - 1 && ratings[i] > ratings[i + 1]) {
                 right2left[i] = right2left[i + 1] + 1;
             }
-            sum += Math.max(left2right[i], right2left[i]);
+
+            res += Math.max(right2left[i], left2right[i]);
         }
-        return sum;
+        return res;
     }
 
     public int candy3(int[] ratings) {
@@ -67,8 +67,7 @@ public class _07_135_candy {
         Arrays.fill(left2right, 1);
 
         for (int i = 0; i < n; i++) {
-            if (i != 0 && ratings[i] > ratings[i - 1]
-                    && left2right[i] <= left2right[i - 1]) {
+            if (i != 0 && ratings[i] > ratings[i - 1]) {
                 left2right[i] = left2right[i - 1] + 1;
             }
         }
@@ -81,7 +80,6 @@ public class _07_135_candy {
             } else {
                 right = 1;
             }
-
             res += Math.max(left2right[i], right);
         }
         return res;

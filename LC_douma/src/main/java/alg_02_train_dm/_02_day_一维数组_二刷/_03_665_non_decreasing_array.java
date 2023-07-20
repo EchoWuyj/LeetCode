@@ -1,4 +1,4 @@
-package alg_02_train_dm._02_day_一维数组;
+package alg_02_train_dm._02_day_一维数组_二刷;
 
 /**
  * @Author Wuyj
@@ -12,7 +12,6 @@ public class _03_665_non_decreasing_array {
     /*
         665. 非递减数列
         给你一个长度为 n 的整数数组 nums，请你判断在 最多 改变 1 个元素的情况下，该数组能否变成一个非递减数列。
-
         我们是这样定义一个非递减数列的： 对于数组中任意的 i (0 <= i <= n-2)，总满足 nums[i] <= nums[i + 1]。
 
         输入: nums = [4,2,3]
@@ -44,15 +43,30 @@ public class _03_665_non_decreasing_array {
                 // 判断个数，大于 1，不符合要求
                 if (count > 1) return false;
 
-                // 1.若仅有两个元素，if 条件不成立，i=2，不满足 i < n，跳出 for 循环，return true
+                // 1.若仅有两个元素，i=1，i >= 2，if 条件不成立
+                //   不执行 if 判断体的赋值操作，跳出 for 循环，return true
 
-                // 修改 nums[i] 大小，需要考虑 nums[i] 和 nums[i-2] 的关系
-                // 2.若三个元素及其以上的情况，判断相邻元素之间大小关系
+                // 2.若三个元素及其以上的情况，判断相邻元素之间大小关系，从而保证整体满足：非递减数列
+                // 当前元素为 nums[i]
+                // => 最外层 if 条件：nums[i] < nums[i-1]
+                // => 修改 nums[i] 大小，需要考虑 nums[i] 和 nums[i-2] 的关系
+
                 //   已知 nums[i-2] <= nums[i-1]
                 //        nums[i-1] > nums[i]
                 //   => 令 nums[i] = nums[i-1]，nums[i] >= nums[i-2]
-                if (i - 2 >= 0 && nums[i] < nums[i - 2]) nums[i] = nums[i - 1];
-                // 若后续 for 循环，存在 nums[i] < nums[i - 1]，count > 1 直接 return false
+
+                //  4   5   3
+                //  ↑   ↑   ↑
+                // i-2 i-1  i => nums[i] = nums[i-1]
+
+                if (i >= 2 && nums[i] < nums[i - 2]) nums[i] = nums[i - 1];
+
+                // 这种情况：不可能存在
+                // => 因为不满足：nums[i-2] <= nums[i-1]
+                //   4   2  5
+                //   ↑   ↑  ↑
+                //  i-2 i-1 i
+                // if (i >= 2 && nums[i] >= nums[i - 2]) nums[i - 1] = nums[i];
             }
 
             // 2.nums[i] >= nums[i-1]
