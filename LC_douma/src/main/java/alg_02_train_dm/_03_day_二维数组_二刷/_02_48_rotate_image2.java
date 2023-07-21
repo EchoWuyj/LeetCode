@@ -1,4 +1,4 @@
-package alg_02_train_dm._03_day_二维数组;
+package alg_02_train_dm._03_day_二维数组_二刷;
 
 /**
  * @Author Wuyj
@@ -33,14 +33,17 @@ public class _02_48_rotate_image2 {
         int n = matrix.length;
         for (int row = 0; row < n / 2; row++) {
             for (int col = 0; col < (n + 1) / 2; col++) {
+                // 记住 A
                 int tmp = matrix[row][col];
                 // KeyPoint 注意：赋值等号'='，左右两边元素的前后位置
-                // => 被赋值 = 赋值
-                // (row,col) <= 逆时针旋转 90° 位置元素覆盖
-                // 旋转矩阵元素 <= 原矩阵元素
+                // 被赋值 <= 赋值
+                // A <= B
                 matrix[row][col] = matrix[n - col - 1][row];
+                // B <= C
                 matrix[n - col - 1][row] = matrix[n - row - 1][n - col - 1];
+                // C <= D
                 matrix[n - row - 1][n - col - 1] = matrix[col][n - row - 1];
+                // D <= A
                 matrix[col][n - row - 1] = tmp;
             }
         }

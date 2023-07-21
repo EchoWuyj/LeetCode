@@ -12,45 +12,48 @@ public class _09_119_pascals_triangle_ii {
     public List<Integer> getRow1(int rowIndex) {
         List<List<Integer>> res = new ArrayList<>();
         for (int row = 0; row <= rowIndex; row++) {
-            List<Integer> curRow = new ArrayList<>();
+            List<Integer> curList = new ArrayList<>();
             for (int col = 0; col <= row; col++) {
                 if (col == 0 || col == row) {
-                    curRow.add(1);
+                    curList.add(1);
                 } else {
-                    List<Integer> preRow = res.get(row - 1);
-                    curRow.add(preRow.get(col - 1) + preRow.get(col));
+                    List<Integer> preList = res.get(row - 1);
+                    int curNum = preList.get(col) + preList.get(col - 1);
+                    curList.add(curNum);
                 }
             }
-            res.add(curRow);
+            res.add(curList);
         }
         return res.get(rowIndex);
     }
 
     public List<Integer> getRow2(int rowIndex) {
-        List<Integer> preRow = new ArrayList<>();
+        List<Integer> preList = new ArrayList<>();
         for (int row = 0; row <= rowIndex; row++) {
-            List<Integer> curRow = new ArrayList<>();
+            List<Integer> curList = new ArrayList<>();
             for (int col = 0; col <= row; col++) {
                 if (col == 0 || col == row) {
-                    curRow.add(1);
+                    curList.add(1);
                 } else {
-                    curRow.add(preRow.get(col - 1) + preRow.get(col));
+                    int curNum = preList.get(col) + preList.get(col - 1);
+                    curList.add(curNum);
                 }
             }
-            preRow = curRow;
+            preList = curList;
         }
-        return preRow;
+        return preList;
     }
 
     public List<Integer> getRow(int rowIndex) {
-        List<Integer> curRow = new ArrayList<>();
-        curRow.add(1);
+        List<Integer> curList = new ArrayList<>();
+        curList.add(1);
         for (int row = 1; row <= rowIndex; row++) {
-            curRow.add(0);
+            curList.add(0);
             for (int col = row; col > 0; col--) {
-                curRow.set(col, curRow.get(col - 1) + curRow.get(col));
+                int curNum = curList.get(col - 1) + curList.get(col);
+                curList.set(col, curNum);
             }
         }
-        return curRow;
+        return curList;
     }
 }

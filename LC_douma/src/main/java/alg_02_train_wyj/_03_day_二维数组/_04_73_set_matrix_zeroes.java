@@ -13,19 +13,19 @@ public class _04_73_set_matrix_zeroes {
         boolean[] rows = new boolean[m];
         boolean[] cols = new boolean[n];
 
-        for (int row = 0; row < m; row++) {
-            for (int col = 0; col < n; col++) {
-                if (matrix[row][col] == 0) {
-                    rows[row] = true;
-                    cols[col] = true;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == 0) {
+                    rows[i] = true;
+                    cols[j] = true;
                 }
             }
         }
 
-        for (int row = 0; row < m; row++) {
-            for (int col = 0; col < n; col++) {
-                if (rows[row] || cols[col]) {
-                    matrix[row][col] = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (rows[i] || cols[j]) {
+                    matrix[i][j] = 0;
                 }
             }
         }
@@ -36,40 +36,47 @@ public class _04_73_set_matrix_zeroes {
         int n = matrix[0].length;
 
         boolean flagRow = false;
-        boolean flagCol = false;
-        for (int col = 0; col < n; col++) {
-            if (matrix[0][col] == 0) flagRow = true;
-        }
-        for (int row = 0; row < m; row++) {
-            if (matrix[row][0] == 0) flagCol = true;
+        for (int j = 0; j < n; j++) {
+            if (matrix[0][j] == 0) {
+                flagRow = true;
+                break;
+            }
         }
 
-        for (int row = 1; row < m; row++) {
-            for (int col = 1; col < n; col++) {
-                if (matrix[row][col] == 0) {
-                    matrix[0][col] = 0;
-                    matrix[row][0] = 0;
+        boolean flagCol = false;
+        for (int i = 0; i < m; i++) {
+            if (matrix[i][0] == 0) {
+                flagCol = true;
+                break;
+            }
+        }
+
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
                 }
             }
         }
 
-        for (int row = 1; row < m; row++) {
-            for (int col = 1; col < n; col++) {
-                if (matrix[row][0] == 0 || matrix[0][col] == 0) {
-                    matrix[row][col] = 0;
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (matrix[0][j] == 0 || matrix[i][0] == 0) {
+                    matrix[i][j] = 0;
                 }
             }
         }
 
         if (flagRow) {
-            for (int col = 0; col < n; col++) {
-                matrix[0][col] = 0;
+            for (int j = 0; j < n; j++) {
+                matrix[0][j] = 0;
             }
         }
 
         if (flagCol) {
-            for (int row = 0; row < m; row++) {
-                matrix[row][0] = 0;
+            for (int i = 0; i < m; i++) {
+                matrix[i][0] = 0;
             }
         }
     }
@@ -79,24 +86,25 @@ public class _04_73_set_matrix_zeroes {
         int n = matrix[0].length;
 
         boolean flagCol = false;
-        for (int row = 0; row < m; row++) {
-            if (matrix[row][0] == 0) flagCol = true;
-            for (int col = 1; col < n; col++) {
-                if (matrix[row][col] == 0) {
-                    matrix[row][0] = 0;
-                    matrix[0][col] = 0;
+
+        for (int i = 0; i < m; i++) {
+            if (matrix[i][0] == 0) flagCol = true;
+            for (int j = 1; j < n; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[0][j] = 0;
+                    matrix[i][0] = 0;
                 }
             }
         }
 
-        for (int row = m - 1; row >= 0; row--) {
-            for (int col = 1; col < n; col++) {
-                if (matrix[row][0] == 0 || matrix[0][col] == 0) {
-                    matrix[row][col] = 0;
+        for (int i = m - 1; i >= 0; i--) {
+            for (int j = 1; j < n; j++) {
+                if (matrix[0][j] == 0 || matrix[i][0] == 0) {
+                    matrix[i][j] = 0;
                 }
             }
             if (flagCol) {
-                matrix[row][0] = 0;
+                matrix[i][0] = 0;
             }
         }
     }

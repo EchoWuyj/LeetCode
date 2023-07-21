@@ -6,37 +6,40 @@ package alg_02_train_wyj._03_day_二维数组;
  * @Version 1.0
  */
 public class _07_498_diagonal_traverse {
-    public int[] findDiagonalOrder(int[][] mat ) {
-        int m = mat .length;
-        int n = mat [0].length;
+    public int[] findDiagonalOrder(int[][] mat) {
+        int m = mat.length;
+        int n = mat[0].length;
+
         int[][] dirs = {{-1, 1}, {1, -1}};
+        int i = 0, j = 0;
         int dir = 0;
-        int row = 0, col = 0;
         int[] res = new int[m * n];
-        for (int i = 0; i < m * n; i++) {
-            res[i] = mat [row][col];
-            row = row + dirs[dir][0];
-            col = col + dirs[dir][1];
 
-            if (col >= n) {
-                col = n - 1;
-                row += 2;
+        for (int count = 0; count < m * n; count++) {
+            res[count] = mat[i][j];
+
+            i = i + dirs[dir][0];
+            j = j + dirs[dir][1];
+
+            if (j >= n) {
+                i += 2;
+                j = n - 1;
                 dir = 1 - dir;
             }
 
-            if (row >= m) {
-                row = m - 1;
-                col += 2;
+            if (i >= m) {
+                j += 2;
+                i = m - 1;
                 dir = 1 - dir;
             }
 
-            if (col < 0) {
-                col = 0;
+            if (i < 0) {
+                i = 0;
                 dir = 1 - dir;
             }
 
-            if (row < 0) {
-                row = 0;
+            if (j < 0) {
+                j = 0;
                 dir = 1 - dir;
             }
         }
