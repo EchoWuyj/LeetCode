@@ -5,8 +5,10 @@ package alg_02_train_dm._11_day_优先队列;
  * @DateTime 2023-05-23 20:00
  * @Version 1.0
  */
-public class _07_04_median_of_two_sorted_arrays_扩展 {
+public class _07_04_median_of_two_sorted_arrays5 {
     /*
+
+        KeyPoint 划分数组，数学思维，太过复杂，直接跳过
 
         ------------------------------ 划分数组 ----------------------------------
         中位数：
@@ -78,7 +80,7 @@ public class _07_04_median_of_two_sorted_arrays_扩展 {
         如果 B[j - 1] > A[i]，说明 A[i] 太小了，i 需要往右走
         如果 A[i - 1] > B[j]，说明 A[i - 1] 太大了，i 需要往左走
 
-        ----------------------
+        -------------------------------------------------------------------------
         补充说明：
 
         在 bug，j < 0，索引越界

@@ -9,8 +9,8 @@ import java.util.Random;
  */
 public class _02_215_kth_largest_element_in_an_array4 {
 
-    // KeyPoint 方法五 优化 => 快速排序分区
-    // 时间复杂度：O(n) => 很难证明，记住结论
+    // KeyPoint 方法五 优化 => 快速排序分区 => 最优解
+    // 时间复杂度：O(n) => 不给证明，记住结论即可
     // 空间复杂度：O(1)
     public int findKthLargest5(int[] nums, int k) {
 
@@ -18,7 +18,7 @@ public class _02_215_kth_largest_element_in_an_array4 {
 
         // 把一个元素放到排序之后正确位置上 => 是快速排序分区操作
         // => 快速排序每次分区操作，将分区点放在排排序之后正确的位置上
-        // => 该算法是代码模板之一，后续还会使用到
+        // => 该算法是代码模板之一，后续还会使用到，需要掌握
 
         //              pivot
         //                ↓
@@ -60,6 +60,7 @@ public class _02_215_kth_largest_element_in_an_array4 {
             int pivotIndex = partition(nums, left, right);
             // 使用 "二分思想"
             if (pivotIndex == target) {
+                // 找到，直接返回
                 return nums[pivotIndex];
             } else if (pivotIndex < target) {
                 // 小于 => 右边找
@@ -73,6 +74,8 @@ public class _02_215_kth_largest_element_in_an_array4 {
 
     // 若 Random 种子相同，则 Random 每次返回的随机序列也就会相同
     // 通过 System.currentTimeMillis()，从而避免 Random 种子相同
+    // KeyPoint  random 另外一种实现 => 直接通过 new 创建，并且调用 nextInt 方法
+    // int pivotIndex = new Random().nextInt(high - low + 1) + low;
     private Random random = new Random(System.currentTimeMillis());
 
     // 二路快排
@@ -80,10 +83,8 @@ public class _02_215_kth_largest_element_in_an_array4 {
         // 使用随机数，随机快排
         if (high > low) {
             // pivotIndex 属于 [low,high]，比较好理解
+            // nextInt 范围 [0,high - low]，整体范围 [low,high]
             int pivotIndex = random.nextInt(high - low + 1) + low;
-
-            // 不推荐使用这种方式生成 pivotIndex，pivotIndex 属于 [low+1，high)
-//            int pivotIndex = low + 1 + random.nextInt(high - low);
             swap(nums, pivotIndex, high);
         }
         int pivot = nums[high];
@@ -92,10 +93,12 @@ public class _02_215_kth_largest_element_in_an_array4 {
             if (nums[great] < pivot) {
                 // great 和 less 交换，less 以左元素为小于 less 的部分
                 swap(nums, less, great);
+                // 同时移动 less 指针
                 less++;
             }
         }
         swap(nums, less, high);
+        // 返回为分区点索引坐标
         return less;
     }
 

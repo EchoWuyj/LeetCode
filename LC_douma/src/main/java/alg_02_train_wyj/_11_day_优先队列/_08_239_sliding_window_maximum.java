@@ -11,44 +11,42 @@ import java.util.PriorityQueue;
  */
 public class _08_239_sliding_window_maximum {
     public int[] maxSlidingWindow1(int[] nums, int k) {
-        if (nums == null) return nums;
         int n = nums.length;
         int[] res = new int[n - k + 1];
         for (int i = 0; i < n - k + 1; i++) {
-            int maxValue = Integer.MIN_VALUE;
+            int maxNum = Integer.MIN_VALUE;
             for (int j = i; j < i + k; j++) {
-                maxValue = Math.max(maxValue, nums[j]);
+                maxNum = Math.max(maxNum, nums[j]);
             }
-            res[i] = maxValue;
+            res[i] = maxNum;
         }
         return res;
     }
 
     public int[] maxSlidingWindow2(int[] nums, int k) {
-        if (nums == null) return nums;
-        PriorityQueue<int[]> pq
-                = new PriorityQueue<>((a, b) -> b[0] - a[0] == 0 ? (b[1] - a[1]) : (b[0] - a[0]));
+        PriorityQueue<int[]> maxHeap =
+                new PriorityQueue<>((a, b) -> a[0] != b[0] ? (b[0] - a[0]) : ((b[1] - a[1])));
 
         for (int i = 0; i < k; i++) {
-            pq.add(new int[]{nums[i], i});
+            maxHeap.add(new int[]{nums[i], i});
         }
 
         int n = nums.length;
         int[] res = new int[n - k + 1];
-        res[0] = pq.peek()[0];
+        res[0] = maxHeap.peek()[0];
+        // System.out.println(maxHeap.peek()[0]);
 
         for (int i = k; i < n; i++) {
-            pq.add(new int[]{nums[i], i});
-            while (pq.peek()[1] <= i - k) {
-                pq.remove();
+            maxHeap.add(new int[]{nums[i], i});
+            while (maxHeap.peek()[1] <= i - k) {
+                maxHeap.remove();
             }
-            res[i - k + 1] = pq.peek()[0];
+            res[i - k + 1] = maxHeap.peek()[0];
         }
         return res;
     }
 
     public int[] maxSlidingWindow3(int[] nums, int k) {
-        if (nums == null) return null;
         int n = nums.length;
         int[] res = new int[n - k + 1];
         Deque<Integer> deque = new LinkedList<>();
@@ -60,7 +58,6 @@ public class _08_239_sliding_window_maximum {
                 deque.pollLast();
             }
             deque.offer(i);
-
             if (i >= k - 1) res[i - k + 1] = nums[deque.peek()];
         }
         return res;

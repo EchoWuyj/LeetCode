@@ -40,7 +40,7 @@ public class _02_215_kth_largest_element_in_an_array2 {
         return pq.peek();
     }
 
-    // KeyPoint 方法三 小顶堆 => 另一种实现
+    // KeyPoint 方法三 小顶堆 => 另一种实现 => 后续该种现实使用比价多，需要掌握
     // 时间复杂度：O(nlogk)
     // 空间复杂度：O(k)
     public int findKthLargest3(int[] nums, int k) {

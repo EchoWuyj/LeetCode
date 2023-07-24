@@ -62,11 +62,44 @@ public class _02_215_kth_largest_element_in_an_array {
     }
 
     public int findKthLargest5(int[] nums, int k) {
-
+        int n = nums.length;
+        int left = 0, right = n - 1;
+        int target = n - k;
+        while (true) {
+            int pivotIndex = partition(nums, left, right);
+            if (pivotIndex == target) {
+                return nums[target];
+            } else if (pivotIndex < target) {
+                left = pivotIndex + 1;
+            } else {
+                right = pivotIndex - 1;
+            }
+        }
     }
 
-    public int partition(int[] nums, int left, int right) {
+    public int partition(int[] nums, int low, int high) {
+        if (high > low) {
+            int pivotIndex = new Random().nextInt(high - low + 1) + low;
+            swap(nums, pivotIndex, high);
+        }
+        int pivot = nums[high];
+        int great = low;
+        int less = low;
 
+        for (; great < high; great++) {
+            if (nums[great] < pivot) {
+                swap(nums, great, less);
+                less++;
+            }
+        }
+        swap(nums, less, high);
+        return less;
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
     }
 }
 

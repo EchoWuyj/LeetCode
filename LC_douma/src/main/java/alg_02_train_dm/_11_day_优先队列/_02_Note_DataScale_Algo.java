@@ -5,11 +5,11 @@ package alg_02_train_dm._11_day_优先队列;
  * @DateTime 2023-05-22 21:08
  * @Version 1.0
  */
-public class _02_Note_Data_Scale_2 {
+public class _02_Note_DataScale_Algo {
     /*
 
-        一般ACM或者笔试题，或者力扣上的题目的时间限制是1秒或2秒。
-        在这种情况下，C++代码中的操作次数控制在 1e7 为最佳。
+        一般 ACM 或者笔试题，或者力扣上的题目的时间限制是1秒或2秒。
+        在这种情况下，C++ 代码中的操作次数控制在 1e7 为最佳。
 
         我们做题时可以根据不同数据范围，知道代码的时间复杂度和算法该如何选择
         n越小说明我们可以使用越暴力、时间复杂度越高的解法
@@ -25,7 +25,7 @@ public class _02_Note_Data_Scale_2 {
                                 dijkstra + heap、spfa(最短路径算法)、求凸包、求半平面交、二分
 
         n ≤ 10^6 => O(n) 以及常数较小的 O(nlogn) 算法
-                 => O(n)做法：hash、双指针扫描、kmp、AC自动机
+                 => O(n)：hash、双指针扫描、kmp、AC自动机
                  => 常数比较小的 O(nlogn) 的做法：sort、树状数组、heap、dijkstra、spfa
 
         n ≤ 10^8 => O(n)，双指针扫描、kmp、AC自动机、线性筛素数
