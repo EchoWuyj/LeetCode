@@ -12,12 +12,12 @@ import java.util.Set;
  */
 public class _03_3_longest_substring_without_repeating_characters {
     public int lengthOfLongestSubstring1(String s) {
-        if (s == null) return 0;
-        int len = s.length();
-        int maxLen = 0;
-        for (int i = 0; i < len; i++) {
-            for (int j = i; j < len; j++) {
-                if (help(s, i, j)) {
+        int n = s.length();
+        if (n <= 1) return n;
+        int maxLen = 1;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (allUnique(s, i, j)) {
                     maxLen = Math.max(maxLen, j - i + 1);
                 }
             }
@@ -25,16 +25,34 @@ public class _03_3_longest_substring_without_repeating_characters {
         return maxLen;
     }
 
-    public boolean help(String s, int start, int end) {
+    public boolean allUnique(String s, int start, int end) {
         Set<Character> set = new HashSet<>();
         for (int i = start; i <= end; i++) {
             if (set.contains(s.charAt(i))) {
                 return false;
-            } else {
-                set.add(s.charAt(i));
             }
+            set.add(s.charAt(i));
         }
         return true;
+    }
+
+    public int lengthOfLongestSubstring(String s) {
+        int n = s.length();
+        if (n <= 1) return n;
+        int left = 0, right = 0;
+        int maxLen = 1;
+        Set<Character> set = new HashSet<>();
+        while (right < n) {
+            char rightChar = s.charAt(right);
+            while (set.contains(rightChar)) {
+                set.remove(s.charAt(left));
+                left++;
+            }
+            maxLen = Math.max(maxLen, right - left + 1);
+            set.add(rightChar);
+            right++;
+        }
+        return maxLen;
     }
 
     public int lengthOfLongestSubstring2(String s) {

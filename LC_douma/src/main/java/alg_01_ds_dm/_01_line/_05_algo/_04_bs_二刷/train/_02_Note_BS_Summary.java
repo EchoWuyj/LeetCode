@@ -14,13 +14,13 @@ public class _02_Note_BS_Summary {
 
                                            迭代 => 不断的在循环体中查找目标元素
           基本二分查找 => 唯一查找 target  ↗     => 以 nums[mid] 为中心
-                                        ↘
-                                         递归
+                                         ↘
+                                          递归
 
         02_Advanced_BinarySearch
 
                 进阶二分查找 (迭代) => 解决：有序数组中存在'重复元素'问题
-                                  => 不断的在循环体中查找目标元素 => 以 nums[mid] 为中心
+                                   => 不断的在循环体中查找目标元素 => 以 nums[mid] 为中心
 
                 1.查找：第一个'等于'目标元素的下标
                 2.查找：最后一个'等于'目标元素的下标
@@ -30,18 +30,16 @@ public class _02_Note_BS_Summary {
 
                 注意：以上代码：以 nums[mid] 为中心
 
-
      */
 
     /*
-
 
       01_704_BinarySearch => 基本二分查找 (3种思路) => 唯一查找 target
 
          思路一：不断的在循环体中查找目标元素 => 以 nums[mid] 为中心
 
          思路二：在循环体中排除 一定不存在 目标元素的区间 => 以 target 为中心
-                                                       => 重点掌握
+                                                     => 重点掌握
                 唯一查找 target
                 1.target > nums[mid]
                   逼近方向：从右往左
@@ -84,9 +82,8 @@ public class _02_Note_BS_Summary {
                         ↑      ↑
          从左往右逼近   mid  →  mid
 
-
          思路三：保证 while 循环结束，有 两个元素在循环体外 进行处理 => 以 target 为中心
-                                                                => 了解即可
+                                                                  => 了解即可
                 1.target > nums[mid]
                 2.target < nums[mid]
 

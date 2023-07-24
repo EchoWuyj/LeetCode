@@ -24,7 +24,7 @@ public class _12_Note_Test_PrefixSum_Diff {
     // prefixSum[2] - prefixSum[0] => nums[1] + nums[2]
     // => nums[0] + nums[1] + nums[2] - nums[0] => nums[1] + nums[2]
 
-    // KeyPoint 前缀和 => 实现二 => 作差推荐使用
+    // KeyPoint 前缀和 => 实现二 => 作差，推荐使用
     // prefixSum[i] = prefixSum[i-1] + nums[i-1];
 
     // index      0  1  2  3  4
@@ -45,6 +45,9 @@ public class _12_Note_Test_PrefixSum_Diff {
 
     // KeyPoint 推论二
     // prefixSum[i+k] - prefixSum[i] = num[i+k-1] + num[i+k-2] + ... + num[i]
+    // => 记忆：起始位置 i，终止位置 i+k-1
+    // 推广
+    // prefixSum[j] - prefixSum[i] = num[j-1] + ... +num[i]
 
     // 解释：
     // prefixSum[i+k] - prefixSum[i]

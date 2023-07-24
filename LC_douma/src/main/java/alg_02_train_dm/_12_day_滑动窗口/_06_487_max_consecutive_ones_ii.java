@@ -8,7 +8,7 @@ package alg_02_train_dm._12_day_滑动窗口;
 public class _06_487_max_consecutive_ones_ii {
 
     /*
-       leetcode 487. 最大连续 1 的个数 II
+       487. 最大连续 1 的个数 II
        给定一个二进制数组，你可以最多将 1 个 0 翻转为 1，找出其中最大连续 1 的个数。
 
        示例 1：
