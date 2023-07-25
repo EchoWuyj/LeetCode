@@ -7,37 +7,30 @@ package alg_02_train_dm._12_day_滑动窗口;
  */
 public class _03_Note_If_Max_Min {
 
-
+    // KeyPoint  if 和 Math.max 或者 Math.min 转化
     // 代码中，if 判断，使用  Math.max 或者  Math.min 进行简化
-    // 当使用条件语句 if 进行比较时，可以使用 Math.max 或 Math.min 函数来简化代码。
+    // 当使用条件语句 if 进行比较时，可以使用 Math.max 或 Math.min 函数来简化代码
 
     // KeyPoint 1.使用 Math.max 找到两个数中的较大值
     public void test1() {
         int a = 5;
         int b = 8;
-        int max = Math.max(a, b);
+        int max = 0;
 
-        if (a > b) {
-            // 执行 a 大于 b 的情况
-        } else {
-            // 执行 a 不大于 b 的情况
-        }
-    }
+        // KeyPoint 本质：找较大值
 
-    // 简化
-    public void test2() {
-        int a = 5;
-        int b = 8;
+//        if (a > b) {
+//            max = a;
+//        } else {
+//            max = b;
+//        }
 
-        if (Math.max(a, b) == a) {
-            // 执行 a 大于 b 的情况
-        } else {
-            // 执行 a 不大于 b 的情况
-        }
+        // KeyPoint 简化
+        max = Math.max(a, b);
     }
 
     // KeyPoint 2.使用 Math.max 找到数组中的最大值
-    public void test3() {
+    public void test2() {
         int[] array = {3, 9, 2, 5, 7};
         int max = array[0];
 
@@ -45,16 +38,8 @@ public class _03_Note_If_Max_Min {
             if (array[i] > max) {
                 max = array[i];
             }
-        }
-    }
-
-    // 简化
-    public void test4() {
-        int[] array = {3, 9, 2, 5, 7};
-        int max = array[0];
-
-        for (int i = 1; i < array.length; i++) {
-            max = Math.max(max, array[i]);
+            // KeyPoint 简化
+            // max = Math.max(max, array[i]);
         }
     }
 
@@ -65,6 +50,7 @@ public class _03_Note_If_Max_Min {
         int b = 7;
         int c = 12;
 
+        // 若是直接通过 if 判断大小值，嵌套逻辑很复杂
         if (a > b) {
             if (a > c) {
                 // 执行 a 最大的情况
@@ -78,14 +64,10 @@ public class _03_Note_If_Max_Min {
                 // 执行 c 最大的情况
             }
         }
-    }
 
-    // 简化
-    public void test6() {
-        int a = 10;
-        int b = 7;
-        int c = 12;
-
+        // KeyPoint 简化
+        // 1.直接获取 max
+        // 2.再去对 max 是 a，b，c 的那种进行判断
         int max = Math.max(Math.max(a, b), c);
 
         if (max == a) {
@@ -99,15 +81,11 @@ public class _03_Note_If_Max_Min {
 
     // KeyPoint 总结：以下场景可以考虑 Math.max 或 Math.min 进行转化
 
-    // 1.比较两个数的大小：如果你有一个 if 语句用于比较两个数的大小，并且根据比较结果执行不同的逻辑
-    //   你可以考虑使用 Math.max 或 Math.min 来简化代码。
+    // 1.比较两个数的大小：Math.max 或 Math.min => 简化代码
+    // 2.数组中的最大值或最小值：Math.max 或 Math.min => 简化代码
+    // 3.比较多个数的大小： Math.max 或 Math.min => 避免多个嵌套的 if 语句
 
-    // 2.查找数组中的最大值或最小值：如果你需要在一个数组中查找最大值或最小值，并使用 if 语句进行比较和更新，
-    //   你可以使用 Math.max 或 Math.min 函数在循环中简化代码。
-
-    // 3. 对比多个数的大小：如果你需要对比多个数的大小，并根据不同的比较结果执行不同的操作，
-    //    你可以使用 Math.max 或 Math.min 函数进行连续的比较，而不必使用多个嵌套的 if 语句。
-
-    // 总的来说，当你需要进行数值的比较和选择时，可以考虑使用 Math.max 或 Math.min 函数来简化代码。
-    // 这样可以使代码更加简洁和易读，并减少重复的条件判断。
+    // 总结
+    // 在数值比较或选择时，可以考虑使用 Math.max 或 Math.min 来简化代码
+    // => 使代码更加简洁和易读，并减少重复的条件判断
 }

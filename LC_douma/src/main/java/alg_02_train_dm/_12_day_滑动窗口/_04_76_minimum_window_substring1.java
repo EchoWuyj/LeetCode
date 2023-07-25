@@ -1,8 +1,5 @@
 package alg_02_train_dm._12_day_滑动窗口;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @Author Wuyj
  * @DateTime 2023-05-05 20:07
@@ -32,11 +29,28 @@ public class _04_76_minimum_window_substring1 {
 
      */
 
+    // KeyPoint 暴力解法 => 超时
+    // 枚举所有区间，判断区间是否覆盖 t 中所有字符，并从中找到最小区间
+    // 具体代码省略
+
+    // KeyPoint 一般枚举所有区间 => 使用滑动窗口优化，避免重复计算
     public String minWindow1(String s, String t) {
-        int length = s.length();
+
+        //            right
+        //              ↓
+        //    0 1 2 3 4 5 6 7
+        // S：A B A A C B A B
+        //          ↑
+        //        left
+
+        // T：A B C
+        // minLen = 3 => 返回索引 [3,5] 对应字符，而不是 minLen
+
+        int n = s.length();
         // 统计字符串 t 中每个字符出现的次数
         // s 和 t 由英文字母组成
-        // => 大小写英文字符之间存在 8 个其他字符，故数组大小定义为 60(26+26+8)
+        // => 大小写英文字符之间并不是连续的，存在 8 个其他字符，故数组大小定义为 60(26+26+8)
+        // KeyPoint 想要简单，直接定义 int[128]，不用减，直接存字符
         int[] cntT = new int[60];
 
         // 统计 t 中不同的字符数
@@ -44,8 +58,8 @@ public class _04_76_minimum_window_substring1 {
         int uniqueCharsInT = 0;
 
         for (char c : t.toCharArray()) {
-            // A 65
-            // a 97
+            // A 65，a 97
+            // A 对应 ASCII 最值，故以其为基准
             if (cntT[c - 'A'] == 0) uniqueCharsInT++;
             cntT[c - 'A']++;
         }
@@ -57,31 +71,62 @@ public class _04_76_minimum_window_substring1 {
         // 记录当前窗口中字符出现的次数和 t 中字符出现次数相等的字符数
         int matchedChars = 0;
 
-        // [0] => right -left+1 最小长度
+        // 通过数组 res 记录信息，方便后期返回结果
+        // KeyPoint 后期优化：定义成 class
+
+        // [0] => right-left+1 最小长度
         // [1] => left 左边界
         // [2] => right 右边界
-        int[] ans = {-1, 0, 0};
-        while (right < length) {
+        int[] res = {-1, 0, 0};
+
+        while (right < n) {
             // right 字符
             char rightChar = s.charAt(right);
             int rightCharIndex = rightChar - 'A';
             windowCntS[rightCharIndex]++;
 
             // 一个字符出现次数相同，则该字符匹配上了
+            // rightCharIndex => 字符匹配
+            // [rightCharIndex] => 次数匹配
             if (windowCntS[rightCharIndex] == cntT[rightCharIndex]) {
                 matchedChars++;
             }
 
-            // 1.若窗口不满足 matchedChars == uniqueCharsInT，则 right 一直右移，直到窗口满足为止
-            // 2.尝试缩减窗口，因为我们想找到最短符合条件的子串
+            // while 循环逻辑
+            // 1.若滑动窗口不满足 matchedChars == uniqueCharsInT，则 right 一直右移，直到窗口满足为止
+            // 2.多次尝试缩减窗口，找到最短符合条件的子串
+
+            //          right
+            //            ↓
+            //    0 1 2 3 4 5 6 7
+            // S：A B A A C B A B
+            //    ↑
+            //   left
+
+            // T：A B C
+
+            //          right
+            //            ↓
+            //    0 1 2 3 4 5 6 7
+            // S：A B A A C B A B
+            //      ↑
+            //    left
+
+            // T：A B C
+
+            // 避免索引越界：left <= right
             while (left <= right && matchedChars == uniqueCharsInT) {
                 // 记录满足条件的最短子串
-                if (ans[0] == -1 || right - left + 1 < ans[0]) {
-                    ans[0] = right - left + 1;
-                    ans[1] = left;
-                    ans[2] = right;
-                }
+                // res[0] == -1 表示最开始
+                // right-left+1 < res[0] 表示 minLen 更小
+                // 注意： res[0]， res[1]， res[2] 三者是同步更新
+                //       不能使用 res[2] - res[1] + 1 更新  res[0]
+                if (res[0] == -1 || right - left + 1 < res[0]) {
 
+                    res[0] = right - left + 1;
+                    res[1] = left;
+                    res[2] = right;
+                }
                 // left 字符
                 char leftChar = s.charAt(left);
                 int leftCharIndex = leftChar - 'A';
@@ -89,14 +134,14 @@ public class _04_76_minimum_window_substring1 {
                 if (windowCntS[leftCharIndex] < cntT[leftCharIndex]) {
                     matchedChars--;
                 }
-                // left 一个字符，一个字符，往前移动，其实性能很差，可以优化
+                // KeyPoint 后期优化：left 一个字符，一个字符，往前移动，其实性能很差，
                 left++;
             }
+            // 右移 right 扩大窗口
             right++;
         }
         // 若没有最小覆盖子串，返回空串
-        return ans[0] == -1 ? "" : s.substring(ans[1], ans[2] + 1);
+        // 注意：substring [start,end)，故需要额外加 1
+        return res[0] == -1 ? "" : s.substring(res[1], res[2] + 1);
     }
-
-
 }

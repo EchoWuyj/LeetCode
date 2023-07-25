@@ -49,6 +49,7 @@ public class _04_1370_increasing_decreasing_string {
      */
 
     public String sortString(String s) {
+        // 小写英文字母 => 定义 counts 为 26 即可
         int[] counts = new int[26];
         for (char c : s.toCharArray()) {
             counts[c - 'a']++;

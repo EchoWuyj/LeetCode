@@ -56,17 +56,18 @@ public class _03_3_longest_substring_without_repeating_characters {
     }
 
     public int lengthOfLongestSubstring2(String s) {
-        if (s == null) return 0;
-        int left = 0, right = 0;
         int n = s.length();
-        int maxLen = 0;
+        if (n <= 1) return n;
+        int maxLen = 1;
+        int left = 0, right = 0;
         Map<Character, Integer> map = new HashMap<>();
         while (right < n) {
             char rightChar = s.charAt(right);
-            int rightIndex = map.getOrDefault(rightChar, -1);
-            if (left == -1 || rightIndex < left) {
+            int rightCharIndex = map.getOrDefault(rightChar, -1);
+            if (rightCharIndex == -1 || rightCharIndex < left) {
+                left = left;
             } else {
-                left = rightIndex + 1;
+                left = rightCharIndex + 1;
             }
             maxLen = Math.max(maxLen, right - left + 1);
             map.put(rightChar, right);
@@ -76,17 +77,18 @@ public class _03_3_longest_substring_without_repeating_characters {
     }
 
     public static int lengthOfLongestSubstring3(String s) {
-        if (s == null) return 0;
-        int left = 0, right = 0;
         int n = s.length();
-        int maxLen = 0;
+        if (n <= 1) return n;
+        int maxLen = 1;
+        int left = 0, right = 0;
         int[] map = new int[128];
         while (right < n) {
             char rightChar = s.charAt(right);
-            int rightIndex = map[rightChar];
-            if (rightIndex == 0 || rightIndex < left) {
+            int rightCharIndex = map[rightChar];
+            if (rightCharIndex == 0 || rightCharIndex < left) {
+                left = left;
             } else {
-                left = rightIndex;
+                left = rightCharIndex;
             }
             maxLen = Math.max(maxLen, right - left + 1);
             map[rightChar] = right + 1;
