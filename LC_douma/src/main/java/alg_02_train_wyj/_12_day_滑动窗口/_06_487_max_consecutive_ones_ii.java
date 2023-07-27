@@ -8,20 +8,19 @@ package alg_02_train_wyj._12_day_滑动窗口;
 public class _06_487_max_consecutive_ones_ii {
 
     public static int findMaxConsecutiveOnes1(int[] nums) {
-        if (nums == null) return 0;
+        int res = 0;
         int left = 0, right = 0;
         int n = nums.length;
-        int maxZeroCount = 0;
-        int res = 0;
+        int count = 0;
         while (right < n) {
             if (nums[right] == 0) {
-                maxZeroCount++;
-                if (maxZeroCount == 2) {
+                count++;
+                if (count == 2) {
                     res = Math.max(res, right - left);
                 }
             }
-            while (maxZeroCount == 2) {
-                if (nums[left] == 0) maxZeroCount--;
+            if (count == 2) {
+                if (nums[left] == 0) count--;
                 left++;
             }
             right++;
@@ -30,22 +29,22 @@ public class _06_487_max_consecutive_ones_ii {
     }
 
     public static int findMaxConsecutiveOnes2(int[] nums) {
-        if (nums == null) return 0;
+        int res = 0;
         int left = 0, right = 0;
         int n = nums.length;
+
         int zeroIndex = -1;
-        int ans = 0;
         while (right < n) {
             if (nums[right] == 0) {
                 if (zeroIndex >= 0) {
-                    ans = Math.max(ans, right - left);
+                    res = Math.max(res, right - left);
                     left = zeroIndex + 1;
                 }
                 zeroIndex = right;
             }
             right++;
         }
-        return Math.max(ans, right - left);
+        return Math.max(res, right - left);
     }
 
     public static void main(String[] args) {

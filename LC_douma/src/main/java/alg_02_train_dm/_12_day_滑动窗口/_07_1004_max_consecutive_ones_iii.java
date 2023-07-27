@@ -7,7 +7,7 @@ package alg_02_train_dm._12_day_滑动窗口;
  */
 public class _07_1004_max_consecutive_ones_iii {
      /* 
-        leetcode 1004. 最大连续 1 的个数 III
+        1004. 最大连续 1 的个数 III
         给定一个由若干 0 和 1 组成的数组 A，我们最多可以将 K 个值从 0 变成 1 。
 
         返回仅包含 1 的最长(连续)子数组的长度。
@@ -36,53 +36,56 @@ public class _07_1004_max_consecutive_ones_iii {
     // KeyPoint 方法一 记录当前窗口中 0 的个数
     // 本质和 487 题是一样的
     public int longestOnes1(int[] nums, int k) {
-
-        int ans = 0;
+        int res = 0;
         int left = 0, right = 0;
-        int windowZeroCnt = 0;
-        while (right < nums.length) {
+        int count = 0;
+        int n = nums.length;
+        while (right < n) {
             if (nums[right] == 0) {
                 // 记录当前窗口中 0 的个数
-                windowZeroCnt++;
-                // 窗口中有 k+1 个 0，触发计算 ans
-                if (windowZeroCnt == k + 1) {
+                count++;
+                // 窗口中有 k+1 个 0，触发计算 res
+                if (count == k + 1) {
                     // right 在 0 位置，直接使用 right - left 即可
-                    ans = Math.max(ans, right - left);
+                    res = Math.max(res, right - left);
                 }
             }
 
             // left 右移，保证窗口中只有 k 个 0
-            while (windowZeroCnt > k) {
-                // 只是 nums[left] == 0，才将 windowZeroCnt 减 1
-                if (nums[left] == 0) windowZeroCnt--;
+            while (count > k) {
+                // 只是 nums[left] == 0，才将 count 减 1
+                if (nums[left] == 0) count--;
                 // 否则只是移动 left
                 left++;
             }
 
             right++;
         }
-        // ans 是在 nums[right] == 0 更新，故返回 ans 前，还得套一层 Math.max
-        return Math.max(ans, right - left);
+        // res 是在 nums[right] == 0 更新，故返回 res 前，还得套一层 Math.max
+        return Math.max(res, right - left);
     }
 
     // KeyPoint 方法二 记录当前窗口中 1 的个数
     public int longestOnes(int[] nums, int k) {
-        int ans = 0;
+        int res = 0;
         int left = 0, right = 0;
+        int n = nums.length;
         // 记录当前窗口中 1 的个数
         int oneCnt = 0;
-        while (right < nums.length) {
+        while (right < n) {
             if (nums[right] == 1) oneCnt++;
-            // 窗口长度 - 1 的个数 => 0 的个数
-            // 若 0 的个数 > k，缩短窗口长度
-            // 若 0 的个数 = k，结束循环，同时计算 ans
+            // 本题限制 k 个 0 => 窗口长度 - 1 个数 = 0 个数
+            // 1.若 0 个数 > k，缩短窗口长度
+            // 2.若 0 个数 = k，内层 while 结束循环，同时计算 res
             while ((right - left + 1) - oneCnt > k) {
+                // 缩小 oneCnt，直到跳出 while 循环
                 if (nums[left] == 1) oneCnt--;
                 left++;
             }
-            ans = Math.max(ans, right - left + 1);
+            res = Math.max(res, right - left + 1);
+            // 右移
             right++;
         }
-        return ans;
+        return res;
     }
 }

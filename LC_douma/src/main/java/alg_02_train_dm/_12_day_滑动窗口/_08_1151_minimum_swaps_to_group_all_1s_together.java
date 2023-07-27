@@ -7,7 +7,7 @@ package alg_02_train_dm._12_day_滑动窗口;
  */
 public class _08_1151_minimum_swaps_to_group_all_1s_together {
     /*
-        leetcode 1151. 最少交换次数来组合所有的 1
+        1151. 最少交换次数 来组合所有的 1
         给出一个二进制数组 data，你需要通过交换位置，
         将数组中 任何位置 上的 1 组合到一起，并返回所有可能中所需 最少的交换次数。
 
@@ -25,7 +25,7 @@ public class _08_1151_minimum_swaps_to_group_all_1s_together {
         输入：[0,0,0,1,0]
         输出：0
         解释：
-        由于数组中只有一个 1，所以不需要交换。
+        由于数组中只有一个 1，所以不需要交换
 
         示例 3：
         输入：[1,0,1,0,1,0,0,1,1,0,1]
@@ -39,39 +39,49 @@ public class _08_1151_minimum_swaps_to_group_all_1s_together {
 
      */
 
-    // 转换思路：没有必要真的将 1 和 0 进行交换，即不必发生交换动作
-    // 统计数组中元素值等于 1 的个数，将 1 的个数当做窗口，再去统计窗口中 0 的个数，即为需要交换的次数
+    // KeyPoint 问题转化思想 => 将陌生未知题目转换成熟悉已知题目
+    // 转换思路：
+    // 1.没有必要真的将 1 和 0 进行交换，即不必发生交换动作
+    // 2.统计数组中元素值等于 1 的个数，将 1 的个数当做窗口
+    // 3.再去统计窗口中 0 的个数，即为需要交换的次数
     public static int minSwaps(int[] data) {
         if (data == null) return 0;
-        // 统计数组中元素值等于 1 的个数
+        // 统计数组中元素值等于 1 的个数，记作 k，同时将 k 当做窗口大小
         int k = 0;
-        for (int x : data) {
-            if (x == 1) k++;
+        for (int num : data) {
+            if (num == 1) k++;
         }
 
         // 维护窗口大小为 k 的滑动窗口
         int left = 0, right = 0;
-
         // 存储每个窗口中 0 的数量
-        int windowZeroCnt = 0;
+        // => 即为需要将 0 交换 1 的次数，但不一定是最小的交换次数
+        int cnt = 0;
 
-        // minZeroCnt 所有窗口中最少的 0 的数量
-        // minZeroCnt 一开始涉及比较，必须得给赋初值，否则没法比较
-        int minZeroCnt = Integer.MAX_VALUE;
+        // KeyPoint 变量 minCnt 涉及比较，一定需要赋初值，否则没法比较
+        // minCnt 所有窗口中最少的 0 的数量
+        int minCnt = Integer.MAX_VALUE;
 
-        while (right < data.length) {
-            if (data[right] == 0) windowZeroCnt++;
+        int n = data.length;
+        while (right < n) {
+            if (data[right] == 0) cnt++;
             // 是否符合窗口条件 => 窗口大小 = k
-            if (right - left + 1 == k) {
-                minZeroCnt = Math.min(minZeroCnt, windowZeroCnt);
-                // left 将 0 移动出窗口，windowZeroCnt 减 1
-                if (data[left] == 0) windowZeroCnt--;
+            while (right - left + 1 == k) {
+                minCnt = Math.min(minCnt, cnt);
+                // 缩短串口，left 右移
+                // 但 left 右移前需要判断，若 data[left] 为 0，则 cnt 需要减 1
+                if (data[left] == 0) cnt--;
                 left++;
             }
             right++;
         }
-        // 所有窗口可能没有 0，即 minZeroCnt 没有更新，还是 Integer.MAX_VALUE，不需要交换，返回 0 即可
-        return minZeroCnt == Integer.MAX_VALUE ? 0 : minZeroCnt;
+        // 极端情况，所有窗口可能没有 0 都是 1，即 minCnt 没有更新
+        // minCnt 还是 Integer.MAX_VALUE，不需要交换，返回 0 即可
+        return minCnt == Integer.MAX_VALUE ? 0 : minCnt;
+
+        // KeyPoint
+        // 定义初值 minCnt，返回前判断下，minCnt 是否已经被更新了
+        // 若 minCnt 还是 Integer.MAX_VALUE，则需要特殊处理下
     }
 
     public static void main(String[] args) {

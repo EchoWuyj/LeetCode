@@ -7,47 +7,46 @@ package alg_02_train_wyj._12_day_滑动窗口;
  */
 public class _05_485_max_consecutive_ones {
     public int findMaxConsecutiveOnes1(int[] nums) {
-        int ans = 0;
-        int ones = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 1) {
-                ones++;
+        int res = 0;
+        int count = 0;
+        int maxCount = 0;
+        for (int num : nums) {
+            if (num == 1) {
+                count++;
             } else {
-                ans = Math.max(ans, ones);
-                ones = 0;
+                maxCount = Math.max(maxCount, count);
+                count = 0;
             }
         }
-        return Math.max(ones, ans);
+        return Math.max(count, maxCount);
     }
 
     public int findMaxConsecutiveOnes2(int[] nums) {
-        if (nums == null) return 0;
         int n = nums.length;
         int left = 0, right = 0;
-        int ans = 0;
+        int res = 0;
         while (right < n) {
             if (nums[right] == 0) {
-                ans = Math.max(ans, right - left);
+                res = Math.max(res, right - left);
                 left = right + 1;
             }
             right++;
         }
-        return Math.max(ans, right - left);
+        return Math.max(res, right - left);
     }
 
     public int findMaxConsecutiveOnes3(int[] nums) {
-        if (nums == null) return 0;
         int n = nums.length;
         int left = 0, right = 0;
-        int ans = 0;
+        int res = 0;
         while (right < n) {
             if (nums[right] == 1) {
-                ans = Math.max(ans, right - left + 1);
+                res = Math.max(res, right - left + 1);
             } else {
                 left = right + 1;
             }
             right++;
         }
-        return ans;
+        return Math.max(res, right - left + 1);
     }
 }

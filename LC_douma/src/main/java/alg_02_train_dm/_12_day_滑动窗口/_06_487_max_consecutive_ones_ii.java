@@ -28,60 +28,65 @@ public class _06_487_max_consecutive_ones_ii {
 
     // 思路：将窗口中第一个 0 当做 1，且窗口中最多只有一个 1
     public static int findMaxConsecutiveOnes1(int[] nums) {
-        int ans = 0;
+        int res = 0;
         int left = 0, right = 0;
         // 记录窗口中 0 个数
-        int windowZeroCnt = 0;
-        while (right < nums.length) {
+        int count = 0;
+        int n = nums.length;
+        while (right < n) {
             if (nums[right] == 0) {
-                windowZeroCnt++;
-                // windowZeroCnt > 1
-                if (windowZeroCnt == 2) {
-                    // right 为 0，不是 1，所以直接 right - left
-                    ans = Math.max(ans, right - left);
+                count++;
+                // count > 1
+                if (count == 2) {
+                    // 因为 right 位置对应为 0 不是 1，所以直接 right - left
+                    res = Math.max(res, right - left);
                 }
             }
-
-            // 若窗口中有 2 个 0，则 left 不断右移动，保证窗口中只能有一个 1
-            while (windowZeroCnt == 2) {
-                // KeyPoint 无法处理'无限流'，因为内存不能存储下所有从流中输入的数字
-                // 需要将 left 到 right 之间所有元素都存在数组中，后续需要一一判断
-                if (nums[left] == 0) windowZeroCnt--;
+            // 若窗口中有 2 个 0，则 left 不断右移动，保证窗口中只能有一个
+            // => 能使用 while 尽量使用 while，必然不会出错！
+            while (count == 2) {
+                if (nums[left] == 0) count--;
                 left++;
             }
-
             right++;
         }
-        // ans 是在 nums[right] == 0 更新，故返回 ans 前，还得套一层 Math.max
-        return Math.max(ans, right - left);
+        // res 是在 nums[right] == 0 更新，数组可能是 1结尾
+        // 故返回 res 前，还得套一层 Math.max
+        return Math.max(res, right - left);
     }
 
-    // 进阶
+    // KeyPoint 进阶问题
+    // 如果输入的数字是作为 无限流 逐个输入如何处理？
+    // 换句话说，内存不能存储下所有从流中输入的数字。您可以有效地解决吗？
+    // KeyPoint 解决措施
+    // 使用 zeroIndex 记录当前窗口中 0 出现索引位置，通过索引坐标之间相减来计算元素个数
+    // 而不是将 left 到 right 之间所有元素都存储下来，从而解决进阶问题
     public static int findMaxConsecutiveOnes2(int[] nums) {
-        int ans = 0;
+        int res = 0;
         int left = 0, right = 0;
-
-        // zeroIndex 记录当前窗口中 0 出现的位置，而不是将 left 到 right 之间所有元素
-        // 都存储下来，从而解决了：内存不能存储下所有从流中输入的数字
+        int n = nums.length;
 
         // -1 表示之前还没有出现过 0
         int zeroIndex = -1;
-        while (right < nums.length) {
+        while (right < n) {
             if (nums[right] == 0) {
-                // 说明当前窗口已经有 0，且此时 nums[right] 为 0，需要计算 ans
+                // 最开始 zeroIndex == -1 不满足题目条件，不执行 if 判断
+                // 说明当前窗口已经有一个 0，且此时 right 位置，数组元素为 0，故计算 res
                 if (zeroIndex >= 0) {
-                    ans = Math.max(ans, right - left);
-                    // 直接跳到 zeroIndex 后面一个位置，避免从 left 位置往后一个位置一个位置判断，效率低下
+                    res = Math.max(res, right - left);
+                    // 直接跳到 zeroIndex 后面一个位置
+                    // 避免从 left 位置往后一个位置一个位置判断，效率低下
                     left = zeroIndex + 1;
                 }
-                // 更新 zeroIndex
+                // 更新 zeroIndex 值
                 zeroIndex = right;
             }
             right++;
         }
-        return Math.max(ans, right - left);
+        return Math.max(res, right - left);
     }
 
+    //  for test => 需要力扣会员
     public static void main(String[] args) {
         int[] array = new int[]{1, 0, 1, 1, 0};
         System.out.println(findMaxConsecutiveOnes1(array)); // 4
