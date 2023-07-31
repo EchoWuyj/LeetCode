@@ -54,6 +54,7 @@ public class _08_1151_minimum_swaps_to_group_all_1s_together {
 
         // 维护窗口大小为 k 的滑动窗口
         int left = 0, right = 0;
+
         // 存储每个窗口中 0 的数量
         // => 即为需要将 0 交换 1 的次数，但不一定是最小的交换次数
         int cnt = 0;
@@ -79,7 +80,7 @@ public class _08_1151_minimum_swaps_to_group_all_1s_together {
         // minCnt 还是 Integer.MAX_VALUE，不需要交换，返回 0 即可
         return minCnt == Integer.MAX_VALUE ? 0 : minCnt;
 
-        // KeyPoint
+        // KeyPoint 返回 minCnt 前，其值是否被更新
         // 定义初值 minCnt，返回前判断下，minCnt 是否已经被更新了
         // 若 minCnt 还是 Integer.MAX_VALUE，则需要特殊处理下
     }

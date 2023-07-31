@@ -10,26 +10,24 @@ public class _08_1151_minimum_swaps_to_group_all_1s_together {
     public static int minSwaps(int[] data) {
         if (data == null) return 0;
         int k = 0;
-        for (int x : data) {
-            if (x == 1) k++;
+        for (int num : data) {
+            if (num == 1) k++;
         }
-
         int left = 0, right = 0;
-        int windowZeroCnt = 0;
-        int minZeroCnt = Integer.MAX_VALUE;
-        int n = data.length;
+        int cnt = 0;
+        int minCnt = Integer.MAX_VALUE;
 
+        int n = data.length;
         while (right < n) {
-            if (data[right] == 0) windowZeroCnt++;
-            if (right - left + 1 == k) {
-                minZeroCnt = Math.min(minZeroCnt, windowZeroCnt);
-                if (data[left] == 0) windowZeroCnt--;
+            if (data[right] == 0) cnt++;
+            while (right - left + 1 == k) {
+                minCnt = Math.min(minCnt, cnt);
+                if (data[left] == 0) cnt--;
                 left++;
             }
             right++;
         }
-
-        return minZeroCnt == Integer.MAX_VALUE ? 0 : minZeroCnt;
+        return minCnt == Integer.MAX_VALUE ? 0 : minCnt;
     }
 
     public static void main(String[] args) {

@@ -40,47 +40,47 @@ public class _09_30_substring_with_concatenation_of_all_words1 {
            1 <= words.length <= 5000
            1 <= words[i].length <= 30
            words[i] 由小写英文字母组成
-
      */
 
     // KeyPoint 方法一 哈希查找 => 暴力解法
+    // => 充分使用 '长度相同' 这一信息 => 滑动窗口
+    // => 将 words 字符个数作为窗口大小，统计窗口内字符个数，和 words 字符个数是否相同
     // 时间辅助度 O(n^2)
-    // 将 words 字符个数作为窗口大小，统计窗口内字符个数，和 words 字符个数是否相同
     public List<Integer> findSubstring1(String s, String[] words) {
-        // 统计每个单词出现的次数
+
+        // map 统计每个单词出现的次数
+        // => 将每个单词作为 key，value 为出现次数，然后按照 Entry 键值对进行比较
         // key -> word
         // value -> 次数
-        // 将每个单词作为 key，value 为出现次数，然后按照 Entry 键值对进行比较
         Map<String, Integer> map = new HashMap<>();
         for (String word : words) {
             map.put(word, map.getOrDefault(word, 0) + 1);
         }
+
         int oneWordLen = words[0].length();
-        int wordNum = words.length;
-        int totalLen = oneWordLen * wordNum;
-        // 结果集
+        int num = words.length;
+        // 子串总长度
+        int totalWordLen = oneWordLen * num;
         List<Integer> res = new ArrayList<>();
 
-        // 遍历子串个数 => 字符串长度 - 窗口大小 + 1
+        // 遍历子串个数 => 字符串长度 - 窗口大小 + 1 => 规律将其记住
         // i 是从 s 的每个位置，每次向后移动一位，进行循环判断
-        for (int i = 0; i < s.length() - totalLen + 1; i++) { // O(n)
-            // 拿到等于所有单词长度之和的子串
-            String subStr = s.substring(i, i + totalLen);
-            // 统计子串中单词出现的次数
-            Map<String, Integer> tmpMap = new HashMap<>();
+        for (int i = 0; i < s.length() - totalWordLen + 1; i++) { // O(n)
+            // 获取子串
+            String subStr = s.substring(i, i + totalWordLen);
+            // 子串分单词，构建 subMap
+            Map<String, Integer> subMap = new HashMap<>();
 
-            // 以每个单词长度为单位进行统计
-            for (int j = 0; j < totalLen; j += oneWordLen) { // O(n)
+            // 子串分单词
+            for (int j = 0; j < totalWordLen; j += oneWordLen) { // O(n)
                 String oneWord = subStr.substring(j, j + oneWordLen);
                 // 统计每个单词出现次数
-                tmpMap.put(oneWord, tmpMap.getOrDefault(oneWord, 0) + 1);
+                subMap.put(oneWord, subMap.getOrDefault(oneWord, 0) + 1);
             }
-
-            // 如果单词出现的次数和原始 words 中单词出现的次数相同，则符合条件
-            if (map.equals(tmpMap)) res.add(i);
+            // 通过比较 map 和 subMap 从而判断是否一致
+            // => 若 subMap 单词出现次数 和 map 单词出现次数保持一致，则符合条件
+            if (map.equals(subMap)) res.add(i);
         }
         return res;
     }
-
-
 }

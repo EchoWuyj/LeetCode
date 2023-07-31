@@ -13,12 +13,11 @@ import java.util.Map;
 public class _01_001_TwoSum {
 
     public int[] twoSum1(int[] nums, int target) {
-        if (nums == null || nums.length == 0) return nums;
+        if (nums == null || nums.length == 0) return null;
         int n = nums.length;
         for (int i = 0; i < n; i++) {
-            int x = nums[i];
             for (int j = i + 1; j < n; j++) {
-                if (nums[j] == target - x) {
+                if (nums[i] + nums[j] == target) {
                     return new int[]{i, j};
                 }
             }
@@ -27,32 +26,33 @@ public class _01_001_TwoSum {
     }
 
     public int[] twoSum2(int[] nums, int target) {
-        if (nums == null || nums.length == 0) return nums;
-        int n = nums.length;
+        if (nums == null || nums.length == 0) return null;
         Map<Integer, ArrayList<Integer>> map = new HashMap<>();
+        int n = nums.length;
         for (int i = 0; i < n; i++) {
-            ArrayList<Integer> index;
-            if (!map.containsKey(nums[i])) {
-                index = new ArrayList<Integer>();
+            ArrayList<Integer> indexList;
+            if (map.containsKey(nums[i])) {
+                indexList = map.get(nums[i]);
             } else {
-                index = map.get(nums[i]);
+                indexList = new ArrayList<>();
             }
-            index.add(i);
-            map.put(nums[i], index);
+            indexList.add(i);
+            map.put(nums[i], indexList);
         }
 
         Arrays.sort(nums);
         for (int i = 0; i < n; i++) {
-            int x = nums[i];
-            int num = binarySearch(nums, i + 1, n - 1, target - x);
-            if (num != Integer.MIN_VALUE) {
-                if (num != x) {
-                    return new int[]{map.get(x).get(0), map.get(num).get(0)};
+            int num1 = nums[i];
+            int num2 = binarySearch(nums, i + 1, n - 1, target - num1);
+            if (num2 != Integer.MIN_VALUE) {
+                if (num1 == num2) {
+                    return new int[]{map.get(num1).get(0), map.get(num2).get(1)};
                 } else {
-                    return new int[]{map.get(x).get(0), map.get(x).get(1)};
+                    return new int[]{map.get(num1).get(0), map.get(num2).get(0)};
                 }
             }
         }
+
         return null;
     }
 
@@ -70,6 +70,24 @@ public class _01_001_TwoSum {
         return Integer.MIN_VALUE;
     }
 
+    public int[] twoSum3_1(int[] nums, int target) {
+        if (nums == null || nums.length == 0) return nums;
+        int n = nums.length;
+        Arrays.sort(nums);
+        int i = 0, j = n - 1;
+        while (i < j) {
+            int sum = nums[i] + nums[j];
+            if (sum == target) {
+                return new int[]{i, j};
+            } else if (sum < target) {
+                i++;
+            } else { // sum > target
+                j--;
+            }
+        }
+        return null;
+    }
+
     public int[] twoSum3(int[] nums, int target) {
         if (nums == null || nums.length == 0) return nums;
         int n = nums.length;
@@ -79,12 +97,11 @@ public class _01_001_TwoSum {
         }
 
         for (int i = 0; i < n; i++) {
-            int x = nums[i];
-            if (map.containsKey(target - x)) {
-                int index = map.get(target - x);
-                if (i != index) {
-                    return new int[]{i, index};
-                }
+            int num1 = nums[i];
+            int num2 = target - num1;
+            if (map.containsKey(num2)) {
+                int index = map.get(num2);
+                if (i != index) return new int[]{i, index};
             }
         }
         return null;
@@ -95,13 +112,13 @@ public class _01_001_TwoSum {
         int n = nums.length;
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < n; i++) {
-            int x = nums[i];
-            int y = target - x;
-            if (map.containsKey(y)) {
-                int index = map.get(y);
+            int num1 = nums[i];
+            int num2 = target - num1;
+            if (map.containsKey(num2)) {
+                int index = map.get(num2);
                 return new int[]{i, index};
             }
-            map.put(x, i);
+            map.put(num1, i);
         }
         return null;
     }

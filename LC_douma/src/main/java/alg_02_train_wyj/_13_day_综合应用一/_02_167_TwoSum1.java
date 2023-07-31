@@ -7,11 +7,12 @@ package alg_02_train_wyj._13_day_综合应用一;
  */
 public class _02_167_TwoSum1 {
     public int[] twoSum(int[] nums, int target) {
-        if (nums == null || nums.length == 0) return null;
+        if (nums == null || nums.length == 0) return nums;
         int n = nums.length;
         for (int i = 0; i < n; i++) {
-            int x = nums[i];
-            int index = bs(nums, i + 1, n - 1, target - x);
+            int num1 = nums[i];
+            int num2 = target - num1;
+            int index = bs(nums, i + 1, n - 1, num2);
             if (index != -1) {
                 return new int[]{i + 1, index + 1};
             }
@@ -34,11 +35,11 @@ public class _02_167_TwoSum1 {
     }
 
     public int[] twoSum1(int[] nums, int target) {
-        if (nums == null || nums.length == 0) return null;
-        int left = 0, right = nums.length - 1;
+        if (nums == null || nums.length == 0) return nums;
+        int n = nums.length;
+        int left = 0, right = n - 1;
         while (left < right) {
             int sum = nums[left] + nums[right];
-
             if (sum == target) {
                 return new int[]{left + 1, right + 1};
             } else if (sum < target) {

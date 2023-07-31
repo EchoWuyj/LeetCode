@@ -38,21 +38,24 @@ public class _02_167_TwoSum {
 
      */
 
-    // KeyPoint 方法一 二分查找
+    // KeyPoint 方法一 二分查找 => 非递减顺序排列
     // 时间复杂度：O(nlogn)
     // 空间复杂度：O(1)
     public int[] twoSum1(int[] nums, int target) {
-        if (nums == null || nums.length == 0) return new int[0];
-
-        for (int i = 0; i < nums.length; i++) {
-            // 二分查找 => O(logn) => 固定一个元素 x，在剩余的 [i + 1, nums.length-1] 区间上，二分查找 target - x
-            int x = nums[i];
-            int index = binarySearch(nums, i + 1, nums.length - 1, target - x);
+        if (nums == null || nums.length == 0) return nums;
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            // 二分查找 => O(logn)
+            // => 固定一个元素 num1，在剩余的 [i + 1, n -1] 区间上，二分查找 target - num1
+            int num1 = nums[i];
+            int num2 = target - num1;
+            int index = binarySearch(nums, i + 1, n - 1, num2);
             if (index != -1) {
+                // num2 是从 num1 后面选择出来的，故 num1 在前，num2 在后
                 return new int[]{i + 1, index + 1};
             }
         }
-        return new int[0];
+        return null;
     }
 
     private int binarySearch(int[] nums, int left, int right, int target) {
@@ -61,6 +64,7 @@ public class _02_167_TwoSum {
             int mid = left + (right - left) / 2;
             if (nums[mid] == target)
                 return mid;
+            // 关注点：target，根据 target 重新设置 left 和 right
             if (nums[mid] > target)
                 right = mid - 1;
             else
@@ -74,13 +78,16 @@ public class _02_167_TwoSum {
     // 时间复杂度：O(n)
     // 空间复杂度：O(1)
     public int[] twoSum(int[] nums, int target) {
-        if (nums == null || nums.length == 0) return new int[0];
+        if (nums == null || nums.length == 0) return nums;
+        int n = nums.length;
         int left = 0;
-        int right = nums.length - 1;
-        // 双指针 => left 和 right 可以不取等
+        int right = n - 1;
+        // 对撞指针
+        // => 若 left 和 right 相等，nums[left] 和 nums[right] 是同一个元素，不符合题目要求
         while (left < right) {
             int sum = nums[left] + nums[right];
             if (sum == target) {
+                // 数组索引从 1 开始，故需要加 1
                 return new int[]{left + 1, right + 1};
             } else if (sum < target) {
                 left++;
@@ -88,7 +95,7 @@ public class _02_167_TwoSum {
                 right--;
             }
         }
-        // 返回一个长度为 0 的数组，也是可以返回 null
-        return new int[0];
+
+        return null;
     }
 }
