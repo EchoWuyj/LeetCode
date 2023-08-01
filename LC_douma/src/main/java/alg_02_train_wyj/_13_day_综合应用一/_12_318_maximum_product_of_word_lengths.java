@@ -18,7 +18,7 @@ public class _12_318_maximum_product_of_word_lengths {
             for (int j = i + 1; j < n; j++) {
                 String word2 = words[j];
                 if (!hasSameChar1(word1, word2)) {
-                    res = Math.max(res, word1.length() * word2.length());
+                    res = Math.max(word1.length() * word2.length(), res);
                 }
             }
         }
@@ -33,10 +33,10 @@ public class _12_318_maximum_product_of_word_lengths {
     }
 
     private boolean hasSameChar2(String word1, String word2) {
-        int[] count = new int[26];
-        for (char c : word1.toCharArray()) count[c - 'a'] = 1;
+        int[] counts = new int[26];
+        for (char c : word1.toCharArray()) counts[c - 'a'] = 1;
         for (char c : word2.toCharArray()) {
-            if (count[c - 'a'] == 1) return true;
+            if (counts[c - 'a'] == 1) return true;
         }
         return false;
     }
@@ -50,13 +50,11 @@ public class _12_318_maximum_product_of_word_lengths {
 
     public int maxProduct2(String[] words) {
         int n = words.length;
-        int[] masks = new int[n];
+        int[] bitMasks = new int[n];
         for (int i = 0; i < n; i++) {
-            int bitMask = 0;
             for (char c : words[i].toCharArray()) {
-                bitMask |= (1 << (c - 'a'));
+                bitMasks[i] |= (1 << (c - 'a'));
             }
-            masks[i] = bitMask;
         }
 
         int res = 0;
@@ -64,7 +62,7 @@ public class _12_318_maximum_product_of_word_lengths {
             String word1 = words[i];
             for (int j = i + 1; j < n; j++) {
                 String word2 = words[j];
-                if ((masks[i] & masks[j]) == 0) {
+                if ((bitMasks[i] & bitMasks[j]) == 0) {
                     res = Math.max(res, word1.length() * word2.length());
                 }
             }

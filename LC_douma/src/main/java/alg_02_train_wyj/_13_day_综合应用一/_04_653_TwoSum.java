@@ -2,8 +2,6 @@ package alg_02_train_wyj._13_day_综合应用一;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @Author Wuyj
@@ -14,11 +12,10 @@ public class _04_653_TwoSum {
 
     public boolean findTarget1(TreeNode root, int target) {
         if (root == null) return false;
-        List<Integer> list = new ArrayList<>();
-        inOrder(root, list);
-
-        int left = 0;
-        int right = list.size() - 1;
+        ArrayList<Integer> list = new ArrayList<>();
+        process(root, list);
+        int size = list.size();
+        int left = 0, right = size - 1;
         while (left < right) {
             int sum = list.get(left) + list.get(right);
             if (sum == target) {
@@ -32,23 +29,33 @@ public class _04_653_TwoSum {
         return false;
     }
 
-    public void inOrder(TreeNode root, List<Integer> list) {
+    public void process(TreeNode root, ArrayList<Integer> list) {
         if (root == null) return;
-        inOrder(root.left, list);
+        process(root.left, list);
         list.add(root.val);
-        inOrder(root.right, list);
+        process(root.right, list);
     }
+
+    public boolean hasTarget = false;
 
     public boolean findTarget2(TreeNode root, int target) {
         if (root == null) return false;
-        return find(root, target, new HashSet<>());
+        HashSet<Integer> set = new HashSet<>();
+        process(root, target, set);
+        return hasTarget;
     }
 
-    public boolean find(TreeNode node, int target, Set<Integer> set) {
-        if (node == null) return false;
-        if (set.contains(target - node.val)) return true;
-        set.add(node.val);
-        return find(node.left, target, set) || find(node.right, target, set);
+    public void process(TreeNode root, int target, HashSet<Integer> set) {
+        if (root == null) return;
+        int num1 = root.val;
+        int num2 = target - num1;
+        if (set.contains(num2)) {
+            hasTarget = true;
+        } else {
+            set.add(num1);
+        }
+        process(root.left, target, set);
+        process(root.right, target, set);
     }
 
     // Tree 结构

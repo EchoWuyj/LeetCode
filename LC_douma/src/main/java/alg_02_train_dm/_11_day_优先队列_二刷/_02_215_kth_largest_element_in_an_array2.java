@@ -22,38 +22,48 @@ public class _02_215_kth_largest_element_in_an_array2 {
         // 数组中的第 K 个最大元素
         // => 小顶堆，保证顶堆是最小元素
 
-        // 构造方法中，设置 pq 元素个数为 k
-        PriorityQueue<Integer> pq = new PriorityQueue<>(k);
+        // 构造方法中，设置 minHeap 元素个数为 k
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>(k);
         for (int i = 0; i < k; i++) {
-            pq.add(nums[i]);
+            minHeap.add(nums[i]);
         }
         // 比较数组剩余元素
         for (int i = k; i < nums.length; i++) {
             // 有更大元素 nums[i]，则加入小顶堆中
-            if (nums[i] > pq.peek()) {
+            if (nums[i] > minHeap.peek()) {
                 // 先删，再加
-                pq.remove();
-                pq.add(nums[i]);
+                minHeap.remove();
+                minHeap.add(nums[i]);
             }
         }
         // 小顶堆一共 k 个元素，其中堆顶为第 k 个最大元素
-        return pq.peek();
+        return minHeap.peek();
     }
 
     // KeyPoint 方法三 小顶堆 => 另一种实现 => 后续该种现实使用比价多，需要掌握
     // 时间复杂度：O(nlogk)
     // 空间复杂度：O(k)
     public int findKthLargest3(int[] nums, int k) {
-
-        PriorityQueue<Integer> pq = new PriorityQueue<>(k + 1);
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>(k + 1);
         int n = nums.length;
         for (int i = 0; i < n; i++) {
-            // k+1 个元素加入 pq 后
+            // k+1 个元素加入 minHeap 后
             // => 留个一个位置给比较的元素
-            pq.add(nums[i]);
-            // pq 维护 k 个元素，删除多个多余的 1 个元素
-            if (pq.size() > k) pq.remove();
+            minHeap.add(nums[i]);
+            // minHeap 维护 k 个元素，删除多个多余的 1 个元素
+            if (minHeap.size() > k) minHeap.remove();
         }
-        return pq.peek();
+        return minHeap.peek();
+    }
+
+    // for test
+    public static void main(String[] args) {
+        // KeyPoint 注意：initialCapacity 初始化容量，并不限制容量
+        // minHeap 不断添加元素的过程中，实际 size 可以大于 initialCapacity，并且不报错
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>(3);
+        for (int i = 0; i < 10; i++) {
+            minHeap.add(i);
+        }
+        System.out.println(minHeap.size());
     }
 }

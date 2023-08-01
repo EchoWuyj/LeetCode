@@ -28,7 +28,7 @@ public class _03_1002_find_common_characters {
         1 <= words[i].length <= 100
      */
 
-    // 时间复杂度：O(m*n)
+    // KeyPoint 时间复杂度：O(m*n)
     // 其中 m 表示数组的长度，n 表示每个字符串的平均长度
     // 1 <= words.length <= 100
     // 1 <= words[i].length <= 100
@@ -70,7 +70,7 @@ public class _03_1002_find_common_characters {
             // 不能单纯通过 if (minCount[i] > 0) 判断，if 只是决定有无，无法决定次数
             for (int j = 0; j < minCount[i]; j++) {
                 // KeyPoint 易错点
-                // 1.数字转字符需要括起来，作为一个整体
+                // 1.数字转字符需要括起来，作为一个整体，再去强转
                 // 2.String.valueOf 底层也是 new String，故也是可以直接 new String
                 res.add(String.valueOf((char) (i + 'a')));
             }

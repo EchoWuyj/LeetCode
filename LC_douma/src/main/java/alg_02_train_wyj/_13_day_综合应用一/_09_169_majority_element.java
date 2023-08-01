@@ -11,64 +11,45 @@ public class _09_169_majority_element {
 
     public int majorityElement1(int[] nums) {
         Map<Integer, Integer> map = new HashMap<>();
+        int n = nums.length;
         for (int num : nums) {
-            int cnt = map.getOrDefault(num, 0) + 1;
-            if (cnt > nums.length / 2) return num;
-            map.put(num, cnt);
+            map.put(num, map.getOrDefault(num, 0) + 1);
+            if (map.get(num) > n / 2) return num;
         }
         return -1;
     }
 
     public int majorityElement2(int[] nums) {
         Arrays.sort(nums);
-        return nums[nums.length / 2];
+        int n = nums.length;
+        return nums[n / 2];
     }
 
     public int majorityElement3(int[] nums) {
-        int k = nums.length / 2 + 1;
-        PriorityQueue<Integer> pq = new PriorityQueue<>(k, (a, b) -> b - a);
+        int n = nums.length;
+        int size = n / 2 + 1;
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(size, (a, b) -> b - a);
         for (int num : nums) {
-            pq.add(num);
-            if (pq.size() > k) {
-                pq.remove();
+            if (maxHeap.size() < size) {
+                maxHeap.add(num);
+            } else {
+                if (num < maxHeap.peek()) {
+                    maxHeap.remove();
+                    maxHeap.add(num);
+                }
             }
         }
-        return pq.peek();
+        return maxHeap.peek();
     }
 
     private Random random = new Random(System.currentTimeMillis());
 
     public int majorityElement4(int[] nums) {
-        int k = nums.length / 2 + 1;
-        int left = 0, right = nums.length - 1;
-        int target = nums.length - k;
-        while (true) {
-            int pivotIndex = partition(nums, left, right);
-            if (pivotIndex == target) {
-                return nums[pivotIndex];
-            } else if (pivotIndex < target) {
-                left = pivotIndex + 1;
-            } else {
-                right = pivotIndex - 1;
-            }
-        }
+
     }
 
     public int partition(int[] nums, int left, int right) {
-        if (right > left) {
-            int pivotIndex = random.nextInt(right - left + 1) + left;
-            swap(nums, right, pivotIndex);
-        }
-        int pivot = nums[right];
-        int less = left, great = left;
-        for (; great < right; great++) {
-            if (nums[great] < pivot) {
-                swap(nums, less, great);
-                less++;
-            }
-        }
-        swap(nums, less, right);
-        return less;
+
     }
 
     public void swap(int[] nums, int i, int j) {

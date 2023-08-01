@@ -12,18 +12,17 @@ import java.util.List;
 public class _06_18_FourSum {
 
     public List<List<Integer>> fourSum(int[] nums, int target) {
-        if (nums == null || nums.length < 4) return new ArrayList<>();
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length < 3) return res;
         Arrays.sort(nums);
         int n = nums.length;
-        List<List<Integer>> res = new ArrayList<>();
-        for (int i = 0; i < n - 3; i++) {
+        for (int i = 0; i < n; i++) {
             if (i > 0 && nums[i] == nums[i - 1]) continue;
-            for (int j = i + 1; j < n - 2; j++) {
+            for (int j = i + 1; j < n; j++) {
                 if (j > i + 1 && nums[j] == nums[j - 1]) continue;
 
-                long partSum = nums[i] + nums[j];
-                int left = j + 1;
-                int right = n - 1;
+                int partSum = nums[i] + nums[j];
+                int left = j + 1, right = n - 1;
                 while (left < right) {
                     long sum = partSum + nums[left] + nums[right];
                     if (sum == target) {

@@ -12,17 +12,36 @@ import java.util.Map;
 public class _08_350_IntersectionOfTwoArraysII {
     public int[] intersect1(int[] nums1, int[] nums2) {
         if (nums1 == null || nums2 == null) return null;
-        Map<Integer, Integer> countMap = new HashMap<>();
+        Map<Integer, Integer> map = new HashMap<>();
         for (int num : nums1) {
-            countMap.put(num, countMap.getOrDefault(num, 0) + 1);
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
-
-        int[] res = new int[Math.min(nums1.length, nums2.length)];
+        int n = nums1.length, m = nums2.length;
         int index = 0;
+        int[] res = new int[Math.min(n, m)];
         for (int num : nums2) {
-            if (countMap.containsKey(num) && countMap.get(num) > 0) {
+            if (map.containsKey(num) && map.get(num) > 0) {
                 res[index++] = num;
-                countMap.put(num, countMap.get(num) - 1);
+                map.put(num, map.get(num) - 1);
+            }
+        }
+        return Arrays.copyOfRange(res, 0, index);
+    }
+
+    public int[] intersect(int[] nums1, int[] nums2) {
+        if (nums1 == null || nums2 == null) return null;
+
+        int[] count = new int[1001];
+        for (int num : nums1) {
+            count[num]++;
+        }
+        int n = nums1.length, m = nums2.length;
+        int index = 0;
+        int[] res = new int[Math.min(m, n)];
+        for (int num : nums2) {
+            if (count[num] > 0) {
+                res[index++] = num;
+                count[num]--;
             }
         }
         return Arrays.copyOfRange(res, 0, index);
@@ -33,25 +52,26 @@ public class _08_350_IntersectionOfTwoArraysII {
         Arrays.sort(nums1);
         Arrays.sort(nums2);
 
-        int[] res = new int[Math.min(nums1.length, nums2.length)];
+        int n = nums1.length, m = nums2.length;
+        int[] res = new int[Math.min(n, m)];
         int index = 0;
         int i = 0;
 
-        while (i < nums1.length) {
-            int firstTargetIndex = bs(nums2, nums1[i]);
-            if (firstTargetIndex == -1) {
+        while (i < n) {
+            int lower = bs(nums2, nums1[i]);
+            if (lower == -1) {
                 i++;
                 continue;
             }
 
             int count = 0;
-            while (firstTargetIndex < nums2.length && nums2[firstTargetIndex] == nums1[i]) {
+            while (lower < m && nums2[lower] == nums1[i]) {
                 count++;
-                firstTargetIndex++;
+                lower++;
             }
 
             int j = i;
-            while (j < nums1.length && nums1[j] == nums1[i]) {
+            while (j < n && nums1[j] == nums1[i]) {
                 j++;
                 if (count > 0) {
                     res[index++] = nums1[i];
@@ -64,8 +84,7 @@ public class _08_350_IntersectionOfTwoArraysII {
     }
 
     public int bs(int[] nums, int target) {
-        int left = 0;
-        int right = nums.length - 1;
+        int left = 0, right = nums.length - 1;
         while (left < right) {
             int mid = left + (right - left) / 2;
             if (target > nums[mid]) {
@@ -83,10 +102,11 @@ public class _08_350_IntersectionOfTwoArraysII {
         Arrays.sort(nums1);
         Arrays.sort(nums2);
 
-        int[] res = new int[Math.min(nums1.length, nums2.length)];
+        int n = nums1.length, m = nums2.length;
+        int[] res = new int[Math.min(n, m)];
         int index = 0;
         int i = 0, j = 0;
-        while (i < nums1.length && j < nums2.length) {
+        while (i < n && j < m) {
             if (nums1[i] == nums2[j]) {
                 res[index++] = nums1[i];
                 i++;

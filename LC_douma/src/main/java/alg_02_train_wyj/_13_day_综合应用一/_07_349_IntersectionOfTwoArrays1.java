@@ -9,19 +9,24 @@ import java.util.Set;
  * @DateTime 2023-05-25 14:12
  * @Version 1.0
  */
-public class _07_349_IntersectionOfTwoArrays {
+public class _07_349_IntersectionOfTwoArrays1 {
     public int[] intersection1(int[] nums1, int[] nums2) {
+        if (nums1 == null || nums2 == null) return null;
         Set<Integer> set = new HashSet<>();
-        for (int num1 : nums1) {
-            for (int num2 : nums2) {
-                if (num1 == num2) {
-                    set.add(num1);
-                }
+        for (int num : nums1) {
+            set.add(num);
+        }
+        Set<Integer> tmp = new HashSet<>();
+        for (int num : nums2) {
+            if (set.contains(num)) {
+                tmp.add(num);
             }
         }
-        int[] res = new int[set.size()];
+        int size = tmp.size();
+        System.out.println(size);
+        int[] res = new int[size];
         int index = 0;
-        for (int num : set) {
+        for (int num : tmp) {
             res[index++] = num;
         }
         return res;
@@ -30,17 +35,17 @@ public class _07_349_IntersectionOfTwoArrays {
     public int[] intersection2(int[] nums1, int[] nums2) {
         if (nums1 == null || nums2 == null) return null;
         Set<Integer> set = new HashSet<>();
-        Arrays.sort(nums1);
-        for (int num2 : nums2) {
-            if (binarySearch(nums1, num2)) {
-                set.add(num2);
+
+        for (int num1 : nums1) {
+            for (int num2 : nums2) {
+                if (num1 == num2) set.add(num2);
             }
         }
-
-        int[] res = new int[set.size()];
-        int index = 0;
+        int size = set.size();
+        int[] res = new int[size];
+        int i = 0;
         for (int num : set) {
-            res[index++] = num;
+            res[i++] = num;
         }
         return res;
     }
@@ -85,9 +90,11 @@ public class _07_349_IntersectionOfTwoArrays {
         if (nums1 == null || nums2 == null) return null;
         Arrays.sort(nums1);
         Arrays.sort(nums2);
+
         Set<Integer> set = new HashSet<>();
         int i = 0, j = 0;
-        while (i < nums1.length && j < nums2.length) {
+        int n = nums1.length, m = nums2.length;
+        while (i < n && j < m) {
             if (nums1[i] == nums2[j]) {
                 set.add(nums1[i]);
                 i++;
@@ -98,7 +105,6 @@ public class _07_349_IntersectionOfTwoArrays {
                 j++;
             }
         }
-
         int[] res = new int[set.size()];
         int index = 0;
         for (int num : set) {
@@ -111,10 +117,13 @@ public class _07_349_IntersectionOfTwoArrays {
         if (nums1 == null || nums2 == null) return null;
         Arrays.sort(nums1);
         Arrays.sort(nums2);
-        int[] res = new int[Math.min(nums1.length, nums2.length)];
+
+        int n = nums1.length, m = nums2.length;
+        int[] res = new int[Math.min(n, m)];
         int index = 0;
         int i = 0, j = 0;
-        while (i < nums1.length && j < nums2.length) {
+
+        while (i < n && j < m) {
             if (nums1[i] == nums2[j]) {
                 if (index == 0 || res[index - 1] != nums1[i]) {
                     res[index++] = nums1[i];

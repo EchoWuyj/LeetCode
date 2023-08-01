@@ -11,8 +11,12 @@ import java.util.Random;
 public class _04_973_k_closest_points_to_origin3 {
 
     // keyPoint 方法三 快速排序分区优化
-    // 1.前 k 个最大元素 -> 升序排列(快排) -> 拿到后面 k 个元素即可
-    // 2.前 k 个最小元素 -> 降序排列(快排) -> 拿到后面 k 个元素即可
+    // 1.前 k 个最大元素 -> 升序(快排) -> 拿到后面 k 个元素即可
+    //   index 0 1 2 3 4 5
+    //   value 1 2 3 4 5 6，若 k = 4，n - k = 6 - 4 = 2
+    //             ↑
+    //            n-k
+    // 2.前 k 个最小元素 -> 降序(快排) -> 拿到后面 k 个元素即可
     // => 通过调整快排的'升序'和'降序'，从而保持主代码逻辑不变化
     public int[][] kClosest3(int[][] points, int k) {
         int n = points.length;

@@ -14,6 +14,8 @@ public class _02_215_kth_largest_element_in_an_array4 {
     // 空间复杂度：O(1)
     public int findKthLargest5(int[] nums, int k) {
 
+        // 问题：数组中的第 K 个最大元素
+
         // 不管局部排序，只要将第 k 大元素放在 n-k 索引位置上(升序排列)，即可结束操作
 
         // 把一个元素放到排序之后正确位置上 => 是快速排序分区操作
