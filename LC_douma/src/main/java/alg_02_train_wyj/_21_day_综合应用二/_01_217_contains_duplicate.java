@@ -13,8 +13,9 @@ public class _01_217_contains_duplicate {
 
     public boolean containsDuplicate1(int[] nums) {
         if (nums == null) return false;
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
                 if (nums[i] == nums[j]) return true;
             }
         }
@@ -44,7 +45,8 @@ public class _01_217_contains_duplicate {
     public boolean containsDuplicate4(int[] nums) {
         if (nums == null) return false;
         Arrays.sort(nums);
-        for (int i = 1; i < nums.length; i++) {
+        int n = nums.length;
+        for (int i = 1; i < n; i++) {
             if (nums[i] == nums[i - 1]) return true;
         }
         return false;

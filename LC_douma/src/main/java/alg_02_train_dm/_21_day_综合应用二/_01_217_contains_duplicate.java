@@ -35,26 +35,30 @@ public class _01_217_contains_duplicate {
 
      */
 
-    // KeyPoint 方法一 等值查找 => 线性查找(超时)
+    // KeyPoint 方法一 等值查找 => 线性查找 => 超时
     // 时间复杂度：O(n^2)
     // 空间复杂度：O(1)
     public boolean containsDuplicate1(int[] nums) {
         if (nums == null) return false;
-        for (int i = 0; i < nums.length; i++) {
-            // 在 [i+1, nums.length-1] 区间内线性查找 nums[i]
-            for (int j = i + 1; j < nums.length; j++) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            // KeyPoint 从前往后查找
+            // 在 [i+1, n-1] 区间内线性查找 nums[i]
+            for (int j = i + 1; j < n; j++) {
                 if (nums[i] == nums[j]) return true;
             }
         }
         return false;
     }
 
-    // KeyPoint 方法二 线性查找(超时)
+    // KeyPoint 方法二 线性查找 => 超时
     // 时间复杂度：O(n^2)
     // 空间复杂度：O(1)
     public boolean containsDuplicate(int[] nums) {
         if (nums == null) return false;
-        for (int i = 0; i < nums.length; i++) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            // KeyPoint 从后往前查找
             // 在 [0, i-1] 区间内线性查找 nums[i]
             for (int j = 0; j < i; j++) {
                 if (nums[i] == nums[j]) return true;
@@ -68,14 +72,16 @@ public class _01_217_contains_duplicate {
     // 空间复杂度：O(n)
     public boolean containsDuplicate3(int[] nums) {
         if (nums == null) return false;
-        Set<Integer> visited = new HashSet<>();
-        for (int i = 0; i < nums.length; i++) {
-            // 在 [0, i-1] 区间内哈希查找 nums[i]
-            // 将已将遍历元素存在哈希表中，对于新来的元素去哈希表中判断是否存在
-            if (visited.contains(nums[i])) {
+        Set<Integer> set = new HashSet<>();
+        int n = nums.length;
+        // 在 [0, i-1] 区间内哈希查找 nums[i]
+        for (int i = 0; i < n; i++) {
+            // 若 nums[i] 已经存在 set 中，直接返回 true
+            if (set.contains(nums[i])) {
                 return true;
             }
-            visited.add(nums[i]);
+            // 若 nums[i] 不存在 set 中，将其加入 set 中
+            set.add(nums[i]);
         }
 
         return false;
@@ -88,15 +94,16 @@ public class _01_217_contains_duplicate {
 
     }
 
-    // KeyPoint 方法四 排序优化
+    // KeyPoint 方法四 排序，手动去重
     // 时间复杂度：O(nlogn)
     // 空间复杂度：O(logn) 或者 O(n)
     public boolean containsDuplicate4(int[] nums) {
         if (nums == null) return false;
         // 只要判断数组是否存在重复数字，其位置可以随意改变，故可以排序
         Arrays.sort(nums);
-        // 涉及 [i-1]，故 i 从 1 开始
-        for (int i = 1; i < nums.length; i++) {
+        int n = nums.length;
+        // 涉及 [i-1]，故 i 从 1 开始，避免索引越界
+        for (int i = 1; i < n; i++) {
             if (nums[i] == nums[i - 1]) return true;
         }
         return false;

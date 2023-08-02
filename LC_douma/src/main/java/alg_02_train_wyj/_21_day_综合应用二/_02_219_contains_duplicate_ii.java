@@ -3,7 +3,6 @@ package alg_02_train_wyj._21_day_综合应用二;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @Author Wuyj
@@ -17,7 +16,7 @@ public class _02_219_contains_duplicate_ii {
         int n = nums.length;
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
-                if (nums[i] == nums[j] && i - j <= k) return true;
+                if (nums[i] == nums[j] && j - i <= k) return true;
             }
         }
         return false;
@@ -25,11 +24,12 @@ public class _02_219_contains_duplicate_ii {
 
     public boolean containsNearbyDuplicate2(int[] nums, int k) {
         if (nums == null) return false;
+        int n = nums.length;
         Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
+        for (int i = 0; i < n; i++) {
             if (map.containsKey(nums[i])) {
                 int j = map.get(nums[i]);
-                if (i - j <= k) return true;
+                if (Math.abs(i - j) <= k) return true;
             }
             map.put(nums[i], i);
         }
@@ -39,7 +39,8 @@ public class _02_219_contains_duplicate_ii {
     public boolean containsNearbyDuplicate3(int[] nums, int k) {
         if (nums == null) return false;
         int left = 0, right = 0;
-        while (right < nums.length) {
+        int n = nums.length;
+        while (right < n) {
             left = Math.max(0, right - k);
             while (left < right) {
                 if (nums[left] == nums[right]) return true;
@@ -52,12 +53,13 @@ public class _02_219_contains_duplicate_ii {
 
     public boolean containsNearbyDuplicate4(int[] nums, int k) {
         if (nums == null) return false;
+        int n = nums.length;
         int left = 0, right = 0;
-        Set<Integer> set = new HashSet<>();
-        while (right < nums.length) {
+        HashSet<Integer> set = new HashSet<>();
+        while (right < n) {
             if (set.contains(nums[right])) return true;
             set.add(nums[right]);
-            if (set.size() > k) {
+            while (set.size() >= k + 1) {
                 set.remove(nums[left]);
                 left++;
             }

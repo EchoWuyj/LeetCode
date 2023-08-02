@@ -50,7 +50,7 @@ public class _04_973_k_closest_points_to_origin3 {
         for (; great < high; great++) {
             int distance = nums[great][0] * nums[great][0]
                     + nums[great][1] * nums[great][1];
-            // 降序排列 => 修改比较符号即可，将 < 修改成 > 即可
+            // 降序排列 => 修改比较符号即可，将 '<' 修改成 '>' 即可
             if (distance > pivot) {
                 swap(nums, less, great);
                 less++;

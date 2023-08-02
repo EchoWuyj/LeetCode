@@ -6,6 +6,7 @@ package alg_02_train_dm._20_day_数据结构设计;
  * @Version 1.0
  */
 public class _09_06_UnionFind_Tree_Rank_Path_Recursion implements _09_UnionFind {
+
     // parent[i] 表示的是节点 i 所指向的父亲节点
     int[] parent;
     // rank[i] 表示以 i 为根的集合所表示的树的深度。

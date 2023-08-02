@@ -31,5 +31,7 @@ public class _06_Cache_Note {
         1.淘汰最先放入缓存的数据，即 FIFO (First In First Out) 缓存
         2.淘汰最久未使用的数据，即 LRU(Least Recently Used) 缓存
         3.淘汰最不频繁使用的数据，即 LFU(Least Frequently Used) 缓存
+
+        详细内容见：_05_cache
      */
 }
