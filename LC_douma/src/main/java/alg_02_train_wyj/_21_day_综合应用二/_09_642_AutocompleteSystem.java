@@ -9,22 +9,21 @@ import java.util.*;
  */
 public class _09_642_AutocompleteSystem {
 
-    class SentenceInfo {
-        String content;
+    private class sentenceInfo {
+        String sentence;
         int time;
 
-        public SentenceInfo(String content, int time) {
-            this.content = content;
+        public sentenceInfo(String sentence, int time) {
+            this.sentence = sentence;
             this.time = time;
         }
     }
 
-    Map<String, Integer> map;
-    StringBuilder curSentence;
+    private Map<String, Integer> map;
+    private String input = "";
 
     public _09_642_AutocompleteSystem(String[] sentences, int[] times) {
         map = new HashMap<>();
-        curSentence = new StringBuilder();
         int n = sentences.length;
         for (int i = 0; i < n; i++) {
             map.put(sentences[i], times[i]);
@@ -32,24 +31,23 @@ public class _09_642_AutocompleteSystem {
     }
 
     public List<String> input(char c) {
-        ArrayList<String> res = new ArrayList<>();
-
+        List<String> res = new ArrayList<>();
         if (c == '#') {
-            String curSentenceStr = curSentence.toString();
-            map.put(curSentenceStr, map.getOrDefault(curSentenceStr, 0) + 1);
-        } else {
-            curSentence.append(c);
-            ArrayList<SentenceInfo> list = new ArrayList<>();
+            map.put(input, map.getOrDefault(input, 0) + 1);
+            input = "";
+        } else { // c != '#'
+            input += c;
+            List<sentenceInfo> list = new ArrayList<>();
             for (String sentence : map.keySet()) {
-                if (sentence.startsWith(curSentence.toString())) {
-                    list.add(new SentenceInfo(sentence, map.get(sentence)));
+                if (sentence.startsWith(input)) {
+                    list.add(new sentenceInfo(sentence, map.get(sentence)));
                 }
             }
-            Collections.sort(list, (o1, o2) ->
-                    o1.time == o2.time ? o1.content.compareTo(o2.content) : o2.time - o1.time);
+            Collections.sort(list, (o1, o2) -> o1.time == o2.time ?
+                    o1.sentence.compareTo(o2.sentence) : o2.time - o1.time);
 
             for (int i = 0; i < Math.min(3, list.size()); i++) {
-                res.add(list.get(i).content);
+                res.add(list.get(i).sentence);
             }
         }
         return res;

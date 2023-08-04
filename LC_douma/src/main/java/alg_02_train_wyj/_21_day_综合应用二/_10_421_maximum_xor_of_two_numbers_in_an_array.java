@@ -29,7 +29,7 @@ public class _10_421_maximum_xor_of_two_numbers_in_an_array {
         int maxValue = Integer.MIN_VALUE;
         for (int i = 1; i < n; i++) {
             trie.add(nums[i - 1]);
-            maxValue = Math.max(maxValue, trie.maxXor(nums[i]));
+            maxValue = Math.max(maxValue, trie.search(nums[i]));
         }
         return maxValue;
     }
@@ -40,6 +40,7 @@ public class _10_421_maximum_xor_of_two_numbers_in_an_array {
             Node one;
 
             public Node() {
+
             }
         }
 
@@ -63,7 +64,7 @@ public class _10_421_maximum_xor_of_two_numbers_in_an_array {
             }
         }
 
-        public int maxXor(int num) {
+        public int search(int num) {
             Node cur = root;
             int x = 0;
             for (int i = 30; i >= 0; i--) {
@@ -71,18 +72,18 @@ public class _10_421_maximum_xor_of_two_numbers_in_an_array {
                 if (bit == 0) {
                     if (cur.one != null) {
                         cur = cur.one;
-                        x = 2 * x + 1;
+                        x = x * 2 + 1;
                     } else {
                         cur = cur.zero;
-                        x = 2 * x;
+                        x = x * 2;
                     }
-                } else {
+                } else { // bit == 1
                     if (cur.zero != null) {
                         cur = cur.zero;
-                        x = 2 * x + 1;
+                        x = x * 2 + 1;
                     } else {
                         cur = cur.one;
-                        x = 2 * x;
+                        x = x * 2;
                     }
                 }
             }

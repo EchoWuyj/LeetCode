@@ -11,87 +11,91 @@ import java.util.Queue;
 public class _02_225_implement_stack_using_queues {
 
     class MyStack {
-        Queue<Integer> queue1;
-        Queue<Integer> queue2;
+
+        Queue<Integer> mainQueue;
+        Queue<Integer> helpQueue;
 
         public MyStack() {
-            queue1 = new ArrayDeque<>();
-            queue2 = new ArrayDeque<>();
+            mainQueue = new ArrayDeque<>();
+            helpQueue = new ArrayDeque<>();
         }
 
         public void push(int x) {
-            queue1.offer(x);
+            mainQueue.offer(x);
         }
 
         public int pop() {
-            if (!queue1.isEmpty()) {
-                while (!queue1.isEmpty()) {
-                    int x = queue1.poll();
-                    if (queue1.isEmpty()) return x;
-                    queue2.offer(x);
+            if (!mainQueue.isEmpty()) {
+                while (!mainQueue.isEmpty()) {
+                    int num = mainQueue.poll();
+                    if (mainQueue.isEmpty()) return num;
+                    helpQueue.offer(num);
                 }
             } else {
-                while (!queue2.isEmpty()) {
-                    int x = queue2.poll();
-                    if (queue2.isEmpty()) return x;
-                    queue1.offer(x);
+                if (!helpQueue.isEmpty()) {
+                    while (!helpQueue.isEmpty()) {
+                        int num = helpQueue.poll();
+                        if (helpQueue.isEmpty()) return num;
+                        mainQueue.offer(num);
+                    }
                 }
             }
-            throw new RuntimeException("队列为空");
+            throw new RuntimeException("没有数据");
         }
 
         public int top() {
-            if (!queue1.isEmpty()) {
-                while (!queue1.isEmpty()) {
-                    int x = queue1.poll();
-                    queue2.offer(x);
-                    if (queue1.isEmpty()) return x;
+            if (!mainQueue.isEmpty()) {
+                while (!mainQueue.isEmpty()) {
+                    int num = mainQueue.poll();
+                    helpQueue.offer(num);
+                    if (mainQueue.isEmpty()) return num;
                 }
             } else {
-                while (!queue2.isEmpty()) {
-                    int x = queue2.poll();
-                    queue1.offer(x);
-                    if (queue2.isEmpty()) return x;
+                if (!helpQueue.isEmpty()) {
+                    while (!helpQueue.isEmpty()) {
+                        int num = helpQueue.poll();
+                        mainQueue.offer(num);
+                        if (helpQueue.isEmpty()) return num;
+                    }
                 }
             }
-            throw new RuntimeException("队列为空");
+            throw new RuntimeException("没有数据");
         }
 
         public boolean empty() {
-            return queue1.isEmpty() && queue2.isEmpty();
+            return mainQueue.isEmpty() && helpQueue.isEmpty();
         }
     }
 
     class MyStack1 {
-        Queue<Integer> queue1;
-        Queue<Integer> queue2;
+        Queue<Integer> mainQueue;
+        Queue<Integer> helpQueue;
 
         public MyStack1() {
-            queue1 = new ArrayDeque();
-            queue2 = new ArrayDeque<>();
+            mainQueue = new ArrayDeque<>();
+            helpQueue = new ArrayDeque<>();
         }
 
         public void push(int x) {
-            queue2.offer(x);
-            while (!queue1.isEmpty()) {
-                queue2.offer(queue1.poll());
+            helpQueue.offer(x);
+            while (!mainQueue.isEmpty()) {
+                helpQueue.offer(mainQueue.poll());
             }
-
-            Queue<Integer> tmp = queue1;
-            queue1 = queue2;
-            queue2 = tmp;
+            Queue<Integer> tmp = mainQueue;
+            mainQueue = helpQueue;
+            helpQueue = tmp;
         }
 
         public int pop() {
-            return queue1.poll();
+            return mainQueue.poll();
         }
 
         public int top() {
-            return queue1.peek();
+            return mainQueue.peek();
         }
 
         public boolean empty() {
-            return queue1.isEmpty() && queue2.isEmpty();
+            return mainQueue.isEmpty() && helpQueue.isEmpty();
         }
     }
 

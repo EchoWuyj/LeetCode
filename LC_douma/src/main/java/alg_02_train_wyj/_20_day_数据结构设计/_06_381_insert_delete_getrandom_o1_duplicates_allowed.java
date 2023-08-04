@@ -11,45 +11,44 @@ public class _06_381_insert_delete_getrandom_o1_duplicates_allowed {
 
     class RandomizedCollection {
         Map<Integer, Set<Integer>> map;
-        List<Integer> nums;
+        List<Integer> list;
         Random random;
 
         public RandomizedCollection() {
             map = new HashMap<>();
-            nums = new ArrayList<>();
+            list = new ArrayList<>();
             random = new Random();
         }
 
         public boolean insert(int val) {
             Set<Integer> set = map.getOrDefault(val, new HashSet<>());
-            set.add(nums.size());
-            nums.add(val);
+            set.add(list.size());
             map.put(val, set);
+            list.add(val);
             return set.size() == 1;
         }
 
         public boolean remove(int val) {
             if (!map.containsKey(val)) return false;
-
             Iterator<Integer> iterator = map.get(val).iterator();
             int index = iterator.next();
-            int lastNum = nums.get(nums.size() - 1);
-            nums.set(index, lastNum);
+            int lastNum = list.get(list.size() - 1);
+            list.set(index, lastNum);
 
             map.get(val).remove(index);
 
-            map.get(lastNum).remove(nums.size() - 1);
-            if (index < nums.size() - 1) {
+            map.get(lastNum).remove(list.size() - 1);
+
+            if (index != list.size() - 1) {
                 map.get(lastNum).add(index);
             }
-
-            nums.remove(nums.size() - 1);
+            list.remove(list.size() - 1);
             if (map.get(val).size() == 0) map.remove(val);
             return true;
         }
 
         public int getRandom() {
-            return nums.get(random.nextInt(nums.size()));
+            return list.get(random.nextInt(list.size()));
         }
     }
 }

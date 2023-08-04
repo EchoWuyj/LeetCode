@@ -22,14 +22,14 @@ public class _00_01_Note {
             // left 和 right 界定滑动窗口左右边界
             int left = 0, right = 0;
 
-            // ans，Set，Map，具体选择看题目要求
-            int ans = 0;
+            // res，Set，Map，具体选择看题目要求
+            int res = 0;
 
             int n = nums.length
             // 整个数组遍历结束
             while (right < n) {
               处理 right 指向的元素，将其加入到当前窗口，将元素加入窗口
-              => 可能涉及计算，需要将结果存在变量，或者数据结构中 (ans，Set，Map)
+              => 可能涉及计算，需要将结果存在变量，或者数据结构中 (res，Set，Map)
 
               // 若是单次判断，则将 while 替换成 if
               // 若使用 while 循环，则是 left++ 一直到窗口不满足条件为止

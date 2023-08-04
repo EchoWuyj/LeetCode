@@ -48,7 +48,7 @@ public class _09_30_substring_with_concatenation_of_all_words1 {
     // 时间辅助度 O(n^2)
     public List<Integer> findSubstring1(String s, String[] words) {
 
-        // map 统计每个单词出现的次数
+        // KeyPoint map 统计每个单词出现的次数 => 这种处理方式很常见，牢记
         // => 将每个单词作为 key，value 为出现次数，然后按照 Entry 键值对进行比较
         // key -> word
         // value -> 次数

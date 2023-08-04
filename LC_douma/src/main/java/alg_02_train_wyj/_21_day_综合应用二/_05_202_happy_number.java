@@ -15,27 +15,27 @@ public class _05_202_happy_number {
             if (n == 1) return true;
             if (set.contains(n)) return false;
             set.add(n);
-            n = squareSum(n);
+            n = squareNum(n);
         }
     }
 
-    private int squareSum(int n) {
-        int sum = 0;
-        while (n != 0) {
-            int num = n % 10;
-            sum += num * num;
-            n /= 10;
+    public int squareNum(int num) {
+        int total = 0;
+        while (num != 0) {
+            total += (num % 10) * (num % 10);
+            num /= 10;
         }
-        return sum;
+        return total;
     }
 
     public boolean isHappy2(int n) {
         if (n == 1) return true;
-        int slow = n, fast = n;
+        int slow = n;
+        int fast = n;
         while (true) {
-            slow = squareSum(slow);
-            fast = squareSum(squareSum(fast));
-            if (slow == 1 || fast == 1) return true;
+            slow = squareNum(n);
+            fast = squareNum(squareNum(n));
+            if (slow == 1) return true;
             if (slow == fast) return false;
         }
     }

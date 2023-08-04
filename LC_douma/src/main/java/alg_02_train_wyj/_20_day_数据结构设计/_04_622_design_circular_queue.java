@@ -8,7 +8,6 @@ package alg_02_train_wyj._20_day_数据结构设计;
 public class _04_622_design_circular_queue {
 
     class MyCircularQueue {
-
         int[] data;
         int head;
         int tail;
@@ -38,12 +37,12 @@ public class _04_622_design_circular_queue {
 
         public int Rear() {
             if (isEmpty()) return -1;
-            int index = (tail > 0) ? tail - 1 : data.length - 1;
-            return data[index];
+            tail = (tail > 0) ? tail - 1 : data.length - 1;
+            return data[tail];
         }
 
         public boolean isEmpty() {
-            return tail == head;
+            return head == tail;
         }
 
         public boolean isFull() {

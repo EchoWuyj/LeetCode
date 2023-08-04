@@ -15,7 +15,6 @@ public class _11_440_k_th_smallest_in_lexicographical_order {
         for (int i = 1; i <= n; i++) {
             list.add(String.valueOf(i));
         }
-
         Collections.sort(list);
         return Integer.parseInt(list.get(k - 1));
     }
@@ -24,10 +23,10 @@ public class _11_440_k_th_smallest_in_lexicographical_order {
         int cur = 1;
         k -= 1;
         while (k > 0) {
-            int nodes = calNodes(n, cur, cur + 1);
+            int nodes = count(n, cur, cur + 1);
             if (nodes <= k) {
-                k -= nodes;
                 cur += 1;
+                k -= nodes;
             } else {
                 k -= 1;
                 cur *= 10;
@@ -36,10 +35,10 @@ public class _11_440_k_th_smallest_in_lexicographical_order {
         return cur;
     }
 
-    public int calNodes(int n, long cur, long next) {
+    public int count(int n, long cur, long next) {
         int nodes = 0;
         while (cur <= n) {
-            nodes += (Math.min(next, n + 1) - cur);
+            nodes += (Math.min(n + 1, next) - cur);
             cur *= 10;
             next *= 10;
         }

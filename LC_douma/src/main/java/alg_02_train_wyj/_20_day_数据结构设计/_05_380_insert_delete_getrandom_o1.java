@@ -10,39 +10,36 @@ import java.util.*;
 public class _05_380_insert_delete_getrandom_o1 {
 
     class RandomizedSet {
-
         Map<Integer, Integer> map;
-        List<Integer> nums;
+        List<Integer> list;
         Random random;
 
         public RandomizedSet() {
             map = new HashMap<>();
-            nums = new ArrayList<>();
+            list = new ArrayList<>();
             random = new Random();
         }
 
         public boolean insert(int val) {
             if (map.containsKey(val)) return false;
-            map.put(val, nums.size());
-            nums.add(val);
+            map.put(val, list.size());
+            list.add(val);
             return true;
         }
 
         public boolean remove(int val) {
             if (!map.containsKey(val)) return false;
             int index = map.get(val);
-
-            int lastNum = nums.get(nums.size() - 1);
-            nums.set(index, lastNum);
+            int lastNum = list.get(list.size() - 1);
+            list.set(index, lastNum);
             map.put(lastNum, index);
-
-            nums.remove(nums.size() - 1);
+            list.remove(list.size() - 1);
             map.remove(val);
             return true;
         }
 
         public int getRandom() {
-            return nums.get(random.nextInt(nums.size()));
+            return list.get(random.nextInt(list.size()));
         }
     }
 }

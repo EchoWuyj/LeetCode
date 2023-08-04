@@ -10,6 +10,7 @@ import java.util.Deque;
  */
 public class _01_155_MinStack {
     class MinStack1 {
+
         private Deque<Integer> stack;
 
         public MinStack1() {
@@ -29,11 +30,11 @@ public class _01_155_MinStack {
         }
 
         public int getMin() {
-            int minValue = Integer.MAX_VALUE;
-            for (int num : stack) {
-                minValue = Math.min(minValue, num);
+            int min = stack.peek();
+            for (int i : stack) {
+                min = Math.min(min, i);
             }
-            return minValue;
+            return min;
         }
     }
 
@@ -48,14 +49,15 @@ public class _01_155_MinStack {
 
         public void push(int val) {
             dataStack.push(val);
+
             if (minStack.isEmpty() || val <= minStack.peek()) {
                 minStack.push(val);
             }
         }
 
         public void pop() {
-            int top = dataStack.pop();
-            if (top == minStack.peek()) {
+            int pop = dataStack.pop();
+            if (pop == minStack.peek()) {
                 minStack.pop();
             }
         }
@@ -71,16 +73,12 @@ public class _01_155_MinStack {
 
     class MinStack3 {
         class Node {
-            int val;
-            int minVal;
+            int data;
+            int min;
 
-            public Node() {
-
-            }
-
-            public Node(int val, int minVal) {
-                this.val = val;
-                this.minVal = val;
+            public Node(int data, int min) {
+                this.data = data;
+                this.min = min;
             }
         }
 
@@ -91,15 +89,12 @@ public class _01_155_MinStack {
         }
 
         public void push(int val) {
-            Node cur = new Node();
-            cur.val = val;
-
-            int minVal = val;
-            if (!stack.isEmpty() && stack.peek().minVal < minVal) {
-                minVal = stack.peek().minVal;
+            int data = val;
+            int min = val;
+            if (!stack.isEmpty() && stack.peek().min < val) {
+                min = stack.peek().min;
             }
-            cur.minVal = minVal;
-            stack.push(cur);
+            stack.push(new Node(data, min));
         }
 
         public void pop() {
@@ -107,62 +102,62 @@ public class _01_155_MinStack {
         }
 
         public int top() {
-            return stack.peek().val;
+            return stack.peek().data;
         }
 
         public int getMin() {
-            return stack.peek().minVal;
+            return stack.peek().min;
         }
     }
 
     class MinStack4 {
 
         class ListNode {
-            int val;
+            int data;
             int min;
             ListNode next;
+
+            public ListNode(int data, int min) {
+                this.data = data;
+                this.min = min;
+            }
 
             public ListNode() {
 
             }
-
-            public ListNode(int val, int min) {
-                this.val = val;
-                this.min = min;
-            }
         }
 
-        ListNode dummyNode;
+        ListNode dummy;
 
         public MinStack4() {
-            dummyNode = new ListNode();
+            dummy = new ListNode();
         }
 
         public void push(int val) {
             int min = val;
-            ListNode head = dummyNode.next;
+            ListNode head = dummy.next;
             if (head != null && head.min < val) {
                 min = head.min;
             }
             ListNode node = new ListNode(val, min);
-            node.next = head;
-            dummyNode.next = node;
+            node.next = dummy.next;
+            dummy.next = node;
         }
 
         public void pop() {
-            ListNode head = dummyNode.next;
+            ListNode head = dummy.next;
             if (head != null) {
-                dummyNode.next = head.next;
+                dummy.next = head.next;
                 head.next = null;
             }
         }
 
         public int top() {
-            return dummyNode.next.val;
+            return dummy.next.data;
         }
 
         public int getMin() {
-            return dummyNode.next.min;
+            return dummy.next.min;
         }
     }
 

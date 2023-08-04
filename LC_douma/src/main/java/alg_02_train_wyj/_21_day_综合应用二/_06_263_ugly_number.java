@@ -14,10 +14,10 @@ public class _06_263_ugly_number {
 
     public boolean dfs(int n) {
         if (n == 1) return true;
-        int[] factors = {2, 3, 5};
-        for (int factor : factors) {
-            if (n % factor == 0) {
-                if (dfs(n / factor)) return true;
+        int[] nums = {2, 3, 5};
+        for (int num : nums) {
+            if (n % num == 0) {
+                if (dfs(n / num)) return true;
             }
         }
         return false;
@@ -25,9 +25,11 @@ public class _06_263_ugly_number {
 
     public boolean isUgly(int n) {
         if (n == 0) return false;
-        int[] factors = {2, 3, 5};
-        for (int factor : factors) {
-            while (n % factor == 0) n /= factor;
+        int[] nums = {2, 3, 5};
+        for (int num : nums) {
+            while (n % num == 0) {
+                n /= num;
+            }
         }
         return n == 1;
     }

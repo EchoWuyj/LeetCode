@@ -11,28 +11,28 @@ import java.util.Deque;
 public class _03_offer09_CQueue {
 
     class CQueue1 {
-        Deque<Integer> stack1;
-        Deque<Integer> stack2;
+
+        Deque<Integer> mainStack;
+        Deque<Integer> helpStack;
 
         public CQueue1() {
-            stack1 = new ArrayDeque<>();
-            stack2 = new ArrayDeque<>();
+            mainStack = new ArrayDeque<>();
+            helpStack = new ArrayDeque<>();
         }
 
         public void appendTail(int value) {
-            while (!stack2.isEmpty()) {
-                stack1.push(stack2.pop());
+            while (!helpStack.isEmpty()) {
+                mainStack.push(helpStack.pop());
             }
-            stack1.push(value);
+            mainStack.push(value);
         }
 
         public int deleteHead() {
-            while (!stack1.isEmpty()) {
-                stack2.push(stack1.pop());
+            while (!mainStack.isEmpty()) {
+                helpStack.push(mainStack.pop());
             }
-
-            if (!stack2.isEmpty()) {
-                return stack2.pop();
+            if (!helpStack.isEmpty()) {
+                return helpStack.pop();
             } else {
                 return -1;
             }
@@ -40,28 +40,29 @@ public class _03_offer09_CQueue {
     }
 
     class CQueue2 {
-        Deque<Integer> stack1;
-        Deque<Integer> stack2;
+        Deque<Integer> mainStack;
+        Deque<Integer> helpStack;
 
         public CQueue2() {
-            stack1 = new ArrayDeque<>();
-            stack2 = new ArrayDeque<>();
+            mainStack = new ArrayDeque<>();
+            helpStack = new ArrayDeque<>();
         }
 
         public void appendTail(int value) {
-            stack1.push(value);
+            mainStack.push(value);
         }
 
         public int deleteHead() {
-            if (stack2.isEmpty()) {
-                while (!stack1.isEmpty()) {
-                    stack2.push(stack1.pop());
+            if (helpStack.isEmpty()) {
+                while (!mainStack.isEmpty()) {
+                    helpStack.push(mainStack.pop());
                 }
             }
-            if (stack2.isEmpty()) {
+
+            if (helpStack.isEmpty()) {
                 return -1;
             } else {
-                return stack2.pop();
+                return helpStack.pop();
             }
         }
     }

@@ -1,56 +1,89 @@
 package alg_02_train_wyj._21_day_综合应用二;
 
-import alg_01_ds_dm._05_application._03_trie.Trie1;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author Wuyj
- * @DateTime 2023-05-26 19:21
+ * @DateTime 2023-05-26 18:42
  * @Version 1.0
  */
 public class _07_Trie1 {
-    private class Node {
-        Map<Character, Node> children;
-        boolean isWord;
 
-        public Node() {
-            children = new HashMap<>();
-            isWord = false;
+    public static int countStr(String[] words, String prefix) {
+        int count = 0;
+        int n = words.length;
+        for (int i = 0; i < n; i++) {
+            if (words[i].startsWith(prefix)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // for test
+    public static void test() {
+        String[] strArr = {"big", "pat", "bigger", "dog", "door"};
+        System.out.println(countStr(strArr, "do")); // 2
+    }
+
+    private class Node {
+        Character c;
+        List<Node> list;
+        boolean isEnd;
+
+        public Node(Character c) {
+            this.c = c;
+            this.list = new ArrayList<>();
+            this.isEnd = false;
         }
     }
 
     private Node root;
 
     public _07_Trie1() {
-        this.root = new Node();
+        this.root = new Node('/');
     }
 
     public void add(String word) {
         Node cur = root;
         for (char c : word.toCharArray()) {
-            if (!cur.children.containsKey(c)) {
-                cur.children.put(c, new Node());
+            int index = containsChar(cur.list, c);
+            if (index == -1) {
+                cur.list.add(new Node(c));
+                index = cur.list.size() - 1;
             }
-            cur = cur.children.get(c);
+            cur = cur.list.get(index);
         }
-        cur.isWord = true;
+        cur.isEnd = true;
     }
 
-    public boolean contain(String word) {
+    private int containsChar(List<Node> list, char c) {
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            if (list.get(i).c.equals(c)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public boolean contains(String word) {
         Node cur = root;
         for (char c : word.toCharArray()) {
-            if (!cur.children.containsKey(c)) {
+            int index = containsChar(cur.list, c);
+            if (index == -1) {
                 return false;
             }
-            cur = cur.children.get(c);
+            cur = cur.list.get(index);
         }
-        return cur.isWord;
+        return cur.isEnd;
     }
 
     public static void main(String[] args) {
-        Trie1 trie = new Trie1();
+        test();
+
+        _07_Trie1 trie = new _07_Trie1();
         trie.add("big");
         trie.add("pat");
         trie.add("bigger");
@@ -59,6 +92,7 @@ public class _07_Trie1 {
 
         System.out.println(trie.contains("biggere")); // false
         System.out.println(trie.contains("dog")); // true
-        System.out.println(trie.contains("dogddd")); // false
+        System.out.println(trie.contains("pat")); // true
+        System.out.println(trie.contains("patt")); // false
     }
 }

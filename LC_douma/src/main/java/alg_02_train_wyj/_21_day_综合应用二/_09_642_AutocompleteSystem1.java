@@ -10,86 +10,96 @@ import java.util.*;
 public class _09_642_AutocompleteSystem1 {
 
     class SentenceInfo {
-        String content;
+        String sentence;
         int time;
 
-        public SentenceInfo(String content, int time) {
-            this.content = content;
+        public SentenceInfo(String sentence, int time) {
+            this.sentence = sentence;
             this.time = time;
         }
     }
 
-    class TrieNode {
-        Map<Character, TrieNode> map;
-        int time = 0;
+    class Node {
+        Map<Character, Node> map;
+        int times = 0;
 
-        public TrieNode() {
+        public Node() {
             map = new HashMap<>();
         }
     }
 
-    TrieNode root;
-    String curSentence = "";
+    private Node root;
+    private String input = "";
 
     public _09_642_AutocompleteSystem1(String[] sentences, int[] times) {
-        root = new TrieNode();
+        root = new Node();
         int n = sentences.length;
         for (int i = 0; i < n; i++) {
             insert(sentences[i], times[i]);
         }
     }
 
-    public void insert(String str, int time) {
-        TrieNode cur = root;
-        for (char c : str.toCharArray()) {
+    public void insert(String input, int times) {
+        Node cur = root;
+        for (char c : input.toCharArray()) {
             if (!cur.map.containsKey(c)) {
-                cur.map.put(c, new TrieNode());
+                cur.map.put(c, new Node());
             }
             cur = cur.map.get(c);
         }
-        cur.time += time;
+        cur.times += times;
     }
 
     public List<String> input(char c) {
-        ArrayList<String> res = new ArrayList<>();
+        List<String> res = new ArrayList<>();
         if (c == '#') {
-            insert(curSentence, 1);
-            curSentence = "";
+            insert(input, 1);
+            input = "";
         } else {
-            curSentence += c;
-            ArrayList<SentenceInfo> list = search(curSentence);
+            input += c;
+            List<SentenceInfo> list = search(input);
+            Collections.sort(list, (o1, o2) -> o1.time == o2.time ?
+                    o1.sentence.compareTo(o2.sentence) :
+                    o2.time - o1.time);
 
-            Collections.sort(list,
-                    (o1, o2) -> o1.time == o2.time ?
-                            o1.content.compareTo(o2.content) : o2.time - o1.time);
+            // for test
+//            for (SentenceInfo info : list) {
+//                System.out.println("sentence = " + info.sentence);
+//                System.out.println("time = " + info.time);
+//            }
 
             for (int i = 0; i < Math.min(3, list.size()); i++) {
-                res.add(list.get(i).content);
+                res.add(list.get(i).sentence);
             }
         }
         return res;
     }
 
-    public ArrayList<SentenceInfo> search(String str) {
-        ArrayList<SentenceInfo> list = new ArrayList<>();
-        TrieNode cur = root;
-        for (char c : str.toCharArray()) {
+    public List<SentenceInfo> search(String input) {
+        List<SentenceInfo> list = new ArrayList<>();
+        Node cur = root;
+        for (char c : input.toCharArray()) {
             if (!cur.map.containsKey(c)) {
                 return list;
             }
             cur = cur.map.get(c);
         }
-        dfs(cur, str, list);
+
+//        for (Map.Entry entry : cur.map.entrySet()) {
+//            System.out.println("key = " + entry.getKey());
+//            System.out.println("value = " + entry.getValue());
+//        }
+
+        dfs(cur, input, list);
         return list;
     }
 
-    public void dfs(TrieNode cur, String res, ArrayList<SentenceInfo> list) {
-        if (cur.time > 0) {
-            list.add(new SentenceInfo(res, cur.time));
+    private void dfs(Node cur, String input, List<SentenceInfo> list) {
+        if (cur.times > 0) {
+            list.add(new SentenceInfo(input, cur.times));
         }
-
         for (char c : cur.map.keySet()) {
-            dfs(cur.map.get(c), res + c, list);
+            dfs(cur.map.get(c), input + c, list);
         }
     }
 

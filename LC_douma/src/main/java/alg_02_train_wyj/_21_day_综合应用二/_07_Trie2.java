@@ -5,13 +5,14 @@ import java.util.Map;
 
 /**
  * @Author Wuyj
- * @DateTime 2023-05-26 19:47
+ * @DateTime 2023-05-26 19:21
  * @Version 1.0
  */
-public class _08_208_implement_trie_prefix_tree {
+public class _07_Trie2 {
+
     private class Node {
         Map<Character, Node> map;
-        boolean isEnd;
+        boolean isEnd = false;
 
         public Node() {
             map = new HashMap<>();
@@ -21,11 +22,11 @@ public class _08_208_implement_trie_prefix_tree {
 
     private Node root;
 
-    public _08_208_implement_trie_prefix_tree() {
+    public _07_Trie2() {
         root = new Node();
     }
 
-    public void insert(String word) {
+    public void add(String word) {
         Node cur = root;
         for (char c : word.toCharArray()) {
             if (!cur.map.containsKey(c)) {
@@ -36,7 +37,7 @@ public class _08_208_implement_trie_prefix_tree {
         cur.isEnd = true;
     }
 
-    public boolean search(String word) {
+    public boolean contains(String word) {
         Node cur = root;
         for (char c : word.toCharArray()) {
             if (!cur.map.containsKey(c)) {
@@ -44,17 +45,20 @@ public class _08_208_implement_trie_prefix_tree {
             }
             cur = cur.map.get(c);
         }
+
         return cur.isEnd;
     }
 
-    public boolean startsWith(String prefix) {
-        Node cur = root;
-        for (char c : prefix.toCharArray()) {
-            if (!cur.map.containsKey(c)) {
-                return false;
-            }
-            cur = cur.map.get(c);
-        }
-        return true;
+    public static void main(String[] args) {
+        _07_Trie2 trie = new _07_Trie2();
+        trie.add("big");
+        trie.add("pat");
+        trie.add("bigger");
+        trie.add("dog");
+        trie.add("door");
+
+        System.out.println(trie.contains("biggere")); // false
+        System.out.println(trie.contains("dog")); // true
+        System.out.println(trie.contains("dogddd")); // false
     }
 }
