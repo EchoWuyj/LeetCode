@@ -57,11 +57,12 @@ public class _10_UnionFind_Test {
         _09_05_UnionFind_Tree_Rank_Path uf5 = new _09_05_UnionFind_Tree_Rank_Path(size);
         System.out.println("UnionFind_Tree_Rank_Path : " + testUF(uf5, m) + " s");
         // UnionFind_Tree_Rank_Path : 4.7202086 s
-        //
 
         _09_06_UnionFind_Tree_Rank_Path_Recursion uf6 = new _09_06_UnionFind_Tree_Rank_Path_Recursion(size);
         System.out.println("UnionFind_Tree_Rank_Path_Recursion : " + testUF(uf6, m) + " s");
         // UnionFind_Tree_Rank_Path_Recursion : 4.7153203 s
+
+
     }
 
     public static void main(String[] args) {

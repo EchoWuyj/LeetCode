@@ -6,6 +6,7 @@ package alg_02_train_wyj._20_day_数据结构设计;
  * @Version 1.0
  */
 public class _09_06_UnionFind_Tree_Rank_Path_Recursion implements _09_UnionFind {
+
     int[] parent;
     int[] rank;
 
@@ -18,11 +19,11 @@ public class _09_06_UnionFind_Tree_Rank_Path_Recursion implements _09_UnionFind 
         }
     }
 
-    private int find(int p) {
-        if (p < 0 || p >= parent.length) {
+    public int find(int p) {
+        if (p >= parent.length || p < 0) {
             throw new IllegalArgumentException("p 超出了范围");
         }
-        if (p == parent[p]) return parent[p];
+        if (parent[p] == p) return p;
         parent[p] = find(parent[p]);
         return parent[p];
     }
@@ -38,14 +39,14 @@ public class _09_06_UnionFind_Tree_Rank_Path_Recursion implements _09_UnionFind 
         } else if (rank[pRoot] > rank[qRoot]) {
             parent[qRoot] = pRoot;
         } else {
-            parent[qRoot] = pRoot;
-            rank[pRoot] += 1;
+            parent[pRoot] = qRoot;
+            rank[qRoot] += 1;
         }
     }
 
     @Override
     public boolean isConnected(int p, int q) {
-        return false;
+        return find(p) == find(q);
     }
 
     @Override

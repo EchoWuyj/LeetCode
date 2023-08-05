@@ -13,18 +13,17 @@ public class _09_05_UnionFind_Tree_Rank_Path implements _09_UnionFind {
     public _09_05_UnionFind_Tree_Rank_Path(int capacity) {
         parent = new int[capacity];
         rank = new int[capacity];
-
         for (int i = 0; i < capacity; i++) {
             parent[i] = i;
             rank[i] = 1;
         }
     }
 
-    public int find(int p) {
-        if (p < 0 || p >= parent.length) {
+    private int find(int p) {
+        if (p >= parent.length || p < 0) {
             throw new IllegalArgumentException("p 超出了范围");
         }
-        while (p != parent[p]) {
+        while (parent[p] != p) {
             parent[p] = parent[parent[p]];
             p = parent[p];
         }
@@ -41,9 +40,9 @@ public class _09_05_UnionFind_Tree_Rank_Path implements _09_UnionFind {
             parent[pRoot] = qRoot;
         } else if (rank[pRoot] > rank[qRoot]) {
             parent[qRoot] = pRoot;
-        } else { // rank[pRoot] == rank[qRoot]
-            parent[qRoot] = pRoot;
-            rank[pRoot] += 1;
+        } else {
+            parent[pRoot] = qRoot;
+            rank[qRoot] += 1;
         }
     }
 

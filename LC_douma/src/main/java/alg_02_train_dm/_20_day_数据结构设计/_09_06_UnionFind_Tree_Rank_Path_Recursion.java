@@ -7,9 +7,11 @@ package alg_02_train_dm._20_day_数据结构设计;
  */
 public class _09_06_UnionFind_Tree_Rank_Path_Recursion implements _09_UnionFind {
 
+    // KeyPoint 优化：路径压缩 => 递归实现
+
     // parent[i] 表示的是节点 i 所指向的父亲节点
     int[] parent;
-    // rank[i] 表示以 i 为根的集合所表示的树的深度。
+    // rank[i] 表示以 i 为根的集合所表示的树的深度
     int[] rank;
 
     public _09_06_UnionFind_Tree_Rank_Path_Recursion(int capacity) {
@@ -21,20 +23,23 @@ public class _09_06_UnionFind_Tree_Rank_Path_Recursion implements _09_UnionFind 
         }
     }
 
-    // 查找元素 p 所属的集合
-    // 时间复杂度：O(h) h 表示树的深度
-    // find 递归查找 p 的父节点
+    // 函数功能：查找元素 p 所属的集合 => 本质：查找 p 的根节点
+    // 时间复杂度：O(h)，其中 h 表示树的深度
     private int find(int p) {
         if (p < 0 || p >= parent.length) {
             throw new IllegalArgumentException("p 超出了范围");
         }
-        // 递归边界 => 找到 p 父节点，返回 parent[p]
-        if (p == parent[p]) return parent[p];
-        // 路径压缩
-        // p 父节点  =  p 父节点的父节点
+
+        // find 递归查找 p 的根节点
+        // 递归边界 => 直到 p 的父节点指针指向 p，找到 p 根节点，返回根节点 p
+        if (parent[p] == p) return p;
+        // KeyPoint 路径压缩
         // parent[p] = find(parent[p])
+        //    ↓               ↓
+        // p 父指针  =  p 父节点的父节点
         parent[p] = find(parent[p]);
-        // 将 p 父节点返回
+
+        // 归的过程：将 p 父节点返回，最终返回的 p 的根节点
         return parent[p];
     }
 

@@ -17,7 +17,7 @@ public class _09_01_UnionFind_Array implements _09_UnionFind {
 
     // 查找元素 p 的所属集合
     private int find(int p) {
-        if (p < 0 || p > id.length) {
+        if (p < 0 || p >= id.length) {
             throw new IllegalArgumentException("p 超出了范围");
         }
         return id[p];
@@ -30,6 +30,7 @@ public class _09_01_UnionFind_Array implements _09_UnionFind {
 
     @Override
     public void unionElement(int p, int q) {
+
         int pId = find(p);
         int qId = find(q);
         if (pId == qId) return;

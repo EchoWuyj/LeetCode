@@ -38,7 +38,7 @@ public class _09_03_UnionFind_Tree_Size implements _09_UnionFind {
             parent[pRoot] = qRoot;
             size[qRoot] += size[pRoot];
         } else {
-            parent[qRoot] = pRoot;
+            size[qRoot] = pRoot;
             size[pRoot] += size[qRoot];
         }
     }

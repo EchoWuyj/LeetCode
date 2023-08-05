@@ -7,7 +7,7 @@ package alg_02_train_wyj._20_day_数据结构设计;
  */
 public class _09_02_UnionFind_Tree implements _09_UnionFind {
 
-    private int[] parent;
+    int[] parent;
 
     public _09_02_UnionFind_Tree(int capacity) {
         parent = new int[capacity];
