@@ -21,12 +21,12 @@ public class _07_03_LeftLastSmaller {
       第一个元素 1 左边没有比 1 小的元素，所以应该输出 -1。
    */
     public static int[] findLeftLastSmall(int[] nums) {
-        int[] ans = new int[nums.length];
+        int n = nums.length;
+        int[] res = new int[n];
         ArrayDeque<Integer> stack = new ArrayDeque<>();
-
         // 左边离我最近比我小的元素
         // => 从右往左遍历
-        for (int i = nums.length - 1; i >= 0; i--) {
+        for (int i = n - 1; i >= 0; i--) {
             int num = nums[i];
             // KeyPoint 根据题目需求 => 来写循环条件
             // 左边离我最近比我小的元素 => num < nums[stack.peek()]
@@ -34,16 +34,18 @@ public class _07_03_LeftLastSmaller {
             // => 只有 num < nums[栈顶]，执行 while 循环
             // => 说明：栈中元素一个比一个大，故栈是递增的
             while (!stack.isEmpty() && num < nums[stack.peek()]) {
-                ans[stack.peek()] = i;
+                res[stack.peek()] = i;
                 stack.pop();
+                // 简化代码
+                // res[stack.pop()] = i;
             }
             stack.push(i);
         }
         while (!stack.isEmpty()) {
-            ans[stack.peek()] = -1;
+            res[stack.peek()] = -1;
             stack.pop();
         }
-        return ans;
+        return res;
     }
 
     public static void main(String[] args) {

@@ -2,6 +2,7 @@ package alg_02_train_wyj._10_day_栈和队列;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 
 /**
  * @Author Wuyj
@@ -12,12 +13,11 @@ public class _07_03_LeftLastSmaller {
     public static int[] findLeftLastSmall(int[] nums) {
         int n = nums.length;
         int[] res = new int[n];
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        Deque<Integer> stack = new ArrayDeque<>();
         for (int i = n - 1; i >= 0; i--) {
             int num = nums[i];
             while (!stack.isEmpty() && num < nums[stack.peek()]) {
-                res[stack.peek()] = i;
-                stack.pop();
+                res[stack.pop()] = i;
             }
             stack.push(i);
         }

@@ -13,14 +13,18 @@ import java.util.Queue;
  * @Version 1.0
  */
 
-// FIFO => 队列先进先出
-// 实现：HashMap + 队列
 public class _02_FIFOCache<K, V> implements Cache<K, V> {
-    private Map<K, V> cache;
+
+    // FIFO => 先进先出缓存
+    // 1.先进先出 => 队列
+    // 2.缓存 => HashMap
+    // FIFO => HashMap + 队列
+
+    Map<K, V> cache;
     // 队列存储 key
-    private Queue<K> queue;
+    Queue<K> queue;
     // 表示缓存容量
-    private int capacity;
+    int capacity;
 
     public _02_FIFOCache(int capacity) {
         // HashMap 需要指定容量
@@ -39,7 +43,7 @@ public class _02_FIFOCache<K, V> implements Cache<K, V> {
     public void put(K key, V value) {
         // 获取 key 对应的 value
         V oldValue = cache.get(key);
-        // 缓存中没有 key
+        // 缓存中没有 key => 新加入，但是需要判断 cache 是否已经满了
         if (oldValue == null) {
             // offer 操作之前，判断 cache 的容量，满了之后则需要淘汰
             if (cache.size() == capacity) {
@@ -50,9 +54,15 @@ public class _02_FIFOCache<K, V> implements Cache<K, V> {
             }
             // 新的 key 进队
             queue.offer(key);
+            cache.put(key, value);
+        } else {
+            // 缓存中已经存在 key，put 操作将 key 对应 value 刷新
+            cache.put(key, value);
         }
-        // if 内外都都要执行该语句，将其提取到 if 判断外面
-        cache.put(key, value);
+
+        // KeyPoint 优化
+        // if ... else 中都存在 cache.put(key, value); 可以抽取出来
+        // 不建议这样写，原始写法更符合正常的逻辑
     }
 
     public static void main(String[] args) {

@@ -22,12 +22,16 @@ public class _08_739_daily_temperatures {
                       ↑            ↑
 
         提示：
-        1. 气温列表长度的范围是 [1, 30000]
-           KeyPoint 3*10^4 => O(n^2) 超时
-        2. 每个气温的值的均为华氏度，都是在 [30, 100] 范围内的整数
+        1 <= temperatures.length <= 10^5
+        30 <= temperatures[i] <= 100
+
+        KeyPoint 数据规模与时间复杂度
+        10^5 => O(n^2) 超时
+
      */
 
     // KeyPoint 方法一 暴力解法 => 超时
+    // 时间复杂度 O(n^2)
     public int[] dailyTemperatures1(int[] T) {
         if (T.length == 1) return new int[]{0};
         int n = T.length;

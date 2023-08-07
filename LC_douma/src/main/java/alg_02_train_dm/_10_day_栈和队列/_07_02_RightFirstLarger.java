@@ -34,7 +34,7 @@ public class _07_02_RightFirstLarger {
             // 右边第一个比我大的元素 => num > nums[stack.peek()]
             // KeyPoint 解释：单调递减栈
             // 只有 num > nums[栈顶]，执行 while 循环
-            // => 说明：栈中元素一个比一个小，故栈是递减的
+            // => 说明：已经存入栈中，元素一个比一个小，故栈是递减的
             while (!stack.isEmpty() && num > nums[stack.peek()]) {
                 res[stack.peek()] = i;
                 stack.pop();

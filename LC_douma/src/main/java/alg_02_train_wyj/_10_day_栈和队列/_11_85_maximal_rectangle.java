@@ -14,35 +14,35 @@ public class _11_85_maximal_rectangle {
         int m = matrix.length;
         int n = matrix[0].length;
 
-        int[][] left = new int[m][n];
-        for (int row = 0; row < m; row++) {
-            for (int col = 0; col < n; col++) {
-                if (matrix[row][col] == '1') {
-                    left[row][col] = (col == 0 ? 0 : left[row][col - 1]) + 1;
+        int[][] counts = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == '1') {
+                    counts[i][j] = (j == 0 ? 0 : counts[i][j - 1]) + 1;
                 }
             }
         }
-        int ans = 0;
-        for (int col = 0; col < n; col++) {
-            int[] up = new int[m];
-            int[] down = new int[m];
-            Arrays.fill(down, m);
+
+        int res = 0;
+        for (int j = 0; j < n; j++) {
+            int[] left = new int[m];
+            int[] right = new int[m];
+            Arrays.fill(right, m);
             ArrayDeque<Integer> stack = new ArrayDeque<>();
-            for (int row = 0; row < m; row++) {
-                int x = left[row][col];
-                while (!stack.isEmpty() && x <= left[stack.peek()][col]) {
-                    down[stack.peek()] = row;
-                    stack.pop();
+            for (int i = 0; i < m; i++) {
+                int count = counts[i][j];
+                while (!stack.isEmpty() && count <= counts[stack.peek()][j]) {
+                    right[stack.pop()] = i;
                 }
-                up[row] = (stack.isEmpty() ? -1 : stack.peek());
-                stack.push(row);
+                left[i] = (stack.isEmpty() ? -1 : stack.peek());
+                stack.push(i);
             }
-            for (int row = 0; row < m; row++) {
-                int height = left[row][col];
-                int width = down[row] - up[row] - 1;
-                ans = Math.max(ans, height * width);
+            for (int mid = 0; mid < m; mid++) {
+                int height = counts[mid][j];
+                int width = right[mid] - left[mid] - 1;
+                res = Math.max(res, height * width);
             }
         }
-        return ans;
+        return res;
     }
 }

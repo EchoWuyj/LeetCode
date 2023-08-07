@@ -1,6 +1,5 @@
 package alg_02_train_wyj._20_day_数据结构设计;
 
-import javax.sql.rowset.FilteredRowSet;
 import java.util.*;
 
 /**
@@ -11,13 +10,53 @@ import java.util.*;
 public class _13_721_accounts_merge {
 
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
-      
-        // 输出
-        //[["John","john00@mail.com","john_newyork@mail.com","johnnybravo@mail.com","johnsmith@mail.com"],["Mary",
-        // "mary@mail.com"]]
-        //预期结果
-        //[["John","john00@mail.com","john_newyork@mail.com","johnsmith@mail.com"],["Mary","mary@mail.com"],["John",
-        // "johnnybravo@mail.com"]]
+        Map<String, Integer> emailToIndex = new HashMap<>();
+        Map<String, String> emailToName = new HashMap<>();
+
+        int count = 0;
+        for (List<String> account : accounts) {
+            String name = account.get(0);
+            int size = account.size();
+            for (int i = 1; i < size; i++) {
+                String email = account.get(i);
+                if (!emailToIndex.containsKey(email)) {
+                    emailToIndex.put(email, count++);
+                    emailToName.put(email, name);
+                }
+            }
+        }
+
+        UnionFind unionFind = new UnionFind(count);
+        for (List<String> account : accounts) {
+            String firstEmail = account.get(1);
+            int firstIndex = emailToIndex.get(firstEmail);
+            int size = account.size();
+            for (int i = 2; i < size; i++) {
+                String nextEmail = account.get(i);
+                int nextIndex = emailToIndex.get(nextEmail);
+                unionFind.union(firstIndex, nextIndex);
+            }
+        }
+
+        Map<Integer, List<String>> rootIndexToEmails = new HashMap<>();
+        for (String email : emailToIndex.keySet()) {
+            int index = emailToIndex.get(email);
+            int rootIndex = unionFind.find(index);
+            List<String> emails = rootIndexToEmails.getOrDefault(rootIndex, new ArrayList<>());
+            emails.add(email);
+            rootIndexToEmails.put(rootIndex, emails);
+        }
+
+        List<List<String>> res = new ArrayList<>();
+        for (List<String> emails : rootIndexToEmails.values()) {
+            Collections.sort(emails);
+            String name = emailToName.get(emails.get(0));
+            List<String> accountsAndEmails = new ArrayList<>();
+            accountsAndEmails.add(name);
+            accountsAndEmails.addAll(emails);
+            res.add(accountsAndEmails);
+        }
+        return res;
     }
 
     class UnionFind {

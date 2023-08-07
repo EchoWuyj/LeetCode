@@ -22,7 +22,7 @@ public class _07_04_LeftLastLarger {
     */
     public static int[] findLeftLastLarge(int[] nums) {
         int n = nums.length;
-        int[] ans = new int[n];
+        int[] res = new int[n];
         ArrayDeque<Integer> stack = new ArrayDeque<>();
         // 左边离我最近比我大的元素
         // => 从右往左遍历
@@ -32,16 +32,16 @@ public class _07_04_LeftLastLarger {
             // KeyPoint 根据题目需求 => 来写循环条件
             // 左边离我最近比我大的元素 => num > nums[stack.peek()]
             while (!stack.isEmpty() && num > nums[stack.peek()]) {
-                ans[stack.peek()] = i;
+                res[stack.peek()] = i;
                 stack.pop();
             }
             stack.push(i);
         }
         while (!stack.isEmpty()) {
-            ans[stack.peek()] = -1;
+            res[stack.peek()] = -1;
             stack.pop();
         }
-        return ans;
+        return res;
     }
 
     public static void main(String[] args) {

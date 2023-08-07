@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class _07_01_LocalCache<K, V> implements _07_Cache<K, V> {
 
-    private Map<K, V> cache;
+    Map<K, V> cache;
 
     public _07_01_LocalCache() {
         cache = new HashMap<>();

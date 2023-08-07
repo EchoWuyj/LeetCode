@@ -2,6 +2,7 @@ package alg_02_train_wyj._10_day_栈和队列;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 
 /**
  * @Author Wuyj
@@ -12,18 +13,17 @@ public class _07_01_RightFirstSmaller {
     // 右边第一个比其小的
     public static int[] findRightSmall(int[] nums) {
         int n = nums.length;
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
         int[] res = new int[n];
-
+        Deque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
             int num = nums[i];
-
             while (!stack.isEmpty() && num < nums[stack.peek()]) {
                 res[stack.peek()] = i;
                 stack.pop();
             }
             stack.push(i);
         }
+
         while (!stack.isEmpty()) {
             res[stack.pop()] = -1;
         }

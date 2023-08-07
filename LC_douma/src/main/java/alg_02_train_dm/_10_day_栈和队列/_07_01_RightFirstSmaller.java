@@ -46,7 +46,7 @@ public class _07_01_RightFirstSmaller {
     */
 
     // 单调栈解决问题，时间复杂度 O(n)
-    // => for 循环 => 遍历一遍数组中元素
+    // => for 循环 => 正向遍历一遍数组中元素
     //    while 循环 => 最多往回遍历数组中元素
     // => 最多遍历两遍数组，时间复杂度 O(2n)，去掉系数 O(n)
     // 空间复杂度 O(n) => 最坏情况，stack 存储数组中所有元素
@@ -58,19 +58,23 @@ public class _07_01_RightFirstSmaller {
         // => 从左往右遍历
         for (int i = 0; i < n; i++) { // O(n)
             int num = nums[i];
+
             // KeyPoint 使用 while，不用 if
             // 不断将'当前元素值'和'栈顶索引对应元素值'进行比较
             // => 使用 while 多次比较，而不是 if 单词比较
+
             // KeyPoint 根据题目需求 => 来写循环条件
             // 右边第一个比其小的元素 =>  num < nums[stack.peek()]
+
             // KeyPoint 解释：单调递增栈
             // => 只有 num < nums[栈顶]，执行 while 循环
-            // => 说明：栈中元素一个比一个大，故栈是递增的
+            // => 说明：已经存入栈中，元素一个比一个大，故栈是递增的
             while (!stack.isEmpty() && num < nums[stack.peek()]) {
                 res[stack.peek()] = i;
+                // 弹栈
                 stack.pop();
             }
-            // 栈存储的是索引 index
+            // KeyPoint 注意：栈存储的是索引 index，而不是 nums[i]，不要混淆
             // => 数组所有 index 都是需要压入一遍栈
             stack.push(i);
         }
@@ -79,18 +83,19 @@ public class _07_01_RightFirstSmaller {
         // KeyPoint 注意：使用 while 循环判断，不是 if 单次判断
         while (!stack.isEmpty()) {
             // 注意是 res 赋值，不是 nums
-            res[stack.peek()] = -1;
-            stack.pop();
+            res[stack.pop()] = -1;
         }
         return res;
 
         // KeyPoint 单调递增栈
-        // => 关于递增，递减判断
-        // 栈中存储索引，但是实际比较索引对应值的大小变化关系，从而确定递增，还是递减
-        // 栈存储索引 0 1 2 3
-        // 数组
-        // 索引   0 1 2 3
-        // 数组值 1 2 3 8 => 单调递增栈
+        // 关于递增，递减判断
+        // => 栈中存储索引，但是实际比较的是：索引对应值的 nums[index] 大小变化关系
+        //    从而确定递增，还是递减
+
+        // stack 存储索引 0 1 2 3
+        // nums
+        // index   0 1 2 3
+        // value   1 2 3 8 => 单调递增栈
     }
 
     public static void main(String[] args) {

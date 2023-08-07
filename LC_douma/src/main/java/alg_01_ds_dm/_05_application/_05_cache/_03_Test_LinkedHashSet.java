@@ -28,7 +28,8 @@ public class _03_Test_LinkedHashSet {
     }
 
     private static void test2() {
-        // LinkedHashSet 底层使用 LinkedHashMap 实现，只是 LinkedHashSet 存储一个元素(key)，而不是键值对
+
+        // LinkedHashSet 底层使用 LinkedHashMap 实现，但 LinkedHashSet 只是存储一个元素(key)，而不是键值对
         Set<Integer> set = new LinkedHashSet<>();
         set.add(3);
         set.add(1);
@@ -37,7 +38,7 @@ public class _03_Test_LinkedHashSet {
         set.add(3);
 
         System.out.println(set);
-        // 数据去重  [3, 1, 10] ，同时会维护数据 add 的顺序
-        // LinkedHashSet 在 LFU 中使用到
+        // 1.数据去重 [3, 1, 10] ，同时会维护数据 add 的顺序
+        // 2.其中 LinkedHashSet 在 LFU 中使用到
     }
 }

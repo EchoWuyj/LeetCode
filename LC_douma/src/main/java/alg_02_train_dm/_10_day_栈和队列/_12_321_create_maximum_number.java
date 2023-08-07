@@ -110,7 +110,7 @@ public class _12_321_create_maximum_number {
         return res;
     }
 
-    // test
+    // for test
     public static void testStack() {
         int[] nums = {1, 2, 4, 5, 8, 1};
         int k = 2;

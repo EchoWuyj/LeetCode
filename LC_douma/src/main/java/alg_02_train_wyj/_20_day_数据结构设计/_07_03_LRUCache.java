@@ -10,34 +10,11 @@ import java.util.Map;
  */
 public class _07_03_LRUCache<K, V> implements _07_Cache<K, V> {
 
-    class Node {
-        K key;
-        V value;
-        Node prev;
-        Node next;
-    }
-
-    private Map<K, Node> cache;
-    private int capacity;
-
-    private Node head;
-    private Node tail;
-
-    public _07_03_LRUCache(int capacity) {
-        head = new Node();
-        tail = new Node();
-
-        head.next = tail;
-        tail.prev = head;
-
-        cache = new HashMap<>();
-        this.capacity = capacity;
-    }
-
     @Override
     public V get(K key) {
         Node node = cache.get(key);
         if (node == null) return null;
+
         moveNodeToHead(node);
         return node.value;
     }
@@ -61,6 +38,30 @@ public class _07_03_LRUCache<K, V> implements _07_Cache<K, V> {
         }
     }
 
+    class Node {
+        K key;
+        V value;
+        Node prev;
+        Node next;
+    }
+
+    Map<K, Node> cache;
+    int capacity;
+
+    Node head;
+    Node tail;
+
+    public _07_03_LRUCache(int capacity) {
+        head = new Node();
+        tail = new Node();
+
+        head.next = tail;
+        tail.prev = head;
+
+        cache = new HashMap<>();
+        this.capacity = capacity;
+    }
+
     private void removeNode(Node node) {
         Node prevNode = node.prev;
         Node nextNode = node.next;
@@ -80,14 +81,15 @@ public class _07_03_LRUCache<K, V> implements _07_Cache<K, V> {
     private void addNodeToHead(Node node) {
         node.next = head.next;
         node.prev = head;
+
         head.next.prev = node;
         head.next = node;
     }
 
     private Node removeTailNode() {
-        Node delNode = tail.prev;
-        removeNode(delNode);
-        return delNode;
+        Node delNote = tail.prev;
+        removeNode(delNote);
+        return delNote;
     }
 
     public static void main(String[] args) {
@@ -101,6 +103,4 @@ public class _07_03_LRUCache<K, V> implements _07_Cache<K, V> {
         cache.put(5, 6);
         System.out.println(cache.get(4)); // null
     }
-
-
 }

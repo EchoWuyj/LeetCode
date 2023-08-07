@@ -11,13 +11,14 @@ import java.util.Queue;
  * @Version 1.0
  */
 public class _07_02_FIFOCache<K, V> implements _07_Cache<K, V> {
-    private Map<K, V> cache;
-    private Queue<K> queue;
-    private int capacity;
+
+    Map<K, V> cache;
+    Queue<K> queue;
+    int capacity;
 
     public _07_02_FIFOCache(int capacity) {
-        cache = new HashMap<>(capacity);
-        queue = new ArrayDeque<>(capacity);
+        cache = new HashMap<>();
+        queue = new ArrayDeque<>();
         this.capacity = capacity;
     }
 

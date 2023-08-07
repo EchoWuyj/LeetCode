@@ -2,6 +2,7 @@ package alg_02_train_wyj._10_day_栈和队列;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 
 /**
  * @Author Wuyj
@@ -14,15 +15,18 @@ public class _07_02_RightFirstLarger {
     public static int[] findRightLarge(int[] nums) {
         int n = nums.length;
         int[] res = new int[n];
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        Deque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
             int num = nums[i];
+
             while (!stack.isEmpty() && num > nums[stack.peek()]) {
                 res[stack.peek()] = i;
                 stack.pop();
             }
+
             stack.push(i);
         }
+
         while (!stack.isEmpty()) {
             res[stack.pop()] = -1;
         }
