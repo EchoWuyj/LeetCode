@@ -1,84 +1,101 @@
 package alg_02_train_dm._10_day_栈和队列;
 
-import java.util.ArrayDeque;
+import java.util.TreeMap;
 
 /**
  * @Author Wuyj
- * @DateTime 2023-08-08 0:54
+ * @DateTime 2023-08-08 11:28
  * @Version 1.0
  */
 public class _13_456_132_pattern2 {
 
-    // KeyPoint 方法四 单调栈 + 前缀最小值 -> O(n)
-    public static boolean find132pattern4(int[] nums) {
+    // KeyPoint 方法三 线性查找 -> 红黑树 -> O(logn)
+    // 时间复杂度 O(nlogn)
+    // 数据量：2*10^5，log2(10^5) ≈ 16.6094 < 20
+    // O(nlogn)：2*10^5 * log(2*10^5) = 10^6 不会超时
+    public static boolean find132pattern3(int[] nums) {
+
+        // KeyPoint 优化
+        // 线性查找 O(n) => 二叉查找树(红黑树) O(logn)
+        // 目的：查找大于 numsi 的 nums[k]，同时再和 nums[j] 进行比较
+        // => 在红黑树中查找大于某个值，时间复杂度 O(logn)
+        // => 红黑树本质：二叉查找树
+
+        // KeyPoint 总结
+        // 查找操作时间复杂度取决于使用的数据结构
+        // => 一开始，数组，只能线性查找
+        // => 优化，二叉查找树，O(logn)，降低时间复杂度
+
         int n = nums.length;
         if (n < 3) return false;
+        int numsi = nums[0];
 
-        // 维护一个前缀最小值数组，即到当前为止的最小值，用于确定 nums[i]
-        int[] minPrefix = new int[nums.length];
-        minPrefix[0] = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            // nums[i] 有最小值，则更新，没有，则维持之前 minPrefix[i - 1]
-            // nums       1 0 2 -4 -3 -2 1
-            // minPrefix  1 0 0 -4 -4 -4 -4
-            // minPrefix[i - 1] 遇到 -4，会将 -4 一直保留下来
-            minPrefix[i] = Math.min(minPrefix[i - 1], nums[i]);
+        // KeyPoint TreeMap 底层使用红黑树
+        // key => nums[k]
+        // value => count
+
+        // KeyPoint 为什么使用 Map?
+        // 因为相同的 nums[k] 可能出现多次，为了维护 nums[k] 出现的次数，使用 Map 结构
+        // 而不能使用 TreeSet，因为 TreeSet 会去重，去重影响结果正确性
+        // 有些情况，重复元素 nums[k] 是正确，但去重之后就有可能不对了，影响结果正确性
+        TreeMap<Integer, Integer> numskMap = new TreeMap<>();
+
+        // 将所有可能作为 nums[k] 元素放到红黑树中
+        // => i < j < k => k 从 2 开始，前面两个元素留给 nums[i] 和 nums[j]
+        //    即从第三个元素开始才可能为 nums[k]
+        for (int k = 2; k < n; k++) {
+            numskMap.put(nums[k], numskMap.getOrDefault(nums[k], 0) + 1);
         }
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
-        stack.push(nums[n - 1]);
-        // j 从倒数第二个元素开始，j >= 1，即 j 也不可能是第一元素
-        // 想利用 minPrefix，只能从后往前遍历，否则不存在 minPrefix
-        for (int j = n - 2; j >= 1; j--) {
-            // 保证 nums[j] > minPrefix[j](nums[i])
-            if (nums[j] > minPrefix[j]) {
-                // stack.peek()(nums[k]) <= minPrefix[j](nums[i])
-                while (!stack.isEmpty() && stack.peek() <= minPrefix[j]) {
-                    // stack 不断弹栈，直到 stack.peek()(nums[k]) > minPrefix[j](nums[i])
-                    stack.pop();
-                }
-                if (!stack.isEmpty() && stack.peek() < nums[j]) {
-                    return true;
-                }
-                // 在 j 从后往前遍历过程中，在 nums[j] > nums[i] 情况下
-                // 将所有 nums[j] 能作为 num[k] 的值都压栈
-                stack.push(nums[j]);
+
+        // KeyPoint 类似题目
+        // 03_220_contains_duplicate_iii1
+        // 本质：红黑树实现区间查找
+
+        // 时间复杂度 O(nlogn)
+        // i < j < k => 最后一个留给 k => j 到倒数第二个为止
+        // KeyPoint 注意事项
+        // 1.通过 j 索引位置限制，优化 for 循环条件
+        // 2.同时后续代码存在 j+1，j < n-1，避免索引越界
+        for (int j = 1; j < n - 1; j++) {
+            // 前置条件：红黑树查找前的判断
+            if (nums[j] > numsi) {
+
+                // KeyPoint 补充说明
+                // ceilingKey 返回大于或等于给定键的最小键，存在返回，不存在返回 null
+
+                // 红黑树查找大于左边最小值 numsi 得元素
+                // => 保证 nums[k] > nums[i]，故得 ceilingKey() 形参传入 numsi+1
+                Integer numsk = numskMap.ceilingKey(numsi + 1);
+                // 有可能没有，故需要先判空
+                if (numsk != null && numsk < nums[j]) return true;
             }
+
+            // 维护最小的 nums[i]
+            numsi = Math.min(numsi, nums[j]);
+            // KeyPoint 存在 j+1，j < n-1，避免索引越界
+            // 遍历完 j 之后，下个元素 nums[j+1] 就不可能作为 nums[k]，需要从红黑树中删除掉
+            // 注意：这里删除一个 nums[j+1]，所以只是在次数上减 1，因为 nums[j+1] 可能存在多个
+            numskMap.put(nums[j + 1], numskMap.get(nums[j + 1]) - 1); // O(logn)
+
+            // 若 nums[j+1] 对应 count = 0，即出现次数为 0，从 TreeMap 中删除即可
+            if (numskMap.get(nums[j + 1]) == 0) numskMap.remove(nums[j + 1]); // O(logn)
         }
         return false;
     }
 
     public static void main(String[] args) {
-        int[] arr = {1, 0, 2, -4, -3, -2, 1};
-        find132pattern4(arr);
-    }
 
-    // KeyPoint 方法四 单调栈
-    public boolean find132pattern5(int[] nums) {
+        // KeyPoint 补充说明
+        // TreeMap.ceilingKey()：获取大于等于指定键的最小键，存在返回，不存在返回 null
+        TreeMap<Integer, String> treeMap = new TreeMap<>();
+        treeMap.put(1, "One");
+        treeMap.put(3, "Three");
+        treeMap.put(5, "Five");
+        treeMap.put(7, "Seven");
+        treeMap.put(9, "Nine");
 
-        // -3 0 -5 -4 -3 -2 1
-        // 理论上，从右往左的每个元素都有可能是 132 模式中的 2，一直到遇到第一个
-        // nums[j] > nums[k]，所有的 k 才可能成为真正的 2，在所有可能成为真正
-        // 2 的所有元素中找到最大的 nums[k]，这样找到 nums[i] 的机会就大点
-
-        int n = nums.length;
-        if (n < 3) return false;
-        int maxk = Integer.MIN_VALUE;
-        // KeyPoint 单调递减栈 => 找到小于当前值的最大值
-        // 将小于当前值的最大值作为 nums[k]
-        // 在当前值的左边，小于 nums[k] 的值，找到机会更大
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
-        stack.push(nums[n - 1]);
-        // 测试数据 5 -1 0 6 3 2 1 4
-        for (int i = n - 2; i >= 0; i--) {
-            // nums[i] < maxk，直接满足 132 模式，返回 true
-            if (nums[i] < maxk) return true;
-            while (!stack.isEmpty() && nums[i] > stack.peek()) {
-                // 若存在 maxk，必有 num[j] > maxk
-                maxk = stack.peek();
-                stack.pop();
-            }
-            if (nums[i] > maxk) stack.push(nums[i]);
-        }
-        return false;
+        System.out.println(treeMap.ceilingKey(4)); // 输出：5，最小的大于等于 4 的键是 5
+        System.out.println(treeMap.ceilingKey(6)); // 输出：7，最小的大于等于 6 的键是 7
+        System.out.println(treeMap.ceilingKey(10)); // 输出：null，大于等于 10 的键不存在，返回null
     }
 }

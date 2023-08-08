@@ -94,7 +94,7 @@ public class _03_220_contains_duplicate_iii1 {
         int left = 0;
         int right = 0;
         // KeyPoint 包装类型
-        // 1.TreeSet 泛型只能使用 Long，不能使用 long
+        // 1.TreeSet 泛型只能使用 Long，不能使用 long 基本数据类型
         // 2.window 中 add 和 remove 操作，针对的元素只能是 long 类型
         //   若是 int 类型，需要强制转换，否则报错
         TreeSet<Long> window = new TreeSet<>();

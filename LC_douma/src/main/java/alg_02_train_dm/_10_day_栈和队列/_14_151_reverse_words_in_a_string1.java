@@ -25,6 +25,7 @@ public class _14_151_reverse_words_in_a_string1 {
         输入：s = "  Bob    Loves  Alice   "
         输出："Alice Loves Bob"
 
+        提示：
         1. 无空格字符构成一个单词 。
         2. 输入字符串可以在前面或者后面包含多余的空格，但是反转后的字符不能包括。
         3. 如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。
@@ -42,13 +43,17 @@ public class _14_151_reverse_words_in_a_string1 {
         // 4. "Alice Loves Bob"
         // 输出："Alice Loves Bob"
 
+        // trim() 去掉两端的空格
         s = s.trim();
-        // \\s ==\s 表示转义字符 ,\s表示匹配任意空格(包括空格，制表符，换页符)
-        // \\s+中的'+'表示多次匹配
+        // \\s 表示 \s 表示转义字符 ,\s表示匹配任意空格(包括空格，制表符，换页符)
+        // \\s+中的 '+' 表示多次匹配
         // s.split("\\s+") 将字符串 s 按照一个或多个连续的空白字符进行分割，并返回一个字符串数组
         // ["Bob", "Loves", "Alice"]
-        List<String> list = Arrays.asList(s.split("\\s+"));
+        String[] words = s.split("\\s+");
+        List<String> list = Arrays.asList(words);
+        // 反转，前 => 后，后 => 前
         Collections.reverse(list);
+        // 按照指定空格，输出字符串
         return String.join(" ", list);
     }
 }
