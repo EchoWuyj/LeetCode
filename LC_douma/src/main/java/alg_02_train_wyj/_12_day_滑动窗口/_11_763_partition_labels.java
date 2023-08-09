@@ -11,17 +11,17 @@ import java.util.List;
 public class _11_763_partition_labels {
 
     public List<Integer> partitionLabels(String s) {
-        List<Integer> res = new ArrayList<>();
-        if (s == null) return res;
-        int[] count = new int[26];
-        for (int i = 0; i < s.length(); i++) {
-            count[s.charAt(i) - 'a'] = i;
+        int[] map = new int[26];
+        int n = s.length();
+        for (int i = 0; i < n; i++) {
+            map[s.charAt(i) - 'a'] = i;
         }
-        int left = 0, right = 0;
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            right = Math.max(right, count[c - 'a']);
 
+        List<Integer> res = new ArrayList<>();
+        int left = 0, right = 0;
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            right = Math.max(right, map[c - 'a']);
             if (i == right) {
                 res.add(right - left + 1);
                 left = right + 1;

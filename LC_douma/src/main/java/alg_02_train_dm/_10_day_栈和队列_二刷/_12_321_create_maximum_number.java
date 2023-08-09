@@ -96,8 +96,8 @@ public class _12_321_create_maximum_number {
 
             // 4.比较，取最大值，返回 maxSubSeq
             if (compare(curMaxSubSeq, 0, maxSubSeq, 0) > 0) {
-                // System 数组 copy 方法
-                // 将当前 curMaxSubSeq 赋值给最终的 maxSubSeq，还需确定长度
+                // System.arraycopy
+                // => 将当前 curMaxSubSeq 赋值给最终的 maxSubSeq，还需确定长度 k
                 System.arraycopy(curMaxSubSeq, 0, maxSubSeq, 0, k);
             }
         }
@@ -216,12 +216,13 @@ public class _12_321_create_maximum_number {
             }
             // k 从 0 开始，故 k - 1
             if (top < k - 1) {
-                // top 指向栈顶位置，故得先 top +1，再去进行赋值
+                // top 指向栈顶位置，故得先 top +1，空出一个位置，再去进行赋值
                 stack[++top] = num;
             } else {
                 remain--;
             }
         }
+        // 本身就是使用数组模拟栈，故可以直接返回
         return stack;
     }
 
@@ -269,6 +270,7 @@ public class _12_321_create_maximum_number {
                 // diff 正数 => 取 arr1
                 merged[index] = arr1[i++];
             } else {
+                // else 语句中，并不是 compare <= 0，因为 compare 返回值没有为 0
                 // diff 负数 => 取 arr2
                 merged[index] = arr2[j++];
             }
@@ -276,6 +278,7 @@ public class _12_321_create_maximum_number {
         return merged;
     }
 
+    // KeyPoint 类比：12_179_LargestNumber1 最大数排序
     // 函数功能：两个子序列，逐个位置比较，逐个返回 diff
     // => 自顶定义 compare 方法，不是排序中的 compare
     // arr1 从 i 到 结尾
@@ -288,7 +291,6 @@ public class _12_321_create_maximum_number {
         // i 和 j 都没有越界
         while (i < len1 && j < len2) {
             int diff = arr1[i] - arr2[j];
-
             // diff 不相等，直接返回 diff
             // 1.若 diff > 0，arr1[i] 大
             // 2.若 diff < 0，arr2[i] 大

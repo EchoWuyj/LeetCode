@@ -9,12 +9,10 @@ public class _12_845_longest_mountain_in_array {
 
     public int longestMountain(int[] arr) {
         if (arr == null) return 0;
+        int res = 0, left = 0;
         int n = arr.length;
-        int left = 0;
-        int right;
-        int ans = 0;
         while (left + 2 < n) {
-            right = left + 1;
+            int right = left + 1;
             if (arr[left] < arr[right]) {
                 while (right + 1 < n && arr[right] < arr[right + 1]) {
                     right++;
@@ -23,13 +21,13 @@ public class _12_845_longest_mountain_in_array {
                     while (right + 1 < n && arr[right] > arr[right + 1]) {
                         right++;
                     }
-                    ans = Math.max(right - left + 1, ans);
+                    res = Math.max(res, right - left + 1);
                 } else {
                     right++;
                 }
             }
             left = right;
         }
-        return ans;
+        return res;
     }
 }

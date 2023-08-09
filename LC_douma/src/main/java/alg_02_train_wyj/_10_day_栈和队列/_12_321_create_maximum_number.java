@@ -1,9 +1,6 @@
 package alg_02_train_wyj._10_day_栈和队列;
 
-import javax.swing.plaf.metal.MetalTheme;
-import java.lang.reflect.Array;
 import java.util.ArrayDeque;
-import java.util.Arrays;
 
 /**
  * @Author Wuyj
@@ -23,7 +20,11 @@ public class _12_321_create_maximum_number {
             int[] subSeq1 = maxSubSeq1(nums1, count);
             int[] subSeq2 = maxSubSeq1(nums2, k - count);
             int[] curMaxSubSeq = merge(subSeq1, subSeq2);
+            if (compare(curMaxSubSeq, 0, maxSubSeq, 0) > 0) {
+                System.arraycopy(curMaxSubSeq, 0, maxSubSeq, 0, k);
+            }
         }
+        return maxSubSeq;
     }
 
     private int[] maxSubSeq1(int[] nums, int k) {
@@ -36,7 +37,6 @@ public class _12_321_create_maximum_number {
                 stack.pop();
                 remain--;
             }
-
             if (stack.size() < k) {
                 stack.push(num);
             } else {
@@ -46,13 +46,29 @@ public class _12_321_create_maximum_number {
         int[] res = new int[k];
         int index = k - 1;
         while (!stack.isEmpty()) {
-            res[index++] = stack.pop();
+            res[index--] = stack.pop();
         }
         return res;
     }
 
     private int[] maxSubSeq2(int[] nums, int k) {
-        return null;
+        int[] stack = new int[k];
+        int top = -1;
+        int n = nums.length;
+        int remain = n - k;
+        for (int i = 0; i < n; i++) {
+            int num = nums[i];
+            while (top >= 0 && num > stack[top] && remain > 0) {
+                top--;
+                remain--;
+            }
+            if (top < k - 1) {
+                stack[++top] = num;
+            } else {
+                remain--;
+            }
+        }
+        return stack;
     }
 
     private int[] merge(int[] arr1, int[] arr2) {

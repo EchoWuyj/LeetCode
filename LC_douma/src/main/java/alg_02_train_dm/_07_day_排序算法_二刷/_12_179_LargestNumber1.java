@@ -33,7 +33,7 @@ public class _12_179_LargestNumber1 {
           x > y => x 在前，y 在 后
           x < y => y 在前，x 在 后
 
-       nums 3 30 34
+        nums 3 30 34
 
         3 30
         330 > 303
@@ -80,7 +80,7 @@ public class _12_179_LargestNumber1 {
         return sb.toString();
     }
 
-    // 使用 三路快排 实现排序
+    // 使用'三路快排'实现排序
     private void sort(int[] data, int low, int high) {
         if (low >= high) return;
         // 分区
