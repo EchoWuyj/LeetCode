@@ -54,6 +54,7 @@ public class _14_151_reverse_words_in_a_string3 {
         // 需要单独将最后一个单词加入队列中
         deque.offerFirst(word.toString());
         // 实现 Iterable 接口集合都可以作为形参传入
+        // KeyPoint deque 集合中需要是 String 类型泛型
         return String.join(" ", deque);
     }
 }

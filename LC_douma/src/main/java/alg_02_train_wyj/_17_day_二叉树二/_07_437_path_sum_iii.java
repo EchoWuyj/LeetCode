@@ -15,22 +15,21 @@ public class _07_437_path_sum_iii {
         return dfs(root, new ArrayList<>(), targetSum);
     }
 
-    private static int dfs(TreeNode node, List<Long> parentPathSumList, long targetSum) {
+    private static int dfs(TreeNode node, List<Long> parentPathSumList, long target) {
         if (node == null) return 0;
-
         int cnt = 0;
-        List<Long> tmp = new ArrayList<>();
-        for (int i = 0; i < parentPathSumList.size(); i++) {
+        List<Long> list = new ArrayList<>();
+        int size = parentPathSumList.size();
+        for (int i = 0; i < size; i++) {
             long num = parentPathSumList.get(i) + node.val;
-            tmp.add(num);
-            if (num == targetSum) cnt++;
+            list.add(num);
+            if (num == target) cnt++;
         }
-        tmp.add((long) node.val);
-        if (node.val == targetSum) cnt++;
-
-        int leftCnt = dfs(node.left, tmp, targetSum);
-        int rightCnt = dfs(node.right, tmp, targetSum);
-        return cnt + leftCnt + rightCnt;
+        list.add((long) node.val);
+        if (node.val == target) cnt++;
+        int left = dfs(node.left, list, target);
+        int right = dfs(node.right, list, target);
+        return cnt + left + right;
     }
 
     public static void main(String[] args) {

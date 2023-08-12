@@ -17,15 +17,16 @@ public class _06_113_PathSum {
         return res;
     }
 
-    public void dfs(TreeNode root, int pathRemain, List<Integer> path, List<List<Integer>> res) {
+    public void dfs(TreeNode root, int remainPath, List<Integer> path, List<List<Integer>> res) {
         if (root == null) return;
         path.add(root.val);
-        pathRemain -= root.val;
-        if (root.left == null && root.right == null && pathRemain == 0) {
+        remainPath -= root.val;
+        if (root.left == null && root.right == null && remainPath == 0) {
             res.add(new ArrayList<>(path));
         }
-        dfs(root.left, pathRemain, path, res);
-        dfs(root.right, pathRemain, path, res);
+
+        dfs(root.left, remainPath, path, res);
+        dfs(root.right, remainPath, path, res);
         path.remove(path.size() - 1);
     }
 }

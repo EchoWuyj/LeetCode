@@ -1,50 +1,35 @@
 package alg_02_train_wyj._17_day_二叉树二;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 /**
  * @Author Wuyj
- * @DateTime 2023-04-06 20:39
+ * @DateTime 2023-08-10 19:03
  * @Version 1.0
  */
-public class _05_112_PathSum1 {
+public class _05_112_PathSum {
     public static List<List<Integer>> allPath(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
         List<Integer> path = new ArrayList<>();
-        path.add(root.val);
-        Queue<TreeNode> nodeQueue = new LinkedList<>();
-        Queue<List<Integer>> pathQueue = new LinkedList<>();
-        nodeQueue.offer(root);
-        pathQueue.offer(path);
-        while (!nodeQueue.isEmpty()) {
-            TreeNode curNode = nodeQueue.poll();
-            List<Integer> curPath = pathQueue.poll();
-            if (curNode.left == null && curNode.right == null) {
-                res.add(curPath);
-                continue;
-            }
-
-            if (curNode.left != null) {
-                nodeQueue.offer(curNode.left);
-                ArrayList<Integer> newPath = new ArrayList<>(curPath);
-                newPath.add(curNode.left.val);
-                pathQueue.add(newPath);
-            }
-
-            if (curNode.right != null) {
-                nodeQueue.offer(curNode.right);
-                ArrayList<Integer> newPath = new ArrayList<>(curPath);
-                newPath.add(curNode.right.val);
-                pathQueue.add(newPath);
-            }
-        }
+        dfs(root, path, res);
         return res;
     }
 
+    public static void dfs(TreeNode node, List<Integer> path, List<List<Integer>> res) {
+        if (node == null) return;
+        path.add(node.val);
+        if (node.left == null && node.right == null) {
+            res.add(new ArrayList<>(path));
+        }
+        dfs(node.left, path, res);
+        dfs(node.right, path, res);
+        path.remove(path.size() - 1);
+    }
+
     public static void main(String[] args) {
+
         TreeNode root = new TreeNode(5);
         TreeNode node1 = new TreeNode(4);
         TreeNode node2 = new TreeNode(8);
@@ -75,9 +60,9 @@ public class _05_112_PathSum1 {
         //           / \     / \
         //          7  2    5   1
 
-        // BFS 层次遍历
+        // dfs 先序遍历
         System.out.println(allPath(root));
-        // 按照层次遍历，最先遍历完的路径为 [5, 8, 13]
-        // [[5, 8, 13], [5, 4, 11, 7], [5, 4, 11, 2], [5, 8, 4, 5], [5, 8, 4, 1]]
+        // [[5, 4, 11, 7], [5, 4, 11, 2], [5, 8, 13], [5, 8, 4, 5], [5, 8, 4, 1]]
+
     }
 }

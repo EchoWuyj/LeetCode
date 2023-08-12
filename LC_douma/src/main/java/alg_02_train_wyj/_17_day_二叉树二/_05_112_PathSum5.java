@@ -9,8 +9,9 @@ public class _05_112_PathSum5 {
     public boolean hasPathSum(TreeNode root, int target) {
         if (root == null) return false;
         target -= root.val;
-        if (root.left == null && root.right == null) return target == 0;
-
+        if (root.left == null && root.right == null) {
+            return target == 0;
+        }
         boolean left = hasPathSum(root.left, target);
         if (left) return true;
         boolean right = hasPathSum(root.right, target);

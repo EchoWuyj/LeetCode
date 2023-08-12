@@ -2,7 +2,7 @@ package alg_02_train_wyj._17_day_二叉树二;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
+import java.util.List;
 
 /**
  * @Author Wuyj
@@ -12,51 +12,97 @@ import java.util.Deque;
 public class _03_114_flatten_binary_tree_to_linked_list {
     public void flatten1(TreeNode root) {
         if (root == null) return;
-        ArrayList<TreeNode> res = new ArrayList<>();
-        preOrder(root, res);
-        for (int i = 0; i < res.size() - 1; i++) {
-            TreeNode prev = res.get(i);
-            TreeNode cur = res.get(i + 1);
-            prev.left = null;
-            prev.right = cur;
+        List<TreeNode> list = new ArrayList<>();
+        preOrder(root, list);
+        int size = list.size();
+        for (int i = 1; i < size; i++) {
+            TreeNode pre = list.get(i - 1);
+            TreeNode cur = list.get(i);
+            pre.left = null;
+            pre.right = cur;
         }
     }
 
-    public void preOrder(TreeNode root, ArrayList<TreeNode> res) {
+    public void preOrder(TreeNode root, List<TreeNode> list) {
         if (root == null) return;
-        res.add(root);
-        preOrder(root.left, res);
-        preOrder(root.right, res);
+        list.add(root);
+        preOrder(root.left, list);
+        preOrder(root.right, list);
+    }
+
+    public static void flatten(TreeNode root) {
+        if (root == null) return;
+        List<Integer> list = new ArrayList<>();
+        dfs(root, list);
+        int size = list.size();
+        root.left = null;
+        root.right = null;
+
+        // 串联指针
+        TreeNode cur = root;
+        root.val = list.get(0);
+        root.left = null;
+        root.right = null;
+        for (int i = 1; i < size; i++) {
+            TreeNode next = new TreeNode(list.get(i));
+            cur.right = next;
+            cur = next;
+        }
+
+        // System.out.println(print(root));
+    }
+
+    public static void dfs(TreeNode root, List<Integer> list) {
+        if (root == null) return;
+        list.add(root.val);
+        dfs(root.left, list);
+        dfs(root.right, list);
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(5);
+        root.left.left = new TreeNode(3);
+        root.left.right = new TreeNode(4);
+        root.right.right = new TreeNode(6);
+
+        flatten(root);
     }
 
     public void flatten2(TreeNode root) {
         if (root == null) return;
-        Deque<TreeNode> stack = new ArrayDeque<>();
+        ArrayDeque<TreeNode> stack = new ArrayDeque<>();
         stack.push(root);
-        TreeNode prev = null;
+        TreeNode pre = null;
         while (!stack.isEmpty()) {
             TreeNode cur = stack.poll();
-            if (prev != null) {
-                prev.right = cur;
-                prev.left = null;
+            if (pre != null) {
+                pre.left = null;
+                pre.right = cur;
             }
-            if (cur.right != null) stack.push(cur.right);
-            if (cur.left != null) stack.push(cur.left);
-            prev = cur;
+            TreeNode left = cur.left, right = cur.right;
+            if (right != null) {
+                stack.push(right);
+            }
+            if (left != null) {
+                stack.push(left);
+            }
+            pre = cur;
         }
     }
 
-    public void flatten(TreeNode root) {
+    public void flatten3(TreeNode root) {
         if (root == null) return;
         TreeNode cur = root;
         while (cur != null) {
             if (cur.left != null) {
                 TreeNode left = cur.left;
-                TreeNode prev = left;
-                while (prev.right != null) {
-                    prev = prev.right;
+                TreeNode pre = left;
+                while (pre.right != null) {
+                    pre = pre.right;
                 }
-                prev.right = cur.right;
+                pre.right = cur.right;
                 cur.left = null;
                 cur.right = left;
             }

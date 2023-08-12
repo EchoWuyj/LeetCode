@@ -7,7 +7,7 @@ package alg_02_train_wyj._17_day_二叉树二;
  */
 public class _09_666_path_sum_iv {
 
-    private static int ans = 0;
+    private static int res;
 
     public static int pathSum(int[] nums) {
         Integer[] tree = new Integer[15];
@@ -18,18 +18,21 @@ public class _09_666_path_sum_iv {
             int index = ((1 << (bai - 1)) - 1) + shi - 1;
             tree[index] = ge;
         }
+
         dfs(tree, 0, 0);
-        return ans;
+        return res;
     }
 
-    private static void dfs(Integer[] tree, int index, int curPathSum) {
+    private static void dfs(Integer[] tree, int index, int pathSum) {
         if (tree[index] == null) return;
-        curPathSum += tree[index];
-        if (index >= 7 || tree[2 * index + 1] == null && tree[2 * index + 2] == null) {
-            ans += curPathSum;
+        pathSum += tree[index];
+        if (index >= 7 || (tree[2 * index + 1] == null && tree[2 * index + 2] == null)) {
+            res += pathSum;
+            // System.out.println(res);
+            return;
         }
-        dfs(tree, 2 * index + 1, curPathSum);
-        dfs(tree, 2 * index + 2, curPathSum);
+        dfs(tree, 2 * index + 1, pathSum);
+        dfs(tree, 2 * index + 2, pathSum);
     }
 
     public static void main(String[] args) {

@@ -17,40 +17,46 @@ public class _10_257_binary_tree_paths {
         return res;
     }
 
-    public void dfs(TreeNode root, String parentPath, List<String> res) {
-        if (root == null) return;
-        if (root.left == null && root.right == null) {
-            res.add(parentPath + root.val);
-            return;
+    private void dfs(TreeNode node, String parentPath, List<String> res) {
+        if (node == null) return;
+        if (node.left == null && node.right == null) {
+            res.add(parentPath + node.val);
         }
-        dfs(root.left, parentPath + root.val + "->", res);
-        dfs(root.right, parentPath + root.val + "->", res);
+
+        dfs(node.left, parentPath + node.val + "->", res);
+        dfs(node.right, parentPath + node.val + "->", res);
     }
 
     public List<String> binaryTreePaths(TreeNode root) {
-        List<String> paths = new ArrayList<>();
-        if (root == null) return paths;
+        List<String> res = new ArrayList<>();
+        if (root == null) return res;
         Queue<TreeNode> nodeQueue = new LinkedList<>();
         Queue<String> pathQueue = new LinkedList<>();
+
         nodeQueue.offer(root);
         pathQueue.offer(Integer.toString(root.val));
+
         while (!nodeQueue.isEmpty()) {
             TreeNode node = nodeQueue.poll();
             String path = pathQueue.poll();
-            if (node.right == null && node.left == null) {
-                paths.add(path);
+
+            if (node.left == null && node.right == null) {
+                res.add(path);
                 continue;
             }
+
             if (node.left != null) {
                 nodeQueue.offer(node.left);
-                pathQueue.offer(new StringBuilder(path).append("->").append(node.left.val).toString());
+                pathQueue.offer(new StringBuilder(path)
+                        .append("->").append(node.left.val).toString());
             }
 
             if (node.right != null) {
                 nodeQueue.offer(node.right);
-                pathQueue.offer(new StringBuilder(path).append("->").append(node.right.val).toString());
+                pathQueue.offer(new StringBuilder(path)
+                        .append("->").append(node.right.val).toString());
             }
         }
-        return paths;
+        return res;
     }
 }
