@@ -7,16 +7,17 @@ package alg_02_train_wyj._24_day_贪心算法一;
  */
 public class _04_45_JumpGame3 {
     public int jump(int[] nums) {
-        if (nums.length == 1) return 0;
+        int n = nums.length;
+        if (n == 1) return 0;
         int steps = 0;
         int start = 0, end = 0;
-        while (end < nums.length - 1) {
-            int maxPos = 0;
+        while (end < n - 1) {
+            int maxDis = 0;
             for (int i = start; i <= end; i++) {
-                maxPos = Math.max(maxPos, i + nums[i]);
+                maxDis = Math.max(maxDis, i + nums[i]);
             }
             start = end + 1;
-            end = maxPos;
+            end = maxDis;
             steps++;
         }
         return steps;

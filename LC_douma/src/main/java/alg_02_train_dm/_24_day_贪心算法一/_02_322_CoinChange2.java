@@ -23,7 +23,8 @@ public class _02_322_CoinChange2 {
 
         // 3.找到适应硬币数最少的组合的硬币数
         int min = 0;
-        for (int i = 1; i < res.size(); i++) {
+        int size = 0;
+        for (int i = 1; i < size; i++) {
             // res 后续元素 size < min 对应的 size，就更新 min
             if (res.get(i).size() < res.get(min).size()) {
                 min = i;
@@ -37,15 +38,21 @@ public class _02_322_CoinChange2 {
                      List<List<Integer>> res) {
         if (amount < 0) return;
         if (amount == 0) {
+            // 保存沿途路径代码写法
             res.add(new ArrayList<>(path));
+            // KeyPoint 区别：05_112_PathSum
+            // res.add(new ArrayList<>(path)) 后没有 return 语句
             return;
         }
 
-        // 多少个硬币就有多少种选择，每个硬币依次判断
-        // KeyPoint 本质:多叉树
+        // 多少个硬币，就有多少种选择，每个硬币依次判断 => 多叉树分支选择
+        // KeyPoint 本质：多叉树分支选择
         for (int i = 0; i < coins.length; i++) {
             path.add(coins[i]);
             dfs(amount - coins[i], coins, path, res);
+            // KeyPoint 注意事项
+            // 因为在每次 dfs 后面都有'还原现场'操作
+            // => 故 res.add(new ArrayList<>(path)) 可以加上 return
             path.remove(path.size() - 1);
         }
     }

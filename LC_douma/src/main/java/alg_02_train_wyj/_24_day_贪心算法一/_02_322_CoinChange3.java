@@ -9,8 +9,8 @@ import java.util.List;
  * @Version 1.0
  */
 public class _02_322_CoinChange3 {
-    private int minCoins = Integer.MAX_VALUE;
 
+    private int minCoins = Integer.MAX_VALUE;
 
     public int coinChange(int[] coins, int amount) {
         dfs(coins, amount, new ArrayList<>());

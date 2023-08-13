@@ -29,16 +29,38 @@ public class _05_55_Jump_Game {
 
      */
 
-    // 贪心策略：每步都选择能跳到的最远距离
+    // KeyPoint 贪心策略：每步都选择能跳到的最远距离
     public boolean canJump(int[] nums) {
+        int n = nums.length;
         int maxPos = 0;
-        for (int i = 0; i < nums.length; i++) {
-            // 每次跳跃之前，都要判断下，maxPos >= i，即最远位置 maxPos 是否能跳跃到 i 位置
-            // 最远位置 maxPos < i 位置，则说明到不了 i 位置，返回 false
+        // 不同点：判断你是否能够到达最后一个下标，而不是最少跳跃的次数
+        // i 需要在 n-1 位置进行判断，故 i < n，而不是 i < n-1
+        for (int i = 0; i < n; i++) {
+            // 每次跳跃之前，都要判断下是否 maxPos >= i => 即最远位置 maxPos 是否能跳跃到 i 位置
+            // 若最远位置 maxPos < i 位置，则说明到不了 i 位置，返回 false
             if (maxPos < i) return false;
             // i 每次移动一步都去计算 maxPos
             maxPos = Math.max(maxPos, i + nums[i]);
         }
         return true;
+    }
+
+    // KeyPoint 自己解法 => 在上一题基础上修改
+    public boolean canJump1(int[] nums) {
+        int n = nums.length;
+        if (n == 1) return true;
+        int maxPos = 0, end = 0;
+        for (int i = 0; i < n; i++) {
+            maxPos = Math.max(maxPos, i + nums[i]);
+            if (i == end) {
+                if (maxPos <= i && i != n - 1) return false;
+                end = maxPos;
+            }
+        }
+        return true;
+
+        // KeyPoint 代码经验
+        // 写代码的过程中，结合手动模拟具体的测试用例，明确操作流程
+        // 再去使用代码实现，而不是纯写代码
     }
 }

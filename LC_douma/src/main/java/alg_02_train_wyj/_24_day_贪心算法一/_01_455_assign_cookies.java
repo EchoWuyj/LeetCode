@@ -11,10 +11,13 @@ public class _01_455_assign_cookies {
     public int findContentChildren(int[] g, int[] s) {
         Arrays.sort(g);
         Arrays.sort(s);
+        int m = g.length;
+        int n = s.length;
+
         int i = 0;
         int j = 0;
-        while (i < g.length && j < s.length) {
-            if (s[j] >= g[i]) i++;
+        while (i < m && j < n) {
+            if (g[i] <= s[j]) i++;
             j++;
         }
         return i;

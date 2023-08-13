@@ -74,6 +74,8 @@ public class _05_112_PathSum {
             // 添加路径的时候需要 new 一个新的 ArrayList
             // 使得 res 中的对象和 path 不是同一个对象
             res.add(new ArrayList<>(path));
+            // KeyPoint 注意事项
+            // 本题 res.add(new ArrayList<>(path)) 后面不能加 return;
         }
 
         // 递的过程 => dfs 左右子子树

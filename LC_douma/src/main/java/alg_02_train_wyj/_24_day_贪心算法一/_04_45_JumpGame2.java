@@ -17,15 +17,15 @@ public class _04_45_JumpGame2 {
         while (!queue.isEmpty()) {
             int size = queue.size();
             for (int i = 0; i < size; i++) {
-                int jumpedIndex = queue.poll();
-                if (jumpedIndex == nums.length - 1) return level;
-                for (int j = 1; j <= nums[jumpedIndex]; j++) {
-                    queue.offer(jumpedIndex + j);
+                int index = queue.poll();
+                if (index == nums.length - 1) return level;
+                for (int j = 1; j <= nums[index]; j++) {
+                    queue.offer(index + j);
                 }
             }
             level++;
         }
-        return level;
+        return 0;
     }
 
     public static void main(String[] args) {
