@@ -1,4 +1,4 @@
-package alg_02_train_dm._18_day_二叉树三;
+package alg_02_train_dm._18_day_二叉树三_二刷;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -93,7 +93,7 @@ public class _05_116_populating_next_right_pointers_in_each_node {
 
         if (root == null) return null;
         Node left = root;
-        Node cur = null;
+        Node cur;
         while (left.left != null) {
             // cur 跟着 left，每次循环都从每层第一个节点开始横向串联
             cur = left;
