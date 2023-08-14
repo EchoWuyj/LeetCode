@@ -7,27 +7,27 @@ package alg_02_train_wyj._24_day_贪心算法一;
  */
 public class _07_402_RemoveKdigits {
     public String removeKdigits(String num, int k) {
-        StringBuilder builder = new StringBuilder(num);
+        StringBuilder sb = new StringBuilder(num);
         for (int count = 0; count < k; count++) {
-            boolean hasDeleted = false;
-            for (int i = 1; i < builder.length(); i++) {
-                if (builder.charAt(i) < builder.charAt(i - 1)) {
-                    builder.deleteCharAt(i - 1);
-                    hasDeleted = true;
+            boolean hasDelete = false;
+            for (int i = 1; i < sb.length(); i++) {
+                if (sb.charAt(i - 1) > sb.charAt(i)) {
+                    sb.deleteCharAt(i - 1);
+                    hasDelete = true;
                     break;
                 }
             }
-            if (!hasDeleted) builder.deleteCharAt(builder.length() - 1);
+            if (!hasDelete) sb.deleteCharAt(sb.length() - 1);
         }
 
-        int len = builder.length();
-        while (len != 0) {
-            if (builder.charAt(0) > '0') break;
-            builder.deleteCharAt(0);
-            len = builder.length();
+        int n = sb.length();
+        while (n != 0) {
+            char c = sb.charAt(0);
+            if (c > '0') break;
+            sb.deleteCharAt(0);
+            n = sb.length();
         }
-
-       return builder.length() == 0 ? "0" : builder.toString();
+        return sb.length() == 0 ? "0" : sb.toString();
     }
 
     public static void main(String[] args) {

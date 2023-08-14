@@ -1,4 +1,4 @@
-package alg_02_train_dm._24_day_贪心算法一;
+package alg_02_train_dm._24_day_贪心算法一_二刷;
 
 /**
  * @Author Wuyj

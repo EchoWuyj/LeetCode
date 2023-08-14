@@ -7,15 +7,16 @@ package alg_02_train_wyj._25_day_贪心算法二;
  */
 public class _02_674_longest_continuous_increasing_subsequence {
     public int findLengthOfLCIS(int[] nums) {
-        int ans = 1;
+        int res = 1;
         int slow = 0;
-        for (int fast = 1; fast < nums.length; fast++) {
+        int n = nums.length;
+        for (int fast = 1; fast < n; fast++) {
             if (nums[fast - 1] >= nums[fast]) {
                 slow = fast;
                 continue;
             }
-            ans = Math.max(ans, fast - slow + 1);
+            res = Math.max(res, fast - slow + 1);
         }
-        return ans;
+        return res;
     }
 }

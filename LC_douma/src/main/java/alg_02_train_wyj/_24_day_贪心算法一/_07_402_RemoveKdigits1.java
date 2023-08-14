@@ -11,31 +11,32 @@ import java.util.Deque;
 public class _07_402_RemoveKdigits1 {
     public String removeKdigits(String num, int k) {
         Deque<Character> stack = new ArrayDeque<>();
-        for (int i = 0; i < num.length(); i++) {
+        int n = num.length();
+        for (int i = 0; i < n; i++) {
             char c = num.charAt(i);
-            while (!stack.isEmpty() && k > 0 && stack.peek() > c) {
+            while (!stack.isEmpty() && k > 0 && c < stack.peek()) {
                 stack.pop();
                 k--;
             }
             stack.push(c);
         }
 
-        for (int i = 0; i < k; i++) {
+        while (k > 0) {
             stack.pop();
+            k--;
         }
 
         StringBuilder sb = new StringBuilder();
         while (!stack.isEmpty()) {
-            char c = stack.pop();
-            sb.append(c);
+            sb.append(stack.pop());
         }
         sb.reverse();
 
-        int len = sb.length();
-        while (len != 0) {
+        n = sb.length();
+        while (n != 0) {
             if (sb.charAt(0) > '0') break;
             sb.deleteCharAt(0);
-            len = sb.length();
+            n = sb.length();
         }
         return sb.length() == 0 ? "0" : sb.toString();
     }

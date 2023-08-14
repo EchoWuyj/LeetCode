@@ -8,20 +8,17 @@ package alg_02_train_wyj._24_day_贪心算法一;
 public class _08_409_longest_palindrome {
 
     public int longestPalindrome(String s) {
-        int[] counter = new int[128];
+        int[] counts = new int[128];
         for (char c : s.toCharArray()) {
-            counter[c]++;
+            counts[c]++;
         }
-
-        int ans = 0;
-        for (int v : counter) {
-            ans += v / 2 * 2;
-            if (v % 2 == 1 && ans % 2 == 0) {
-                ans++;
+        int res = 0;
+        for (int count : counts) {
+            res += (count / 2) * 2;
+            if (count % 2 == 1 && res % 2 == 0) {
+                res++;
             }
         }
-        return ans;
+        return res;
     }
-
-
 }

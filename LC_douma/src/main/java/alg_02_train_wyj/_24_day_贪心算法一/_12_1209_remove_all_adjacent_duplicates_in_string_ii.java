@@ -10,37 +10,37 @@ import java.util.Deque;
  */
 public class _12_1209_remove_all_adjacent_duplicates_in_string_ii {
     public String removeDuplicates1(String s, int k) {
-        StringBuilder res = new StringBuilder(s);
+        StringBuilder sb = new StringBuilder(s);
         Deque<Integer> stack = new ArrayDeque<>();
-        for (int i = 0; i < res.length(); i++) {
-            if (i == 0 || res.charAt(i) != res.charAt(i - 1)) {
+        int n = sb.length();
+        for (int i = 0; i < sb.length(); i++) {
+            if (i == 0 || sb.charAt(i) != sb.charAt(i - 1)) {
                 stack.push(1);
             } else {
-                int counts = stack.pop() + 1;
-                if (counts == k) {
-                    res.delete(i - k + 1, i + 1);
+                int count = stack.poll() + 1;
+                if (count == k) {
+                    sb.delete(i + 1 - k, i + 1);
                     i = i - k;
                 } else {
-                    stack.push(counts);
+                    stack.push(count);
                 }
             }
         }
-        return res.toString();
+        return sb.toString();
     }
 
     public String removeDuplicates(String s, int k) {
         char[] chars = s.toCharArray();
-        // 使用栈计数
         Deque<Integer> stack = new ArrayDeque<>();
         int slow = 0;
-        for (int fast = 0; fast < s.length(); slow++, fast++) {
-            chars[fast] = chars[slow];
-            if (fast == 0 || chars[fast] != chars[fast - 1]) {
+        for (int fast = 0; fast < s.length(); fast++, slow++) {
+            if (slow != fast) chars[slow] = chars[fast];
+            if (slow == 0 || chars[slow] != chars[slow - 1]) {
                 stack.push(1);
             } else {
                 int count = stack.pop() + 1;
                 if (count == k) {
-                    fast = fast - k;
+                    slow = slow - k;
                 } else {
                     stack.push(count);
                 }

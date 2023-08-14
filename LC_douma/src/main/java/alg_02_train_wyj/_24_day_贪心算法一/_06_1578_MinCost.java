@@ -7,14 +7,14 @@ package alg_02_train_wyj._24_day_贪心算法一;
  */
 public class _06_1578_MinCost {
     public int minCost(String s, int[] cost) {
+        int n = s.length();
         int res = 0;
-        int len = s.length();
         int i = 0;
-        while (i < len) {
+        while (i < n) {
             char c = s.charAt(i);
             int maxCost = 0;
             int sumCost = 0;
-            while (i < len && s.charAt(i) == c) {
+            while (i < n && c == s.charAt(i)) {
                 maxCost = Math.max(maxCost, cost[i]);
                 sumCost += cost[i];
                 i++;

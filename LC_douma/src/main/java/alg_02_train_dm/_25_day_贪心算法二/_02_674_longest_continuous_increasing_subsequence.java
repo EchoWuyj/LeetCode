@@ -31,23 +31,39 @@ public class _02_674_longest_continuous_increasing_subsequence {
 
      */
 
-    // 模拟，快慢指针
-    // slow -> 连续递增的子序列'开头'
-    // fast -> 连续递增的子序列'结尾'
+    // KeyPoint 直接模拟，快慢指针
+    // 通过 slow 和 fast 指针来界定：递增子序列 start 和 end 位置
+    // slow -> start
+    // fast -> end
+    // KeyPoint 范围区间划分，联想双指针
     public int findLengthOfLCIS(int[] nums) {
+
+        //   1    2   3    2    3     4   6
+        //   ↑        ↑
+        //  slow     fast
+
+        //   1    2   3    2    3     4   6
+        //   ↑        ↑    ↑
+        //  slow   fast-1 fast
+        // nums[fast-1] >= nums[fast] => 将 slow 移动到 fast 位置
+
         // 数组长度从 1 开始，连续递增子序列的长度必然从 1 开始
-        int ans = 1;
+        int res = 1;
         int slow = 0;
-        // while (fast < nums.length) 两种循环得能灵活使用
-        for (int fast = 1; fast < nums.length; fast++) {
+        int n = nums.length;
+        // KeyPoint while (fast < nums.length) 两种循环得能灵活使用
+        for (int fast = 1; fast < n; fast++) {
             if (nums[fast - 1] >= nums[fast]) {
-                // 更新 slow 索引 相当于 移动 slow，重新再计算连续递增子序列的长度
+                // nums[fast-1] >= nums[fast] 不满足续递增子序列条件
+                // 更新 slow 索引，相当于移动 slow，重新再计算下一段连续递增子序列的长度
                 slow = fast;
+                // 跳过本轮循环，继续执行下轮循环
                 continue;
             }
-            // nums[fast - 1] < nums[fast]，则贪心地不断向前扩展连续递增的子序列的范围，从而求得最长连续递增序列
-            ans = Math.max(ans, fast - slow + 1);
+            // nums[fast - 1] < nums[fast]
+            // 贪心地不断向前扩展连续递增的子序列的范围，从而求得最长连续递增序列
+            res = Math.max(res, fast - slow + 1);
         }
-        return ans;
+        return res;
     }
 }

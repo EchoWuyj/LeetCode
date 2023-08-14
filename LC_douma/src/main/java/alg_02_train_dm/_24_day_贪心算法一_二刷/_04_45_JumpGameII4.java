@@ -1,4 +1,4 @@
-package alg_02_train_dm._24_day_贪心算法一;
+package alg_02_train_dm._24_day_贪心算法一_二刷;
 
 import alg_02_train_wyj._24_day_贪心算法一._04_45_JumpGame4;
 

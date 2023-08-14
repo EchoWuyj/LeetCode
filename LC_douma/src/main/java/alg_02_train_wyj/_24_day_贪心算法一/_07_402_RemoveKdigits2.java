@@ -11,16 +11,19 @@ import java.util.Deque;
 public class _07_402_RemoveKdigits2 {
     public String removeKdigits(String num, int k) {
         Deque<Character> deque = new ArrayDeque<>();
-        for (int i = 0; i < num.length(); i++) {
+        int n = num.length();
+        for (int i = 0; i < n; i++) {
             char c = num.charAt(i);
-            while (!deque.isEmpty() && k > 0 && deque.peekFirst() > c) {
-                deque.pollFirst();
+            while (!deque.isEmpty() && k > 0 && c < deque.peekFirst()) {
                 k--;
+                deque.pollFirst();
             }
-            deque.addFirst(c);
+            deque.offerFirst(c);
         }
-        for (int i = 0; i < k; i++) {
+
+        while (k > 0) {
             deque.pollFirst();
+            k--;
         }
 
         StringBuilder sb = new StringBuilder();

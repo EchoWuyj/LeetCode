@@ -1,4 +1,4 @@
-package alg_02_train_dm._24_day_贪心算法一;
+package alg_02_train_dm._24_day_贪心算法一_二刷;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -15,12 +15,10 @@ public class _11_1047_remove_all_adjacent_duplicates_in_string {
         在 S 上反复执行重复项删除操作，直到无法继续删除。
         在完成所有重复项删除操作后返回最终的字符串。答案保证唯一。
 
-        KeyPoint => 使用 '栈' 求解删除字符串中重复字母，这是常见的解题模式
-                    遍历字符串过程，常常是'后进的字符先操作'，故使用'栈'解决
-
         示例：
         输入："abbaca"
         输出："ca"
+        解释：输入："abbaca" => 消除 bb 之后，aa 是相邻重复字符，同样需移除，最终输出："ca"
 
         输入："abcddcbaca"
         输出： abc
@@ -30,20 +28,26 @@ public class _11_1047_remove_all_adjacent_duplicates_in_string {
         S 仅由小写英文字母组成。
      */
 
+    // KeyPoint 经验总结
+    // 使用'栈'求解删除字符串中重复字母，这是常见的解题模式
+    // 遍历字符串过程，常常是'后进的字符先操作'，故使用'栈'解决
+    // => 重构字符串，使用'栈'解决
+
     // KeyPoint 方法一 栈
     // 时间复杂度：O(n)
     // 空间复杂度：O(n)
     public String removeDuplicates1(String s) {
-        Deque<Character> stack = new ArrayDeque<>();
+        Deque<Character> deque = new ArrayDeque<>();
+        // 遍历每个字符
         for (char c : s.toCharArray()) {
-            if (!stack.isEmpty() && stack.peek() == c) {
-                stack.pop();
+            if (!deque.isEmpty() && deque.peek() == c) {
+                deque.pollFirst();
             } else {
-                stack.push(c);
+                deque.push(c);
             }
         }
         StringBuilder res = new StringBuilder();
-        while (!stack.isEmpty()) res.append(stack.pollLast());
+        while (!deque.isEmpty()) res.append(deque.pollLast());
         return res.toString();
     }
 
@@ -54,7 +58,7 @@ public class _11_1047_remove_all_adjacent_duplicates_in_string {
         StringBuilder res = new StringBuilder();
         for (char c : s.toCharArray()) {
             // 字符数组 char[] 模拟 栈
-            // 将 StringBuilder  最后一个位置作为栈顶，通过这样的方式模拟栈
+            // 将 StringBuilder 最后一个位置作为栈顶，通过这样的方式模拟栈
             if (res.length() > 0 && res.charAt(res.length() - 1) == c) {
                 res.deleteCharAt(res.length() - 1);
             } else {
@@ -68,24 +72,34 @@ public class _11_1047_remove_all_adjacent_duplicates_in_string {
     // 时间复杂度：O(n)
     // 空间复杂度：O(1)
     public String removeDuplicates(String s) {
+
         // 通过快慢指针，直接在字符数组上操作，不用通过栈来维护遍历过的字符
+        // => 不需要使用额外的空间来存储先遍历过的字符
+
         char[] chars = s.toCharArray();
-        // 0 ~ slow 维护不删除字符
+        // 通过双指针，划定不同的区间进行维护
+        // [0,slow] 两端都包括在内 => 维护不删除字符
         // fast 遍历字符数组
         int slow = -1, fast = 0;
-        while (fast < s.length()) {
-            //
+        int n = s.length();
+        while (fast < n) {
             if (slow >= 0 && chars[fast] == chars[slow]) {
+                // [fast] == [slow]，
+                // 两个 fast 和 slow 对应的字符都需要删除
+                // 故 fast++ 同时 slow--;
+
                 slow--;
+                fast++;
             } else {
                 slow++;
                 // 0 ~ slow 维护不删除字符，先移动 slow，再赋值
                 // 使用 chars[fast] 覆盖原数组 chars[slow]
                 chars[slow] = chars[fast];
+                fast++;
             }
-            fast++;
         }
-        // bug 修复：需要将 chars 中的前 slow 个字符组成新的字符串
+        // 需要将 chars 中的前 slow 个字符组成新的字符串
+        // 字符数组，偏移位置，长度
         return new String(chars, 0, slow + 1);
     }
 }

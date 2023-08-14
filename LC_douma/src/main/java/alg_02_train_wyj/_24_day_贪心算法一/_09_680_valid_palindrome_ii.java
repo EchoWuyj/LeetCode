@@ -8,13 +8,13 @@ package alg_02_train_wyj._24_day_贪心算法一;
 public class _09_680_valid_palindrome_ii {
 
     public boolean validPalindrome1(String s) {
-        for (int i = -1; i < s.length(); i++) {
+        int n = s.length();
+        for (int i = -1; i < n; i++) {
             boolean isPalindrome = true;
-            int left = 0, right = s.length() - 1;
+            int left = 0, right = n - 1;
             while (left < right) {
                 if (left == i) left++;
                 if (right == i) right--;
-
                 if (s.charAt(left) == s.charAt(right)) {
                     left++;
                     right--;
@@ -35,8 +35,8 @@ public class _09_680_valid_palindrome_ii {
                 left++;
                 right--;
             } else {
-                return validPalindrome(s, left + 1, right) ||
-                        validPalindrome(s, left, right - 1);
+                return validPalindrome(s, left + 1, right)
+                        || validPalindrome(s, left, right - 1);
             }
         }
         return true;

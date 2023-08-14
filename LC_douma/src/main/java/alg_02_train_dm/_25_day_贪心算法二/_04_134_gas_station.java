@@ -46,29 +46,30 @@ public class _04_134_gas_station {
         因此，无论怎样，你都不可能绕环路行驶一周。
      */
 
-    // KeyPoint 方法一 模拟求解:每个加油站作为起始点，进行逐一尝试，判断加油站能否走一圈
-    // KeyPoint 时间复杂度 O(n^2)，分析是否超出时间限制，看数据规模 n，而不是数值范围
-    // 数据规模 => 1 <= n <= 10^5 => 超出时间限制  √
-    // 数值范围 => 0 <= gas[i], cost[i] <= 104 ×
+    // KeyPoint 方法一 模拟求解：每个加油站作为起始点，进行逐一尝试，判断加油站能否走一圈
+    // 时间复杂度 O(n^2)
+    // 分析是否超出时间限制，看数据规模 n，而不是数值范围，看清楚
+    // 1.数据规模：1 <= n <= 10^5 => 超出时间限制  √
+    // 2.数值范围：0 <= gas[i], cost[i] <= 10^4 ×
     public int canCompleteCircuit1(int[] gas, int[] cost) {
         // 从每个加油站尝试
         for (int i = 0; i < gas.length; i++) {
             if (gas[i] < cost[i]) continue;
             int index = i;
-            int remainGas = gas[i] - cost[i];
-            while (remainGas >= 0) {
+            int restGas = gas[i] - cost[i];
+            while (restGas >= 0) {
                 // 取余，避免越界
                 // index % 数组的长度 => 循环数组
                 index = (index + 1) % gas.length;
                 // 更新 index，对 index 进行判断，绕了一圈，回到起点
                 if (index == i) return i;
-                remainGas = remainGas - cost[index] + gas[index];
+                restGas = restGas - cost[index] + gas[index];
             }
         }
         return -1;
     }
 
-    // KeyPoint 方法二 优化:确定有些加油站不能走一圈，跳过这些加油站不去处理，从而降低时间复杂度
+    // KeyPoint 方法二 优化：确定有些加油站不能走一圈，跳过这些加油站不去处理，从而降低时间复杂度
     // 贪心思想
     // 结论：如果 x 到不了 y+1（但能到 y），那么从 x 到 y 的任一点出发都不可能到达 y+1。
     // 解释：因为从其中任一点出发的话，相当于从 0 开始加油，而如果从 x 出发到该点则不一定是从 0 开始加油
@@ -82,7 +83,7 @@ public class _04_134_gas_station {
         // 总油量
         int totalGas = 0;
         // 当前总油量
-        int currGas = 0;
+        int curGas = 0;
         // 起始加油站
         int startStation = 0;
         // O(n)，只需要遍历一遍数组
@@ -90,12 +91,12 @@ public class _04_134_gas_station {
             // 将所有站的 gas[i] - cost[i] 累和
             // KeyPoint 注意，+= 和 =，两者不要搞混淆了
             totalGas += gas[i] - cost[i];
-            currGas += gas[i] - cost[i];
-            if (currGas < 0) {
+            curGas += gas[i] - cost[i];
+            if (curGas < 0) {
                 // 更换起始加油站，直接从 i + 1 开始，因为 startStation ~ i 中所有的站，都是到达不了 i + 1 位置的
                 startStation = i + 1;
                 // 重置当前总油量
-                currGas = 0;
+                curGas = 0;
             }
         }
         // totalGas >= 0，说明可以行驶一周，返回起始加油站

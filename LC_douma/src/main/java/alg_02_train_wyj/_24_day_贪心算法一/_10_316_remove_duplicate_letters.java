@@ -11,30 +11,30 @@ import java.util.Deque;
 public class _10_316_remove_duplicate_letters {
     public String removeDuplicateLetters(String s) {
         int[] lastIndex = new int[26];
-        for (int i = 0; i < s.length(); i++) {
+        int n = s.length();
+        for (int i = 0; i < n; i++) {
             lastIndex[s.charAt(i) - 'a'] = i;
         }
 
-        Deque<Character> stack = new ArrayDeque<>();
+        Deque<Character> deque = new ArrayDeque<>();
         boolean[] exists = new boolean[26];
 
-        for (int i = 0; i < s.length(); i++) {
+        for (int i = 0; i < n; i++) {
             char c = s.charAt(i);
             if (exists[c - 'a']) continue;
-            while (!stack.isEmpty() && stack.peek() > c
-                    && lastIndex[stack.peek() - 'a'] > i) {
-                char top = stack.pop();
+            while (!deque.isEmpty() && c < deque.peekFirst()
+                    && lastIndex[deque.peekFirst() - 'a'] > i) {
+                char top = deque.pollFirst();
                 exists[top - 'a'] = false;
             }
-
-            stack.push(c);
+            deque.offerFirst(c);
             exists[c - 'a'] = true;
         }
 
-        StringBuilder res = new StringBuilder();
-        while (!stack.isEmpty()) {
-            res.append(stack.pollLast());
+        StringBuilder sb = new StringBuilder();
+        while (!deque.isEmpty()) {
+            sb.append(deque.pollLast());
         }
-        return res.toString();
+        return sb.toString();
     }
 }
