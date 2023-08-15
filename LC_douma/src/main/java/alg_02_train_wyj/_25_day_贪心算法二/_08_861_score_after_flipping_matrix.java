@@ -6,26 +6,32 @@ package alg_02_train_wyj._25_day_贪心算法二;
  * @Version 1.0
  */
 public class _08_861_score_after_flipping_matrix {
-    public int matrixScore(int[][] A) {
-        int rows = A.length, cols = A[0].length;
-        for (int row = 0; row < rows; row++) {
-            if (A[row][0] == 0) {
-                for (int col = 0; col < cols; col++) {
-                    A[row][col] ^= 1;
+    public int matrixScore(int[][] grid) {
+        int rows = grid.length, cols = grid[0].length;
+        for (int i = 0; i < rows; i++) {
+            if (grid[i][0] == 0) {
+                for (int j = 0; j < cols; j++) {
+                    grid[i][j] ^= 1;
                 }
             }
         }
 
-        int res = 0;
-        for (int col = 0; col < cols; col++) {
-            int count = 0;
-            for (int row = 0; row < rows; row++) {
-                count += A[row][col];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.println(grid[i][j]);
             }
-            int maxCount = Math.max(count, rows - count);
-            res += maxCount * (1 << (cols - col - 1));
+            System.out.println();
         }
 
+        int res = 0;
+        for (int j = 0; j < cols; j++) {
+            int count = 0;
+            for (int i = 0; i < rows; i++) {
+                count += grid[i][j];
+            }
+            int maxCount = Math.max(count, rows - count);
+            res += maxCount * (1 << (cols - j - 1));
+        }
         return res;
     }
 }

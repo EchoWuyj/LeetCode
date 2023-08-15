@@ -1,4 +1,4 @@
-package alg_02_train_dm._25_day_贪心算法二;
+package alg_02_train_dm._25_day_贪心算法二_二刷;
 
 /**
  * @Author Wuyj
@@ -20,6 +20,7 @@ public class _04_134_gas_station {
 
         示例 1:
         输入:
+        index   0 1 2 3 4
         gas  = [1,2,3,4,5]
         cost = [3,4,5,1,2]
         输出: 3
@@ -44,24 +45,37 @@ public class _04_134_gas_station {
         开往 1 号加油站，此时油箱有 3 - 3 + 3 = 3 升汽油
         你无法返回 2 号加油站，因为返程需要消耗 4 升汽油，但是你的油箱只有 3 升汽油。
         因此，无论怎样，你都不可能绕环路行驶一周。
+
+        提示:
+        gas.length == n
+        cost.length == n
+        1 <= n <= 10^5
+        0 <= gas[i], cost[i] <= 104
+
      */
 
-    // KeyPoint 方法一 模拟求解：每个加油站作为起始点，进行逐一尝试，判断加油站能否走一圈
+    // KeyPoint 方法一 模拟求解
+    // 思路：每个加油站作为起始点，进行逐一尝试，判断加油站能否走一圈
     // 时间复杂度 O(n^2)
     // 分析是否超出时间限制，看数据规模 n，而不是数值范围，看清楚
     // 1.数据规模：1 <= n <= 10^5 => 超出时间限制  √
     // 2.数值范围：0 <= gas[i], cost[i] <= 10^4 ×
     public int canCompleteCircuit1(int[] gas, int[] cost) {
+        int n = gas.length;
         // 从每个加油站尝试
-        for (int i = 0; i < gas.length; i++) {
+        // 数组索引 index 作为每个站点
+        for (int i = 0; i < n; i++) { // O(n)
+            // 站点的油不足以行驶到下一个加油站，则跳过
             if (gas[i] < cost[i]) continue;
             int index = i;
             int restGas = gas[i] - cost[i];
-            while (restGas >= 0) {
+            // 若剩余汽油是否大于等于0，则一直往下走 => 执行 while 循环
+            while (restGas >= 0) { // O(n)
                 // 取余，避免越界
-                // index % 数组的长度 => 循环数组
-                index = (index + 1) % gas.length;
-                // 更新 index，对 index 进行判断，绕了一圈，回到起点
+                // 数组成环[循环数组] => index % 数组的长度
+                index = (index + 1) % n;
+                // 对更新后 index 进行判断
+                // 若 index == i，则说明：绕了一圈，回到起点
                 if (index == i) return i;
                 restGas = restGas - cost[index] + gas[index];
             }
@@ -69,37 +83,58 @@ public class _04_134_gas_station {
         return -1;
     }
 
-    // KeyPoint 方法二 优化：确定有些加油站不能走一圈，跳过这些加油站不去处理，从而降低时间复杂度
-    // 贪心思想
-    // 结论：如果 x 到不了 y+1（但能到 y），那么从 x 到 y 的任一点出发都不可能到达 y+1。
-    // 解释：因为从其中任一点出发的话，相当于从 0 开始加油，而如果从 x 出发到该点则不一定是从 0 开始加油
-    //      可能还有剩余的油。既然不从 0 开始都到不了y+1，那么从 0 开始就更不可能到达 y+1 了
+    // KeyPoint 方法二 优化
+    // 思路：确定有些加油站，以其为起点是不能走一圈，则跳过这些加油站不去处理，从而降低时间复杂度
     // 时间复杂度 O(n)
     public int canCompleteCircuit(int[] gas, int[] cost) {
+
+        // KeyPoint 贪心思想
+        // 结论：如果 x(站点) 到不了 y+1（但能到 y），那么从 x 到 y 的任一点出发都不可能到达 y+1。
+        // 解释：因为从其中任一点出发的话，相当于从 0 开始加油，而如果从 x 出发到该点则不一定是从 0 开始加油
+        //       可能还有剩余的油，既然不从 0 开始都到不了 y+1，那么从 0 开始就更不可能到达 y+1 了
+
+        // index       0  1  2  3  4
+        // gas         1  2  3  4  5
+        // cost        3  4  5  1  2
+        // gas - cost -2 -2 -2  3  3
+        //             ×  ×  ×  √  √
+
+        // index      0 1  2 3 4
         // gas        4 4  3 4 5
         // cost       3 4  5 1 2
-        // gas- cost  1 0 -2 3 2 => KeyPoint 两个数组相减是常用手段，需要掌握
+        // gas- cost  1 0 -2 3 3
+
+        // KeyPoint 注意事项
+        // 两个数组相减是常用手段，需要掌握
+
+        // 加油站个数
         int n = gas.length;
-        // 总油量
-        int totalGas = 0;
+        // 累计总油量
+        int sumGas = 0;
         // 当前总油量
         int curGas = 0;
         // 起始加油站
-        int startStation = 0;
-        // O(n)，只需要遍历一遍数组
+        int start = 0;
+        //只需要遍历一遍数组
         for (int i = 0; i < n; i++) { // O(n)
-            // 将所有站的 gas[i] - cost[i] 累和
-            // KeyPoint 注意，+= 和 =，两者不要搞混淆了
-            totalGas += gas[i] - cost[i];
+            // 累计总油量：将所有站的 gas[i] - cost[i] 累和
+            // '+=' 和 '='，两者不要搞混淆了
+            sumGas += gas[i] - cost[i];
+            // 当前总油量
             curGas += gas[i] - cost[i];
             if (curGas < 0) {
-                // 更换起始加油站，直接从 i + 1 开始，因为 startStation ~ i 中所有的站，都是到达不了 i + 1 位置的
-                startStation = i + 1;
+                // 更换起始加油站，加油站直接从 i+1 开始
+                // 其中 [start,i] 中所有的站，都是到达不了 i+1 位置
+                start = i + 1;
                 // 重置当前总油量
                 curGas = 0;
             }
         }
-        // totalGas >= 0，说明可以行驶一周，返回起始加油站
-        return totalGas >= 0 ? startStation : -1;
+        // 遍历一遍数组，只要 sumGas >= 0，说明可以行驶一周，返回起始加油站
+        return sumGas >= 0 ? start : -1;
+
+        // KeyPoint 使用不同变量，判断是否可以 start 和 行驶一周
+        // sumGas => 判断是否能行驶一周
+        // curGas => 判断某个站点是否能为起始点
     }
 }

@@ -8,11 +8,11 @@ package alg_02_train_wyj._25_day_贪心算法二;
 public class _07_670_maximum_swap {
     public int maximumSwap1(int num) {
         char[] chars = String.valueOf(num).toCharArray();
-        int len = chars.length;
-
+        int n = chars.length;
         int max = num;
-        for (int i = 0; i < len; i++) {
-            for (int j = i + 1; j < len; j++) {
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
                 swap(chars, i, j);
                 max = Math.max(max, Integer.parseInt(new String(chars)));
                 swap(chars, i, j);
@@ -21,25 +21,27 @@ public class _07_670_maximum_swap {
         return max;
     }
 
+    // 交换两个元素
     private void swap(char[] chars, int i, int j) {
-        char temp = chars[i];
+        char tmp = chars[i];
         chars[i] = chars[j];
-        chars[j] = temp;
+        chars[j] = tmp;
     }
 
     public int maximumSwap(int num) {
         char[] chars = String.valueOf(num).toCharArray();
-        int[] last = new int[10];
-        for (int i = 0; i < chars.length; i++) {
-            last[chars[i] - '0'] = i;
+        int[] lastIndex = new int[10];
+        int n = chars.length;
+        for (int i = 0; i < n; i++) {
+            lastIndex[chars[i] - '0'] = i;
         }
 
-        for (int i = 0; i < chars.length; i++) {
+        for (int i = 0; i < n; i++) {
             for (int digit = 9; digit > chars[i] - '0'; digit--) {
-                if (last[digit] > i) {
+                if (lastIndex[digit] > i) {
                     char tmp = chars[i];
-                    chars[i] = chars[last[digit]];
-                    chars[last[digit]] = tmp;
+                    chars[i] = chars[lastIndex[digit]];
+                    chars[lastIndex[digit]] = tmp;
                     return Integer.parseInt(new String(chars));
                 }
             }

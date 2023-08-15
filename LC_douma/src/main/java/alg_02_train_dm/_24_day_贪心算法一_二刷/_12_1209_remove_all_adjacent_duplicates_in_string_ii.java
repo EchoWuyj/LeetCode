@@ -53,7 +53,6 @@ public class _12_1209_remove_all_adjacent_duplicates_in_string_ii {
         // KeyPoint 易错点
         // 针对 StringBuilder，其长度会随着不同的操作动态变化的
         // 故不能使用初始的固定长度 n 作为 for 循环条件限制条件，否则数组越界
-
         // int n = sb.length();
         // for (int i = 0; i < n; i++)
 

@@ -87,7 +87,6 @@ public class _11_1047_remove_all_adjacent_duplicates_in_string {
                 // [fast] == [slow]，
                 // 两个 fast 和 slow 对应的字符都需要删除
                 // 故 fast++ 同时 slow--;
-
                 slow--;
                 fast++;
             } else {

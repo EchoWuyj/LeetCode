@@ -10,8 +10,9 @@ public class _10_330_patching_array {
         int res = 0;
         long x = 1;
         int index = 0;
+        int len = nums.length;
         while (x <= n) {
-            if (index < nums.length && nums[index] <= x) {
+            if (index < len && nums[index] <= x) {
                 x += nums[index];
                 index++;
             } else {
