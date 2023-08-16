@@ -15,11 +15,13 @@ public class RK2 {
 
         int[] hashCodes = new int[m - n + 1];
         hashCodes[0] = calFirstSubHashCode(mainStr.substring(0, n));
+
         for (int i = 1; i < m - n + 1; i++) {
             hashCodes[i] = calHashCode(mainStr, i, hashCodes, n);
         }
 
         int hashCode = calFirstSubHashCode(pattern);
+
         for (int i = 0; i < m - n + 1; i++) {
             if (hashCode == hashCodes[i]) {
                 int k = i;
@@ -35,9 +37,8 @@ public class RK2 {
     }
 
     private int calHashCode(String mainStr, int i, int[] hashCodes, int n) {
-        return hashCodes[i - 1]
-                - (mainStr.charAt(i - 1) - 'a')
-                + (mainStr.charAt(i + n - 1) - 'a');
+        return hashCodes[i - 1] - (mainStr.charAt(i - 1) - 'a')
+                + (mainStr.charAt(i - 1 + n) - 'a');
     }
 
     private int calFirstSubHashCode(String str) {

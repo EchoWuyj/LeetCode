@@ -12,22 +12,26 @@ public class BF2 {
         int n = pattern.length();
         if (m < n) return -1;
 
-        char first = pattern.charAt(0);
+        char firstChar = pattern.charAt(0);
         for (int i = 0; i < m; i++) {
-            if (mainStr.charAt(i) != first) {
-                while (++i < m && mainStr.charAt(i) != first) ;
+            if (mainStr.charAt(i) != firstChar) {
+                while (i < m && mainStr.charAt(i) != firstChar) {
+                    i++;
+                }
             }
-
             if (i < m) {
                 int k = i + 1;
                 int j = 1;
-                if (j == n) return i;
-                for (; j < n && k < m; j++, k++) {
+                for (; k < m && j < n; j++, k++) {
                     if (mainStr.charAt(k) == pattern.charAt(j)) {
                         if (j == n - 1) return i;
                     } else {
                         break;
                     }
+                }
+
+                while (k < m && j < n) {
+
                 }
             }
         }

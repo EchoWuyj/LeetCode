@@ -42,7 +42,6 @@ public class KMP3 {
         int n = pattern.length;
         // bug 修复： 如果只有一个字符的话，就不计算 next 数组
         if (n == 1) return new int[0];
-
         int[] next = new int[n - 1];
 
         next[0] = -1;

@@ -12,25 +12,24 @@ public class RK1 {
         int n = pattern.length();
         if (m < n) return -1;
 
-        int[] hashCodes = new int[m - n - 1];
-        for (int i = 0; i < m - n - 1; i++) {
+        int[] hashCodes = new int[m - n + 1];
+        for (int i = 0; i < m - n + 1; i++) {
             hashCodes[i] = calHashCode(mainStr.substring(i, i + n));
         }
 
         int hashCode = calHashCode(pattern);
+
         for (int i = 0; i < m - n + 1; i++) {
             if (hashCode == hashCodes[i]) {
                 return i;
             }
         }
-
         return -1;
     }
 
     private int calHashCode(String str) {
         return str.hashCode();
     }
-
 
     public static void main(String[] args) {
         RK1 b = new RK1();
@@ -39,5 +38,4 @@ public class RK1 {
 
         System.out.println(b.indexOf(mainStr, patternStr)); // 4
     }
-
 }
