@@ -62,6 +62,8 @@ public class _03_BM1 {
         //       x=1 y=2
         // 坏字符 a 在模式串中出现两次，则 x 取靠后的位置，x=1
 
+        // -------------------------------------------------
+
         if (mainStr == null || pattern == null) return -1;
         int m = mainStr.length();
         int n = pattern.length();
@@ -74,7 +76,7 @@ public class _03_BM1 {
 
         // i 表示每次匹配的时候，主串的起始位置，初始化为 0
         int i = 0;
-        // i = m-n 此时，模式串已经不能向后移动了
+        // i > m-n，跳出 while 循环，模式串已经不能向后移动了
         while (i <= m - n) {
             // 1.找到第一个坏字符，使用 y 指针来表示
             // y 定义在 for 循环外面，后续会使用到 y 变量，否认只能在 for 循环内部使用
@@ -100,13 +102,13 @@ public class _03_BM1 {
             // mainStr 中的坏字符
             char badChar = mainStr.charAt(i + y);
 
-            // x 表示坏字符在模式串中的位置，需要计算 x 位置
-            // 模式串中没有坏字符，则 x = -1;
+            // 主串中坏字符在模式串中的位置 x，需要计算 x
+            // 若模式串中没有主串坏字符，则 x = -1;
             // KeyPoint 使用哈希查找，优化原来的线性查找
             int x = map.getOrDefault(badChar, -1);
 
             // 4.往后移动 y - x 位，通过移动 i 指针实现
-            // KeyPoint bug 修复
+            // KeyPoint 存在 bug
             // 坏字符在模式串的中位置可能会大于 y，即 x 有可能大于 y
             // 解决方案就是：如果 y < x 的话，那么去选择往前走 1 步
             i = i + Math.max(1, (y - x));

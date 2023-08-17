@@ -1,4 +1,6 @@
-package alg_01_ds_wyj._05_application._02_string_matching;
+package alg_01_ds_dm._05_application._02_string_matching;
+
+import alg_01_ds_wyj._05_application._02_string_matching.BM1;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -6,10 +8,12 @@ import java.util.Map;
 
 /**
  * @Author Wuyj
- * @DateTime 2023-03-30 16:58
+ * @DateTime 2023-08-17 16:24
  * @Version 1.0
  */
-public class BM2 {
+public class _03_BM3 {
+
+    // 无注释版本
     public int indexOf(String mainStr, String pattern) {
         if (mainStr == null || pattern == null) return -1;
         int m = mainStr.length();
@@ -27,7 +31,6 @@ public class BM2 {
             for (y = n - 1; y >= 0; y--) {
                 if (mainStr.charAt(i + y) != pattern.charAt(y)) break;
             }
-
             if (y < 0) {
                 return i;
             }
@@ -46,7 +49,6 @@ public class BM2 {
     private int calMoveSteps(int y, int n, int[] suffix, boolean[] prefix) {
         int k = n - 1 - y;
         if (suffix[k] != -1) return y - suffix[k] + 1;
-
         for (int i = y + 1; i < n; i++) {
             if (prefix[n - i]) {
                 return i;

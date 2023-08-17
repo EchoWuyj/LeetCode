@@ -5,11 +5,13 @@ package alg_01_ds_dm._05_application._02_string_matching;
  * @DateTime 2023-03-29 16:03
  * @Version 1.0
  */
-public class KMP3 {
+public class _04_KMP2 {
+
+
     // 最好情况下时间复杂度：O(m)
     // 最坏情况下时间复杂度：O(mn)
     // 空间复杂度：O(n)
-    public int indexOf(String mainStr, String pattern) {
+    public static int indexOf(String mainStr, String pattern) {
         if (mainStr == null || pattern == null) return -1;
 
         int m = mainStr.length();
@@ -38,7 +40,9 @@ public class KMP3 {
         return -1;
     }
 
-    private int[] getNext(char[] pattern) {
+    // 函数功能：实现获取 next 数组
+    // 暴力解法
+    private static int[] getNext(char[] pattern) {
         int n = pattern.length;
         // bug 修复： 如果只有一个字符的话，就不计算 next 数组
         if (n == 1) return new int[0];
@@ -47,25 +51,30 @@ public class KMP3 {
         next[0] = -1;
 
         for (int j = 1; j < n - 1; j++) {
-            int pre = next[j - 1];
-            while (pre != -1 && pattern[pre + 1] != pattern[j]) {
-                // 因为前一个最长串的下一个字符不与最后一个相等，所以需要找前一个的次长串
-                // 问题就变成了求 0 到 next(pre) 的最长串
-                pre = next[pre];
+            if (pattern[next[j - 1] + 1] == pattern[j]) {
+                next[j] = next[j - 1] + 1;
+            } else {
+                int pre = next[j - 1];
+
+                while (pre >= 0 && pattern[pre + 1] != pattern[j]) {
+                    // 看前一个【最长匹配前缀字符串】
+                    pre = next[pre];
+                }
+
+                if (pattern[pre + 1] == pattern[j]) {
+                    next[j] = pre + 1;
+                } else {
+                    next[j] = pre;
+                }
             }
-            if (pattern[pre + 1] == pattern[j]) {
-                pre++;
-            }
-            next[j] = pre;
         }
         // 最值问题
         return next;
     }
 
     public static void main(String[] args) {
-        KMP3 b = new KMP3();
         String mainStr = "aaabaaa";
         String patternStr = "baaa";
-        System.out.println(b.indexOf(mainStr, patternStr));
+        System.out.println(indexOf(mainStr, patternStr));
     }
 }
