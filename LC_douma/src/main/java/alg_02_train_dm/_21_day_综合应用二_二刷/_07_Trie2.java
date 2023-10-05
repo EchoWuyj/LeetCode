@@ -57,7 +57,9 @@ public class _07_Trie2 {
     // 添加单词 -> O(n)
     public void add(String word) {
         Node cur = root;
+        // 遍历 word 单词中每个字符
         for (char c : word.toCharArray()) { // O(n)
+            // 从 cur = root 节点开始判断
             if (!cur.map.containsKey(c)) {
                 cur.map.put(c, new Node());
             }

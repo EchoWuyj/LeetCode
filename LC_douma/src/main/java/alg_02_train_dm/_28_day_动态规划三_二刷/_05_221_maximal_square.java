@@ -32,7 +32,7 @@ public class _05_221_maximal_square {
         int maxLen = 0;
 
         // dp[i][j] 表示以 [i,j] 这个元素为'右下角'的最大的正方形的边长
-        // 一般和坐标有关都是选择 [i,j] 作为状态参数
+        // KeyPoint 一般和坐标有关都是选择 [i,j] 作为状态参数
         int[][] dp = new int[m][n];
 
         // 通过填表，找规律，从而分析出状态转移方程
@@ -49,17 +49,19 @@ public class _05_221_maximal_square {
         }
 
         // 第一行
-        for (int i = 0; i < n; i++) {
-            if (matrix[0][i] == '1') {
-                dp[0][i] = 1;
-                maxLen = Math.max(maxLen, dp[0][i]);
+        for (int j = 0; j < n; j++) {
+            if (matrix[0][j] == '1') {
+                dp[0][j] = 1;
+                maxLen = Math.max(maxLen, dp[0][j]);
             }
         }
 
+        // KeyPoint for 循环从 1 开始，对应 dp 关系是 i 和 i-1 以及 j 和 j-1
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
+                // KeyPoint 限制条件，只有 matrix[i][j] == '1' 时，才去更新 dp 状态
                 if (matrix[i][j] == '1') {
-                    // 木桶效应，选择周边最短 dp
+                    // 木桶效应，选择周边最短 dp 值
                     // 同时 dp[i][j] 需要还需要 +1，体现 matrix[i][j] == '1' 带来的变化，从而对 dp[i][j] 更新
                     dp[i][j] = Math.min(dp[i][j - 1],
                             Math.min(dp[i - 1][j - 1], dp[i - 1][j])) + 1;

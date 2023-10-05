@@ -6,6 +6,7 @@ package alg_02_train_dm._29_day_动态规划四_二刷;
  * @Version 1.0
  */
 public class _09_376_wiggle_subsequence {
+
      /* 
         376. 摆动序列
         如果连续数字之间的差 严格地在 正数 和 负数 之间交替，则数字序列称为 摆动序列 。

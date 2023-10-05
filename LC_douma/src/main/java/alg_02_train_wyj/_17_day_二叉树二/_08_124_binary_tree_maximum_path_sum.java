@@ -16,10 +16,10 @@ public class _08_124_binary_tree_maximum_path_sum {
 
     public int dfs(TreeNode root) {
         if (root == null) return 0;
-
         int left = Math.max(dfs(root.left), 0);
         int right = Math.max(dfs(root.right), 0);
+
         maxPathSum = Math.max(maxPathSum, left + right + root.val);
-        return Math.max(right, left) + root.val;
+        return Math.max(left, right) + root.val;
     }
 }

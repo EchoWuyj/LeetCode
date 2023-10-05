@@ -33,8 +33,10 @@ public class _02_HJ68_成绩排序 {
         while (input.hasNext()) {
             // next() 返回值类型是 String，需要将其转成int
             int n = Integer.parseInt(input.next());
+
             // KeyPoint 另外一种实现 => nextLine();
             // int n = Integer.parseInt(input.nextLine());
+
             int flag = Integer.parseInt(input.next());
             Student[] students = new Student[n];
             for (int i = 0; i < n; i++) {

@@ -28,7 +28,7 @@ public class _01_Basic_BinarySearch {
             // int mid = left + (right - left + 1) / 2;
             // 这个 mid 计算公式 => 奇数个元素 mid 为中间位置，偶数个元素 mid 为偏右位置(向上取整原因)
 
-            // 其余解决方案 => 看别人这样写能看懂即可
+            // KeyPoint 其余解决方案 => 看别人这样写能看懂即可
             // int mid = left + ((right - left) >> 1) ;
             // >> 运算优先级低于 +，使用 >> 需要使用 () 提高优先级，其实性能差不多
 

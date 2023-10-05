@@ -12,7 +12,7 @@ public class _01_20_valid_parentheses1 {
     public static boolean isValid1(String s) {
         if (s.length() % 2 == 1) return false;
         ArrayDeque<Character> stack = new ArrayDeque<>();
-        for (char c : s.toCharArray()) {
+        for (Character c : s.toCharArray()) {
             if (c == '(') {
                 stack.push(c);
             } else {

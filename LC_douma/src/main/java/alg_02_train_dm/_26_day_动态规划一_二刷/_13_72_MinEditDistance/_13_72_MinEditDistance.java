@@ -69,9 +69,11 @@ public class _13_72_MinEditDistance {
         //          => 凡是 m + 1 和 n + 1 这种 dp 定义，m 和 n 都是能取等的
 
         // 第一列
+        // KeyPoint 注意可以取等！
         for (int i = 0; i <= m; i++) {
             dp[i][0] = i;
         }
+
         // 第一行
         for (int i = 0; i <= n; i++) {
             dp[0][i] = i;

@@ -10,7 +10,6 @@ public class _11_309_best_time_to_buy_and_sell_stock_with_cooldown {
     public int maxProfit(int[] prices) {
         int n = prices.length;
         int[][] dp = new int[n][2];
-
         dp[0][0] = 0;
         dp[0][1] = -prices[0];
 

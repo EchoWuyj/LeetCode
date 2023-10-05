@@ -54,8 +54,8 @@ public class _04_73_set_matrix_zeroes {
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
                 if (matrix[i][j] == 0) {
-                    matrix[i][0] = 0;
                     matrix[0][j] = 0;
+                    matrix[i][0] = 0;
                 }
             }
         }

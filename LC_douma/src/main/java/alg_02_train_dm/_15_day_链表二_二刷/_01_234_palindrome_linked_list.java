@@ -24,6 +24,7 @@ public class _01_234_palindrome_linked_list {
     // 注意：不能将链表放到数组中，判断数组是否能是回文
     // 时间复杂度 O(n) 两次遍历，一次找中点和反转，一次比较
     public boolean isPalindrome(ListNode head) {
+        // 链表为空，或者只有一个节点
         if (head == null || head.next == null) return true;
 
         // KeyPoint 中点 mid 靠左
@@ -45,6 +46,7 @@ public class _01_234_palindrome_linked_list {
         // KeyPoint 注意：fast 非空判断是 && 连接，同时成立，而不是 ||，只成立一个
         while (fast != null && fast.next != null) {
             slow = slow.next;
+            // fast 每次走两步
             fast = fast.next.next;
         }
 

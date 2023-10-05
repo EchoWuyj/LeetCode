@@ -37,9 +37,10 @@ public class _07_647_PalindromeSubstring {
 
     public int countSubstrings2(String s) {
         if (s == null || s.length() == 0) return 0;
+        if (s.length() == 1) return 1;
+
         int n = s.length();
         boolean[][] dp = new boolean[n][n];
-
         int res = 0;
         for (int i = 0; i < n; i++) {
             dp[i][i] = true;
@@ -51,11 +52,9 @@ public class _07_647_PalindromeSubstring {
                 if (j - i == 1) {
                     dp[i][j] = s.charAt(i) == s.charAt(j);
                 } else {
-                    dp[i][j] = s.charAt(i) == s.charAt(j) && dp[i + 1][j - 1];
+                    dp[i][j] = (s.charAt(i) == s.charAt(j)) && (dp[i + 1][j - 1]);
                 }
-                if (dp[i][j]) {
-                    res++;
-                }
+                if (dp[i][j]) res++;
             }
         }
         return res;

@@ -9,7 +9,7 @@ public class _02_189_rotate_array1 {
 
     public void rotate1(int[] nums, int k) {
         int n = nums.length;
-        k %= n;
+        k = k % n;
         reverse(nums, 0, n - 1);
         reverse(nums, 0, k - 1);
         reverse(nums, k, n - 1);
@@ -37,8 +37,6 @@ public class _02_189_rotate_array1 {
 
         System.arraycopy(tmpArr, 0, nums, 0, n);
     }
-
-
 }
 
 

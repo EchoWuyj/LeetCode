@@ -16,6 +16,7 @@ public class _01_62_unique_paths3 {
         dp[0][0] = 1;
 
         // 状态转移
+        // 分别从 0 索引位置开始
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
                 if (i == 0 || j == 0) {

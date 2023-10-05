@@ -43,18 +43,19 @@ public class _04_102_binary_tree_level_order_traversal1 {
     public static List<List<Integer>> levelOrder2(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
         if (root == null) return res;
+
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         while (!queue.isEmpty()) {
             int size = queue.size();
-            List<Integer> levelList = new ArrayList<>();
+            ArrayList<Integer> levelNodes = new ArrayList<>();
             for (int i = 0; i < size; i++) {
                 TreeNode cur = queue.poll();
-                levelList.add(cur.val);
+                levelNodes.add(cur.val);
                 if (cur.left != null) queue.offer(cur.left);
                 if (cur.right != null) queue.offer(cur.right);
             }
-            res.add(levelList);
+            res.add(levelNodes);
         }
         return res;
     }

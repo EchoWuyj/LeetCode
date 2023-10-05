@@ -33,13 +33,15 @@ public class _02_215_kth_largest_element_in_an_array {
     }
 
     public int findKthLargest3(int[] nums, int k) {
-        PriorityQueue<Integer> pq = new PriorityQueue<>(k + 1);
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
         int n = nums.length;
         for (int i = 0; i < n; i++) {
-            pq.add(nums[i]);
-            if (pq.size() > k) pq.remove();
+            minHeap.add(nums[i]);
+            if (minHeap.size() > k) {
+                minHeap.remove();
+            }
         }
-        return pq.peek();
+        return minHeap.peek();
     }
 
     public int findKthLargest4(int[] nums, int k) {

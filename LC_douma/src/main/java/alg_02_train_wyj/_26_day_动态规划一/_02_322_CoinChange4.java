@@ -18,7 +18,7 @@ public class _02_322_CoinChange4 {
 
         for (int i = 1; i <= amount; i++) {
             for (int coin : coins) {
-                if (i >= coin && dp[i - coin] != amount + 1) {
+                if (i >= coin) {
                     dp[i] = Math.min(dp[i], dp[i - coin] + 1);
                 }
             }

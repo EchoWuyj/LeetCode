@@ -16,8 +16,8 @@ public class _03_105_construct_binary_tree_from_preorder_and_inorder_traversal2 
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         this.preorder = preorder;
-        this.idxMap = new HashMap<>();
-        int n = inorder.length;
+        idxMap = new HashMap<>();
+        int n = preorder.length;
         for (int i = 0; i < n; i++) {
             idxMap.put(inorder[i], i);
         }
@@ -28,11 +28,12 @@ public class _03_105_construct_binary_tree_from_preorder_and_inorder_traversal2 
         if (left > right) return null;
         int rootVal = preorder[rootIndex];
         rootIndex++;
+        int index = idxMap.get(rootVal);
         TreeNode root = new TreeNode(rootVal);
-        int mid = idxMap.get(rootVal);
 
-        root.left = dfs(left, mid - 1);
-        root.right = dfs(mid + 1, right);
+        root.left = dfs(left, index - 1);
+        root.right = dfs(index + 1, right);
+
         return root;
     }
 }

@@ -11,6 +11,8 @@ public class _06_MultipleKnapsack {
         有 n 种物品和一个容量为 C 的背包
         第 i 种物品的重量是 w[i]，价值是 v[i]，件数是 p[i]
         求将哪些物品装入背包可使得价值总和最大
+
+        KeyPoint 多重背包 关键：物品件数是确定 p[i] 件
  */
 
     // 多重背包问题 => 转化成 0-1 背包问题
@@ -26,6 +28,7 @@ public class _06_MultipleKnapsack {
 
         // KeyPoint w 和 v 数组转换
 
+        // 新的个数 N
         int newN = 0;
         for (int i = 0; i < n; i++) {
             // 统计物品总件数
@@ -40,6 +43,7 @@ public class _06_MultipleKnapsack {
         // 将同一物品看成不同的物品，对 newW 和 newV 进行赋值
         for (int i = 0; i < n; i++) {
             // p[i] 为 i 号索引物品的件数，对同一个物品循环 p[i] 次进行赋值
+            // 循环 p[i] 次，其中 j < p[i]，不能取等
             for (int j = 0; j < p[i]; j++) {
                 newW[index] = w[i];
                 newV[index] = v[i];

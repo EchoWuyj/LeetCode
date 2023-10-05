@@ -8,11 +8,11 @@ package alg_02_train_wyj._28_day_动态规划三;
 public class _10_188_best_time_to_buy_and_sell_stock_iv {
     public int maxProfit1(int k, int[] prices) {
         int n = prices.length;
-        int[][][] dp = new int[n][k + 1][2];
+        int[][][] dp = new int[n + 1][k + 1][2];
 
-        for (int j = 1; j <= k; j++) {
-            dp[0][j][0] = 0;
-            dp[0][j][1] = -prices[0];
+        for (int i = 1; i <= k; i++) {
+            dp[0][i][0] = 0;
+            dp[0][i][1] = -prices[0];
         }
 
         for (int i = 1; i < n; i++) {
@@ -28,9 +28,9 @@ public class _10_188_best_time_to_buy_and_sell_stock_iv {
         int n = prices.length;
         int[][] dp = new int[k + 1][2];
 
-        for (int j = 1; j <= k; j++) {
-            dp[j][0] = 0;
-            dp[j][1] = -prices[0];
+        for (int i = 1; i <= k; i++) {
+            dp[i][0] = 0;
+            dp[i][1] = -prices[0];
         }
 
         for (int i = 1; i < n; i++) {

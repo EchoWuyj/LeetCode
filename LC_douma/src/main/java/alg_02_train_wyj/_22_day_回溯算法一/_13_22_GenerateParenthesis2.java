@@ -12,19 +12,18 @@ public class _13_22_GenerateParenthesis2 {
 
     public List<String> generateParenthesis(int n) {
         List<String> res = new ArrayList<>();
-        dfs(n, "", 0, 0, res);
+        dfs(n, "", res, 0, 0);
         return res;
     }
 
-    public void dfs(int n, String path, int open, int close, List<String> res) {
-
+    public void dfs(int n, String path, List<String> res, int open, int close) {
         if (open > n || close > open) return;
         if (path.length() == 2 * n) {
-            res.add(path);
-            return;
+            res.add(new String(path));
         }
-        dfs(n, path + '(', open + 1, close, res);
-        dfs(n, path + ")", open, close + 1, res);
+
+        dfs(n, path + "(", res, open + 1, close);
+        dfs(n, path + ")", res, open, close + 1);
     }
 
     public static void main(String[] args) {

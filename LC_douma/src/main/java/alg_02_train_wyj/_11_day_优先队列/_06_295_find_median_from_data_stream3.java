@@ -1,6 +1,6 @@
 package alg_02_train_wyj._11_day_优先队列;
 
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * @Author Wuyj
@@ -8,16 +8,18 @@ import java.util.PriorityQueue;
  * @Version 1.0
  */
 public class _06_295_find_median_from_data_stream3 {
+
     class MedianFinder {
-        PriorityQueue<Integer> minHeap;
-        PriorityQueue<Integer> maxHeap;
+        private PriorityQueue<Integer> minHeap;
+        private PriorityQueue<Integer> maxHeap;
 
         public MedianFinder() {
             minHeap = new PriorityQueue<>();
-            maxHeap = new PriorityQueue<>((a, b) -> (b - a));
+            maxHeap = new PriorityQueue<>((a, b) -> b - a);
         }
 
         public void addNum(int num) {
+
             if (maxHeap.isEmpty()) {
                 maxHeap.add(num);
                 return;
@@ -33,7 +35,7 @@ public class _06_295_find_median_from_data_stream3 {
                 minHeap.add(maxHeap.remove());
             }
 
-            if (minHeap.size() > maxHeap.size()) {
+            if (maxHeap.size() < minHeap.size()) {
                 maxHeap.add(minHeap.remove());
             }
         }

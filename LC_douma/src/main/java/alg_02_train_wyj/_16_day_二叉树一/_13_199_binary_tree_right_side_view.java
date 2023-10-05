@@ -32,18 +32,16 @@ public class _13_199_binary_tree_right_side_view {
     public List<Integer> rightSideView2(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         if (root == null) return res;
-        dfs(root, 0, res);
+        dfs(root, res, 0);
         return res;
     }
 
-    public void dfs(TreeNode root, int level, List<Integer> res) {
-        if (root == null) return;
+    public void dfs(TreeNode root,  List<Integer> res,int level){
+        if (root == null)return;
         if (res.size() == level) {
             res.add(root.val);
-        } else {
-            res.set(level, root.val);
         }
-        dfs(root.left, level + 1, res);
-        dfs(root.right, level + 1, res);
+        dfs(root.right, res, level + 1);
+        dfs(root.left, res, level + 1);
     }
 }

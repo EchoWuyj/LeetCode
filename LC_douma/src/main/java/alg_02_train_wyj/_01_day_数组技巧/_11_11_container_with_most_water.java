@@ -24,7 +24,7 @@ public class _11_11_container_with_most_water {
         int res = 0;
         while (left < right) {
             int area = Math.min(height[left], height[right]) * (right - left);
-            res = Math.max(area, res);
+            res = Math.max(res, area);
             if (height[left] <= height[right]) {
                 left++;
             } else {

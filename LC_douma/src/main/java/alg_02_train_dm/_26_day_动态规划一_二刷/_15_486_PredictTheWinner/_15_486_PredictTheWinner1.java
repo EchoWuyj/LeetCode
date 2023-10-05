@@ -6,6 +6,7 @@ package alg_02_train_dm._26_day_动态规划一_二刷._15_486_PredictTheWinner;
  * @Version 1.0
  */
 public class _15_486_PredictTheWinner1 {
+
     /*
         486. 预测赢家
         给你一个整数数组 nums。玩家 1 和玩家 2 基于这个数组设计了一个游戏。

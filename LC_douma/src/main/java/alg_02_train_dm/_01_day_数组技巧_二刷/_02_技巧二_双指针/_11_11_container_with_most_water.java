@@ -35,7 +35,6 @@ public class _11_11_container_with_most_water {
     // KeyPoint 方法一 暴力
     // 思路：固定一根柱子，计算后续柱子与该柱子能装的水，并在其中选择最大值
     // 时间复杂度 O(n^2)-> 超出时间限制
-
     public int maxArea1(int[] height) {
         int n = height.length;
         int res = 0;
@@ -65,8 +64,9 @@ public class _11_11_container_with_most_water {
             int area = Math.min(height[left], height[right]) * (right - left);
             res = Math.max(res, area);
             // 面积瓶颈取决于低的一侧，只有低的一侧往里移动，变成更高的柱子，面积才有可能增大
-            // 故移动左边，还是移动右边 => 取决于左边和右边谁低，低的那侧向里移动，有可能变成高的柱子
-            if (height[left] <= height[right]) {
+            // 关键：移动左边，还是移动右边
+            // => 取决于左边和右边谁低，低的那侧向里移动，有可能变成高的柱子
+            if (height[left] <= height[right]) {  // 左柱子 <= 右柱子，移动左边
                 left++;
             } else {
                 right--;

@@ -39,9 +39,9 @@ public class _03_3_longest_substring_without_repeating_characters {
     public int lengthOfLongestSubstring(String s) {
         int n = s.length();
         if (n <= 1) return n;
-        int left = 0, right = 0;
         int maxLen = 1;
         Set<Character> set = new HashSet<>();
+        int left = 0, right = 0;
         while (right < n) {
             char rightChar = s.charAt(right);
             while (set.contains(rightChar)) {
@@ -79,19 +79,19 @@ public class _03_3_longest_substring_without_repeating_characters {
     public static int lengthOfLongestSubstring3(String s) {
         int n = s.length();
         if (n <= 1) return n;
+        int[] window = new int[128];
         int maxLen = 1;
         int left = 0, right = 0;
-        int[] map = new int[128];
         while (right < n) {
             char rightChar = s.charAt(right);
-            int rightCharIndex = map[rightChar];
-            if (rightCharIndex == 0 || rightCharIndex < left) {
+            int index = window[rightChar];
+            if (index == 0 || index < left) {
                 left = left;
             } else {
-                left = rightCharIndex;
+                left = index;
             }
             maxLen = Math.max(maxLen, right - left + 1);
-            map[rightChar] = right + 1;
+            window[rightChar] = right + 1;
             right++;
         }
         return maxLen;

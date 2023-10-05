@@ -23,7 +23,7 @@ public class _04_32_longest_valid_parentheses2 {
 
         // KeyPoint 分情况讨论
 
-        // 情况一 => 情况三特例
+        // 情况一 => 情况三的特例
         //        ) ( ) ( ( ( (
         //          ↑
         //          i

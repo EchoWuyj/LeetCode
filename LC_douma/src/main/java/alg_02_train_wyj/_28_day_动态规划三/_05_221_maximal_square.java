@@ -10,8 +10,8 @@ public class _05_221_maximal_square {
         int m = matrix.length;
         int n = matrix[0].length;
         int maxLen = 0;
-        int[][] dp = new int[m][n];
 
+        int[][] dp = new int[m][n];
         for (int i = 0; i < m; i++) {
             if (matrix[i][0] == '1') {
                 dp[i][0] = 1;
@@ -22,14 +22,14 @@ public class _05_221_maximal_square {
         for (int j = 0; j < n; j++) {
             if (matrix[0][j] == '1') {
                 dp[0][j] = 1;
-                maxLen = Math.max(maxLen, dp[0][j]);
+                maxLen = Math.max(maxLen, dp[0][j] = 1);
             }
         }
 
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
                 if (matrix[i][j] == '1') {
-                    dp[i][j] = Math.min(dp[i - 1][j], Math.min(dp[i][j - 1], dp[i - 1][j - 1])) + 1;
+                    dp[i][j] = Math.min(dp[i - 1][j], Math.min(dp[i - 1][j - 1], dp[i][j - 1])) + 1;
                     maxLen = Math.max(maxLen, dp[i][j]);
                 }
             }
@@ -90,7 +90,7 @@ public class _05_221_maximal_square {
                 preRowPreCol = preRow;
                 preRow = dp[j];
                 if (matrix[i - 1][j - 1] == '1') {
-                    dp[j] = Math.min(dp[j-1], Math.min(preRow, preRowPreCol)) + 1;
+                    dp[j] = Math.min(dp[j - 1], Math.min(preRow, preRowPreCol)) + 1;
                     maxLen = Math.max(maxLen, dp[j]);
                 } else {
                     dp[j] = 0;

@@ -26,21 +26,21 @@ public class _13_238_product_of_array_except_self {
 
     public int[] productExceptSelf2(int[] nums) {
         int n = nums.length;
-        int[] leftProducts = new int[n];
-        leftProducts[0] = 1;
+        int[] lefts = new int[n];
+        lefts[0] = 1;
         for (int i = 1; i < n; i++) {
-            leftProducts[i] = leftProducts[i - 1] * nums[i - 1];
+            lefts[i] = lefts[i - 1] * nums[i - 1];
         }
 
-        int[] rightProducts = new int[n];
-        rightProducts[n - 1] = 1;
+        int[] rights = new int[n];
+        rights[n - 1] = 1;
         for (int i = n - 2; i >= 0; i--) {
-            rightProducts[i] = rightProducts[i + 1] * nums[i + 1];
+            rights[i] = rights[i + 1] * nums[i + 1];
         }
 
         int[] res = new int[n];
         for (int i = 0; i < n; i++) {
-            res[i] = leftProducts[i] * rightProducts[i];
+            res[i] = lefts[i] * rights[i];
         }
         return res;
     }

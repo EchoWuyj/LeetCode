@@ -51,7 +51,7 @@ public class _08_239_sliding_window_maximum1 {
                 maxNum = Math.max(maxNum, nums[j]);
             }
             // KeyPoint 性能分析：
-            // 1.每个窗口内，存在重复计算，性能瓶颈
+            // 1.每个窗口内，存在重复计算，即性能瓶颈
             // 2.获取最大值，最快的方法，就是堆(大顶堆)，堆顶就是最大值
             res[i] = maxNum;
         }

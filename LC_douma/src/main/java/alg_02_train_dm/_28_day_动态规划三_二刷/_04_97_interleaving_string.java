@@ -14,6 +14,7 @@ public class _04_97_interleaving_string {
           s = s1 + s2 + ... + sn
           t = t1 + t2 + ... + tm
           |n - m| <= 1
+
           交错 是 s1 + t1 + s2 + t2 + s3 + t3 + ... 或者 t1 + s1 + t2 + s2 + t3 + s3 + ...
           提示：a + b 意味着字符串 a 和 b 连接。
 
@@ -34,16 +35,17 @@ public class _04_97_interleaving_string {
 
     public boolean isInterleave(String s1, String s2, String s3) {
 
-        // 将该问题转化为：二维数组路径问题
+        // KeyPoint 将该问题转化为：二维数组路径问题
         // 将 s1 "aabcc" 竖着放，s2 横着放 "dbbca"，且和 s3 = "aadbbcbcac"，每个字符一一对比
-        // 和 s1 字符相等往下走，和 s2 字符相等往右走
+        // 若和 s1 字符相等，则往下走
+        // 若和 s2 字符相等，则往右走
 
         // 在 m x n 的矩阵中，从左上角到右下角是否存在一条路径
         // 1.路径中的每个字符：要么等于 s1 中字符，要么等于 s2 中字符
         // 2.路径中的字符组合起来就是字符串 s3
-        // => 二维数组中路径是否存在问题 => 动态规划
+        // KeyPoint 问题转化成：二维数组中路径是否存在问题 => 动态规划
 
-        // 本质：能否躲开障碍物走到终点那题的翻版，换汤不换药
+        // KeyPoint 本质：能否躲开障碍物走到终点那题的翻版，换汤不换药
 
         //     "" d b b c a  ← s2
         // ""
@@ -64,7 +66,7 @@ public class _04_97_interleaving_string {
         boolean[][] dp = new boolean[m + 1][n + 1];
         dp[0][0] = true;
 
-        // 第一列只能往下走(s1 是竖着的)
+        // 第一列只能往下走(s1 是竖着的) => 一共有 m 行
         // j = 0 表示第 1 列，循环遍历 i 表示行，i 从 1 开始，否则 charAt(i - 1) 越界
         // 注意：i 是需要等于 m，因为是前 m 个字符
         for (int i = 1; i <= m; i++) {
@@ -77,9 +79,9 @@ public class _04_97_interleaving_string {
             }
         }
 
-        // 第一行只能往右走(s2 是横着的)
+        // 第一行只能往右走(s2 是横着的) => 一共有 n 列
         // i = 0 表示第 1 行，循环遍历 j 表示列，j 从 1 开始，否则 charAt(i - 1) 越界
-        // 注意：j 是需要等于 n，因为是前 n 个字符
+        // KeyPoint 注意：j 是需要等于 n，因为是前 n 个字符
         for (int j = 1; j <= n; j++) {
             if (s2.charAt(j - 1) == s3.charAt(j - 1)) {
                 dp[0][j] = true;
@@ -95,7 +97,6 @@ public class _04_97_interleaving_string {
             for (int j = 1; j <= n; j++) {
                 // s3 字符的个数
                 int k = i + j;
-
                 // 若 s1[i-1] 和 s3[k-1] 匹配上，则 s1 字符个数减 1，变成前 i-1 字符，
                 // 同时 s2 不变，还是前 j 个字符，故此时问题转化成 dp[i-1][j]
                 // => 若两者都为 true，则为整体为 true
@@ -104,7 +105,6 @@ public class _04_97_interleaving_string {
                 dp[i][j] = s1Equals3 || s2Equals3;
             }
         }
-
         return dp[m][n];
     }
 

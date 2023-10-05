@@ -89,6 +89,7 @@ public class _02_746_min_cost_climbing_stairs {
         int n = cost.length;
         // 状态 dp[i]：表示走到第 i 个台阶使用的最小花费
         int[] dp = new int[n + 1];
+        // 其实位置可以在 0 或者 1 号索引位置
         dp[0] = dp[1] = 0;
         for (int i = 2; i <= n; i++) {
             // for 循环里面，基本都是关于：循环变量 i，而不是固定值 n

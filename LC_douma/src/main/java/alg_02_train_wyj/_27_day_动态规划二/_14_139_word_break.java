@@ -9,16 +9,18 @@ import java.util.List;
  */
 public class _14_139_word_break {
     public boolean wordBreak(String s, List<String> wordDict) {
-        boolean[] dp = new boolean[s.length() + 1];
+        int len = s.length();
+        boolean[] dp = new boolean[len + 1];
         dp[0] = true;
+
         for (int j = 0; j <= s.length(); j++) {
             for (String str : wordDict) {
                 int strLen = str.length();
                 if (j >= strLen && s.substring(j - strLen, j).equals(str)) {
-                    dp[j] = dp[j] || dp[j -strLen];
+                    dp[j] = dp[j] || dp[j - strLen];
                 }
             }
         }
-        return dp[s.length()];
+        return dp[len];
     }
 }

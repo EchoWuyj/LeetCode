@@ -15,6 +15,7 @@ public class _04_160_intersection_of_two_linked_lists {
             set.add(headA);
             headA = headA.next;
         }
+
         while (headB != null) {
             if (set.contains(headB)) return headB;
             headB = headB.next;

@@ -35,6 +35,7 @@ public class _01_70_climbing_stairs {
         KeyPoint 数据规模，dfs 超时
         1 <= n <= 45，使用递归(dfs)超时
         一般数据规模大于 20，使用 dfs 都是超时
+
      */
 
     // KeyPoint 方法一 递归 => 超时
@@ -77,9 +78,10 @@ public class _01_70_climbing_stairs {
         return memo[n];
     }
 
-    // KeyPoint 方法三 动态规划
+    // KeyPoint 方法三 动态规划 => 推荐
     public int climbStairs2(int n) {
 
+        // KeyPoint 若 dp 中出现索引越界，则需要提前将特殊情况处理
         // 保证 n > 2，否则，若 n = 2，则 dp[2] 存在越界
         // 即：当测试用例 n = 1，执行 for 循环中的状态转移方程，dp[i - 2] 索引越界
         // 此时，力扣报的错误不是解答错误，而是执行错误，如下：
@@ -106,7 +108,6 @@ public class _01_70_climbing_stairs {
     }
 
     // KeyPoint 方法四 动态规划 + 状态空间压缩
-    //
     public int climbStairs3(int n) {
         // bug 修复：需要对 1 和 2 做特判，要不然当 n = 1 的时候，会返回错误结果
         if (n == 1) return 1;

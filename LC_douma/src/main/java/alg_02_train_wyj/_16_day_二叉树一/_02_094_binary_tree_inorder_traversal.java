@@ -12,17 +12,17 @@ import java.util.Stack;
 public class _02_094_binary_tree_inorder_traversal {
     public List<Integer> inorderTraversal1(TreeNode root) {
         List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
         Stack<TreeNode> stack = new Stack<>();
         TreeNode cur = root;
-
         while (cur != null || !stack.isEmpty()) {
             while (cur != null) {
                 stack.push(cur);
                 cur = cur.left;
             }
-            cur = stack.pop();
-            res.add(cur.val);
-            cur = cur.right;
+            TreeNode node = stack.pop();
+            res.add(node.val);
+            cur = node.right;
         }
         return res;
     }

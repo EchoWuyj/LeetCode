@@ -38,10 +38,10 @@ public class _10_188_best_time_to_buy_and_sell_stock_iv {
 
         // 若 k 非常大 (无限大)，k 交次数 >= 数组长度 / 2，相当于每天都是买入或卖出
         // 此时 k 使用不完，该问题变成了 122 号算法题，使用贪心求解
-        // => 这种方式，若想不到就算了
-        if (k >= n / 2) {
-            return maxProfitGreedy(prices);
-        }
+        // KeyPoint 若这种方式，若想不到就算了，不影响最后结果的正确性
+//        if (k >= n / 2) {
+//            return maxProfitGreedy(prices);
+//        }
 
         int[][][] dp = new int[n][k + 1][2];
 
@@ -53,6 +53,7 @@ public class _10_188_best_time_to_buy_and_sell_stock_iv {
 
         // 时间复杂度 O(n*k) => 10^5 可以接受
         for (int i = 1; i < n; i++) {
+            // KeyPoint k 次交易，无法一一列举，故使用 for 循环
             // 注意：j 从 1 开始，j 能取到 k，若 j = 0，则 [j - 1] 越界
             for (int j = 1; j <= k; j++) {
                 dp[i][j][0] = Math.max(dp[i - 1][j][0], dp[i - 1][j][1] + prices[i]);
@@ -80,10 +81,10 @@ public class _10_188_best_time_to_buy_and_sell_stock_iv {
         int n = prices.length;
         if (k == 0 || n < 2) return 0;
 
-        if (k >= n / 2) {
-            // 问题变成了 122 号算法题，相当于 k 无限大
-            return maxProfitGreedy(prices);
-        }
+//        if (k >= n / 2) {
+//            // 问题变成了 122 号算法题，相当于 k 无限大
+//            return maxProfitGreedy(prices);
+//        }
 
         int[][] dp = new int[k + 1][2];
 

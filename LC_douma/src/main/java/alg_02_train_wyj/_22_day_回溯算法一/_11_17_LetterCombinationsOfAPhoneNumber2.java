@@ -3,7 +3,6 @@ package alg_02_train_wyj._22_day_回溯算法一;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author Wuyj
@@ -12,34 +11,36 @@ import java.util.Map;
  */
 public class _11_17_LetterCombinationsOfAPhoneNumber2 {
 
-    private Map<Character, String> map = new HashMap<Character, String>() {{
-        put('2', "abc");
-        put('3', "def");
-        put('4', "ghi");
-        put('5', "jkl");
-        put('6', "mno");
-        put('7', "pqrs");
-        put('8', "tuv");
-        put('9', "wxyz");
-    }};
+    private HashMap<Character, String> map;
+    private List<String> res;
+    private String digits;
 
     public List<String> letterCombinations(String digits) {
-        List<String> res = new ArrayList<>();
-        if (digits == null || digits.isEmpty()) return res;
-        dfs(digits, 0, "", res);
+        this.digits = digits;
+        res = new ArrayList<>();
+        if (digits.equals("") || digits.length() == 0) return res;
+        map = new HashMap<>();
+        map.put('2', "abc");
+        map.put('3', "def");
+        map.put('4', "ghi");
+        map.put('5', "jkl");
+        map.put('6', "mno");
+        map.put('7', "pqrs");
+        map.put('8', "tuv");
+        map.put('9', "wxyz");
+        dfs(digits, res, 0, "");
         return res;
     }
 
-    private void dfs(String digits, int index, String combination, List<String> res) {
+    public void dfs(String digits, List<String> res, int index, String combination) {
         if (index == digits.length()) {
             res.add(combination);
             return;
         }
-
-        char num = digits.charAt(index);
-        String letters = map.get(num);
-        for (char c : letters.toCharArray()) {
-            dfs(digits, index + 1, combination + c, res);
+        char digitsChar = digits.charAt(index);
+        String str = map.get(digitsChar);
+        for (char c : str.toCharArray()) {
+            dfs(digits, res, index + 1, combination + c);
         }
     }
 }

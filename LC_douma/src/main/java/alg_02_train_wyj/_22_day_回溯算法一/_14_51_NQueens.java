@@ -15,7 +15,7 @@ public class _14_51_NQueens {
     private int[] cols;
     private int[] main;
     private int[] secondary;
-    private List<List<String>> res;
+    private List<List<String>> output;
 
     public List<List<String>> solveNQueens(int n) {
         this.n = n;
@@ -23,15 +23,13 @@ public class _14_51_NQueens {
         cols = new int[n];
         main = new int[2 * n - 1];
         secondary = new int[2 * n - 1];
-        res = new ArrayList<>();
-
+        output = new ArrayList<>();
         dfs(0);
-        return res;
+        return output;
     }
 
     public void dfs(int row) {
         if (row >= n) return;
-
         for (int col = 0; col < n; col++) {
             if (isNotUnderAttack(row, col)) {
                 placeQueen(row, col);
@@ -51,27 +49,26 @@ public class _14_51_NQueens {
 
     private void removeQueen(int row, int col) {
         rows[row] = 0;
-
         cols[col] = 0;
         main[row - col + n - 1] = 0;
         secondary[row + col] = 0;
     }
 
-    private void addSolution() {
-        List<String> solution = new ArrayList<>();
-        for (int row = 0; row < n; row++) {
-            int col = rows[row];
-            StringBuilder sb = new StringBuilder();
-            for (int j = 0; j < col; j++) sb.append(".");
-            sb.append("Q");
-            for (int j = col + 1; j < n; j++) sb.append(".");
-            solution.add(sb.toString());
-        }
-        res.add(solution);
+    private boolean isNotUnderAttack(int row, int col) {
+        int res = cols[col] + main[row - col + n - 1] + secondary[row + col];
+        return res == 0;
     }
 
-    private boolean isNotUnderAttack(int row, int col) {
-        int sum = cols[col] + main[row - col + n - 1] + secondary[row + col];
-        return sum == 0;
+    private void addSolution() {
+        List<String> solution = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            int col = rows[i];
+            StringBuilder builder = new StringBuilder();
+            for (int j = 0; j < col; j++) builder.append(".");
+            builder.append("Q");
+            for (int j = col + 1; j < n; j++) builder.append(".");
+            solution.add(builder.toString());
+        }
+        output.add(solution);
     }
 }

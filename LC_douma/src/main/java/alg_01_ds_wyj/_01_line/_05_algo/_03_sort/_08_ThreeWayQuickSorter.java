@@ -9,33 +9,36 @@ import java.util.Arrays;
  */
 public class _08_ThreeWayQuickSorter extends Sorter {
     public void sort(int[] data) {
-        if (data == null || data.length <= 1) return;
-        int n = data.length;
-        sort(data, 0, n - 1);
+        if (data == null || data.length == 1) return;
+        sort(data, 0, data.length - 1);
     }
 
     public void sort(int[] data, int low, int high) {
         if (low >= high) return;
-        int i = low;
-        int less = low;
-        int great = high;
-        int pivot = data[high];
 
-        while (i <= great) {
+        // int random = new Random().nextInt(high - low + 1) + low;
+        // swap(data, random, high);
+
+        int pivot = data[high];
+        int less = low;
+        int greater = high;
+        int i = less;
+
+        while (i <= greater) {
             if (data[i] < pivot) {
                 swap(data, i, less);
                 less++;
                 i++;
             } else if (data[i] > pivot) {
-                swap(data, i, great);
-                great--;
-            } else if (data[i] == pivot) {
+                swap(data, i, greater);
+                greater--;
+            } else {
                 i++;
             }
         }
 
         sort(data, low, less - 1);
-        sort(data, great + 1, high);
+        sort(data, less + 1, high);
     }
 
     public static void main(String[] args) {

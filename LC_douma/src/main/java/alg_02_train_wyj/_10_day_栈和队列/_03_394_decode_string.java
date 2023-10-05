@@ -10,30 +10,29 @@ import java.util.ArrayDeque;
 public class _03_394_decode_string {
 
     public String decodeString(String s) {
-        StringBuilder res = new StringBuilder();
+        int num = 0;
+        StringBuilder builder = new StringBuilder();
         ArrayDeque<Integer> numStack = new ArrayDeque<>();
         ArrayDeque<String> strStack = new ArrayDeque<>();
-        int num = 0;
         for (char c : s.toCharArray()) {
             if (c >= '0' && c <= '9') {
                 num = num * 10 + (c - '0');
             } else if (c == '[') {
                 numStack.push(num);
-                strStack.push(res.toString());
+                strStack.push(builder.toString());
                 num = 0;
-                res.delete(0, res.length());
+                builder.delete(0, builder.length());
             } else if (c == ']') {
-                String item = res.toString();
+                String item = builder.toString();
                 int count = numStack.pop();
                 for (int i = 1; i < count; i++) {
-                    res.append(item);
+                    builder.append(item);
                 }
-                String preStr = strStack.pop();
-                res.insert(0, preStr);
+                builder.insert(0, strStack.pop());
             } else {
-                res.append(c);
+                builder.append(c);
             }
         }
-        return res.toString();
+        return builder.toString();
     }
 }

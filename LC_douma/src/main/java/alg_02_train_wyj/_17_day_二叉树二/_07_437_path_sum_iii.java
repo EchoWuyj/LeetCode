@@ -1,7 +1,6 @@
 package alg_02_train_wyj._17_day_二叉树二;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Author Wuyj
@@ -15,21 +14,23 @@ public class _07_437_path_sum_iii {
         return dfs(root, new ArrayList<>(), targetSum);
     }
 
-    private static int dfs(TreeNode node, List<Long> parentPathSumList, long target) {
+    public static int dfs(TreeNode node, ArrayList<Long> parentPath, int targetSum) {
         if (node == null) return 0;
         int cnt = 0;
-        List<Long> list = new ArrayList<>();
-        int size = parentPathSumList.size();
+        int size = parentPath.size();
+        ArrayList<Long> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            long num = parentPathSumList.get(i) + node.val;
+            long num = parentPath.get(i) + node.val;
             list.add(num);
-            if (num == target) cnt++;
+            if (num == targetSum) cnt++;
         }
-        list.add((long) node.val);
-        if (node.val == target) cnt++;
-        int left = dfs(node.left, list, target);
-        int right = dfs(node.right, list, target);
-        return cnt + left + right;
+        if (node.val == targetSum) cnt++;
+        list.add((long)node.val);
+
+        int leftCnt = dfs(node.left, list, targetSum);
+        int rightCnt = dfs(node.right, list, targetSum);
+
+        return leftCnt + rightCnt + cnt;
     }
 
     public static void main(String[] args) {

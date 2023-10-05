@@ -29,6 +29,7 @@ public class _00_01_Note {
             // 双层 while 循环
             // 整个数组遍历结束
             while (right < n) {
+
               处理 right 指向的元素，将其加入到当前窗口，将元素加入窗口
               => 可能涉及计算，需要将结果存在变量，或者数据结构中 (res，Set，Map)
 
@@ -39,6 +40,7 @@ public class _00_01_Note {
                   处理 left 指向的元素，将其从当前窗口中剔除掉
                   left++;
               }
+
               KeyPoint 计算结果(可能位置)
               // 不满足条件，从 right 侧添加元素，扩大窗口
               right++;

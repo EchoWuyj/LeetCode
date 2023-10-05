@@ -40,7 +40,7 @@ public class _09_123_best_time_to_buy_and_sell_stock_iii {
     // 执行用时：70 ms , 在所有 Java 提交中击败了 14.81%% 的用户
     public int maxProfit(int[] prices) {
         int n = prices.length;
-        // 2次交易，数组大小定义为 3
+        // KeyPoint 2 次交易，数组大小定义为 3
         // 0 次交易，1 次交易，2 次交易
         int[][][] dp = new int[n][3][2];
 
@@ -58,6 +58,7 @@ public class _09_123_best_time_to_buy_and_sell_stock_iii {
             dp[i][2][0] = Math.max(dp[i - 1][2][0], dp[i - 1][2][1] + prices[i]);
             dp[i][2][1] = Math.max(dp[i - 1][2][1], dp[i - 1][1][0] - prices[i]);
         }
+
         // n-1 天，最多 2 交易，不持有股票 => 最大利润
         return dp[n - 1][2][0];
     }

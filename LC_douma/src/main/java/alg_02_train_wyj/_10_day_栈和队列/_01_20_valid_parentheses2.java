@@ -43,15 +43,15 @@ public class _01_20_valid_parentheses2 {
     public boolean isValid1(String s) {
         if (s.length() % 2 == 1) return false;
         ArrayDeque<Character> stack = new ArrayDeque<>();
-        for (char c : s.toCharArray()) {
-            if (c == '(' || c == '{' || c == '[') {
+        for (Character c : s.toCharArray()) {
+            if (c == '(' || c == '[' || c == '{') {
                 stack.push(c);
             } else {
                 if (stack.isEmpty()) return false;
                 char pop = stack.pop();
                 if (c == ')' && pop != '(') return false;
-                if (c == '}' && pop != '{') return false;
                 if (c == ']' && pop != '[') return false;
+                if (c == '}' && pop != '{') return false;
             }
         }
         return stack.isEmpty();

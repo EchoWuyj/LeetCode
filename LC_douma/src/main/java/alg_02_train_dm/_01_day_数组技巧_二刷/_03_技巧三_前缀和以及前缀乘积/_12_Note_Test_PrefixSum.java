@@ -36,7 +36,7 @@ public class _12_Note_Test_PrefixSum {
 
     }
 
-    // KeyPoint 2.前缀和 => 一轮 for 循环 => 实现二
+    // KeyPoint 2.前缀和 => 一轮 for 循环 => 实现二 => 推荐使用
     public int[] test2(int[] nums) {
         int n = nums.length;
         int[] prefixSum = new int[n + 1];

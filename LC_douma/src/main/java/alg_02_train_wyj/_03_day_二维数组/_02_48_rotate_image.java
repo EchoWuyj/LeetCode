@@ -24,13 +24,13 @@ public class _02_48_rotate_image {
 
     public void rotate(int[][] matrix) {
         int n = matrix.length;
-        for (int i = 0; i < n / 2; i++) {
-            for (int j = 0; j < (1 + n) / 2; j++) {
-                int tmp = matrix[i][j];
-                matrix[i][j] = matrix[n - 1 - j][i];
-                matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j];
-                matrix[n - 1 - i][n - 1 - j] = matrix[j][n - 1 - i];
-                matrix[j][n - 1 - i] = tmp;
+        for (int row = 0; row < n / 2; row++) {
+            for (int col = 0; col < (n + 1) / 2; col++) {
+                int tmp = matrix[row][col];
+                matrix[row][col] = matrix[n - 1 - col][row];
+                matrix[n - 1 - col][row] = matrix[n - 1 - row][n - 1 - col];
+                matrix[n - 1 - row][n - 1 - col] = matrix[col][n - 1 - row];
+                matrix[col][n - 1 - row] = tmp;
             }
         }
     }

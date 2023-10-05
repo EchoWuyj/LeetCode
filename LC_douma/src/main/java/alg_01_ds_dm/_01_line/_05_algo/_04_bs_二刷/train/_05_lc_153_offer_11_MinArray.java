@@ -80,6 +80,7 @@ public class _05_lc_153_offer_11_MinArray {
 
     //  KeyPoint 方法三 根据旋转数组特点，使用二分查找
     //                  => 存在 bug，该方法只是适用于数组中 没有重复元素 的情况
+    //                  => 本题可以通过
     // 时间复杂度是： O(logn)
     // 空间复杂度是：O(1)
     public int findMin3(int[] nums) {
@@ -108,7 +109,6 @@ public class _05_lc_153_offer_11_MinArray {
         // 当 nums[mid] <= nums[right]，若只是直接 right = mid
         // 则存在 right 移动太多，导致略过了最小值
         // 力扣 154 题中，没有保证：所有整数互不相同，故该解法存在问题
-        //
 
         // 根据测试用例来调整代码
         // 输入：

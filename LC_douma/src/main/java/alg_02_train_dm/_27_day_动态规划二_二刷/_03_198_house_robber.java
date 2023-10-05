@@ -122,7 +122,9 @@ public class _03_198_house_robber {
         // dp[i]：表示偷盗 [0, i] 区间房子得到的最大金额
         int[] dp = new int[n];
 
+        // 偷 => 最高金额
         dp[0] = nums[0];
+        // 偷与不偷中取最高金额
         dp[1] = Math.max(nums[0], nums[1]);
 
         for (int i = 2; i < n; i++) {
@@ -131,6 +133,7 @@ public class _03_198_house_robber {
             // 逻辑分析
             // 1.i 节点不偷，不加 nums[i]，则可选择相邻 i-1 节点
             // 2.i 节点偷，加上 nums[i]，则只能选择 i-2 节点
+            // KeyPoint 针对 nums[i] 来判断当前的 dp[i] 状态，使用的是 nums[i]，不是 nums[i-2]
             dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
         }
 

@@ -11,14 +11,14 @@ import java.util.List;
 public class _08_118_pascals_triangle {
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> res = new ArrayList<>();
-        for (int row = 0; row < numRows; row++) {
+        for (int i = 0; i < numRows; i++) {
             List<Integer> curList = new ArrayList<>();
-            for (int col = 0; col <= row; col++) {
-                if (col == 0 || col == row) {
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || j == i) {
                     curList.add(1);
                 } else {
-                    List<Integer> preList = res.get(row - 1);
-                    int curNum = preList.get(col) + preList.get(col - 1);
+                    List<Integer> preRowList = res.get(i - 1);
+                    int curNum = preRowList.get(j) + preRowList.get(j - 1);
                     curList.add(curNum);
                 }
             }

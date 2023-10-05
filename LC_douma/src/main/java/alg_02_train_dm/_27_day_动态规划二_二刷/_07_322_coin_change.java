@@ -62,6 +62,7 @@ public class _07_322_coin_change {
 
         // 3. 状态转移
         for (int i = 0; i < coins.length; i++) {
+            // KeyPoint 完全背包，从当前物品容量开始，直到 amount 值
             for (int j = coins[i]; j <= amount; j++) {
                 // 代码模板修改
                 // 1.最小 => Math.min

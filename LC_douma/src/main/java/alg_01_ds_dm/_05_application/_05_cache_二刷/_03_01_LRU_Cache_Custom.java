@@ -45,6 +45,7 @@ public class _03_01_LRU_Cache_Custom<K, V> implements Cache<K, V> {
     // 1.维护最近才使用的键值对
     // => 链表是从头开始，所以头在左侧
     Node head;
+
     // 2.维护最久未使用的键值对
     // => 先有头再有尾，所以头在右侧
     Node tail;
@@ -83,50 +84,7 @@ public class _03_01_LRU_Cache_Custom<K, V> implements Cache<K, V> {
         this.capacity = capacity;
     }
 
-    @Override
-    public V get(K key) { // O(1)
-        Node node = cache.get(key);
-        // cache 中没有，返回 null
-        if (node == null) return null;
 
-        // 将查询到的 node 移动到表头，表头位置是最近才访问的节点
-        // KeyPoint 优化
-        // 将复用的代码抽取，可能一开始意识不到，后面写着写着，发现代码重复，可以优化代码
-        deleteNodeToHead(node);
-        // 返回值类型为 V，node != null，将 value 返回
-        return node.value;
-    }
-
-    @Override
-    public void put(K key, V value) { // O(1)
-        Node node = cache.get(key);
-        // node 不存在，需要 put 操作
-        if (node == null) {
-            // 1. 判断缓存容量大小，淘汰最久未使用的节点
-            if (cache.size() == capacity) {
-                // 删除节点需要返回节点，通过 node 中的 key 删除 cache 的 key
-                Node delNode = deleteLastNodeFromTail();
-                // Map 删除 delNode.key，维护映射关系
-                cache.remove(delNode.key);
-            }
-
-            // 2. 创建新节点，使用 newNode 以便区分
-            Node newNode = new Node();
-            newNode.key = key;
-            newNode.value = value;
-
-            // 3. 维护链表和缓存
-            cache.put(key, newNode);
-
-            // 最近使用的数据(新建或更新 node)放到表头
-            addNewNodeToHead(newNode);
-        } else {
-            // node 存在，更新 value
-            node.value = value;
-            // 最近使用的数据(新建或更新 node)放到表头
-            deleteNodeToHead(node);
-        }
-    }
 
     // KeyPoint 双向链表基本操作 => 需要掌握
     // KeyPoint 1.将原链表中 node 移动到 Head
@@ -197,6 +155,51 @@ public class _03_01_LRU_Cache_Custom<K, V> implements Cache<K, V> {
         // 删除双向链表中的一个节点，通用操作，代码复用
         deleteNode(lastNode);
         return lastNode;
+    }
+
+    @Override
+    public V get(K key) { // O(1)
+        Node node = cache.get(key);
+        // cache 中没有，返回 null
+        if (node == null) return null;
+
+        // 将查询到的 node 移动到表头，表头位置是最近才访问的节点
+        // KeyPoint 优化
+        // 将复用的代码抽取，可能一开始意识不到，后面写着写着，发现代码重复，可以优化代码
+        deleteNodeToHead(node);
+        // 返回值类型为 V，node != null，将 value 返回
+        return node.value;
+    }
+
+    @Override
+    public void put(K key, V value) { // O(1)
+        Node node = cache.get(key);
+        // node 不存在，需要 put 操作
+        if (node == null) {
+            // 1. 判断缓存容量大小，淘汰最久未使用的节点
+            if (cache.size() == capacity) {
+                // 删除节点需要返回节点，通过 node 中的 key 删除 cache 的 key
+                Node delNode = deleteLastNodeFromTail();
+                // Map 删除 delNode.key，维护映射关系
+                cache.remove(delNode.key);
+            }
+
+            // 2. 创建新节点，使用 newNode 以便区分
+            Node newNode = new Node();
+            newNode.key = key;
+            newNode.value = value;
+
+            // 3. 维护链表和缓存
+            cache.put(key, newNode);
+
+            // 最近使用的数据(新建或更新 node)放到表头
+            addNewNodeToHead(newNode);
+        } else {
+            // node 存在，更新 value
+            node.value = value;
+            // 最近使用的数据(新建或更新 node)放到表头
+            deleteNodeToHead(node);
+        }
     }
 
     public static void main(String[] args) {

@@ -12,7 +12,7 @@ public class _07_Trie2 {
 
     private class Node {
         Map<Character, Node> map;
-        boolean isEnd = false;
+        boolean isEnd;
 
         public Node() {
             map = new HashMap<>();
@@ -20,7 +20,7 @@ public class _07_Trie2 {
         }
     }
 
-    private Node root;
+    Node root;
 
     public _07_Trie2() {
         root = new Node();
@@ -45,7 +45,6 @@ public class _07_Trie2 {
             }
             cur = cur.map.get(c);
         }
-
         return cur.isEnd;
     }
 

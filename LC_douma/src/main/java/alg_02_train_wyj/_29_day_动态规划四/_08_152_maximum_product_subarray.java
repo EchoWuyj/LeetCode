@@ -9,18 +9,17 @@ public class _08_152_maximum_product_subarray {
 
     public int maxProduct1(int[] nums) {
         int n = nums.length;
-
         int[] maxP = new int[n];
         int[] minP = new int[n];
 
         maxP[0] = nums[0];
         minP[0] = nums[0];
-        int res = maxP[0];
+        int res = nums[0];
 
         for (int i = 1; i < n; i++) {
-            maxP[i] = Math.max(maxP[i - 1] * nums[i], Math.max(nums[i], nums[i] * minP[i - 1]));
-            minP[i] = Math.min(minP[i - 1] * nums[i], Math.min(nums[i], nums[i] * maxP[i - 1]));
-            res = Math.max(maxP[i], res);
+            maxP[i] = Math.max(maxP[i - 1] * nums[i], Math.max(nums[i], minP[i - 1] * nums[i]));
+            minP[i] = Math.min(minP[i - 1] * nums[i], Math.min(nums[i], maxP[i - 1] * nums[i]));
+            res = Math.max(res, maxP[i]);
         }
         return res;
     }

@@ -44,7 +44,6 @@ public class _09_131_PalindromeSubstring {
     public List<List<String>> partition1(String s) {
         List<List<String>> res = new ArrayList<>();
         if (s == null || s.length() == 0) return res;
-
         int n = s.length();
         boolean[][] dp = new boolean[n][n];
 
@@ -54,27 +53,33 @@ public class _09_131_PalindromeSubstring {
 
         for (int i = n - 2; i >= 0; i--) {
             for (int j = i + 1; j < n; j++) {
+                // 只有两个字符
                 if (j - i == 1) {
                     dp[i][j] = s.charAt(i) == s.charAt(j);
+                    // 大于两个字符
                 } else {
                     dp[i][j] = s.charAt(i) == s.charAt(j) && dp[i + 1][j - 1];
                 }
             }
         }
 
-        dfs(s, 0, new ArrayList<>(), res, dp);
+        dfs1(s, 0, new ArrayList<>(), res, dp);
         return res;
     }
 
-    public void dfs(String s, int index, List<String> path, List<List<String>> res, boolean[][] dp) {
+    public void dfs1(String s, int index,
+                     List<String> path,
+                     List<List<String>> res,
+                     boolean[][] dp) {
         if (index == s.length()) {
             res.add(new ArrayList<>(path));
+            return;
         }
+
         for (int i = index; i < s.length(); i++) {
             if (!dp[index][i]) continue;
-            String subStr = s.substring(index, i + 1);
-            path.add(subStr);
-            dfs(s, i + 1, path, res);
+            path.add(s.substring(index, i + 1));
+            dfs1(s, i + 1, path, res, dp);
             path.remove(path.size() - 1);
         }
     }

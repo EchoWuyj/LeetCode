@@ -10,26 +10,26 @@ import java.util.Set;
  */
 public class _08_142_linked_list_cycle_ii {
     public ListNode detectCycle1(ListNode head) {
-        Set<ListNode> visited = new HashSet<>();
+        Set<ListNode> set = new HashSet<>();
         while (head != null) {
-            if (visited.contains(head)) return head;
-            else visited.add(head);
+            if (set.contains(head)) return head;
+            set.add(head);
             head = head.next;
         }
         return null;
     }
 
     public ListNode detectCycle2(ListNode head) {
-        ListNode fast = head;
         ListNode slow = head;
+        ListNode fast = head;
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
             if (fast == slow) {
                 ListNode p = head;
                 while (slow != p) {
-                    p = p.next;
                     slow = slow.next;
+                    p = p.next;
                 }
                 return p;
             }

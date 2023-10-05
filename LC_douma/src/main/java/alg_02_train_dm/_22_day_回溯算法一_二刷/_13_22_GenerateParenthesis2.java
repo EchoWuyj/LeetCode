@@ -34,6 +34,7 @@ public class _13_22_GenerateParenthesis2 {
             return;
         }
 
+        // 二叉树 先序 DFS
         dfs(n, path + "(", res, open + 1, close);
         dfs(n, path + ")", res, open, close + 1);
     }

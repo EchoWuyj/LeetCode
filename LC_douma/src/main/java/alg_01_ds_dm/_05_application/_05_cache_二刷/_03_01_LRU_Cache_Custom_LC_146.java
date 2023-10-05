@@ -8,8 +8,12 @@ import java.util.Map;
  * @DateTime 2023-05-30 14:16
  * @Version 1.0
  */
-public class _03_01_LRU_Cache_Custom_LC_146 {
 
+// 手写 LRU
+// HashMap + 双向链表
+// HashMap：通过 key-value 高效获取中间节点
+// 双向链表：动态调整访问后的节点
+public class _03_01_LRU_Cache_Custom_LC_146 {
 
     class Node {
         int key;
@@ -37,13 +41,6 @@ public class _03_01_LRU_Cache_Custom_LC_146 {
         addNewNodeToHead(node);
     }
 
-    private void addNewNodeToHead(Node newNode) {
-        newNode.next = head.next;
-        newNode.prev = head;
-        head.next.prev = newNode;
-        head.next = newNode;
-    }
-
     private void deleteNode(Node delNode) {
         Node prevNode = delNode.prev;
         Node nextNode = delNode.next;
@@ -55,6 +52,15 @@ public class _03_01_LRU_Cache_Custom_LC_146 {
         delNode.prev = null;
     }
 
+    private void addNewNodeToHead(Node node) {
+        // node
+        node.next = head.next;
+        node.prev = head;
+        // head
+        head.next.prev = node;
+        head.next = node;
+    }
+
     private Node deleteLastNodeFromTail() {
         Node lastNode = tail.prev;
         deleteNode(lastNode);
@@ -64,6 +70,7 @@ public class _03_01_LRU_Cache_Custom_LC_146 {
     public int get(int key) {
         Node node = cache.get(key);
         if (node == null) return -1;
+        // node != null
         deleteNodeToHead(node);
         return node.value;
     }
@@ -73,6 +80,7 @@ public class _03_01_LRU_Cache_Custom_LC_146 {
         if (node == null) {
             if (cache.size() == capacity) {
                 Node delNode = deleteLastNodeFromTail();
+                // 获取最后一个节点 key，将其删除
                 cache.remove(delNode.key);
             }
             Node newNode = new Node();

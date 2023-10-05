@@ -11,6 +11,7 @@ import java.util.Set;
 public class _03_3_longest_substring_without_repeating_characters1 {
     /*
            3.无重复字符的最长子串
+
            给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
 
            示例 1:
@@ -40,8 +41,8 @@ public class _03_3_longest_substring_without_repeating_characters1 {
            KeyPoint 注意事项
            1.无重复字符的最长子串 => 求最大值
            2.区别：子串和子序列
-             2.1 子串 <=> 连续子数组
-             2.2 子序列是"不必要求连续"，而子串则是"连续"的
+                  子串 <=> 连续子数组
+                  子序列是"不必要求连续"，而子串则是"连续"的
 
     */
 

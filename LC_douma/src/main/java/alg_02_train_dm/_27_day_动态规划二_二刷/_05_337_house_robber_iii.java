@@ -58,9 +58,10 @@ public class _05_337_house_robber_iii {
     // 本质：深度优先遍历 dfs，遍历每个节点，计算在偷与不偷情况下获取最大金钱
     // 每个节点，返回值是 int 数组，不是单一值，其中，[0] 表示不偷，[1]表示偷
     public int[] dfs(TreeNode node) {
-        // 数组 int[] 默认返回 0
+        // 创建数组 int[2]，默认返回 0
         if (node == null) return new int[2];
 
+        // 后续 DFS
         int[] left = dfs(node.left);
         int[] right = dfs(node.right);
 
@@ -70,7 +71,7 @@ public class _05_337_house_robber_iii {
         // 当前节点(父节点) 返回值 res
         int[] res = new int[2];
 
-        // 1. 当前节点，选择不偷
+        // 1. 当前节点，选择不偷 => res[0]
         // => 当前节点能偷到的最大钱数 = 左孩子能得到的最大钱 + 右孩子能得到的最大钱
         // => 父节点不偷，不一定是子节点偷时，获取金额最大，也可能是子节点不偷时，获取金额最大，故需要进行比较
         res[0] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
@@ -81,11 +82,12 @@ public class _05_337_house_robber_iii {
         //  3.不偷左子节点，偷了右子节点  => left[0] + right[1]
         //  4.不偷左子节点，不偷右子节点  => left[0] + right[0]
 
-        // 2. 当前节点，选择偷
+        // 2. 当前节点，选择偷 => res[1]
         // => 当前节点能偷到的最大钱数 = 左孩子选择不偷时能得到的最大钱 + 右孩子选择不偷时能得到的最大钱 + 当前节点的钱数
         // => 父节点偷了，故左右子节点只能计算不偷时最大金额，同时加上当前节点值
         // res[1] 表示父节点偷的
         // left[0]，right[0]，表示左右子节点不偷的
+        // KeyPoint 左右子树都是需要包括的，不能只是选择其中一个
         res[1] = left[0] + right[0] + node.val;
         return res;
     }

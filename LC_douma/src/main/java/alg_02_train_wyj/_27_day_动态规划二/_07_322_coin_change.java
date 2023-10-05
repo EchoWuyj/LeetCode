@@ -16,7 +16,7 @@ public class _07_322_coin_change {
 
         for (int i = 0; i < n; i++) {
             for (int j = coins[i]; j <= amount; j++) {
-                dp[j] = Math.min(dp[j], 1 + dp[j - coins[i]]);
+                dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);
             }
         }
         return dp[amount] == amount + 1 ? -1 : dp[amount];

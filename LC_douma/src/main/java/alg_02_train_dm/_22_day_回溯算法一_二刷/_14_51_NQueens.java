@@ -27,10 +27,12 @@ public class _14_51_NQueens {
      */
 
     // 注意：因为本题中，抽取的模块化的代码比较多
-    //       将变量定义为成员变量，方便不同方法间的调用
+    //      将变量定义为成员变量，方便不同方法间的调用
 
     // n 皇后的 n
     private int n;
+
+    // KeyPoint 通过以下 4 个数组来标识不同位置是否有皇后攻击
 
     // rows 存储皇后的位置
     // index 表示：行
@@ -47,15 +49,18 @@ public class _14_51_NQueens {
     // 标记是否被 主对角线方向 的皇后攻击
     // 主对角线：row - col = 固定值，唯一标识一条主对角线
     //           为了保证 row - col >= 0，故 row - col + n - 1
+    //           row 最小为 0，col 最大为 n - 1 => 故通过 n - 1 来调节索引为负数情况
     // 主对角线个数：2*n-1
     // value：0 表示：未被攻击 => 无皇后
-    //        1 表示：已被攻击 => 无皇后
+    //        1 表示：已被攻击 => 有皇后
     private int[] mains;
 
     // 标记是否被 次对角线方向 的皇后攻击
     // 主对角线：row + col = 固定值，唯一标识一条主对角线
     //          因为 row + col 始终是正数，故不需要加 n - 1
     // 主对角线个数：2*n-1
+    // value：0 表示：未被攻击 => 无皇后
+    //        1 表示：已被攻击 => 有皇后
     private int[] secondary;
 
     private List<List<String>> output;
@@ -77,7 +82,7 @@ public class _14_51_NQueens {
     //   将其用代码实现后，再去实现屏蔽细节处的代码
     // 2.本题抽取的方法比较多，设置全局变量方便，不同方法间进行调用
 
-    // 回溯，考虑在每一行，如何放置一个皇后，故递归形参为 row
+    // KeyPoint 回溯，考虑在每一行，如何放置一个皇后，故递归形参为 row
     // 思考方向：抽象成树形结构
     // => 对于 n×n 棋盘，每行有 n 种不同的放法
     // => 树形结构中每个节点的子节点有 n 种不同的分支
@@ -88,7 +93,7 @@ public class _14_51_NQueens {
         if (row >= n) return;
         // 分别尝试在当前行，每一列中放置皇后
         for (int col = 0; col < n; col++) {
-            // KeyPoint 先写伪代码，具体实现细节先不考虑
+            // KeyPoint 注意：先写伪代码，具体实现细节先不考虑
             // 当前位置 (row, col) ，没有被攻击
             // 注意：方法名的命名方式，isXxx
             if (isNotUnderAttack(row, col)) {
@@ -105,9 +110,10 @@ public class _14_51_NQueens {
         }
     }
 
-    // 在指定的位置上放置皇后
+    // KeyPoint 在指定的位置上放置皇后 => 调整 4 个数组对应标记即可
     private void placeQueen(int row, int col) {
-        // 在 row 行，col 列 放置皇后
+        // KeyPoint 在 row 行，col 列 放置皇后
+        // 注意：赋值是 col，并不是赋值为 1
         rows[row] = col;
         // 当前位置的列方向已经有皇后了
         cols[col] = 1;
@@ -118,9 +124,9 @@ public class _14_51_NQueens {
         secondary[row + col] = 1;
     }
 
-    // 在指定的位置上删除皇后
+    // KeyPoint 在指定的位置上删除皇后 => 调整 4 个数组对应标记即可
     private void removeQueen(int row, int col) {
-        // 移除 row 行上的皇后
+        // KeyPoint 移除 row 行上的皇后
         // row 表示行，rows[row] = col 表示放置皇后的位置
         rows[row] = 0;
         // 当前位置的列方向没有皇后了
@@ -131,22 +137,23 @@ public class _14_51_NQueens {
         secondary[row + col] = 0;
     }
 
-    // 判断 row 行，col 列这个位置有没有被其他方向的皇后攻击
+    // KeyPoint 判断 row 行，col 列这个位置有没有被其他方向的皇后攻击
     private boolean isNotUnderAttack(int row, int col) {
         // 判断逻辑：
-        // 注意：没有判断同一行，是否有皇后攻击，因为 dfs 中同一时刻 row 行只会有一个皇后，故不存在其他皇后
-        //  1.当前位置的这一列方向没有皇后攻击
-        //  2.当前位置的主对角线方向没有皇后攻击
-        //  3.当前位置的次对角线方向没有皇后攻击
+        // KeyPoint 注意：没有判断同一行，是否有皇后攻击，因为 dfs 中同一时刻 row 行只会有一个皇后，故不存在其他皇后
+        // 1.当前位置的这一列方向没有皇后攻击
+        // 2.当前位置的主对角线方向没有皇后攻击
+        // 3.当前位置的次对角线方向没有皇后攻击
         int res = cols[col] + mains[row - col + n - 1] + secondary[row + col];
         // 如果三个方向都没有攻击的话，则 res = 0，即当前位置不被任何的皇后攻击
         return res == 0;
     }
 
+    // KeyPoint 添加解决方案
     private void addSolution() {
         List<String> solution = new ArrayList<String>();
         // 所有 Q 位置都存储在 rows 数组中，可以从中获取
-        // 即遍历每行，确定 Q 的列数，拼接成 ..Q.. 形式
+        // 即遍历 rows 每行，确定 Q 的列数，拼接成 ..Q.. 形式
         for (int i = 0; i < n; i++) {
             // 每行皇后的列数
             int col = rows[i];

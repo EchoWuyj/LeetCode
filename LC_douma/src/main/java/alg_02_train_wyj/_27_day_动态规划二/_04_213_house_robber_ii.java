@@ -10,15 +10,15 @@ public class _04_213_house_robber_ii {
     public int rob(int[] nums) {
         int n = nums.length;
         if (n == 1) return nums[0];
-
-        int noLast = dp1(nums, 0, n - 2);
-        int noFirst = dp1(nums, 1, n - 1);
-        return Math.max(noFirst, noLast);
+        int first = dp(nums, 0, n - 2);
+        int last = dp(nums, 1, n - 1);
+        return Math.max(first, last);
     }
 
     public int dp(int[] nums, int start, int end) {
-        if (end == start) return nums[start];
+        if (start == end) return nums[start];
         int[] dp = new int[nums.length];
+
         dp[start] = nums[start];
         dp[start + 1] = Math.max(nums[start], nums[start + 1]);
 

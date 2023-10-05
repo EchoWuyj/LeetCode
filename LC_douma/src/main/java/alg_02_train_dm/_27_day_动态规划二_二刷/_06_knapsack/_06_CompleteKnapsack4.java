@@ -20,7 +20,7 @@ public class _06_CompleteKnapsack4 {
         // 3. 状态转移
         for (int i = 0; i < n; i++) {
 
-            // 没有优化 count 前，其中 k 控制 dp[j - k * w[i]]，，保证数组不越界
+            // 没有优化 count 前，其中 k 控制 dp[j - k * w[i]]，保证数组不越界
             // 优化 count 后，需要通过 j 控制，j 从 w[i] 开始，保证 dp[j - w[i]] 数组不越界
             for (int j = w[i]; j <= capacity; j++) {
 

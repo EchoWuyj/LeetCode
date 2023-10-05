@@ -43,11 +43,11 @@ public class _12_Note_Test_PrefixSum_Diff {
     // => nums[0] + nums[1] - nums[0] = nums[1]
     // => 3 - 1 = 2
 
-    // KeyPoint 推论二
+    // KeyPoint 推论二 => 牢记
     // prefixSum[i+k] - prefixSum[i] = num[i+k-1] + num[i+k-2] + ... + num[i]
     // => 记忆：起始位置 i，终止位置 i+k-1
 
-    // KeyPoint 推广
+    // KeyPoint 推广 => 牢记
     // prefixSum[j] - prefixSum[i] = num[j-1] + ... +num[i]
 
     // 解释：

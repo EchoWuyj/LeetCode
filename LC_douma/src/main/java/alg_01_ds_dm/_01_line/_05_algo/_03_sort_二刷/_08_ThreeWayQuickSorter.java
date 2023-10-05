@@ -32,6 +32,7 @@ public class _08_ThreeWayQuickSorter extends Sorter {
         // 3.之后再去对 < pivot 区域 和 > pivot 区域进行分区排序
 
         // KeyPoint 详细过程
+
         // 一、变量定义
         // pivot，less，great，i
 
@@ -56,6 +57,7 @@ public class _08_ThreeWayQuickSorter extends Sorter {
         // ↑         ↑     ↑               ↑
         // low     less   great           high
 
+        //
         if (low >= high) return;
 
         // KeyPoint 1.变量定义
@@ -67,17 +69,16 @@ public class _08_ThreeWayQuickSorter extends Sorter {
 
         // KeyPoint 2.分区逻辑 => 在递归函数中
         // i > great，说明 data 中每个元素都已经遍历过了
+        // i = great，还有一个元素没有处理，故需要处理
         while (i <= great) {
             // 升序排列，若想降序排列，交换 < 和 > 即可
             if (data[i] < pivot) {
-                // 将 data[i] 往前放，故和 less 交换
-                // 从而保证 [low,1ess) < pivot
+                // 将 data[i] 往前放，故和 less 交换，从而保证 [low,1ess) < pivot
                 swap(data, i, less);
                 less++;
                 i++;
             } else if (data[i] > pivot) {
-                // 将 data[i] 往后放，故和 great 交换
-                // 从而保证 (great,high] > pivot
+                // 将 data[i] 往后放，故和 great 交换，从而保证 (great,high] > pivot
                 swap(data, i, great);
                 // 注意：great--，不是 great++
                 great--;
@@ -88,7 +89,7 @@ public class _08_ThreeWayQuickSorter extends Sorter {
             }
         }
 
-        // [less,great] 区间和 pivot 相等，不用排序
+        // 一轮快排之后 [less,great] 区间和 pivot 相等，不用排序
         // 下次子数组排序，直接从 [low,less-1] 和 [great+1,high] 开始即可
         // KeyPoint 调用 sort，而不是 swap，不要混淆
         sort(data, low, less - 1);
@@ -105,7 +106,7 @@ public class _08_ThreeWayQuickSorter extends Sorter {
         int i = low;
 
         while (i <= great) {
-            // 降序排列，将不等号对调即可
+            // KeyPoint 降序排列，将不等号对调即可
             if (data[i] > pivot) {
                 swap(data, i, less);
                 less++;

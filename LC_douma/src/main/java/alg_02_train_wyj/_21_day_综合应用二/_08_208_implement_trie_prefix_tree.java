@@ -9,17 +9,18 @@ import java.util.Map;
  * @Version 1.0
  */
 public class _08_208_implement_trie_prefix_tree {
+
     private class Node {
         Map<Character, Node> map;
-        boolean isEnd;
+        boolean isWord;
 
         public Node() {
             map = new HashMap<>();
-            isEnd = false;
+            isWord = false;
         }
     }
 
-    private Node root;
+    Node root;
 
     public _08_208_implement_trie_prefix_tree() {
         root = new Node();
@@ -33,7 +34,7 @@ public class _08_208_implement_trie_prefix_tree {
             }
             cur = cur.map.get(c);
         }
-        cur.isEnd = true;
+        cur.isWord = true;
     }
 
     public boolean search(String word) {
@@ -44,7 +45,7 @@ public class _08_208_implement_trie_prefix_tree {
             }
             cur = cur.map.get(c);
         }
-        return cur.isEnd;
+        return cur.isWord;
     }
 
     public boolean startsWith(String prefix) {

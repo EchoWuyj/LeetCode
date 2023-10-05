@@ -114,9 +114,10 @@ public class _03_91_decode_ways1 {
         return memo[index];
     }
 
-    // KeyPoint 动态规划(从右往左)
+    // KeyPoint 动态规划(从右往左) => 推荐
     public int numDecodings2(String s) {
         int n = s.length();
+        // KeyPoint 本质：单词拆分
         // dp[i]：表示以第 i 个字符开头的子串能解码的个数
         // 长度大小取决存储的状态个数
         int[] dp = new int[n + 1];

@@ -35,10 +35,10 @@ public class _02_Advanced_BinarySearch2 {
             }
         }
         // 第一个 '大于等于' target 的 nums[left]
-        // 再附加 '等于'判断，
+        // 再附加 '等于'判断
         // => 第一个等于 target 的 nums[left]
 
-        // 最后一个元素，若是等于 target，则一定是第一个等于 target
+        // KeyPoint 最后一个元素，若是等于 target，则一定是第一个等于 target
         if (nums[left] == target) return left;
         // 最后一个元素，若是不于 target，区间没有 target，返回 -1 即可
         return -1;

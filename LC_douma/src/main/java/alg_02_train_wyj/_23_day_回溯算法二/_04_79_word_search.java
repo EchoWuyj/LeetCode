@@ -7,26 +7,31 @@ package alg_02_train_wyj._23_day_回溯算法二;
  */
 public class _04_79_word_search {
 
-    private static int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-    private static boolean[][] visited;
+    private int[][] dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+    private boolean[][] visited;
+    private int rows;
+    private int cols;
+    private char[][] board;
 
-    public static boolean exist(char[][] board, String word) {
-        int m = board.length;
-        int n = board[0].length;
-        visited = new boolean[m][n];
+    public boolean exist(char[][] board, String word) {
+        this.rows = board.length;
+        this.cols = board[0].length;
+        this.board = board;
+        visited = new boolean[rows][cols];
 
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (board[i][j] == word.charAt(0)) {
-                    if (dfs(board, word, m, n, i, j, 0)) return true;
-                }
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (board[i][j] == word.charAt(0))
+                    if (dfs1(word, 0, i, j)) {
+                        return true;
+                    }
             }
         }
         return false;
     }
 
-    public static boolean dfs(char[][] board, String word,
-                              int m, int n, int row, int col, int index) {
+    public boolean dfs(char[][] board, String word,
+                       int m, int n, int row, int col, int index) {
         if (index == word.length() - 1) return true;
         visited[row][col] = true;
 
@@ -44,29 +49,22 @@ public class _04_79_word_search {
         return false;
     }
 
-    // dfs 另外一种方式
-    public static boolean dfs1(char[][] board, String word,
-                               int m, int n, int row, int col, int index) {
-
+    // KeyPoint dfs 另外一种方式
+    public boolean dfs1(String word, int index, int i, int j) {
         if (index == word.length()) return true;
-        if (row < 0 || row >= m || col < 0 || col >= n ||
-                visited[row][col] || board[row][col] != word.charAt(index))
-            return false;
+        if (!inArea(i, j) || visited[i][j] || board[i][j] != word.charAt(index)) return false;
 
-        visited[row][col] = true;
-
+        visited[i][j] = true;
         for (int[] dir : dirs) {
-            int nextRow = row + dir[0];
-            int nextCol = col + dir[1];
-            if (dfs1(board, word, m, n, nextRow, nextCol, index + 1)) return true;
+            int nexti = i + dir[0];
+            int nextj = j + dir[1];
+            if (dfs1(word, index + 1, nexti, nextj)) return true;
         }
-
-        visited[row][col] = false;
+        visited[i][j] = false;
         return false;
     }
 
-    public static void main(String[] args) {
-        char[][] board = {{'a'}};
-        System.out.println(exist(board, "a"));
+    public boolean inArea(int i, int j) {
+        return i >= 0 && i < rows && j >= 0 && j < cols;
     }
 }

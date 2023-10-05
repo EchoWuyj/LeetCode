@@ -52,9 +52,13 @@ public class _11_17_LetterCombinationsOfAPhoneNumber1 {
         List<String> res = new ArrayList<>();
         // String 判空的形式
         // 先判断是否为 null，再判读是否为空 => 逻辑递进判断
+
         if (digits == null || digits.isEmpty()) {
             return res;
         }
+
+        // 字符串判空使用 equals 方法
+        // if (digits.equals("") || digits.length() == 0) return res;
         dfs(digits, 0, new StringBuilder(), res);
         return res;
     }

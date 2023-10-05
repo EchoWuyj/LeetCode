@@ -13,11 +13,11 @@ public class _03_46_Permutations4 {
         List<List<Integer>> res = new ArrayList<>();
         List<Integer> path = new ArrayList<>();
         boolean[] visited = new boolean[nums.length];
-        dfs(nums, visited, path, res);
+        dfs(nums, res, path, visited);
         return res;
     }
 
-    private void dfs(int[] nums, boolean[] visited, List<Integer> path, List<List<Integer>> res) {
+    public void dfs(int[] nums, List<List<Integer>> res, List<Integer> path, boolean[] visited) {
         if (path.size() == nums.length) {
             res.add(new ArrayList<>(path));
             return;
@@ -26,7 +26,7 @@ public class _03_46_Permutations4 {
             if (visited[i]) continue;
             path.add(nums[i]);
             visited[i] = true;
-            dfs(nums, visited, path, res);
+            dfs(nums, res, path, visited);
             path.remove(path.size() - 1);
             visited[i] = false;
         }

@@ -7,27 +7,28 @@ package alg_02_train_wyj._15_day_链表二;
  */
 public class _10_148_sort_list1 {
 
+    // 归并排序
     public ListNode sortList1(ListNode head) {
         if (head == null || head.next == null) return head;
-
-        ListNode slow = head;
-        ListNode fast = head.next;
+        ListNode slow = head, fast = head.next;
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
+
         ListNode rightHead = slow.next;
         slow.next = null;
 
-        ListNode leftList = sortList1(head);
-        ListNode rightList = sortList1(rightHead);
+        ListNode left = sortList1(head);
+        ListNode right = sortList1(rightHead);
 
-        return merge(leftList, rightList);
+        return merge(left, right);
     }
 
     public ListNode merge(ListNode l1, ListNode l2) {
-        if (l1 == null) return l2;
-        if (l2 == null) return l1;
+        if (l1 == null) return null;
+        if (l2 == null) return null;
+
         ListNode dummy = new ListNode(-1);
         ListNode cur = dummy;
         while (l1 != null && l2 != null) {
@@ -38,7 +39,7 @@ public class _10_148_sort_list1 {
                 cur.next = l2;
                 l2 = l2.next;
             }
-            cur= cur.next;
+            cur = cur.next;
         }
         if (l1 != null) cur.next = l1;
         if (l2 != null) cur.next = l2;

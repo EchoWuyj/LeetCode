@@ -24,17 +24,23 @@ public class _05_283_move_zeroes {
     }
 
     public void moveZeroes1(int[] nums) {
-        int n = nums.length;
-        int fast = 0;
         int slow = 0;
+        int fast = 0;
+        int n = nums.length;
         while (fast < n) {
             if (nums[fast] != 0) {
-                nums[slow] = nums[fast];
+                if (nums[slow] != nums[fast]) {
+                    nums[slow] = nums[fast];
+                }
                 slow++;
+                fast++;
+            } else {
+                fast++;
             }
-            fast++;
         }
-
-        while (slow < n) nums[slow++] = 0;
+        while (slow < n) {
+            nums[slow] = 0;
+            slow++;
+        }
     }
 }

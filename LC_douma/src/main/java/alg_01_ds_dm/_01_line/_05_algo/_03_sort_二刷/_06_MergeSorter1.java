@@ -20,7 +20,7 @@ public class _06_MergeSorter1 {
     // 2.排序
     // 3.合并
 
-    // 时间复杂度 O(nlogn)   => 详细证明见 PPT
+    // 时间复杂度 O(nlogn) => 详细证明见 PPT
     public static void sort(int[] data) {
         if (data == null || data.length <= 1) return;
         int n = data.length;
@@ -104,16 +104,19 @@ public class _06_MergeSorter1 {
         }
     }
 
-    // KeyPoint 合并两个有序的数组 => 实现二 => 经常使用，需要掌握
+    // KeyPoint 合并两个有序的数组
+    //  => 实现二 => 经常使用，需要掌握
+    //  => merge 数组范围都是 [left,right]
     private static void merge2(int[] data, int left, int mid, int right, int[] tmp) {
 
         // KeyPoint 思路：
         // 核心：data 有序数组
         // 1.先将 data 数组中元素，拷贝到 tmp 中 => 无脑拷贝
         // 2.再针对 tmp，将其归并到 data 中      => 归并操作
-        //                                      => 归并算法题目，常在归并操作中有骚操作
+        //                                     => 归并算法题目，常在归并操作中有骚操作
 
         // 1.将 data 数组中元素，拷贝到 tmp 中
+        // 范围 [left,right]，并不是全部数组长度
         for (int i = left; i <= right; i++) {
             tmp[i] = data[i];
         }
@@ -124,6 +127,7 @@ public class _06_MergeSorter1 {
         int j = mid + 1;
 
         // index 是 data 数组中遍历指针
+        // 范围 [left,right]，并不是全部数组长度
         for (int index = left; index <= right; index++) {
 
             // KeyPoint 编程技巧：

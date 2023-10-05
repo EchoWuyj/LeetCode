@@ -9,14 +9,12 @@ public class _06_53_MaxSubArray6 {
     public int maxSubArray(int[] nums) {
         int n = nums.length;
         int[] dp = new int[n];
-
         dp[0] = nums[0];
-        int maxSum = dp[0];
-
+        int max = dp[0];
         for (int i = 1; i < n; i++) {
             dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]);
-            maxSum = Math.max(dp[i], maxSum);
+            max = Math.max(max, dp[i]);
         }
-        return maxSum;
+        return max;
     }
 }

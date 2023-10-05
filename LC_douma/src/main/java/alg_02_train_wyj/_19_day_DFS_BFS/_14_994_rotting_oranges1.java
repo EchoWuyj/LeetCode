@@ -9,21 +9,18 @@ import java.util.*;
  */
 public class _14_994_rotting_oranges1 {
 
-    private int rows;
-    private int cols;
-
     public int orangesRotting(int[][] grid) {
         int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-        rows = grid.length;
-        cols = grid[0].length;
+        int m = grid.length;
+        int n = grid[0].length;
 
-        Map<String, Integer> map = new HashMap<>();
         Queue<int[]> queue = new ArrayDeque<>();
+        Map<String, Integer> map = new HashMap<>();
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 if (grid[i][j] == 2) {
-                    int[] arr = {i, j};
+                    int[] arr = new int[]{i, j};
                     queue.offer(arr);
                     map.put(Arrays.toString(arr), 0);
                 }
@@ -36,28 +33,23 @@ public class _14_994_rotting_oranges1 {
             for (int[] dir : dirs) {
                 int nexti = cur[0] + dir[0];
                 int nextj = cur[1] + dir[1];
-                if (inArea(nexti, nextj) && grid[nexti][nextj] == 1) {
+                if (nexti >= 0 && nexti < m && nextj >= 0 && nextj < n
+                        && grid[nexti][nextj] == 1) {
                     grid[nexti][nextj] = 2;
-                    int[] newArr = {nexti, nextj};
-                    queue.offer(newArr);
+                    int[] arr = new int[]{nexti, nextj};
+                    queue.offer(arr);
                     int level = map.get(Arrays.toString(cur)) + 1;
-                    map.put(Arrays.toString(newArr), level);
-                    res = level;
+                    map.put(Arrays.toString(arr), level);
+                    res = Math.max(res, level);
                 }
             }
         }
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if (grid[i][j] == 1) {
-                    return -1;
-                }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 1) return -1;
             }
         }
         return res;
-    }
-
-    public boolean inArea(int i, int j) {
-        return i >= 0 && i < rows && j >= 0 && j < cols;
     }
 }

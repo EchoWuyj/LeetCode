@@ -23,8 +23,7 @@ public class _08_122_best_time_to_buy_and_sell_stock_ii {
         dp[i][k][0] = max{dp[i-1][k][0],dp[i-1][k][1] + prices[i]}
         dp[i][k][1] = max{ dp[i-1][k][1],dp[i-1][k-1][0] - prices[i]}
 
-        集合本题条件
-        当 k 无限次数，则 k-1 无限次数
+        结合本题条件：当 k 无限次数，则 k-1 无限次数
         => 因为状态转移方程中，k 和 k-1 都是无限次数，故和 k 关系不大，统一将其省略
 
         dp[i][0][0] = 0
@@ -41,6 +40,7 @@ public class _08_122_best_time_to_buy_and_sell_stock_ii {
         dp[0][0] = 0;
         dp[0][1] = -prices[0];
 
+        // KeyPoint 注意 i 从 1 开始
         for (int i = 1; i < n; i++) {
             dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
             dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i]);

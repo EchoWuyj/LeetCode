@@ -9,7 +9,6 @@ public class _07_121_best_time_to_buy_and_sell_stock {
     public int maxProfit1(int[] prices) {
         int n = prices.length;
         int[][] dp = new int[n][2];
-
         dp[0][0] = 0;
         dp[0][1] = -prices[0];
 

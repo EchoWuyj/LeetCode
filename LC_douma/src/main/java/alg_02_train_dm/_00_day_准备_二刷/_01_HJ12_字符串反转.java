@@ -12,6 +12,7 @@ public class _01_HJ12_字符串反转 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         // 从控制台输入
+        // 从控制台读取一行，以换行符号结尾
         String input = scanner.nextLine();
         String res = "";
         int n = input.length();

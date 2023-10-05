@@ -11,6 +11,9 @@ import java.util.Comparator;
  */
 public class _13_56_MergeSegment {
     public int[][] merge(int[][] intervals) {
+        ArrayList<int[]> res = new ArrayList<>();
+        if (intervals == null || intervals.length == 0) return res.toArray(new int[res.size()][]);
+
         Arrays.sort(intervals, new Comparator<int[]>() {
             @Override
             public int compare(int[] o1, int[] o2) {
@@ -18,23 +21,22 @@ public class _13_56_MergeSegment {
             }
         });
 
-        ArrayList<int[]> list = new ArrayList<>();
         for (int i = 0; i < intervals.length; i++) {
             int[] cur = intervals[i];
-            if (list.isEmpty()) {
-                list.add(cur);
+            if (res.isEmpty()) {
+                res.add(cur);
             } else {
-                int[] last = list.get(list.size() - 1);
+                int[] last = res.get(res.size() - 1);
                 int lastRight = last[1];
                 int curLeft = cur[0];
                 if (lastRight < curLeft) {
-                    list.add(cur);
+                    res.add(cur);
                 } else {
                     int curRight = cur[1];
-                    last[1] = Math.max(lastRight, curRight);
+                    last[1] = Math.max(curRight, lastRight);
                 }
             }
         }
-        return list.toArray(new int[list.size()][]);
+        return res.toArray(new int[res.size()][]);
     }
 }

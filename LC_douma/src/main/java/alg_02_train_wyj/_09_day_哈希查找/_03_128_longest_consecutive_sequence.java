@@ -13,11 +13,12 @@ public class _03_128_longest_consecutive_sequence {
     public int longestConsecutive1(int[] nums) {
         if (nums.length < 2) return nums.length;
         Arrays.sort(nums);
+
         int res = 1;
         int count = 1;
-
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] - nums[i - 1] == 0) continue;
+        int n = nums.length;
+        for (int i = 1; i < n; i++) {
+            if (nums[i] == nums[i - 1]) continue;
             if (nums[i] - nums[i - 1] == 1) {
                 count++;
             } else {

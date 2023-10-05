@@ -14,20 +14,21 @@ public class _06_39_CombinationSum {
     List<Integer> combinationSum = new ArrayList<>();
 
     public List<List<Integer>> combinationSum(int[] nums, int target) {
-        dfs(nums, 0, target);
+        if (nums == null || nums.length == 0) return res;
+        dfs(nums, target, 0);
         return res;
     }
 
-    public void dfs(int[] nums, int start, int target) {
+    public void dfs(int[] nums, int target, int index) {
         if (target < 0) return;
         if (target == 0) {
             res.add(new ArrayList<>(combinationSum));
             return;
         }
 
-        for (int i = start; i < nums.length; i++) {
+        for (int i = index; i < nums.length; i++) {
             combinationSum.add(nums[i]);
-            dfs(nums, i, target - nums[i]);
+            dfs(nums, target - nums[i], i);
             combinationSum.remove(combinationSum.size() - 1);
         }
     }

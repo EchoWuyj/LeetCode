@@ -18,22 +18,25 @@ public class _10_494_target_sum2 {
         // 转化 0-1 背包问题
         // 假设数组中所有数字的总和为 sum (不考虑正负)
         // 若前面设置为负数的数字的总和是 neg(不含负号)，则设置为正数的数字的总和为 sum - neg
-        // 根据 (sum - neg) - neg = target => neg = (sum - target) / 2
+        // 根据：正数 - 负数 = target
+        //      => (sum - neg) - neg = target
+        //      => neg = (sum - target) / 2
 
-        // => 在数组 nums 列表中，不可重复的选择数字组合(每个数字选择一次 => 每个数字不可重复使用)，
+        // => 在数组 nums 列表中，不可重复地选择数字组合(每个数字选择一次 => 每个数字不可重复使用)
         //     使得组合中所有数字之和为 neg (背包容量)，求有多少组合数(目标)？
         // => 0-1 背包问题
 
         int sum = 0;
         for (int num : nums) sum += num;
 
+        // 作差
         int diff = sum - target;
 
         // 1.若 diff < 0 => sum < target，则不存在 neg
         // 2.若 diff 为奇数，则在数学运算中 diff / 2 = 小数，在给定的整数数组中无法实现，则不存在 neg
         if (diff < 0 || diff % 2 == 1) return 0;
 
-        // neg 不考虑负号，neg 单纯数值和
+        // neg 不考虑负号，neg 单纯数值和 => 相当于是容量大小
         int neg = diff / 2;
 
         // 0-1 背包问题
@@ -48,6 +51,7 @@ public class _10_494_target_sum2 {
 
         int[] dp = new int[neg + 1];
         // neg = 0，组合数为 1，即什么都不选择
+        // KeyPoint 必须给 dp 赋初值，作为迭代基础
         dp[0] = 1;
         for (int i = 0; i < nums.length; i++) {
             // 0-1 背包问题 => 逆序遍历

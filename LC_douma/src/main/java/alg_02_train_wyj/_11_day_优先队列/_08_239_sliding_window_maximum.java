@@ -24,23 +24,21 @@ public class _08_239_sliding_window_maximum {
     }
 
     public int[] maxSlidingWindow2(int[] nums, int k) {
-        PriorityQueue<int[]> maxHeap =
-                new PriorityQueue<>((a, b) -> a[0] != b[0] ? (b[0] - a[0]) : ((b[1] - a[1])));
-
+        PriorityQueue<int[]> maxHeap
+                = new PriorityQueue<>((a, b) -> a[0] != b[0] ? b[0] - a[0] : b[1] - b[0]);
         for (int i = 0; i < k; i++) {
             maxHeap.add(new int[]{nums[i], i});
         }
-
         int n = nums.length;
         int[] res = new int[n - k + 1];
         res[0] = maxHeap.peek()[0];
-        // System.out.println(maxHeap.peek()[0]);
 
         for (int i = k; i < n; i++) {
             maxHeap.add(new int[]{nums[i], i});
             while (maxHeap.peek()[1] <= i - k) {
                 maxHeap.remove();
             }
+
             res[i - k + 1] = maxHeap.peek()[0];
         }
         return res;

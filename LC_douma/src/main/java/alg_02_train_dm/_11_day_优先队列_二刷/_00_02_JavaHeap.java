@@ -16,7 +16,7 @@ public class _00_02_JavaHeap {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
 
         // PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> a - b);
-        // 小顶堆 => 记忆：(a,b) 顺序 a-b
+        // 小顶堆 => 记忆：(a,b) 顺序 a -> b
 
         // 大顶堆
         PriorityQueue<Integer> pq2 = new PriorityQueue<>((a, b) -> b - a);

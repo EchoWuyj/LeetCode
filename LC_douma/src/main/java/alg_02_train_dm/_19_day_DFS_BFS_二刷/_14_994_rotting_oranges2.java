@@ -67,7 +67,6 @@ public class _14_994_rotting_oranges2 {
                 if (grid[row][col] == 1) return -1;
             }
         }
-
         return res;
     }
 }

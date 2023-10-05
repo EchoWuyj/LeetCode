@@ -46,9 +46,9 @@ public class _04_213_house_robber_ii {
     public int rob(int[] nums) {
         int n = nums.length;
         if (n == 1) return nums[0];
-        int notRobLastHouse = rob(nums, 0, n - 2);
-        int notRobFirstHouse = rob(nums, 1, n - 1);
-        return Math.max(notRobFirstHouse, notRobLastHouse);
+        int first = rob(nums, 0, n - 2);
+        int last = rob(nums, 1, n - 1);
+        return Math.max(last, first);
     }
 
     // KeyPoint 方法一 状态没压缩的代码
@@ -62,10 +62,14 @@ public class _04_213_house_robber_ii {
 
         // dp[i]：表示偷盗 [0, i] 区间房子得到的最大金额
         int[] dp = new int[nums.length];
+
+        // KeyPoint 注意
         // 不可以替换成：int[] dp = new int[end - start + 1];
         // 可能数组越界，始终都是按照 nums 长度设置 dp 数组大小
         // 只是选择 start 和 end 区间不同
+        // => 本质 first 和 last 两都是调用 dp 方法的，保证 dp 数据长度得要足够长
 
+        // 类似于 dp[0] 和 dp[1]
         dp[start] = nums[start];
         dp[start + 1] = Math.max(nums[start], nums[start + 1]);
 
@@ -73,6 +77,7 @@ public class _04_213_house_robber_ii {
         for (int i = start + 2; i <= end; i++) {
             dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
         }
+        // 返回 end 值
         return dp[end];
     }
 

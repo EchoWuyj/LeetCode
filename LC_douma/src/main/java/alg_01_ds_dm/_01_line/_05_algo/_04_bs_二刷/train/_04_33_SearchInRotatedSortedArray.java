@@ -51,7 +51,8 @@ public class _04_33_SearchInRotatedSortedArray {
 
         旋转数组特点
          1.前半部分有序，后半部分有序
-         2.前半部分所有有序元素的值都 大于 后半部分所有有序元素的值
+         2.前半部分所有有序元素的值 都大于 后半部分所有有序元素的值
+
            => 针对部分有序，旋转数组查找目标元素，也可以使用二分查找
            => 二分查找，分成两部分区间 [left,mid] 或 [mid,right]，其中一个区间必然有序的
               value  4 5 6 7 0 1 2
@@ -89,14 +90,16 @@ public class _04_33_SearchInRotatedSortedArray {
             if (target == nums[mid]) return mid;
 
             // 使用 nums[left] 和 nums[mid] 进行比较
-            // 1.为了先确定 左边 是有序区间，还是 右边 是有序区间
+            // 1.为了先确定'左边'是有序区间，还是'右边'是有序区间
             // 2.之后再去确定 target 是在有序区间内，还是在有序区间外
 
-            // 左边有序
+            // 左边有序 =>
+            // nums[left] 和 nums[mid] 可以取等，一个元素也是算作有序的
             if (nums[left] <= nums[mid]) {
                 // 判断 target 是否在左边有序区间内
                 // target < nums[mid] 不用取等，上面一开始的 if 已经判断过了
                 if (target >= nums[left] && target < nums[mid]) {
+                    // 在左边有序区间内 => 则不在右边区间则 mid -1
                     right = mid - 1;
                 } else {
                     left = mid + 1;

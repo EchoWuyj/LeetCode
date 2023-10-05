@@ -10,16 +10,16 @@ import java.util.*;
 public class _03_347_top_k_frequent_elements {
 
     public int[] topKFrequent1(int[] nums, int k) {
-        Map<Integer, Integer> count = new HashMap<>();
+        Map<Integer, Integer> map = new HashMap<>();
         for (int num : nums) {
-            count.put(num, count.getOrDefault(num, 0) + 1);
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
 
-        PriorityQueue<Integer> minHeap =
-                new PriorityQueue<>(k + 1, (a, b) -> count.get(a) - count.get(b));
+        PriorityQueue<Integer> minHeap
+                = new PriorityQueue<>((a, b) -> map.get(a) - map.get(b));
 
-        for (int num : count.keySet()) {
-            minHeap.add(num);
+        for (int key : map.keySet()) {
+            minHeap.add(key);
             if (minHeap.size() > k) minHeap.remove();
         }
 

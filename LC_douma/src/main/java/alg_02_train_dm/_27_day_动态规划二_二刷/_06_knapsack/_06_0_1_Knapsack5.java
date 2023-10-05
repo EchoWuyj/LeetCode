@@ -14,6 +14,7 @@ public class _06_0_1_Knapsack5 {
         int n = w.length;
         // 1. 状态定义
         // dp[c]：将物品放入容量为 c 的背包中产生的最大价值
+        // 容量从 0 开始一直到 capacity，故 dp 数组大小为 capacity+1
         int[] dp = new int[capacity + 1];
 
         // 2. 状态初始化
@@ -24,10 +25,14 @@ public class _06_0_1_Knapsack5 {
 
         // 3. 状态转移
         // 由于没有了 dp[i-1]，故将状态初始化过程并入状态转移中，for 循环 i 从 0 开始
+        // KeyPoint i 遍历每个物品
         for (int i = 0; i < n; i++) {
-            // 一定是从右往左遍历
+            // 一定是从右往左遍历 => 从容量大的开始选择
             // 合并 if 条件： if (j >= w[i]) 到 for 循环中，简化代码
             for (int j = capacity; j >= w[i]; j--) {
+                // dp[j] 容量为 j 的最大价值
+                // 不选 => dp[j]
+                // 选择 => dp[j - w[i]]
                 dp[j] = Math.max(dp[j], v[i] + dp[j - w[i]]);
 
                 // 补充：合并状态初始化过程

@@ -29,8 +29,11 @@ public class _11_416_partition_equal_subset_sum {
 
     // 将该问题转变为 0-1 背包问题
     // 先计算得到数组的总和为 sum，然后将 sum / 2 得到一半，则为子集和，记为 target (背包容量)
-    // 关键：在数组中，能否找到一个子集和为 target ?
+
+    // KeyPoint 关键
+    // 在数组中，能否找到一个子集和为 target ?
     // 因为：子集 1 + 子集 2 = target = sum / 2，子集1 = target，则：子集2 = sum - target(sum / 2) = target
+
     // => 在数组 nums 中，不可重复的选择数字组合，是否存在和等于 target 的组合呢？
     // => 本题是判断是否存在 (不是最大值，最小值，组合数)，故状态数组中存储 boolean
     // => 状态定义尽量保持和题目目标一致，避免出现未知的错误
@@ -46,6 +49,7 @@ public class _11_416_partition_equal_subset_sum {
         // dp[c]：表示从 nums 中是否可以找到总和等于 c 的元素组合
         boolean[] dp = new boolean[target + 1];
 
+        // 背包容量为 0 时，状态为 true
         dp[0] = true;
 
         for (int i = 0; i < nums.length; i++) {
@@ -54,7 +58,6 @@ public class _11_416_partition_equal_subset_sum {
                 dp[j] = dp[j] || dp[j - nums[i]];
             }
         }
-
         return dp[target];
     }
 

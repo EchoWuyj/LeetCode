@@ -49,15 +49,14 @@ public class _01_155_MinStack {
 
         public void push(int val) {
             dataStack.push(val);
-
             if (minStack.isEmpty() || val <= minStack.peek()) {
                 minStack.push(val);
             }
         }
 
         public void pop() {
-            int pop = dataStack.pop();
-            if (pop == minStack.peek()) {
+            int top = dataStack.pop();
+            if (top == minStack.peek()) {
                 minStack.pop();
             }
         }

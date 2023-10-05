@@ -14,8 +14,11 @@ public class _09_49_group_anagrams {
             char[] chars = str.toCharArray();
             Arrays.sort(chars);
             String key = String.valueOf(chars);
-            if (!map.containsKey(key)) map.put(key, new ArrayList<>());
-            map.get(key).add(str);
+            if (!map.containsKey(key)) {
+                map.put(key, new ArrayList<>());
+            }
+            List<String> list = map.get(key);
+            list.add(str);
         }
         return new ArrayList<>(map.values());
     }

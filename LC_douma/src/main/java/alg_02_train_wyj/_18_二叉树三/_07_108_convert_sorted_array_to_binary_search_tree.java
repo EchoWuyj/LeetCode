@@ -7,21 +7,21 @@ package alg_02_train_wyj._18_二叉树三;
  */
 public class _07_108_convert_sorted_array_to_binary_search_tree {
     public TreeNode sortedArrayToBST(int[] nums) {
-        if (nums == null) return null;
-        int n = nums.length - 1;
-        return buildBST(nums, 0, n);
+        if (nums == null || nums.length == 0) return null;
+        return build(nums, 0, nums.length - 1);
     }
 
-    private TreeNode buildBST(int[] nums, int left, int right) {
+    public TreeNode build(int[] nums, int left, int right) {
         if (left > right) return null;
         int mid = left + (right - left) / 2;
-        TreeNode root = new TreeNode(nums[mid]);
 
-        TreeNode leftNode = buildBST(nums, left, mid - 1);
-        TreeNode rightNode = buildBST(nums, mid + 1, right);
+        TreeNode node = new TreeNode(nums[mid]);
 
-        root.left = leftNode;
-        root.right = rightNode;
-        return root;
+        TreeNode leftNode = build(nums, left, mid - 1);
+        TreeNode rightNode = build(nums, mid + 1, right);
+
+        node.left = leftNode;
+        node.right = rightNode;
+        return node;
     }
 }

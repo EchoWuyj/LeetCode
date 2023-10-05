@@ -108,7 +108,7 @@ public class _01_001_TwoSum {
     }
 
     public int[] twoSum4(int[] nums, int target) {
-        if (nums == null || nums.length == 0) return nums;
+        if (nums == null || nums.length == 0) return null;
         int n = nums.length;
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < n; i++) {

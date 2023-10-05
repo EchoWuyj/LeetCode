@@ -12,14 +12,15 @@ public class _09_42_trapping_rain_water3 {
         int leftMax = 0, rightMax = 0;
         int left = 0, right = n - 1;
         int res = 0;
-        while (left < right) {
+        while (left <= right) {
             leftMax = Math.max(leftMax, height[left]);
             rightMax = Math.max(rightMax, height[right]);
+
             if (height[left] < height[right]) {
-                res += (leftMax - height[left]);
+                res += leftMax - height[left];
                 left++;
             } else {
-                res += (rightMax - height[right]);
+                res += rightMax - height[right];
                 right--;
             }
         }

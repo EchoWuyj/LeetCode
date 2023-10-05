@@ -27,6 +27,7 @@ public class _11_41_first_missing_positive {
     public int firstMissingPositive2(int[] nums) {
         Set<Integer> set = new HashSet<>();
         for (int num : nums) set.add(num);
+
         int n = nums.length;
         for (int i = 1; i <= n; i++) {
             if (!set.contains(i)) return i;

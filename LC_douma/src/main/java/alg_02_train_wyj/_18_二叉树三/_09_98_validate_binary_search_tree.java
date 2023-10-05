@@ -1,7 +1,6 @@
 package alg_02_train_wyj._18_二叉树三;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Author Wuyj
@@ -10,24 +9,25 @@ import java.util.List;
  */
 public class _09_98_validate_binary_search_tree {
     public boolean isValidBST1(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
+        if (root == null) return true;
+        ArrayList<Integer> res = new ArrayList<>();
+        int n = res.size();
         dfs(root, res);
-        int size = res.size();
-        for (int i = 1; i < size; i++) {
+        for (int i = 1; i < n; i++) {
             if (res.get(i) <= res.get(i - 1)) return false;
         }
         return true;
     }
 
-    private void dfs(TreeNode node, List<Integer> res) {
+    public void dfs(TreeNode node, ArrayList<Integer> res) {
         if (node == null) return;
         dfs(node.left, res);
         res.add(node.val);
         dfs(node.right, res);
     }
 
-    private boolean isBST = true;
     private TreeNode prev = null;
+    private boolean isBST = true;
 
     public boolean isValidBST2(TreeNode root) {
         if (root == null) return true;
@@ -35,10 +35,10 @@ public class _09_98_validate_binary_search_tree {
         return isBST;
     }
 
-    private void dfs1(TreeNode node) {
+    public void dfs1(TreeNode node) {
         if (node == null) return;
         dfs1(node.left);
-        if (prev != null && node.val <= prev.val) {
+        if (prev != null && prev.val >= node.val) {
             isBST = false;
             return;
         }

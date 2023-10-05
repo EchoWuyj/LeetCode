@@ -84,8 +84,10 @@ public class _07_437_path_sum_iii1 {
             list.add(num);
             if (num == target) cnt++;
         }
-        list.add((long) node.val);
+        // KeyPoint 当前节点判断是否为 target，从而决定是否 cnt++
         if (node.val == target) cnt++;
+        // 将 node 节点加入
+        list.add((long) node.val);
 
         int leftCnt = dfs(node.left, list, target);
         int rightCnt = dfs(node.right, list, target);

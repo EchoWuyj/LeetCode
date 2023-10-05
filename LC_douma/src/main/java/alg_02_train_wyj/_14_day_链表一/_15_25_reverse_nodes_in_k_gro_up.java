@@ -10,18 +10,21 @@ public class _15_25_reverse_nodes_in_k_gro_up {
         if (head == null || head.next == null || k == 1) return head;
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
+
         ListNode pre = dummy;
-        ListNode first = head, last = first, next = first;
+        ListNode first = head;
+        ListNode last = first;
+        ListNode next = first;
+
         while (next != null) {
             for (int i = 0; i < k - 1; i++) {
-                if (last == null) return dummy.next;
                 last = last.next;
+                if (last == null) return dummy.next;
             }
             if (last != null) next = last.next;
-            else return dummy.next;
-
             pre.next = null;
             last.next = null;
+
             reverse(first);
 
             pre.next = last;
@@ -34,10 +37,11 @@ public class _15_25_reverse_nodes_in_k_gro_up {
         return dummy.next;
     }
 
-    public static ListNode reverse(ListNode head) {
+    private static ListNode reverse(ListNode node) {
         ListNode pre = null;
-        ListNode cur = head;
+        ListNode cur = node;
         ListNode next;
+
         while (cur != null) {
             next = cur.next;
             cur.next = pre;

@@ -43,15 +43,17 @@ public class _02_63_unique_paths_ii {
         // 空位置 => 0
 
         // 2. 状态初始化
+
         // 2.1. 左上角元素
-        // 左上角有可能是障碍物，故是需要单独判断的，
-        // dp 数组，默认初始化是 0，对非 0 情况进行特判
+        // 左上角有可能是障碍物，故是需要单独判断的，dp 数组，默认初始化是 0，对非 0 情况进行特判
         // => 若 (0,0) 不为障碍物，则 dp[0][0] = 1
         if (obstacleGrid[0][0] == 0) {
             dp[0][0] = 1;
         }
 
         // 2.2：初始化第一列，所有点到终点的路径数
+        // m 表示行数
+        // 固定列 => [][0]
         for (int i = 1; i < m; i++) {
             if (obstacleGrid[i][0] == 0 && dp[i - 1][0] == 1) {
                 // 不设置 dp[i][0] = 1，使用默认的 dp[i][0] = 0，表示没有路径能到达
@@ -60,13 +62,16 @@ public class _02_63_unique_paths_ii {
         }
 
         // 2.3：初始化第一行，所有点到终点的路径数
-        for (int i = 1; i < n; i++) {
-            if (obstacleGrid[0][i] == 0 && dp[0][i - 1] == 1) {
-                dp[0][i] = 1;
+        // n 表示列数
+        // 固定行 => [0][]
+        for (int j = 1; j < n; j++) {
+            if (obstacleGrid[0][j] == 0 && dp[0][j - 1] == 1) {
+                dp[0][j] = 1;
             }
         }
 
         // 3. 状态转移方程
+        // KeyPoint 中间位置处理，第一行 和 第一列 已经单独处理
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
                 // 障碍物，将 dp[i][j] 设置 0
@@ -77,6 +82,7 @@ public class _02_63_unique_paths_ii {
                     // KeyPoint continue 必须得加，否则报错
                     continue;
                 }
+                // obstacleGrid[i][j] == 0 情况处理
                 // 即使 dp[i][j - 1] 或者 dp[i - 1][j] = 0，也是可以两者相加为 dp[i][j]
                 dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
             }

@@ -9,6 +9,7 @@ import java.util.LinkedList;
  * @Version 1.0
  */
 public class LeetCode_297_TreeSerialization {
+
     //方法一:DFS,先序遍历
     //序列化方法
     public String serialize(TreeNode root) {

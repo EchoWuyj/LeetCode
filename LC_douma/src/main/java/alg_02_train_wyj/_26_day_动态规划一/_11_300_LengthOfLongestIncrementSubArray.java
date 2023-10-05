@@ -13,14 +13,15 @@ public class _11_300_LengthOfLongestIncrementSubArray {
         int n = nums.length;
         int[] dp = new int[n];
         Arrays.fill(dp, 1);
-        int maxLen = 1;
+
+        int max = 1;
         for (int i = 1; i < n; i++) {
             if (nums[i] > nums[i - 1]) {
                 dp[i] = dp[i - 1] + 1;
-                maxLen = Math.max(dp[i], maxLen);
+                max = Math.max(max, dp[i]);
             }
         }
-        return maxLen;
+        return max;
     }
 
     public static void main(String[] args) {

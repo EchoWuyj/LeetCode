@@ -11,6 +11,7 @@ public class _14_24_swap_nodes_in_pairs {
         if (head == null || head.next == null) return head;
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
+
         ListNode pre = dummy;
         ListNode first = head;
         ListNode second = head.next;
@@ -20,6 +21,7 @@ public class _14_24_swap_nodes_in_pairs {
             first.next = next;
             second.next = pre.next;
             pre.next = second;
+
             pre = first;
             first = next;
             if (first == null) break;

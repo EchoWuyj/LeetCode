@@ -8,12 +8,14 @@ package alg_02_train_wyj._19_day_DFS_BFS;
 public class _09_200_number_of_islands {
 
     private int[][] dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+    private char[][] grid;
+    private boolean[][] visited;
     private int rows;
     private int cols;
-    private boolean[][] visited;
-    private int res = 0;
+    private int res;
 
     public int numIslands(char[][] grid) {
+        this.grid = grid;
         rows = grid.length;
         cols = grid[0].length;
         visited = new boolean[rows][cols];
@@ -21,7 +23,7 @@ public class _09_200_number_of_islands {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 if (grid[i][j] == '1' && !visited[i][j]) {
-                    dfs(grid, i, j);
+                    dfs(i, j);
                     res++;
                 }
             }
@@ -29,16 +31,15 @@ public class _09_200_number_of_islands {
         return res;
     }
 
-    public void dfs(char[][] grid, int i, int j) {
-        if (!inArea(i, j) || visited[i][j] || grid[i][j] == '0') {
+    public void dfs(int i, int j) {
+        if (!inArea(i, j) || grid[i][j] == '0' || visited[i][j]) {
             return;
         }
         visited[i][j] = true;
-
         for (int[] dir : dirs) {
             int nexti = i + dir[0];
             int nextj = j + dir[1];
-            dfs(grid, nexti, nextj);
+            dfs(nexti, nextj);
         }
     }
 

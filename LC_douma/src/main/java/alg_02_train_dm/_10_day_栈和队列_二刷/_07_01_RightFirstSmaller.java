@@ -70,6 +70,7 @@ public class _07_01_RightFirstSmaller {
             // => 只有 num < nums[栈顶]，执行 while 循环
             // => 说明：已经存入栈中，元素一个比一个大，故栈是递增的
             while (!stack.isEmpty() && num < nums[stack.peek()]) {
+                // KeyPoint 给 stack 中 索引赋值
                 res[stack.peek()] = i;
                 // 弹栈
                 stack.pop();
@@ -89,13 +90,12 @@ public class _07_01_RightFirstSmaller {
 
         // KeyPoint 单调递增栈
         // 关于递增，递减判断
-        // => 栈中存储索引，但是实际比较的是：索引对应值的 nums[index] 大小变化关系
-        //    从而确定递增，还是递减
+        // => 栈中存储索引，但是实际比较的是：索引对应值的 nums[index] 大小变化关系，从而确定递增，还是递减
 
         // stack 存储索引 0 1 2 3
         // nums
-        // index   0 1 2 3
-        // value   1 2 3 8 => 单调递增栈
+        // index  0 1 2 3
+        // value  1 2 3 8 => 单调递增栈
     }
 
     public static void main(String[] args) {

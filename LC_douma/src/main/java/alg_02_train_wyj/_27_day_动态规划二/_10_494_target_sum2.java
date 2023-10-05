@@ -9,16 +9,14 @@ public class _10_494_target_sum2 {
     public int findTargetSumWays2(int[] nums, int target) {
         int sum = 0;
         for (int num : nums) sum += num;
-
         int diff = sum - target;
         if (diff < 0 || diff % 2 == 1) return 0;
-
         int neg = diff / 2;
 
         int[] dp = new int[neg + 1];
         dp[0] = 1;
-
-        for (int i = 0; i < nums.length; i++) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
             for (int j = neg; j >= nums[i]; j--) {
                 dp[j] = dp[j] + dp[j - nums[i]];
             }

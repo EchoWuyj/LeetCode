@@ -1,8 +1,7 @@
 package alg_02_train_wyj._10_day_栈和队列;
 
-import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Deque;
+import java.util.Stack;
 
 /**
  * @Author Wuyj
@@ -10,20 +9,24 @@ import java.util.Deque;
  * @Version 1.0
  */
 public class _07_03_LeftLastSmaller {
+
+    // 找出数组中左边离我最近比我小的元素
     public static int[] findLeftLastSmall(int[] nums) {
         int n = nums.length;
         int[] res = new int[n];
-        Deque<Integer> stack = new ArrayDeque<>();
+        Stack<Integer> stack = new Stack<>();
         for (int i = n - 1; i >= 0; i--) {
             int num = nums[i];
             while (!stack.isEmpty() && num < nums[stack.peek()]) {
-                res[stack.pop()] = i;
+                res[stack.peek()] = i;
+                stack.pop();
             }
             stack.push(i);
         }
 
         while (!stack.isEmpty()) {
-            res[stack.pop()] = -1;
+            res[stack.peek()] = -1;
+            stack.pop();
         }
         return res;
     }

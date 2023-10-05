@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class _06_295_find_median_from_data_stream1 {
      /*
-        295 ：数据流的中位数
+        295：数据流的中位数
         中位数是 有序列表 中间的数。如果列表长度是偶数，中位数则是中间两个数的平均值。
 
         例如

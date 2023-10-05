@@ -31,12 +31,13 @@ public class _10_560_subarray_sum_equals_k2 {
         int n = nums.length;
         int[] prefixSum = new int[n + 1];
         prefixSum[0] = 0;
-
         for (int i = 1; i < n + 1; i++) {
             prefixSum[i] = prefixSum[i - 1] + nums[i - 1];
         }
+
         HashMap<Integer, Integer> map = new HashMap<>();
         int res = 0;
+
         for (int i = 0; i < n + 1; i++) {
             int diff = prefixSum[i] - k;
             if (map.containsKey(diff)) {

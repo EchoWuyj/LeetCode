@@ -1,7 +1,6 @@
 package alg_02_train_wyj._10_day_栈和队列;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.Stack;
 
 /**
  * @Author Wuyj
@@ -25,16 +24,16 @@ public class _08_739_daily_temperatures {
         return res;
     }
 
-    public int[] dailyTemperatures2(int[] T) {
-        int n = T.length;
-        if (n == 1) return new int[0];
+    public int[] dailyTemperatures2(int[] temperatures) {
+        int n = temperatures.length;
+        if (n == 1) return new int[]{0};
         int[] res = new int[n];
-        Deque<Integer> stack = new ArrayDeque<>();
+        Stack<Integer> stack = new Stack<>();
         for (int i = 0; i < n; i++) {
-            int t = T[i];
-            while (!stack.isEmpty() && t > T[stack.peek()]) {
-                res[stack.peek()] = i - stack.peek();
-                stack.pop();
+            int t = temperatures[i];
+            while (!stack.isEmpty() && t > temperatures[stack.peek()]) {
+                int top = stack.pop();
+                res[top] = i - top;
             }
             stack.push(i);
         }

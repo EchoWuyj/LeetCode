@@ -2,6 +2,7 @@ package alg_02_train_wyj._10_day_栈和队列;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Stack;
 
 /**
  * @Author Wuyj
@@ -39,11 +40,9 @@ public class _10_84_largest_rectangle_in_histogram {
 
     public int largestRectangleArea2(int[] heights) {
         int n = heights.length;
-        int res = 0;
-
         int[] left = new int[n];
         Arrays.fill(left, -1);
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        Stack<Integer> stack = new Stack<>();
         for (int i = n - 1; i >= 0; i--) {
             int x = heights[i];
             while (!stack.isEmpty() && x < heights[stack.peek()]) {
@@ -54,8 +53,8 @@ public class _10_84_largest_rectangle_in_histogram {
         }
 
         int[] right = new int[n];
+        stack = new Stack<>();
         Arrays.fill(right, n);
-        stack = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
             int x = heights[i];
             while (!stack.isEmpty() && x < heights[stack.peek()]) {
@@ -65,10 +64,10 @@ public class _10_84_largest_rectangle_in_histogram {
             stack.push(i);
         }
 
+        int res = 0;
         for (int i = 0; i < n; i++) {
-            int height = heights[i];
-            int width = right[i] - left[i] - 1;
-            res = Math.max(res, height * width);
+            int length = right[i] - left[i] - 1;
+            res = Math.max(res, heights[i] * length);
         }
         return res;
     }

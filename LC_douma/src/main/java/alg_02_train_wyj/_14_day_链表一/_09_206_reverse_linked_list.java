@@ -11,6 +11,7 @@ public class _09_206_reverse_linked_list {
         ListNode pre = null;
         ListNode cur = head;
         ListNode next;
+
         while (cur != null) {
             next = cur.next;
             cur.next = pre;

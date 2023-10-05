@@ -25,5 +25,4 @@ public class _10_516_LongestPalindromeSubseq3 {
         }
         return dp[0][n - 1];
     }
-
 }

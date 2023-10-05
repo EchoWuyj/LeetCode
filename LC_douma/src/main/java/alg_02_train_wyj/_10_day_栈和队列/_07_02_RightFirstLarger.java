@@ -18,12 +18,10 @@ public class _07_02_RightFirstLarger {
         Deque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
             int num = nums[i];
-
             while (!stack.isEmpty() && num > nums[stack.peek()]) {
                 res[stack.peek()] = i;
                 stack.pop();
             }
-
             stack.push(i);
         }
 

@@ -11,7 +11,7 @@ public class _08_208_implement_trie_prefix_tree1 {
         Node[] list;
         boolean isEnd;
 
-        public Node() {
+        Node() {
             list = new Node[26];
             isEnd = false;
         }

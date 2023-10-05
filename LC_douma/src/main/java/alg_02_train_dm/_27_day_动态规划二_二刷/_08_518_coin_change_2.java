@@ -64,9 +64,9 @@ public class _08_518_coin_change_2 {
             for (int j = coins[i]; j <= amount; j++) {
                 // 组合数，通过填表 => 推导出来的
                 // 内层 for 循环结束，执行外层 for 循环，又有一个新的物品选择
-                // 对于该物品
-                // 1.不选，组合数 dp[j]
-                // 2.选，组合数 dp[j - coins[i]]
+                // KeyPoint 对于该物品有 2 种选择，两种选择之和为总的选择数
+                // => 1.不选，组合数 dp[j]
+                // => 2.选，组合数 dp[j - coins[i]]
                 // 两者相加，总的组合数
                 dp[j] = dp[j] + dp[j - coins[i]];
             }

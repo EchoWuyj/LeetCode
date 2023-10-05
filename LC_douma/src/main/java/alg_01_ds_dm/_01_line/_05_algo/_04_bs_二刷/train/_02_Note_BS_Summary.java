@@ -52,7 +52,8 @@ public class _02_Note_BS_Summary {
                   唯一查找 target => if (nums[left] == target) return left;
                                     return -1;
 
-                推广(一)：第一个等于 和 最后一个等于
+                KeyPoint 推广(一)：第一个等于 和 最后一个等于
+
                  1.target > nums[mid]
                    逼近方向：从右往左
                    求'第一个'等于 target 元素 => if (nums[left] == target) return left;
@@ -64,7 +65,8 @@ public class _02_Note_BS_Summary {
                                                  return -1;
 
 
-                推广(二)：第一个大于等于 和 最后一个小于等于
+                KeyPoint 推广(二)：第一个大于等于 和 最后一个小于等于
+
                  1.target > nums[mid]
                    逼近方向：从右往左 => target <= nums[mid]
                    求第一个大于等于 target 元素 => return left

@@ -21,7 +21,7 @@ public class _05_337_house_robber_iii {
         int[] res = new int[2];
 
         res[0] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
-        res[1] = left[0] + right[0] + node.val;
+        res[1] = node.val + left[0] + right[0];
         return res;
     }
 }

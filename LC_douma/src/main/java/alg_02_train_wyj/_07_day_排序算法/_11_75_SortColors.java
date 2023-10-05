@@ -23,17 +23,17 @@ public class _11_75_SortColors {
     }
 
     public void sortColors(int[] nums) {
-        int i = 0;
         int less = 0;
-        int great = nums.length - 1;
-        while (i <= great) {
+        int greater = nums.length - 1;
+        int i = 0;
+        while (i <= greater) {
             if (nums[i] == 0) {
                 swap(nums, i, less);
                 less++;
                 i++;
             } else if (nums[i] == 2) {
-                swap(nums, i, great);
-                great--;
+                swap(nums, i, greater);
+                greater--;
             } else {
                 i++;
             }
