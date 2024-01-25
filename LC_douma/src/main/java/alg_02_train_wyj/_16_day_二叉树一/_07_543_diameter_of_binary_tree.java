@@ -18,12 +18,9 @@ public class _07_543_diameter_of_binary_tree {
     public int dfs(TreeNode root) {
         if (root == null) return 0;
         if (root.left == null && root.right == null) return 1;
-
         int left = dfs(root.left);
         int right = dfs(root.right);
-
         res = Math.max(res, left + right);
-
-        return Math.max(left, right) + 1;
+        return Math.max(right, left) + 1;
     }
 }

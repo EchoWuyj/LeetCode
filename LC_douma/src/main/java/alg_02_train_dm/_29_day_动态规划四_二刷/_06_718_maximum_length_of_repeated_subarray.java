@@ -31,16 +31,18 @@ public class _06_718_maximum_length_of_repeated_subarray {
         int m = nums1.length, n = nums2.length;
 
         // 两个数组 或者 两个字符串形式，一般都是使用下面的方式进行定义状态
-        // dp[i][j]：表示 nums1 中 前 i 个元素 中和 nums2 的 前 j 个元素 中最长公共子数组长度
+        // dp[i][j]：表示 nums1 中前 i 个元素中和 nums2 的前 j 个元素中最长公共子数组长度
         // => 这种方式定义，dp 的 i，j 索引 和 nums1 和 nums2  i-1 和 j-1 索引，差 1 的关系
         int[][] dp = new int[m + 1][n + 1];
         int res = 0;
 
         // 初始化省略，使用默认值 0
         // dp 二维数组，第一行，第一列都是 0
-        // 前 0 个元素，可以认为没有元素，其和具体数字元素没有公共元素，
+        // 前 0 个元素，可以认为没有元素，其和具体数字元素没有公共元素
         // 故 dp[0][j] 和 dp[j][0] 都是 0
         // 注意：这里数组元素，不是字符串，没法看成空串 ""
+
+        // KeyPoint 核心
 
         // index 0 1 2 3 4
         // nums1 1 2 3 2 1
@@ -66,11 +68,16 @@ public class _06_718_maximum_length_of_repeated_subarray {
         // KeyPoint i 和 j 从 1 开始，则 dp 方程是 i 和 i-1 关系
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
-                // 注意：只要考虑 nums1[i - 1] 和 nums2[j - 1] 是否相等即可，若不相等，使用默认值 0
+                // 注意：只要考虑 nums1[i - 1] 和 nums2[j - 1] 是否相等即可
+                // 若相等，使用 dp[i][j] = dp[i - 1][j - 1] + 1
+                // 若不相等，使用默认值 0
                 // KeyPoint 不是 nums1[i] == nums2[j]
                 if (nums1[i - 1] == nums2[j - 1]) {
                     dp[i][j] = dp[i - 1][j - 1] + 1;
                     res = Math.max(res, dp[i][j]);
+                } else {
+                    // 可以省略，但最好加上，有助于理解代码
+                    dp[i][j] = 0;
                 }
             }
 

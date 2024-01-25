@@ -2,7 +2,6 @@ package alg_02_train_dm._07_day_排序算法_二刷;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  * @Author Wuyj
@@ -33,13 +32,16 @@ public class _13_56_MergeSegment_推荐 {
         // 故先对区间进行预处理
 
         // 1. 按照区间左边的值进行升序排列 => 数据预处理
-        Arrays.sort(intervals, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] o1, int[] o2) {
-                // 左边的值，升序排列
-                return o1[0] - o2[0];
-            }
-        });
+//        Arrays.sort(intervals, new Comparator<int[]>() {
+//            @Override
+//            public int compare(int[] o1, int[] o2) {
+//                // 左边的值，升序排列
+//                return o1[0] - o2[0];
+//            }
+//        });
+
+        // 左边的值，升序排列
+        Arrays.sort(intervals, (o1, o2) -> o1[0] - o2[0]);
 
         // 2. 初始化 res, 用于存储合并之后区间结果的动态数组
         ArrayList<int[]> res = new ArrayList<>();

@@ -70,7 +70,8 @@ public class _10_162_find_peak_element {
             if (nums[mid] < nums[mid + 1]) {
                 left = mid + 1;
             } else {
-                // nums[mid] >= nums[mid + 1]，
+                // nums[mid] >= nums[mid + 1]
+                // mid 有可能为峰值，故 right 只能移动 mid 位置
                 right = mid;
             }
         }

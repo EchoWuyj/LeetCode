@@ -10,14 +10,16 @@ public class _06_31_next_permutation {
     public void nextPermutation(int[] nums) {
         int n = nums.length;
         int i = n - 2;
-        while (i >= 0 && nums[i] >= nums[i + 1]) i--;
+        while (i >= 0 && nums[i] >= nums[i+1]) i--;
+
         if (i >= 0) {
-            int j = n - 1;
-            while (j >= 0 && nums[i] >= nums[j]) j--;
+            int j = n-1;
+            while (j >=0 && nums[i] >= nums[j]) j--;
             swap(nums, i, j);
             reverse(nums, i + 1, n - 1);
         }
-        if (i == -1) {
+
+        if (i == -1){
             reverse(nums, 0, n - 1);
         }
     }

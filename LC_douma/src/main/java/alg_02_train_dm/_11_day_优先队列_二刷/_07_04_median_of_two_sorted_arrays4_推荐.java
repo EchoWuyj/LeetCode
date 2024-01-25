@@ -37,8 +37,8 @@ public class _07_04_median_of_two_sorted_arrays4_推荐 {
         // rightK = (6+2) / 2 = 4
         // => leftK 偏左 和 rightK 偏右 位置
 
-        int leftK = (m + n + 1) / 2;
-        int rightK = (m + n + 2) / 2;
+        int leftK = (m + n + 1) / 2; // 奇数
+        int rightK = (m + n + 2) / 2; // 偶数
 
         // leftNum => 数值
         int leftNum = getKth(nums1, nums2, leftK);
@@ -147,7 +147,7 @@ public class _07_04_median_of_two_sorted_arrays4_推荐 {
                 // 排除 i 前面或者 j 前面的元素，i 或 j 往前走一步，故计算 i 和 j 的时候加 1
                 i = newi + 1;
             } else {
-                // KeyPoint System.out.println(1 - +1); // 输出结果 0，其中 + 表示正号，记得将 - 删除干净
+                // KeyPoint System.out.println(1 - +1); 注意：输出结果 0，其中 + 表示正号，记得将 - 删除干净
                 k = k - (newj - j + 1);
                 j = newj + 1;
             }

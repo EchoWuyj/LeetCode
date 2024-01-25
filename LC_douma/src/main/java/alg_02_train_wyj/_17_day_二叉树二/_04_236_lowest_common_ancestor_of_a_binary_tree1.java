@@ -13,29 +13,32 @@ import java.util.Set;
 public class _04_236_lowest_common_ancestor_of_a_binary_tree1 {
 
     public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) return null;
         Map<Integer, TreeNode> map = new HashMap<>();
         dfs(root, map);
-        Set<Integer> visited = new HashSet<>();
+        Set<Integer> set = new HashSet<>();
 
         while (p != null) {
-            visited.add(p.val);
+            set.add(p.val);
             p = map.get(p.val);
         }
 
         while (q != null) {
-            if (visited.contains(q.val)) return q;
+            if (set.contains(q.val)) return q;
             q = map.get(q.val);
         }
         return null;
     }
 
-    private void dfs(TreeNode node, Map<Integer, TreeNode> map) {
-        if (node == null) return;
-
-        if (node.left != null) map.put(node.left.val, node);
-        dfs(node.left, map);
-
-        if (node.right != null) map.put(node.right.val, node);
-        dfs(node.right, map);
+    public void dfs(TreeNode root, Map<Integer, TreeNode> map) {
+        if (root == null) return;
+        if (root.left != null) {
+            map.put(root.left.val, root);
+        }
+        dfs(root.left, map);
+        if (root.right != null) {
+            map.put(root.right.val, root);
+        }
+        dfs(root.right, map);
     }
 }

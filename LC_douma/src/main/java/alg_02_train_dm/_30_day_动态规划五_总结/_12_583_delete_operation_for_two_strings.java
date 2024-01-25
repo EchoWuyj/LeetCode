@@ -21,13 +21,14 @@ public class _12_583_delete_operation_for_two_strings {
         给定单词中的字符只含有小写字母。
      */
 
-    /*
-    为了求得最少删除次数，我们可以求出串 word1 和串 word2 最长公共子序列，我们记为 lcs。
-    如果我们能求得 lcs 的值，我们可以轻易地求出答案，为 m + n - 2 * lcs。
-    这里 m 和 n 分别是给定字符串 word1 和 word2 的长度。
 
-    问题转化为 LCS 问题
-     */
+        /*
+            为了求得最少删除次数，我们可以求出串 word1 和串 word2 最长公共子序列，我们记为 lcs。
+            如果我们能求得 lcs 的值，我们可以轻易地求出答案，为 m + n - 2 * lcs。
+            这里 m 和 n 分别是给定字符串 word1 和 word2 的长度。
+
+            问题转化为 LCS 问题
+         */
     public int minDistance(String word1, String word2) {
         int m = word1.length();
         int n = word2.length();

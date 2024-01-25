@@ -52,6 +52,7 @@ public class _11_416_partition_equal_subset_sum {
         // 背包容量为 0 时，状态为 true
         dp[0] = true;
 
+        // 0-1 背包
         for (int i = 0; i < nums.length; i++) {
             for (int j = target; j >= nums[i]; j--) {
                 // || 或的关系，只要有一种方案为 true，整体则为 true

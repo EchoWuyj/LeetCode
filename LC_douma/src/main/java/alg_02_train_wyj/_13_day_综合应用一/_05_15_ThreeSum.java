@@ -54,7 +54,6 @@ public class _05_15_ThreeSum {
 
     public List<List<Integer>> threeSum3(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
-        if (nums == null || nums.length <= 2) return res;
         Arrays.sort(nums);
         int n = nums.length;
         for (int i = 0; i < n - 2; i++) {
@@ -64,7 +63,7 @@ public class _05_15_ThreeSum {
             int right = n - 1;
             while (left < right) {
                 int sum = nums[left] + nums[right];
-                if (sum == target) {
+                if (target == sum) {
                     res.add(Arrays.asList(nums[i], nums[left], nums[right]));
                     while (left < right && nums[left] == nums[++left]) ;
                     while (left < right && nums[right] == nums[--right]) ;

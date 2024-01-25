@@ -10,10 +10,42 @@ import java.util.Random;
 public class _01_912_sort_an_array2 {
 
     public int[] sortArray(int[] nums) {
-        if (nums == null || nums.length <= 1) return nums;
-        int n = nums.length;
-        sort2(nums, 0, n - 1);
+        if (nums == null || nums.length == 1) return nums;
+        int low = 0, high = nums.length - 1;
+        sort2(nums, low, high);
         return nums;
+    }
+
+    public void sort2(int[] nums, int low, int high) {
+        if (low >= high) return;
+        int random = new Random().nextInt(high - low + 1) + low;
+        swap(nums, random, high);
+
+        int pivot = nums[high];
+        int less = low;
+        int greater = high;
+        int i = less;
+
+        while (i <= greater) {
+            if (nums[i] < pivot) {
+                swap(nums, i, less);
+                less++;
+                i++;
+            } else if (nums[i] > pivot) {
+                swap(nums, i, greater);
+                greater--;
+            } else {
+                i++;
+            }
+        }
+        sort2(nums, low, less - 1);
+        sort2(nums, greater + 1, high);
+    }
+
+    public void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
     }
 
     private void sort1(int[] nums, int low, int high) {
@@ -38,36 +70,5 @@ public class _01_912_sort_an_array2 {
         }
         swap(nums, high, less);
         return less;
-    }
-
-    public void swap(int[] nums, int i, int j) {
-        int tmp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = tmp;
-    }
-
-    private void sort2(int[] nums, int low, int high) {
-        if (low >= high) return;
-        int randomIndex = new Random().nextInt(high - low + 1) + low;
-        swap(nums, randomIndex, high);
-        int pivot = nums[high];
-        int less = low;
-        int great = high;
-        int i = less;
-        while (i <= great) {
-            if (nums[i] < pivot) {
-                swap(nums, i, less);
-                less++;
-                i++;
-            } else if (nums[i] > pivot) {
-                swap(nums, i, great);
-                great--;
-            } else {
-                i++;
-            }
-        }
-
-        sort2(nums, low, less - 1);
-        sort2(nums, great + 1, high);
     }
 }

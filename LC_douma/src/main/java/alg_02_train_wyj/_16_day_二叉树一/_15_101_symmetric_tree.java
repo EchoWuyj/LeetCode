@@ -15,13 +15,12 @@ public class _15_101_symmetric_tree {
         return isMirror(root, root);
     }
 
-    public boolean isMirror(TreeNode t1, TreeNode t2) {
-        if (t1 == null && t2 == null) return true;
-        if (t1 == null && t2 != null) return false;
-        if (t1 != null && t2 == null) return false;
-        if (t1.val != t2.val) return false;
-
-        return isMirror(t1.left, t2.right) && isMirror(t1.right, t2.left);
+    public boolean isMirror(TreeNode node1, TreeNode node2) {
+        if (node1 == null && node2 == null) return true;
+        if (node1 != null && node2 == null) return false;
+        if (node1 == null && node2 != null) return false;
+        if (node1.val != node2.val) return false;
+        return isMirror(node1.left, node2.right) && isMirror(node1.right, node2.left);
     }
 
     public boolean isSymmetric1(TreeNode root) {

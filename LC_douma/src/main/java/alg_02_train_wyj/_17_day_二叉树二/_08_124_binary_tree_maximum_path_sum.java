@@ -7,19 +7,19 @@ package alg_02_train_wyj._17_day_二叉树二;
  */
 public class _08_124_binary_tree_maximum_path_sum {
 
-    private int maxPathSum = Integer.MIN_VALUE;
+    private int max = Integer.MIN_VALUE;
 
     public int maxPathSum(TreeNode root) {
+        if (root == null) return 0;
         dfs(root);
-        return maxPathSum;
+        return max;
     }
 
-    public int dfs(TreeNode root) {
-        if (root == null) return 0;
-        int left = Math.max(dfs(root.left), 0);
-        int right = Math.max(dfs(root.right), 0);
-
-        maxPathSum = Math.max(maxPathSum, left + right + root.val);
-        return Math.max(left, right) + root.val;
+    public int dfs(TreeNode node) {
+        if (node == null) return 0;
+        int left = Math.max(dfs(node.left), 0);
+        int right = Math.max(dfs(node.right), 0);
+        max = Math.max(max, left + right + node.val);
+        return Math.max(right, left) + node.val;
     }
 }

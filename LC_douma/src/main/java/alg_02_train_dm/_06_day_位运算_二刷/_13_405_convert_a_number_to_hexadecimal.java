@@ -49,13 +49,16 @@ public class _13_405_convert_a_number_to_hexadecimal {
         输入:   -1
         输出:"ffffffff"
 
+
+        KeyPoint 关键点
         -1 二进制(在计算机中使用'补码')
 
         根据 10 进制数字 -1，可以写出原码形式：1000 0000 0000 0000 0000 0000 0000 0001
         再根据原码，推导出补码
 
         -1 原码 1000 0000 0000 0000 0000 0000 0000 0001
-           反码 1111 1111 1111 1111 1111 1111 1111 1110
+           反码 1111 1111 1111 1111 1111 1111 1111 1110 => 符号位不取反
+                ↑
            加 1 1111 1111 1111 1111 1111 1111 1111 1111
            16进制表示 ffffffff
 
@@ -85,8 +88,30 @@ public class _13_405_convert_a_number_to_hexadecimal {
             res.insert(0, map[index]);
 
             // 因为存在负数，所以需要无符号右移 4 位，高位补充 0
+            // 不能因为符号位 1 和 -1，从而影响最后的结果
             num >>>= 4;
         }
         return res.toString();
+    }
+
+    public String toHex1(int num) {
+        if (num == 0) return "0";
+
+        char[] map = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                'a', 'b', 'c', 'd', 'e', 'f'
+        };
+
+        StringBuilder builder = new StringBuilder();
+
+        // 保证 num != 0
+        while (num != 0) {
+            int index = num & 15;
+            // 直接在末尾添加
+            builder.append(map[index]);
+            num >>>= 4;
+        }
+
+        // toString 之前先进行反转
+        return builder.reverse().toString();
     }
 }

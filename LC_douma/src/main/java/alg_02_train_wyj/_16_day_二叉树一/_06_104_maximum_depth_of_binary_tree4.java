@@ -11,13 +11,11 @@ public class _06_104_maximum_depth_of_binary_tree4 {
         return dfs(root);
     }
 
-    public int dfs(TreeNode root) {
-        if (root == null) return 0;
-        if (root.left == null && root.right == null) return 1;
-
-        int left = dfs(root.left);
-        int right = dfs(root.right);
-
-        return 1 + Math.max(left, right);
+    public int dfs(TreeNode node) {
+        if (node == null) return 0;
+        if (node.left == null && node.right == null) return 1;
+        int left = dfs(node.left);
+        int right = dfs(node.right);
+        return Math.max(left, right) + 1;
     }
 }

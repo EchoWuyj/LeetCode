@@ -81,16 +81,18 @@ public class _04_224_basic_calculator1 {
                 num = 0;
             } // 若是空格，则不处理
         }
+
         // for 循环结束，最后部分是数字，不是 '+' 或 '-'
-        // 没有触发计算，故需要自己手动累加最后一个数字
+        // '+' 或 '-'触发的是上一轮计算，本轮计算没有触发，故需要自己手动累加最后一个数字
         return res + preSign * num;
     }
 
     // test
     public static void main(String[] args) {
+        // KeyPoint
+        // 该代码针对首位为负值的情况同样适用
+        // 因为最开始第一个字符 c ='-'，从而将 preSign 设置为 -1
         String str = "-13+1-3+42";
-        System.out.println(calculate1(str)); // 53
+        System.out.println(calculate1(str)); // 27
     }
-
-
 }

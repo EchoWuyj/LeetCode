@@ -20,18 +20,18 @@ public class _08_142_linked_list_cycle_ii {
     }
 
     public ListNode detectCycle2(ListNode head) {
-        ListNode slow = head;
         ListNode fast = head;
+        ListNode slow = head;
         while (fast != null && fast.next != null) {
-            slow = slow.next;
             fast = fast.next.next;
-            if (fast == slow) {
-                ListNode p = head;
-                while (slow != p) {
+            slow = slow.next;
+            if (fast == slow){
+                ListNode cur = head;
+                while (cur != slow) {
+                    cur = cur.next;
                     slow = slow.next;
-                    p = p.next;
                 }
-                return p;
+                return cur;
             }
         }
         return null;

@@ -10,24 +10,29 @@ import java.util.List;
  */
 public class _03_46_Permutations1 {
     public List<List<Integer>> permute(int[] nums) {
+
         List<List<Integer>> res = new ArrayList<>();
         List<Integer> path = new ArrayList<>();
-        dfs(nums, -1, path, res);
+        int n = nums.length;
+        boolean[] visited = new boolean[n];
+        dfs(nums, 0, visited, path, res);
         return res;
     }
 
     public void dfs(int[] nums, int index,
-                    List<Integer> path, List<List<Integer>> res) {
-        if (path.size() == nums.length) return;
-        if (index != -1) path.add(nums[index]);
-        if (path.size() == nums.length) {
+                    boolean[] visited, List<Integer> path, List<List<Integer>> res) {
+        if (index == nums.length) {
             res.add(new ArrayList<>(path));
+            return;
         }
         for (int i = 0; i < nums.length; i++) {
-            dfs(nums, i, path, res);
+            if (visited[i]) continue;
+            path.add(nums[i]);
+            visited[i] = true;
+            dfs(nums, index + 1, visited, path, res);
+            visited[i] = false;
+            path.remove(path.size() - 1);
         }
-
-        if (index != -1) path.remove(path.size() - 1);
     }
 
     public static void main(String[] args) {

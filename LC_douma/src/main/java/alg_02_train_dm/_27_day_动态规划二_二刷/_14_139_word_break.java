@@ -42,16 +42,18 @@ public class _14_139_word_break {
       */
 
     // KeyPoint 转换问题方向
-    // => 在 wordDict 中，可重复的选择字符串(字符串整体，不能拆分成字符)组合，看看是否存在可以组成字符串 s 的组合
+    // => 在 wordDict 中，可重复的选择字符串(字符串整体，不能拆分成字符)组合，
+    //    看看是否存在可以组成字符串 s 的组合
     // => 完全背包问题
-    // => 组合问题 => 关于是否存在，使用 boolean；若是个数，使用 int
+    // => 组合问题 => 关于是否存在，使用 boolean；
+    //               若是个数，使用 int
     public boolean wordBreak(String s, List<String> wordDict) {
 
         // 物品：wordDict 中的单词
         // 背包容量：s 字符串长度
         // 目标：wordDict 中的单词是否组合成功 s 字符串
 
-        // dp[i]: 表示 前 i 个字符组成的子串，是否可以被 wordDict 中的字符串组合而成
+        // dp[i]: 表示前 i 个字符组成的子串，是否可以被 wordDict 中的字符串组合而成
         // 背包容量：字符串长度，前 1，2，3，i 字符
         boolean[] dp = new boolean[s.length() + 1];
 
@@ -61,6 +63,8 @@ public class _14_139_word_break {
         // KeyPoint 注意：本题中组合的顺序是无序的
         // s = "leetcode"，wordDict = ["leet", "code"]，返回 true
         // s = "codeleet"，wordDict = ["leet", "code"]，返回 true
+
+        // KeyPoint 相反：硬币找零问题，组合是有顺序，前后顺序影响结果
 
         // 故需要调整内外层 for 循环
         // 1.先选择字符长度(容量)
@@ -82,7 +86,8 @@ public class _14_139_word_break {
 
                 // j >= strLen 保证 dp[j - strLen] 不越界
                 // s 截取 strLen 长度字符能够匹配上，才去判断后续 dp[j]，否则直接跳过
-                // KeyPoint j 为结束位置，往前倒推长度 strLen，从而保证截取字符串长度为 strLen
+                // KeyPoint 注意
+                // j 表示前 j 个字符，j 为结束位置，往前倒推长度 strLen，从而保证截取字符串长度为 strLen
                 if (j >= strLen && s.substring(j - strLen, j).equals(str)) {
                     // 是否存在问题，使用 || 或者的关系
                     // 选择 或者 不选择

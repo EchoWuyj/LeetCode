@@ -10,12 +10,12 @@ import java.util.List;
  */
 public class _05_54_spiral_matrix {
     public static List<Integer> spiralOrder1(int[][] matrix) {
-        int[][] dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        List<Integer> res = new ArrayList<>();
         int m = matrix.length;
         int n = matrix[0].length;
-        int dir = 0;
         int row = 0, col = 0;
-        List<Integer> res = new ArrayList<>();
+        int[][] dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int dir = 0;
         boolean[][] visited = new boolean[m][n];
 
         for (int i = 0; i < m * n; i++) {
@@ -25,15 +25,12 @@ public class _05_54_spiral_matrix {
             int nextRow = row + dirs[dir][0];
             int nextCol = col + dirs[dir][1];
 
-            if (nextRow < 0 || nextRow >= m
-                    || nextCol < 0 || nextCol >= n
-                    || visited[nextRow][nextCol]) {
+            if (nextRow < 0 || nextRow >= m || nextCol < 0
+                    || nextCol >= n || visited[nextRow][nextCol]) {
                 dir = (dir + 1) % 4;
             }
-
             row = row + dirs[dir][0];
             col = col + dirs[dir][1];
-
         }
         return res;
     }

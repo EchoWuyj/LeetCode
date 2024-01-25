@@ -21,27 +21,30 @@ public class _15_25_reverse_nodes_in_k_gro_up {
                 last = last.next;
                 if (last == null) return dummy.next;
             }
-            if (last != null) next = last.next;
+
+            if (last != null) {
+                next = last.next;
+            }
+
             pre.next = null;
             last.next = null;
 
             reverse(first);
-
             pre.next = last;
             first.next = next;
 
             pre = first;
             if (next != null) first = next;
             last = first;
+            next = first;
         }
         return dummy.next;
     }
 
-    private static ListNode reverse(ListNode node) {
+    public static ListNode reverse(ListNode node) {
         ListNode pre = null;
         ListNode cur = node;
         ListNode next;
-
         while (cur != null) {
             next = cur.next;
             cur.next = pre;

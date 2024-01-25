@@ -50,7 +50,7 @@ public class _08_43_multiply_strings2 {
         //  0 1 2 3 索引
         //  1 2 4 9  i => 被乘数
         //    5 6 4  j => 乘数
-        // -------------
+        // --------------------
 
         // 处理 乘数 的每一位
         for (int i = n - 1; i >= 0; i--) {
@@ -68,6 +68,7 @@ public class _08_43_multiply_strings2 {
                 res[i + j] += sum / 10;
             }
         }
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < res.length; i++) {
             // m+n-1 <= res 长度 <= m+n

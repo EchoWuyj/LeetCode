@@ -16,8 +16,8 @@ public class _04_224_basic_calculator2 {
         int num = 0;
         int res = 0;
 
-        // "17-13+(1-3)+42"
-        // "17-13+|(1-|(2+3)+3)+42"
+        // "17 - 13 + ( 1 - 3 ) + 42"
+        // "17 - 13 + |(1- |( 2 + 3 ) + 3) + 42"
 
         // 代码逻辑
         // 1.遇到 '('，将 '(' 之前数值，符号(preSign)，压入进栈
@@ -54,14 +54,16 @@ public class _04_224_basic_calculator2 {
                 num = 0;
 
                 // 1.stack.pop() 先弹栈的是：preSign
-                // res *= stack.pop() =>表示 res 正负;
+                // res *= stack.pop() => 表示 res 正负;
+                // 确定当前 res 的正负
                 res *= stack.pop();
                 // 2.stack.pop() 后弹栈的是：数值
-                // res 累和 之前 res => stack.pop()
+                // 当前 res 累和 之前 res[stack.pop()]
                 res += stack.pop();
             }
             // KeyPoint 空格跳过不处理
         }
+
         // 判断最后一个字符
         // 1.若最后一个字符是 ')'，preSign * num，其中 num = 0，累加不影响 res
         // 2.若最后一个字符不是 ')'，res 需要累加最后一个数字，再触发一下计算

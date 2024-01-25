@@ -95,6 +95,8 @@ public class _09_50_powx_n1 {
     // 3.归的过程 => 合并
     private double quickPow(double x, long n) {
 
+        // n 不断砍一半，直到 n = 0
+        // x^0 = 1.0
         if (n == 0) return 1.0;
         if (n == 1) return x;
 
@@ -117,8 +119,7 @@ public class _09_50_powx_n1 {
         // 归的过程：
         // 1.如果 n 为偶数，那么 x^n = subRes^2；
         // 2.如果 n 为奇数，那么 x^n = subRes^2 * x；
+        // 2^7 => 2^3 *2^3 * 2
         return n % 2 == 0 ? subRes * subRes : x * subRes * subRes;
     }
-
-
 }

@@ -24,7 +24,7 @@ public class _02_34_Find_first_and_last_position_of_element_in_sorted_array2 {
     }
 
     // KeyPoint 重点掌握
-    // KeyPoint 方法二 思路二：在循环体中排除一定不存在目标元素的区间
+    // KeyPoint 方法二 思路二：在循环体中 排除 一定不存在目标元素的区间
     // 注意事项
     // 1.不等号方向 > 或 <
     // 2.从左往右，还是 从右往左 的逼近方向

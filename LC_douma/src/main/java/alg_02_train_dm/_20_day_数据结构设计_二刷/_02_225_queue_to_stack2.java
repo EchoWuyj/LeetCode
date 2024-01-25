@@ -65,12 +65,12 @@ public class _02_225_queue_to_stack2 {
 
         // 时间复杂度：O(n)
         public void push(int x) {
-            // 每次进队 queue2
+            // 每次进队 queue2 (helpQueue)
             helpQueue.offer(x);
             while (!mainQueue.isEmpty()) {
                 helpQueue.offer(mainQueue.poll());
             }
-            // 交换队列 => 保证栈顶元素在 queue1 队头
+            // 交换队列 => 保证栈顶元素在 queue1 (mainQueue) 队头
             Queue<Integer> tmp = mainQueue;
             mainQueue = helpQueue;
             helpQueue = tmp;

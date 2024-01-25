@@ -46,7 +46,7 @@ public class _09_376_wiggle_subsequence {
 
      */
 
-    // 定义双状态的动态规划
+    // KeyPoint 定义双状态的动态规划
     public int wiggleMaxLength1(int[] nums) {
 
         // nums： 1 3 2 4
@@ -79,8 +79,8 @@ public class _09_376_wiggle_subsequence {
         if (n < 2) return n;
 
         // 定义两个状态
-        // up[i] 表示以索引为 i 的元素结尾的最长上升摆动序列
-        // down[i] 表示以索引为 i 的元素结尾的最长下降摆动序列
+        // up[i] 表示以索引为 i 的元素结尾的 最长上升摆动序列
+        // down[i] 表示以索引为 i 的元素结尾的 最长下降摆动序列
         int[] up = new int[n];
         int[] down = new int[n];
 
@@ -92,6 +92,7 @@ public class _09_376_wiggle_subsequence {
             if (nums[i] > nums[i - 1]) {
                 // 即使 nums 数组中，连续上升两次，但是 down[i-1] 没有发生变化，则 up[i] 始终为 down[i-1] + 1
                 // 不会因为连续上升两次，导致加两次 1
+                // KeyPoint 在 down 基础上进行动态变化
                 up[i] = down[i - 1] + 1;
                 down[i] = down[i - 1];
                 // 下降，down 变化

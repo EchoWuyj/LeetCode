@@ -12,7 +12,7 @@ public class _06_26_remove_duplicates_from_sorted_array {
         int slow = 0;
         int n = nums.length;
         while (fast < n) {
-            if (nums[slow] != nums[fast]) {
+            if (nums[fast] != nums[slow]) {
                 slow++;
                 nums[slow] = nums[fast];
                 fast++;

@@ -12,7 +12,7 @@ import java.util.Stack;
 public class _01_226_invert_binary_tree {
 
     private TreeNode invertTree(TreeNode root) {
-        if (root == null) return null;
+        if (root == null) return root;
         if (root.left == null && root.right == null) return root;
 
         TreeNode left = invertTree(root.left);
@@ -20,6 +20,7 @@ public class _01_226_invert_binary_tree {
 
         root.left = right;
         root.right = left;
+
         return root;
     }
 

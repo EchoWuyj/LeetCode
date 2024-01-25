@@ -50,7 +50,7 @@ public class _07_402_RemoveKdigits {
         //    D(i-1)  Di
 
         // num 439 k = 1
-        // 若删除 4，num = 39
+        // 若删除 4，num = 39 => 选择这种情况
         // 若删除 3，num = 49
         // 故删除 4，保留 3
 
@@ -79,7 +79,7 @@ public class _07_402_RemoveKdigits {
         // 2.找 bug 看代码中有那些部分是"浅色"，大概率是 bug 源头
 
         // 将 String 转成 StringBuilder，方便删除操作
-        // =>?new StringBuilder(num) 注意需要将 num 传入形参中，别搞忘了
+        // => new StringBuilder(num) 注意需要将 num 传入形参中，别搞忘了
         StringBuilder sb = new StringBuilder(num);
 
         // 循环删除 k 次

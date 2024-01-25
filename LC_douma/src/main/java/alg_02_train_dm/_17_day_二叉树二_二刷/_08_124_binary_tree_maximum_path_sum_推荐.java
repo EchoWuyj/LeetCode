@@ -72,8 +72,7 @@ public class _08_124_binary_tree_maximum_path_sum_推荐 {
 
         // 该以 node 为根节点的最大贡献值
         // => 最大贡献只是考虑一条路径，left 和 right 中选择一个，只能是单侧
-        // => Math.max(left, right) + node.val
-        //    不能这样 left + right + node.val
+        // => Math.max(left, right) + node.val，而不能这样 left + right + node.val
         return Math.max(left, right) + node.val;
 
         //         ← 最大贡献值：21

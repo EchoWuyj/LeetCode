@@ -26,14 +26,16 @@ public class _09_50_powx_n1 {
             x = 1 / x;
             ln = -ln;
         }
-        return quickPow(x, n);
+        return quickPow(x, ln);
     }
 
-    public double quickPow(double x, int n) {
+    public double quickPow(double x, long n) {
         if (n == 0) return 1.0;
         if (n == 1) return x;
-        int mid = n / 2;
-        double subRes = quickPow(x, mid);
-        return (n % 2) == 0 ? subRes * subRes : subRes * subRes * x;
+
+        long mid = n / 2;
+        double sub = quickPow(x, mid);
+
+        return n % 2 == 1 ? sub * sub * x : sub * sub;
     }
 }

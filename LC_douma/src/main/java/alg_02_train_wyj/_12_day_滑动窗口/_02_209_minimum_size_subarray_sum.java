@@ -22,20 +22,20 @@ public class _02_209_minimum_size_subarray_sum {
     }
 
     public int minSubArrayLen2(int target, int[] nums) {
-        int minLen = Integer.MAX_VALUE;
+        int res = Integer.MAX_VALUE;
         int left = 0, right = 0;
-        int windowSum = 0;
         int n = nums.length;
+        int windowSum = 0;
         while (right < n) {
             windowSum += nums[right];
             while (windowSum >= target) {
-                minLen = Math.min(minLen, right - left + 1);
+                res = Math.min(right - left + 1, res);
                 windowSum -= nums[left];
                 left++;
             }
             right++;
         }
-        return minLen == Integer.MAX_VALUE ? 0 : minLen;
+        return res == Integer.MAX_VALUE ? 0 : res;
     }
 
     // 前缀和 + 二分法

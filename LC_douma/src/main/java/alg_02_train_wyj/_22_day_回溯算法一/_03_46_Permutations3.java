@@ -1,7 +1,5 @@
 package alg_02_train_wyj._22_day_回溯算法一;
 
-import alg_02_train_dm._22_day_回溯算法一_二刷._03_46_Permutations4;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +34,4 @@ public class _03_46_Permutations3 {
         System.out.println(new _03_46_Permutations4().permute(new int[]{1, 1, 2}));
         // [[1, 1, 2], [1, 2, 1], [1, 1, 2], [1, 2, 1], [2, 1, 1], [2, 1, 1]]
     }
-
-
 }

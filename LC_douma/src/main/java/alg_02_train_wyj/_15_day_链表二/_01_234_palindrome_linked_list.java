@@ -8,31 +8,28 @@ package alg_02_train_wyj._15_day_链表二;
 public class _01_234_palindrome_linked_list {
     public boolean isPalindrome(ListNode head) {
         if (head == null || head.next == null) return true;
-        ListNode slow = head;
         ListNode fast = head.next;
-
+        ListNode slow = head;
         while (fast != null && fast.next != null) {
-            slow = slow.next;
             fast = fast.next.next;
+            slow = slow.next;
         }
-
-        ListNode newHead = slow.next;
+        ListNode right = slow.next;
         slow.next = null;
-
-        ListNode left = head;
-        ListNode right = reverse(newHead);
+        right = reverse(right);
 
         while (right != null) {
-            if (left.val != right.val) return false;
-            left = left.next;
+            if (right.val != head.val) return false;
             right = right.next;
+            head = head.next;
         }
+
         return true;
     }
 
-    public ListNode reverse(ListNode node) {
+    public ListNode reverse(ListNode head) {
         ListNode pre = null;
-        ListNode cur = node;
+        ListNode cur = head;
         ListNode next;
         while (cur != null) {
             next = cur.next;

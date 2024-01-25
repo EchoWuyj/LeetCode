@@ -36,7 +36,8 @@ public class _05_55_Jump_Game {
         // 不同点：判断你是否能够到达最后一个下标，而不是最少跳跃的次数
         // i 需要在 n-1 位置进行判断，故 i < n，而不是 i < n-1
         for (int i = 0; i < n; i++) {
-            // 每次跳跃之前，都要判断下是否 maxPos >= i => 即最远位置 maxPos 是否能跳跃到 i 位置
+            // 每次跳跃之前，都要判断下是否 maxPos >= i
+            // => 即最远位置 maxPos 是否能跳跃到 i 位置
             // 若最远位置 maxPos < i 位置，则说明到不了 i 位置，返回 false
             if (maxPos < i) return false;
             // i 每次移动一步都去计算 maxPos

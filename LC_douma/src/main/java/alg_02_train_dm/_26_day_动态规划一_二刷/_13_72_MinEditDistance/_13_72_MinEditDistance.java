@@ -50,7 +50,7 @@ public class _13_72_MinEditDistance {
         if (m == 0 || n == 0) return m + n;
 
         // 对于两个字符串的动态规划问题 => 对应二维 dp[i][j] 数组，i 和 j 分别对应一个字符串
-        // dp[i][j] 表示 word1 前 i 个字符转换成 word2 前 j 个字符花的最少操作数(即编辑距离)
+        // KeyPoint dp[i][j] 表示 word1 前 i 个字符转换成 word2 前 j 个字符花的最少操作数(即编辑距离)
         // 特别注意：i 和 j 指的是 i 和 j 指针，前面的 i 个字符和 j 个字符，并不是当前位置字符
         // 索引从 0 开始，dp[m][n] 可以取到，故需要加 1
         int[][] dp = new int[m + 1][n + 1];

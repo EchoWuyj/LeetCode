@@ -34,6 +34,7 @@ public class _08_43_multiply_strings1 {
     // => 但因做了许多字符串相加操作，导致性能比较低下
     public String multiply1(String num1, String num2) {
         // 特判：数字 0
+        // 只要其中有个为 0，则整体结果为 0
         if (num1.equals("0") || num2.equals("0")) return "0";
 
         String res = "0";
@@ -50,7 +51,7 @@ public class _08_43_multiply_strings1 {
         // 外层 for 循环，处理 n-1 => 乘数
         // 内层 for 循环，处理 m-1 => 被乘数
 
-        // 1.处理 乘数 的每一位
+        // 1.从右往左遍历，处理'乘数'的每一位
         for (int i = n - 1; i >= 0; i--) {
             //   2 4 9 => 被乘数
             // *     4 => 乘数
@@ -66,8 +67,9 @@ public class _08_43_multiply_strings1 {
             int y = num2.charAt(i) - '0';
             // 记录相乘进位
             int carry = 0;
-            // 2.处理 被乘数 的每一位
-            // 将'被乘数当前每一位'和'乘数当前每一位'进行相乘
+
+            // 2.从右往左遍历，处理'被乘数'的每一位
+            //   将'被乘数当前每一位'和'乘数当前每一位'进行相乘
             for (int j = m - 1; j >= 0; j--) {
                 // KeyPoint 循环遍量 j
                 // for 循环中，charAt 一定是变量 j，而不是固定值 m - 1，树立'循环变化'的意识
@@ -90,20 +92,20 @@ public class _08_43_multiply_strings1 {
 
     // 两个字符串相加
     public String addStrings(String num1, String num2) {
+        int m = num1.length() - 1;
+        int n = num2.length() - 1;
         StringBuilder res = new StringBuilder();
-
-        int i1 = num1.length() - 1, i2 = num2.length() - 1;
         int carry = 0;
-        while (i1 >= 0 || i2 >= 0) {
-            int x = i1 >= 0 ? num1.charAt(i1) - '0' : 0;
-            int y = i2 >= 0 ? num2.charAt(i2) - '0' : 0;
+        while (m >= 0 || n >= 0) {
+            int x = m >= 0 ? num1.charAt(m) - '0' : 0;
+            int y = n >= 0 ? num2.charAt(n) - '0' : 0;
 
             int sum = x + y + carry;
             res.append(sum % 10);
             carry = sum / 10;
 
-            i1--;
-            i2--;
+            m--;
+            n--;
         }
         if (carry != 0) res.append(carry);
         return res.reverse().toString();

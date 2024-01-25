@@ -74,9 +74,11 @@ public class _01_912_sort_an_array2_推荐 {
         // 随机选一个作为 pivot
         int random = new Random().nextInt(high - low + 1) + low;
         swap(nums, random, high);
+
         int pivot = nums[high];
         int less = low, great = high;
         int i = low;
+
         // 未处理区间为 [i,great] 区间
         while (i <= great) {
             if (nums[i] < pivot) {

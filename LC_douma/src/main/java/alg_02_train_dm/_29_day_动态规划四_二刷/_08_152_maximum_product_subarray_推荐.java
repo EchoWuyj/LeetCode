@@ -62,6 +62,7 @@ public class _08_152_maximum_product_subarray_推荐 {
         minP[0] = nums[0];
         int res = nums[0];
 
+        // 遍历每个位置，填充 dp 数组
         for (int i = 1; i < n; i++) {
             // 1.考虑乘积存在负负得正 => 最大值
             // => 若 nums[i] < 0，minP[i - 1] < 0，两者相乘，有可能变成最大值，故也需要将其放入 Math.max 进行比较

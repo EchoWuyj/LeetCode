@@ -7,7 +7,7 @@ package alg_02_train_dm._26_day_动态规划一_二刷._14_44_WildcardMatch;
  */
 public class _14_44_WildcardMatch {
     /* 
-           44. 通配符 匹配
+           44. 通配符匹配
            给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 '?' 和 '*' 的通配符匹配。
         
            '?' 可以匹配任何 单个字符。

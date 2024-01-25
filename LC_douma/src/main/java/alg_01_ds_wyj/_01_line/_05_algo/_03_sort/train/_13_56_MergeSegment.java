@@ -2,7 +2,6 @@ package alg_01_ds_wyj._01_line._05_algo._03_sort.train;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  * @Author Wuyj
@@ -11,28 +10,23 @@ import java.util.Comparator;
  */
 public class _13_56_MergeSegment {
     public int[][] merge(int[][] intervals) {
-        Arrays.sort(intervals, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] o1, int[] o2) {
-                return o1[0] - o2[0];
-            }
-        });
-
+        Arrays.sort(intervals
+                , (a, b) -> a[0] - b[0]);
         ArrayList<int[]> res = new ArrayList<>();
-        for (int i = 0; i < intervals.length; i++) {
-            int[] curInterval = intervals[i];
+        int n = intervals.length;
+        for (int i = 0; i < n; i++) {
+            int[] last = intervals[i];
             if (res.isEmpty()) {
-                res.add(curInterval);
-            } else {
-                int[] lastInterval = res.get(res.size() - 1);
-                int lastRight = lastInterval[1];
-                int curLeft = curInterval[0];
-
-                if (lastRight < curLeft) {
-                    res.add(curInterval);
+                res.add(last);
+            }else {
+                int[] pre = res.get(res.size() - 1);
+                int preRight = pre[1];
+                int lastLeft = last[0];
+                if (preRight < lastLeft) {
+                    res.add(last);
                 } else {
-                    int curRight = curInterval[1];
-                    lastInterval[1] = Math.max(lastRight, curRight);
+                    int lastRight = last[1];
+                    pre[1] = Math.max(preRight, lastRight);
                 }
             }
         }

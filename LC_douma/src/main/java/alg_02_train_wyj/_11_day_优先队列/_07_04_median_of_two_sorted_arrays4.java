@@ -14,10 +14,10 @@ public class _07_04_median_of_two_sorted_arrays4 {
         int leftK = (m + n + 1) / 2;
         int rightK = (m + n + 2) / 2;
 
-        int leftNum = getKth(nums1, nums2, leftK);
-        int rightNum = getKth(nums1, nums2, rightK);
+        int left = getKth(nums1, nums2, leftK);
+        int right = getKth(nums1, nums2, rightK);
 
-        return (leftNum + rightNum) * 0.5;
+        return (left + right) * 0.5;
     }
 
     public int getKth(int[] nums1, int[] nums2, int k) {

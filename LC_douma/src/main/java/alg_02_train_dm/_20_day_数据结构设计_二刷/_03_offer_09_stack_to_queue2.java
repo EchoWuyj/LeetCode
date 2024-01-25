@@ -59,7 +59,8 @@ public class _03_offer_09_stack_to_queue2 {
                     helpStack.push(mainStack.pop());
                 }
             }
-            // 2.helpStack 不为空，则 helpStack 中 pop 元素
+            // 2. 若 helpStack 为空，则返回 helpStack 栈顶元素
+            //    若 helpStack 不为空，则 helpStack 中 pop 元素
             if (helpStack.isEmpty()) {
                 return -1;
             } else {

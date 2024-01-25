@@ -45,7 +45,7 @@ public class _09_206_reverse_linked_list2 {
     public ListNode reverseList(ListNode head) {
 
         // KeyPoint if 判断逻辑递进
-        // if (head.next == null || head == null) ×
+        // if (head.next == null || head == null)  ×
         // 两个条件顺序不能调换，若 head == null，此时 head.next 已经空指针异常了
         // 总结：底层判断条件放在前面，衍生判断条件放在后面
 

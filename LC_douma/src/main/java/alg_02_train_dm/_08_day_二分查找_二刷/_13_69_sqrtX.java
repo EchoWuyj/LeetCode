@@ -80,7 +80,7 @@ public class _13_69_sqrtX {
         int res = -1;
         // 不断在循环体内找到 k
         while (left <= right) {
-            // 这里 mid 等价于 k，
+            // 这里 mid 等价于 k
             int mid = left + (right - left) / 2;
             // 本身判断条件，就是 <= 一个整体
             if ((long) mid * mid <= x) {

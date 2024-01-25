@@ -63,6 +63,7 @@ public class _10_695_max_area_of_island1 {
 
         visited[row][col] = true;
 
+        // 当前节点面积为 0
         int res = 0;
         for (int[] dir : dirs) {
             int nextRow = row + dir[0];
@@ -70,6 +71,7 @@ public class _10_695_max_area_of_island1 {
             // 累加上下左右顶点面积
             res += dfs(nextRow, nextCol);
         }
+
         // 返回 res 加 1，表示该节点自身面积
         // 若四周顶点都符合条件，也有自身为 1
         return 1 + res;

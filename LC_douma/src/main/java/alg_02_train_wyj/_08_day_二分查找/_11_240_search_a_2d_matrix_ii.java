@@ -76,14 +76,13 @@ public class _11_240_search_a_2d_matrix_ii {
         int m = matrix.length;
         int n = matrix[0].length;
 
-        int row = m - 1;
-        int col = 0;
-
-        while (row >= 0 && col < n) {
-            if (matrix[row][col] > target) {
-                row--;
-            } else if (matrix[row][col] < target) {
-                col++;
+        int i = m - 1;
+        int j = 0;
+        while (i >= 0 && j < n) {
+            if (matrix[i][j] < target) {
+                j++;
+            } else if (matrix[i][j] > target) {
+                i--;
             } else {
                 return true;
             }

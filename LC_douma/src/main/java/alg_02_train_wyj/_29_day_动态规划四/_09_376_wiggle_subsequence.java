@@ -8,14 +8,11 @@ package alg_02_train_wyj._29_day_动态规划四;
 public class _09_376_wiggle_subsequence {
     public int wiggleMaxLength1(int[] nums) {
         int n = nums.length;
-
-        if (n <= 1) return 1;
-
+        if (n < 2) return n;
         int[] up = new int[n];
         int[] down = new int[n];
 
-        up[0] = 1;
-        down[0] = 1;
+        up[0] = down[0] = 1;
 
         for (int i = 1; i < n; i++) {
             if (nums[i] > nums[i - 1]) {

@@ -19,17 +19,15 @@ public class _01_144_binary_tree_preorder_traversal {
 
     // 迭代解法
     public List<Integer> preorderTraversal1(TreeNode root) {
-        ArrayList<Integer> res = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
         if (root == null) return res;
-
         Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
-
         while (!stack.isEmpty()) {
-            TreeNode curr = stack.pop();
-            res.add(curr.val);
-            if (curr.right != null) stack.push(curr.right);
-            if (curr.left != null) stack.push(curr.left);
+            TreeNode cur = stack.pop();
+            res.add(cur.val);
+            if (cur.right != null) stack.push(cur.right);
+            if (cur.left != null) stack.push(cur.left);
         }
         return res;
     }

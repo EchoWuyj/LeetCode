@@ -9,21 +9,20 @@ import java.util.Arrays;
  */
 public class _11_300_LengthOfLongestIncrementSubSeq {
     public static int lengthOfLIS(int[] nums) {
-        if (nums == null || nums.length == 0) return 0;
         int n = nums.length;
         int[] dp = new int[n];
-        int max = 1;
+        int maxLen = 1;
         Arrays.fill(dp, 1);
 
         for (int i = 1; i < n; i++) {
             for (int j = 0; j < i; j++) {
                 if (nums[i] > nums[j]) {
                     dp[i] = Math.max(dp[j] + 1, dp[i]);
-                    max = Math.max(dp[i], max);
+                    maxLen = Math.max(dp[i], maxLen);
                 }
             }
         }
-        return max;
+        return maxLen;
     }
 
     public static void main(String[] args) {

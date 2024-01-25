@@ -11,29 +11,32 @@ import java.util.Map;
 public class _03_105_construct_binary_tree_from_preorder_and_inorder_traversal2 {
 
     private int[] preorder;
-    private int rootIndex = 0;
-    private Map<Integer, Integer> idxMap;
+    private int index;
+    private Map<Integer, Integer> map;
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         this.preorder = preorder;
-        idxMap = new HashMap<>();
-        int n = preorder.length;
+        index = 0;
+        map = new HashMap<>();
+
+        int n = inorder.length;
         for (int i = 0; i < n; i++) {
-            idxMap.put(inorder[i], i);
+            map.put(inorder[i], i);
         }
         return dfs(0, n - 1);
     }
 
-    private TreeNode dfs(int left, int right) {
+    public TreeNode dfs(int left, int right) {
         if (left > right) return null;
-        int rootVal = preorder[rootIndex];
-        rootIndex++;
-        int index = idxMap.get(rootVal);
-        TreeNode root = new TreeNode(rootVal);
+        int rootValue = preorder[index];
+        index++;
+        int rootIndex = map.get(rootValue);
+        TreeNode rootNode = new TreeNode(rootValue);
 
-        root.left = dfs(left, index - 1);
-        root.right = dfs(index + 1, right);
-
-        return root;
+        rootNode.left = dfs(left, rootIndex - 1);
+        rootNode.right = dfs(rootIndex + 1, right);
+        return rootNode;
     }
 }
+
+

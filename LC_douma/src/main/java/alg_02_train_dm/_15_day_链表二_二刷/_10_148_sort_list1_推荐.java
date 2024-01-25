@@ -27,6 +27,7 @@ public class _10_148_sort_list1_推荐 {
 
     // KeyPoint 方法一 归并排序 => 递归实现(自顶朝下)
     public ListNode sortList1(ListNode head) {
+
         // KeyPoint 递归边界
         // 递归边界，不仅仅是链表为空 head == null
         // 当链表只有一个元素时，即 head.next == null，也是递归边界需要返回
@@ -34,7 +35,7 @@ public class _10_148_sort_list1_推荐 {
         if (head == null || head.next == null) return head;
 
         // KeyPoint 关键
-        // 找到中间节点 => 归并排序中间节点需要：保证'左中点'，不能是'右中点'
+        // 找到中间节点 => 归并排序中间节点需要：保证 '左中点'，不能是'右中点'
         // 所以这里 fast 先走一步，否则 slow 最后就是在'右中点'位置，不符合要求
         ListNode slow = head, fast = head.next;
         while (fast != null && fast.next != null) {

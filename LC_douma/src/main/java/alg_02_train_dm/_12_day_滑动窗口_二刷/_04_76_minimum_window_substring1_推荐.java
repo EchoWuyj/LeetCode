@@ -177,6 +177,7 @@ public class _04_76_minimum_window_substring1_推荐 {
                 }
                 char leftChar = s.charAt(left);
                 windowCnt[leftChar]--;
+                // 针对 leftChar 进行判断
                 if (windowCnt[leftChar] < cntStrT[leftChar]) {
                     matchCnt--;
                 }

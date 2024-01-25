@@ -31,24 +31,23 @@ public class _10_165_compare_version_numbers {
         return 0;
     }
 
-    // 使用内置函数
+    // KeyPoint 使用内置函数 => 推荐
     public int compareVersion1(String version1, String version2) {
-        String[] nums1 = version1.split("\\.");
-        String[] nums2 = version2.split("\\.");
+        String[] num1 = version1.split("\\.");
+        String[] num2 = version2.split("\\.");
 
-        int n1 = nums1.length;
-        int n2 = nums2.length;
+        int m = num1.length;
+        int n = num2.length;
 
         int v1, v2;
-        for (int i = 0; i < Math.max(n1, n2); i++) {
-            v1 = i < n1 ? Integer.parseInt(nums1[i]) : 0;
-            v2 = i < n2 ? Integer.parseInt(nums2[i]) : 0;
+        for (int i = 0; i < Math.max(m, n); i++) {
+            v1 = i < m ? Integer.parseInt(num1[i]) : 0;
+            v2 = i < n ? Integer.parseInt(num2[i]) : 0;
 
             if (v1 != v2) {
                 return v1 > v2 ? 1 : -1;
             }
         }
-
         return 0;
     }
 }

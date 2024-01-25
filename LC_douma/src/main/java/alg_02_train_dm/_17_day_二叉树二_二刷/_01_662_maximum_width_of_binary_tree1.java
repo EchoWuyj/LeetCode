@@ -17,6 +17,7 @@ public class _01_662_maximum_width_of_binary_tree1 {
          这个二叉树与满二叉树（full binary tree）结构相同，但一些节点为空。
          每一层的宽度被定义为两个端点（该层最左和最右的非空节点，两端点间的null节点也计入长度）之间的长度。
 
+
             输入:
                1
              /   \
@@ -52,7 +53,6 @@ public class _01_662_maximum_width_of_binary_tree1 {
         6           7
             输出: 8
 
-
      */
 
     // 思路：
@@ -85,7 +85,7 @@ public class _01_662_maximum_width_of_binary_tree1 {
         int maxWidth = 0;
         while (!queue.isEmpty()) {
             int size = queue.size();
-            // for 循环遍历一层之后，start 和 end 都已经清零
+            // for 循环遍历二叉树的每一层之后，start 和 end 都已经清零
             // 故将其定义在 for 循环外面是比较好的
             int start = 0, end = 0;
             // 一层一层遍历节点

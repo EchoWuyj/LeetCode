@@ -12,6 +12,7 @@ public class _03_83_remove_duplicates_from_sorted_list {
         dummy.next = head;
         ListNode pre = dummy;
         ListNode cur = head;
+
         while (cur != null) {
             if (pre.val == cur.val) {
                 pre.next = cur.next;

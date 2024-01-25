@@ -8,14 +8,10 @@ package alg_02_train_wyj._24_day_贪心算法一;
 public class _05_55_Jump_Game {
     public boolean canJump(int[] nums) {
         int n = nums.length;
-        if (n == 1) return true;
-        int maxPos = 0, end = 0;
+        int maxDis = 0;
         for (int i = 0; i < n; i++) {
-            maxPos = Math.max(maxPos, i + nums[i]);
-            if (i == end) {
-                if (maxPos <= i && i != n - 1) return false;
-                end = maxPos;
-            }
+            if (maxDis < i) return false;
+            maxDis = Math.max(i + nums[i], maxDis);
         }
         return true;
     }

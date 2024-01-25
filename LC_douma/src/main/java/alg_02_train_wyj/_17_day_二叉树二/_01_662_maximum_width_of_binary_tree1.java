@@ -11,11 +11,11 @@ import java.util.Queue;
 public class _01_662_maximum_width_of_binary_tree1 {
 
     class Node {
-        TreeNode node;
+        TreeNode treeNode;
         int seqNum;
 
-        Node(TreeNode node, int seqNum) {
-            this.node = node;
+        public Node(TreeNode treeNode, int seqNum) {
+            this.treeNode = treeNode;
             this.seqNum = seqNum;
         }
     }
@@ -24,23 +24,22 @@ public class _01_662_maximum_width_of_binary_tree1 {
         if (root == null) return 0;
         Queue<Node> queue = new LinkedList<>();
         queue.offer(new Node(root, 1));
+        int max = 0;
 
-        int maxWidth = 0;
         while (!queue.isEmpty()) {
             int size = queue.size();
             int start = 0, end = 0;
             for (int i = 0; i < size; i++) {
                 Node cur = queue.poll();
-                TreeNode node = cur.node;
+                if (i == 0) start = cur.seqNum;
+                if (i == size - 1) end = cur.seqNum;
+                TreeNode treeNode = cur.treeNode;
                 int seqNum = cur.seqNum;
-                if (i == 0) start = seqNum;
-                if (i == size - 1) end = seqNum;
-
-                if (node.left != null) queue.offer(new Node(node.left, 2 * seqNum));
-                if (node.right != null) queue.offer(new Node(node.right, 2 * seqNum + 1));
+                if (treeNode.left != null) queue.offer(new Node(treeNode.left, 2 * seqNum));
+                if (treeNode.right != null) queue.offer(new Node(treeNode.right, 2 * seqNum + 1));
             }
-            maxWidth = Math.max(maxWidth, end - start + 1);
+            max = Math.max(max, end - start + 1);
         }
-        return maxWidth;
+        return max;
     }
 }

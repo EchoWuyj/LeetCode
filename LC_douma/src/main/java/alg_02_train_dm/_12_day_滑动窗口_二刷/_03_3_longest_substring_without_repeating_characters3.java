@@ -71,7 +71,7 @@ public class _03_3_longest_substring_without_repeating_characters3 {
             // KeyPoint 注意：使用 getOrDefault，设置默认值 -1
             int rightCharIndex = window.getOrDefault(rightChar, -1);
 
-            // rightCharIndex == -1 说明该字符之前没有出现过
+            // rightCharIndex == -1 说明该字符之前没有出现过，left 不移动
             // 或者 rightCharIndex < left，left 指针都不移动
             if (rightCharIndex == -1 || rightCharIndex < left) {
                 // 也可以将 left = left 注释掉
@@ -91,6 +91,9 @@ public class _03_3_longest_substring_without_repeating_characters3 {
             // left = Math.max(left, rightCharIndex + 1);
 
             // KeyPoint 解释为什么需要 rightCharIndex < left ?
+
+
+            // 遇到后一个 b 重复，则将 left 移动前一个 b 的后一个位置
 
             // index  0 1 2 3
             // char   a b b a

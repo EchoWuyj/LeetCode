@@ -29,7 +29,7 @@ public class _11_300_LengthOfLongestIncrementSubSeq_推荐 {
         if (nums == null || nums.length == 0) return 0;
 
         int n = nums.length;
-        // 状态：dp[i] 表示以 nums[i] 结尾时最长递增子序列的长度
+        // 状态：dp[i] 表示以 nums[i] 结尾时，最长递增子序列的长度
         int[] dp = new int[n];
 
         // 不能设置 Integer.MIN_VALUE
@@ -54,7 +54,7 @@ public class _11_300_LengthOfLongestIncrementSubSeq_推荐 {
         // 前面多个元素都是需要比较的，所以得使用 i 和 j 两个指针
 
         // 状态转移方程：
-        // nums[j] > nums[i]：dp[j]= max(1+dp[i],dp[j])
+        // nums[j] > nums[i]：dp[j]= max(1+dp[j],dp[i])
         // nums[j] <= nums[i]：dp[i] 不变
 
         // i 遍历每个元素
@@ -63,7 +63,9 @@ public class _11_300_LengthOfLongestIncrementSubSeq_推荐 {
             for (int j = 0; j < i; j++) {
                 if (nums[i] > nums[j]) {
 
-                    // 不能直接赋值 dp[i] = dp[j] + 1，需要保证 dp[i] 是最大值，是需要参与比较的
+                    // 不能直接赋值 dp[i] = dp[j] + 1，需要保证 dp[i] 是最大值，dp[i] 是需要参与比较的
+                    // => 在 j 遍历 [0,i-1] 范围内，求得最大值 dp[j] + 1，并将其赋值为 dp[i]
+
                     // dp[i] 赋值中，靠近 i 位置之前存在 j，使得 nums[i] > nums[j]，对应的 dp[j] 较小，
                     // 将原本大值 dp[i] 覆盖，导致错误结果，故需要加一层 Math.max
 

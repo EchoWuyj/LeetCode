@@ -1,6 +1,7 @@
 package alg_02_train_wyj._20_day_数据结构设计;
 
 import java.util.ArrayDeque;
+import java.util.LinkedList;
 import java.util.Queue;
 
 /**
@@ -68,19 +69,16 @@ public class _02_225_implement_stack_using_queues {
     }
 
     class MyStack1 {
-        Queue<Integer> mainQueue;
-        Queue<Integer> helpQueue;
 
-        public MyStack1() {
-            mainQueue = new ArrayDeque<>();
-            helpQueue = new ArrayDeque<>();
-        }
+        Queue<Integer> mainQueue = new LinkedList<>();
+        Queue<Integer> helpQueue = new LinkedList<>();
 
         public void push(int x) {
             helpQueue.offer(x);
             while (!mainQueue.isEmpty()) {
                 helpQueue.offer(mainQueue.poll());
             }
+
             Queue<Integer> tmp = mainQueue;
             mainQueue = helpQueue;
             helpQueue = tmp;
@@ -100,10 +98,11 @@ public class _02_225_implement_stack_using_queues {
     }
 
     class MyStack2 {
+
         Queue<Integer> queue;
 
         public MyStack2() {
-            queue = new ArrayDeque<>();
+            queue = new LinkedList<>();
         }
 
         public void push(int x) {

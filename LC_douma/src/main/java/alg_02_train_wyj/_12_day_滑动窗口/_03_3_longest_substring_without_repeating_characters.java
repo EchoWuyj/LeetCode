@@ -1,9 +1,8 @@
 package alg_02_train_wyj._12_day_滑动窗口;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+// 导包需要加上;
+
+import java.util.*;
 
 /**
  * @Author Wuyj
@@ -77,11 +76,13 @@ public class _03_3_longest_substring_without_repeating_characters {
     }
 
     public static int lengthOfLongestSubstring3(String s) {
-        int n = s.length();
-        if (n <= 1) return n;
-        int[] window = new int[128];
-        int maxLen = 1;
+        if (s == null ) return 0;
+        if (s.length() == 1) return 1;
+
         int left = 0, right = 0;
+        int[] window = new int[128];
+        int n = s.length();
+        int maxLen = 0;
         while (right < n) {
             char rightChar = s.charAt(right);
             int index = window[rightChar];

@@ -13,7 +13,7 @@ public class _06_53_MaxSubArray6 {
         int max = dp[0];
         for (int i = 1; i < n; i++) {
             dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]);
-            max = Math.max(max, dp[i]);
+            max = Math.max(dp[i], max);
         }
         return max;
     }

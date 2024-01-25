@@ -13,26 +13,27 @@ public class _04_47_Permutations {
 
     public List<List<Integer>> permuteUnique(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
-        List<Integer> path = new ArrayList<>();
         boolean[] visited = new boolean[nums.length];
+        List<Integer> path = new ArrayList<>();
         Arrays.sort(nums);
         dfs(nums, visited, path, res);
         return res;
     }
 
-    private void dfs(int[] nums, boolean[] visited, List<Integer> path, List<List<Integer>> res) {
+    public void dfs(int[] nums, boolean[] visited,
+                    List<Integer> path, List<List<Integer>> res) {
         if (path.size() == nums.length) {
             res.add(new ArrayList<>(path));
             return;
         }
         for (int i = 0; i < nums.length; i++) {
             if (visited[i]) continue;
-            if (i >= 1 && nums[i] == nums[i - 1] && !visited[i - 1]) continue;
+            if (i > 0 && nums[i] == nums[i - 1] && !visited[i - 1]) continue;
             path.add(nums[i]);
             visited[i] = true;
             dfs(nums, visited, path, res);
-            path.remove(path.size() - 1);
             visited[i] = false;
+            path.remove(path.size() - 1);
         }
     }
 }

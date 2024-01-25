@@ -70,7 +70,8 @@ public class _14_151_reverse_words_in_a_string2 {
         return sb.toString();
     }
 
-    // KeyPoint 去掉字符数组中的空格 => 快慢指针 => 实现二 => 实现效率更高，没有进行字符串拼接
+    // KeyPoint 去掉字符数组中的空格 => 快慢指针
+    //          => 实现二 => 实现效率更高，没有进行字符串拼接
     // 类似于：移动零
     // 空间复杂度为 O(1)
     private String trimSpaces(char[] chars) {

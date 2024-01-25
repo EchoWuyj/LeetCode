@@ -1,6 +1,7 @@
 package alg_02_train_wyj._10_day_栈和队列;
 
 import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * @Author Wuyj
@@ -10,28 +11,31 @@ import java.util.ArrayDeque;
 public class _05_227_basic_calculator_ii {
     public int calculate(String s) {
         char preSign = '+';
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        Deque<Integer> stack = new ArrayDeque<>();
+        int n = s.length();
         int i = 0;
-        while (i < s.length()) {
+        while (i < n) {
             if (s.charAt(i) != ' ') {
                 int num = 0;
-                while (i < s.length() && Character.isDigit(s.charAt(i))) {
-                    num = num * 10 + (s.charAt(i) - '0');
+                while (i < n && Character.isDigit(s.charAt(i))) {
+                    num = num * 10 + s.charAt(i) - '0';
                     i++;
                 }
+
                 if (preSign == '+') {
                     stack.push(num);
                 } else if (preSign == '-') {
                     stack.push(-num);
                 } else if (preSign == '*') {
-                    int tmp = stack.pop();
-                    stack.push(num * tmp);
+                    int pop = stack.pop();
+                    stack.push(pop * num);
                 } else if (preSign == '/') {
-                    int tmp = stack.pop();
-                    stack.push(tmp / num);
+                    int pop = stack.pop();
+                    stack.push(pop / num);
                 }
-                while (i < s.length() && s.charAt(i) == ' ') i++;
-                if (i < s.length()) preSign = s.charAt(i);
+
+                while (i < n && s.charAt(i) == ' ') i++;
+                if (i < n) preSign = s.charAt(i);
             }
             i++;
         }

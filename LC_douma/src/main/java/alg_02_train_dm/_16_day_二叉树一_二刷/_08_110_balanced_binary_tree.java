@@ -11,7 +11,7 @@ public class _08_110_balanced_binary_tree {
         110. 平衡二叉树
             给定一个二叉树，判断它是否是 高度平衡 的二叉树。
             本题中，一棵高度平衡二叉树定义为：
-            一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1
+            一个二叉树每个节点 的 左右两个子树的 高度差的绝对值 不超过 1
 
         输入：
               1
@@ -61,6 +61,7 @@ public class _08_110_balanced_binary_tree {
 
         // 计算是否不平衡
         if (Math.abs(leftMaxDepth - rightMaxDepth) > 1) {
+            // 通过 -1 表示是否平衡
             return -1;
         }
 

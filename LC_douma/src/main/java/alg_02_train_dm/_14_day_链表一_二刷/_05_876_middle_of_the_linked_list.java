@@ -89,7 +89,8 @@ public class _05_876_middle_of_the_linked_list {
         if (head == null || head.next == null) return head;
 
         // KeyPoint 中点 mid 靠右
-        // slow 和 fast 都是从 head 开始，slow 中点是靠右
+        // slow 和 fast 都是从 head 开始，slow 中点是靠右[后右]
+        // fast 先走一步，slow 中点靠左[先左]
 
         // 数组
         // index 0 1 2 3 4  5

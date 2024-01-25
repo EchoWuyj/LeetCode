@@ -43,7 +43,6 @@ public class _12_93_RestoreIpAddresses1 {
         // count 从 0 开始，分析调用 dfs 时，count = 1 是否分好 segment，
         // 若分好，则 count = 4，说明 4 个 segment 都分好段了
         dfs(s, 0, "", 0, res);
-
         return res;
     }
 
@@ -85,7 +84,7 @@ public class _12_93_RestoreIpAddresses1 {
         }
     }
 
-    // 判断 ip segment 是否为合法 => 单独功能抽取 => 解耦
+    // KeyPoint 判断 ip segment 是否为合法 => 单独功能抽取 => 解耦
     // 1.判断 ip segment 长度
     // 2.判断 前导 0
     // 3.判断 255 范围
@@ -99,8 +98,6 @@ public class _12_93_RestoreIpAddresses1 {
         return (segment.charAt(0) == '0') ?
                 (len == 1) : (Integer.parseInt(segment) <= 255);
     }
-
-
 
     public static void main(String[] args) {
         System.out.println(restoreIpAddresses("101023"));

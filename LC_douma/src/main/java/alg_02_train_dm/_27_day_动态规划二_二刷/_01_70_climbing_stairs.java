@@ -91,6 +91,7 @@ public class _01_70_climbing_stairs {
         if (n == 2) return 2;
 
         // 1. 状态 dp[i]：表示走到第 i 个台阶的方法数
+        // 长度为 n+1，表示访问 [0,n]
         int[] dp = new int[n + 1];
 
         // 2. 状态初始化

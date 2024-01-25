@@ -45,6 +45,8 @@ public class _03_105_construct_binary_tree_from_preorder_and_inorder_traversal2_
         this.idxMap = new HashMap<>();
         int n = inorder.length;
         // 构建中序序列 idxMap
+        // key：节点值
+        // value：索引
         for (int i = 0; i < n; i++) {
             idxMap.put(inorder[i], i);
         }

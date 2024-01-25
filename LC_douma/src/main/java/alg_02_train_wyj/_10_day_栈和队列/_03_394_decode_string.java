@@ -18,11 +18,14 @@ public class _03_394_decode_string {
             if (c >= '0' && c <= '9') {
                 num = num * 10 + (c - '0');
             } else if (c == '[') {
+                // 压栈
                 numStack.push(num);
                 strStack.push(builder.toString());
+                // 清零
                 num = 0;
                 builder.delete(0, builder.length());
             } else if (c == ']') {
+                // [ 之后，内部的 String
                 String item = builder.toString();
                 int count = numStack.pop();
                 for (int i = 1; i < count; i++) {

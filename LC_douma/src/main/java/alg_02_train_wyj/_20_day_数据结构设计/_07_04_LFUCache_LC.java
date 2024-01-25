@@ -32,11 +32,14 @@ public class _07_04_LFUCache_LC {
 
         int count = keyToCount.get(key);
         keyToCount.put(key, count + 1);
+
         countToKeySet.get(count).remove(key);
+
         if (count == minCount &&
                 countToKeySet.get(minCount).size() == 0) {
             minCount++;
         }
+
         addKeyToKeySet(key, count + 1);
         return value;
     }
@@ -51,6 +54,7 @@ public class _07_04_LFUCache_LC {
     public void put(int key, int value) {
         if (cache.containsKey(key)) {
             cache.put(key, value);
+            // 调用 get() 方法，维护 key 对应数据结构
             get(key);
         } else {
             if (cache.size() == capacity) {

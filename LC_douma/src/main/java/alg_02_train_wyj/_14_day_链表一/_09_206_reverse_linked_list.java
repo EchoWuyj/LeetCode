@@ -11,7 +11,6 @@ public class _09_206_reverse_linked_list {
         ListNode pre = null;
         ListNode cur = head;
         ListNode next;
-
         while (cur != null) {
             next = cur.next;
             cur.next = pre;
@@ -23,10 +22,10 @@ public class _09_206_reverse_linked_list {
 
     public static ListNode reverseList(ListNode head) {
         if (head == null || head.next == null) return head;
-        ListNode rest = reverseList(head.next);
-        head.next = null;
+        ListNode tail = reverseList(head.next);
         head.next.next = head;
-        return rest;
+        head.next = null;
+        return tail;
     }
 
     public static void main(String[] args) {

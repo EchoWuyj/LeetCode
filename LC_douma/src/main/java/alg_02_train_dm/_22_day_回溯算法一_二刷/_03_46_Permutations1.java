@@ -33,7 +33,8 @@ public class _03_46_Permutations1 {
 
     // 非全排列代码
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
+
+         List<List<Integer>> res = new ArrayList<>();
         List<Integer> path = new ArrayList<>();
         // root 一开始为 -1
         dfs(nums, -1, path, res);

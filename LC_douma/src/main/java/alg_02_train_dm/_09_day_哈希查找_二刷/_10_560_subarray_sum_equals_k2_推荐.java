@@ -91,6 +91,10 @@ public class _10_560_subarray_sum_equals_k2_推荐 {
         int res = 0;
         // i 遍历前缀和数组 prefixSum，范围从 0 到 n
         for (int i = 0; i < n + 1; i++) {
+            // ps[i] 为主体，在后面
+            // ps[j] 在次要，在前面
+            // ps[i] - ps[j] = k
+            // => ps[j] = ps[i] - k
             int diff = prefixSum[i] - k;
             // 哈希查找
             // => 当索引为 i，则当前索引 i 对应的 prefixSum[i] 没有存储
@@ -98,8 +102,9 @@ public class _10_560_subarray_sum_equals_k2_推荐 {
             if (map.containsKey(diff)) {
                 res += map.get(diff);
             }
-            // 存储当前索引 i 之前的 prefixSum，即 prefixSum[0] ~ prefixSum[i-1]
-            // 同时在本轮遍历结束前，也将 prefixSum[i] 存入 map 中
+            // 也将 prefixSum[i] 存入 map 中，同时记录次数
+            // key 为 prefixSum[i]
+            // value 为次数
             map.put(prefixSum[i], map.getOrDefault(prefixSum[i], 0) + 1);
         }
         return res;

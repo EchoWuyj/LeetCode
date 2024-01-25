@@ -65,6 +65,7 @@ public class _06_19_remove_nth_node_from_end_of_list1_推荐 {
 
     // KeyPoint 方法二 快慢指针
     public ListNode removeNthFromEnd3(ListNode head, int n) {
+
         // 删除节点，一般都是使用 dummyNode
         ListNode dummyNode = new ListNode(-1);
         // 串联头节点 => 一定不能遗忘

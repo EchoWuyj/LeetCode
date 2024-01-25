@@ -14,7 +14,7 @@ public class _14_24_swap_nodes_in_pairs {
 
         ListNode pre = dummy;
         ListNode first = head;
-        ListNode second = head.next;
+        ListNode second = first.next;
         ListNode next = second.next;
 
         while (second != null) {
@@ -24,8 +24,9 @@ public class _14_24_swap_nodes_in_pairs {
 
             pre = first;
             first = next;
-            if (first == null) break;
-            second = first.next;
+            if (next == null) break;
+
+            second = next.next;
             if (second != null) next = second.next;
         }
         return dummy.next;

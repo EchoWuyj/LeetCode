@@ -1,7 +1,5 @@
 package alg_02_train_wyj._11_day_优先队列;
 
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 /**
@@ -45,18 +43,22 @@ public class _08_239_sliding_window_maximum {
     }
 
     public int[] maxSlidingWindow3(int[] nums, int k) {
+        PriorityQueue<int[]> maxHeap
+                = new PriorityQueue<>((a, b) -> a[0] != b[0] ? b[0] - a[0] : b[1] - a[1]);
+        for (int i = 0; i < k; i++) {
+            maxHeap.add(new int[]{nums[i], i});
+        }
+
         int n = nums.length;
         int[] res = new int[n - k + 1];
-        Deque<Integer> deque = new LinkedList<>();
-        for (int i = 0; i < n; i++) {
-            while (!deque.isEmpty() && deque.peek() <= i - k) {
-                deque.poll();
+        res[0] = maxHeap.peek()[0];
+
+        for (int i = k; i < n; i++) {
+            maxHeap.add(new int[]{nums[i], i});
+            while (maxHeap.peek()[1] <= i - k) {
+                maxHeap.remove();
             }
-            while (!deque.isEmpty() && nums[i] > nums[deque.peekLast()]) {
-                deque.pollLast();
-            }
-            deque.offer(i);
-            if (i >= k - 1) res[i - k + 1] = nums[deque.peek()];
+            res[i - k + 1] = maxHeap.peek()[0];
         }
         return res;
     }

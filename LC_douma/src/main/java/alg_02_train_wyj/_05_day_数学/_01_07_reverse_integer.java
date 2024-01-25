@@ -30,13 +30,15 @@ public class _01_07_reverse_integer {
     public int reverse1(int x) {
         int res = 0;
         while (x != 0) {
-            int pop = x % 10;
+            int mod = x % 10;
             x = x / 10;
+
             if (res > Integer.MAX_VALUE / 10
-                    || (res == Integer.MAX_VALUE && pop > 7)) return 0;
+                    || res == Integer.MAX_VALUE / 10 && mod > 7) return 0;
+
             if (res < Integer.MIN_VALUE / 10
-                    || (res == Integer.MIN_VALUE && pop < -8)) return 0;
-            res = res * 10 + pop;
+                    || res == Integer.MIN_VALUE / 10 && mod < -8) return 0;
+            res = res * 10 + mod;
         }
         return res;
     }

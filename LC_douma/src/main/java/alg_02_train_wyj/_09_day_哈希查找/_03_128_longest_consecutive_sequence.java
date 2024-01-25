@@ -30,22 +30,24 @@ public class _03_128_longest_consecutive_sequence {
     }
 
     public static int longestConsecutive(int[] nums) {
-        if (nums.length < 2) return nums.length;
+        if (nums == null || nums.length == 0) return 0;
+        int n = nums.length;
         Set<Integer> set = new HashSet<>();
-        for (int num : nums) set.add(num);
-        int res = 1;
         for (int num : nums) {
-            int currNum = num;
-            int count = 1;
-            // 存在重复计算
-            if (!set.contains(currNum - 1)) {
-                while (set.contains(currNum + 1)) {
-                    currNum += 1;
-                    count += 1;
-                }
-            }
-            res = Math.max(res, count);
+            set.add(num);
         }
-        return res;
+
+        int max = 1;
+        for (int num : nums) {
+            int count = 1;
+            int cur = num;
+            if (set.contains(cur - 1)) continue;
+            while (set.contains(cur + 1)) {
+                count++;
+                cur++;
+            }
+            max = Math.max(max, count);
+        }
+        return max;
     }
 }

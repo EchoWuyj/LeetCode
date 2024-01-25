@@ -26,9 +26,12 @@ public class _12_179_LargestNumber1 {
 
         KeyPoint 思路分析
 
-        1.降序排列 ×
+        nums = [3,30,34,5,9]
+
+        1.降序排列 ×  34，30，9，5，3
         2.按照每个数字的第一位降序，但是第一位相同，后续怎么处理，比较复杂 ×
-        3.降序排列
+
+        降序排列
           x，y
           x > y => x 在前，y 在 后
           x < y => y 在前，x 在 后
@@ -68,7 +71,7 @@ public class _12_179_LargestNumber1 {
 //            return "0";
 //        }
 
-        // 拼接
+        // 用于拼接已经排序好的元素 num
         StringBuilder sb = new StringBuilder();
         for (int num : nums) {
             sb.append(num);
@@ -80,6 +83,7 @@ public class _12_179_LargestNumber1 {
         return sb.toString();
     }
 
+    // KeyPoint 核心：重新定义元素之间的比较策略
     // 使用'三路快排'实现排序
     private void sort(int[] data, int low, int high) {
         if (low >= high) return;
@@ -100,6 +104,7 @@ public class _12_179_LargestNumber1 {
             // data[i] 和 pivot 进行拼接
             // => 类似：x 和 y 进行拼接
             // => 通过比较拼接后 xy 和 yx 大小，从而决定 data[i] 排序
+
             // data[i] -> x
             // pivot -> y
             // KeyPoint 定义 xy 和 yx 是在 while 循环里面，不是在 while 外面

@@ -90,10 +90,10 @@ public class _01_07_reverse_integer {
             if (res > Integer.MAX_VALUE / 10
                     // res == Integer.MAX_VALUE / 10 = 214748364
                     // 若 pop > 7，则 res = res * 10 + pop = 2147483640 + > 7 => 数据溢出
-                    //
                     || (res == Integer.MAX_VALUE / 10 && pop > 7)) return 0;
 
             // 同理
+            // KeyPoint 结构具有对称性
             // MIN_VALUE => 比小，使用 <
             if (res < Integer.MIN_VALUE / 10
                     || (res == Integer.MIN_VALUE / 10 && pop < -8)) return 0;

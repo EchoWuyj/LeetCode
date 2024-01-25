@@ -43,14 +43,14 @@ public class _04_82_remove_duplicates_from_sorted_list_ii {
         // 凡是链表操作，提醒自己是否可能为 head 节点，是则需要使用 dummy
 
         // 待删除节点可能是头节点，故需要使用 dummy
-        ListNode dummy = new ListNode(-101);
+        ListNode dummy = new ListNode(-1);
         dummy.next = head;
         // 删除元素，需要的 pre
         ListNode pre = dummy;
         // 找到相同元素指针
         ListNode cur = head;
         while (cur != null) {
-            // 存在重复元素
+            // 1.存在重复元素
             if (cur.next != null && cur.val == cur.next.val) {
                 // KeyPoint 学习 do while 循环写法
                 // 先移动 cur 指针，再去执行 while 判断条件
@@ -59,11 +59,12 @@ public class _04_82_remove_duplicates_from_sorted_list_ii {
                     cur = cur.next;
                 } while (cur.next != null && cur.val == cur.next.val);
 
+                // cur 结束在相同元素的最后一个元素位置
                 pre.next = cur.next;
                 // KeyPoint 最好养成断链的习惯，避免形成链表环路
                 cur.next = null;
                 cur = pre.next;
-            } else { // 没有重复元素，更新 pre 位置
+            } else { // 2.没有重复元素，更新 pre 位置
                 pre = cur;
                 cur = cur.next;
             }

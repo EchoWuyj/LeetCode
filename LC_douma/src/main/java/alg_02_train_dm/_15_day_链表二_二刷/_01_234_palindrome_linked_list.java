@@ -28,7 +28,11 @@ public class _01_234_palindrome_linked_list {
         if (head == null || head.next == null) return true;
 
         // KeyPoint 中点 mid 靠左
-        // slow 从 head 开始，fast 从 head.next，slow 中点是靠右
+        // slow 从 head 开始，fast 从 head.next，slow 中点是靠左
+
+        // KeyPoint 总结
+        // fast 先走一步，slow 靠左
+        // fast 和 slow 相同起点，slow 考右
 
         // 数组
         // index 0 1 2 3 4 5

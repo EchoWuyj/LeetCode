@@ -7,7 +7,7 @@ package alg_02_train_dm._25_day_贪心算法二_二刷;
  */
 public class _02_674_longest_continuous_increasing_subsequence_推荐 {
      /*
-        674. 最长连续递增序列
+        674 最长连续递增序列
         给定一个未经排序的整数数组，找到最长且连续递增的子序列，并返回该序列的长度。
 
         连续递增的子序列可以由两个下标 l 和 r（l < r）确定，如果对于每个 l <= i < r，
@@ -47,17 +47,20 @@ public class _02_674_longest_continuous_increasing_subsequence_推荐 {
         //  slow   fast-1 fast
         // nums[fast-1] >= nums[fast] => 将 slow 移动到 fast 位置
 
+        int n = nums.length;
+        int slow = 0;
+
         // 数组长度从 1 开始，连续递增子序列的长度必然从 1 开始
         int res = 1;
-        int slow = 0;
-        int n = nums.length;
-        // KeyPoint while (fast < nums.length) 两种循环得能灵活使用
+
+        // KeyPoint 两种循环得能灵活使用
+        // while (fast < nums.length)
         for (int fast = 1; fast < n; fast++) {
             if (nums[fast - 1] >= nums[fast]) {
-                // nums[fast-1] >= nums[fast] 不满足续递增子序列条件
+                // nums[fast-1] >= nums[fast] 不满足连续递增子序列条件
                 // 更新 slow 索引，相当于移动 slow，重新再计算下一段连续递增子序列的长度
                 slow = fast;
-                // 跳过本轮循环，继续执行下轮循环
+                // 跳过本轮循环，继续执行下轮循环，后面的循环不用执行了
                 continue;
             }
             // nums[fast - 1] < nums[fast]

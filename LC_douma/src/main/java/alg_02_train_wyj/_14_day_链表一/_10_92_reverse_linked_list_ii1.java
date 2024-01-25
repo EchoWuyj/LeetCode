@@ -19,6 +19,7 @@ public class _10_92_reverse_linked_list_ii1 {
         for (int i = 0; i < right - left; i++) {
             leftNode = leftNode.next;
         }
+
         ListNode rightNode = leftNode;
         ListNode post = rightNode.next;
         pre.next = null;

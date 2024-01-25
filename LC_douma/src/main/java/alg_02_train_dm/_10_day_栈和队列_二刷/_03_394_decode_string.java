@@ -53,8 +53,7 @@ public class _03_394_decode_string {
         // 13[ak2[bc]] => 多位数字
         // 2[a2[b2[m]d]] => 嵌套编码
         for (char c : s.toCharArray()) {
-            // 根据不同字符：数字，'['，']'，字母，多种情况
-            // => 使用 if 进行分支选择，执行不同的操作
+            // 根据不同字符：数字，'['，']'，字母，多种情况 => 使用 if 进行分支选择，执行不同的操作
             // 注意：数字范围：[0,9]，不是[1,9]
             if (c >= '0' && c <= '9') {
                 // num 可能是多位数字，比如 num = 13
@@ -72,6 +71,7 @@ public class _03_394_decode_string {
                 num = 0;
                 // res 清空 => 从 0 开始清空
                 res.delete(0, res.length());
+
                 // KeyPoint 补充说明：StringBuilder 的 delete 方法
                 // delete(int start, int end): [start,end)，实际删除 end-1，end 是不包括的
                 // 故 end = res.length()，实际删除 res.length() - 1
@@ -89,6 +89,7 @@ public class _03_394_decode_string {
                     res.append(item);
                 }
                 // strStack 出栈，将字符串插入到 res 头部，注意：不是追加在尾部
+                // 因为 strStack 保存之前操作已经完成的 str，故将其插入到 res 的头部
                 // 字符串出栈 => res 前面字符串
                 res.insert(0, strStack.pop());
             } else {

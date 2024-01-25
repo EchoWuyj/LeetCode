@@ -17,7 +17,8 @@ public class _03_46_Permutations4 {
         return res;
     }
 
-    public void dfs(int[] nums, List<List<Integer>> res, List<Integer> path, boolean[] visited) {
+    public void dfs(int[] nums, List<List<Integer>> res,
+                    List<Integer> path, boolean[] visited) {
         if (path.size() == nums.length) {
             res.add(new ArrayList<>(path));
             return;

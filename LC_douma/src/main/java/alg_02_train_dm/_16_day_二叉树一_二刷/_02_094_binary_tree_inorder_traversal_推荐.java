@@ -21,19 +21,16 @@ public class _02_094_binary_tree_inorder_traversal_推荐 {
     public List<Integer> inorderTraversal1(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         if (root == null) return res;
-
         Stack<TreeNode> stack = new Stack<>();
-        TreeNode curr = root;
-        // 或的关系
-        while (curr != null || !stack.isEmpty()) {
-            while (curr != null) {
-                stack.push(curr);
-                curr = curr.left;
+        TreeNode cur = root;
+        while (cur != null || !stack.isEmpty()) {
+            while (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
             }
-            TreeNode node = stack.pop();
-            res.add(node.val);
-
-            curr = node.right;
+            TreeNode pop = stack.pop();
+            res.add(pop.val);
+            cur = pop.right;
         }
         return res;
     }

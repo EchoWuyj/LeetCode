@@ -15,6 +15,15 @@ public class _07_402_RemoveKdigits1 {
     // 空间复杂度：O(n) => 空间换时间
     public String removeKdigits(String num, int k) {
 
+        // num  4     3    9
+        //      ↑     ↑
+        //    D(i-1)  Di
+
+        // num 439 k = 1
+        // 若删除 4，num = 39 => 选择这种情况，即 前一个位置 元素 > 后一个位置 元素
+        // 若删除 3，num = 49
+        // 故删除 4，保留 3
+
         // KeyPoint 优化 => 单调栈
 
         // num： 1  4  3  2  2  3  9

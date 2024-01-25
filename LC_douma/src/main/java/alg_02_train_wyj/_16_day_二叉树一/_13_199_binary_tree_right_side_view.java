@@ -36,8 +36,8 @@ public class _13_199_binary_tree_right_side_view {
         return res;
     }
 
-    public void dfs(TreeNode root,  List<Integer> res,int level){
-        if (root == null)return;
+    public void dfs(TreeNode root, List<Integer> res, int level) {
+        if (root == null) return;
         if (res.size() == level) {
             res.add(root.val);
         }

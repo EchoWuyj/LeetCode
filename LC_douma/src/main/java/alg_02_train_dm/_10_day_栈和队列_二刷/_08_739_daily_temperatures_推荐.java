@@ -63,7 +63,7 @@ public class _08_739_daily_temperatures_推荐 {
         for (int i = 0; i < n; i++) {
             int t = T[i];
             // 单调递减栈
-            // => 看栈中索引值对应元素值递增或递减关系，而不是索引值
+            // => 看栈中 索引值 对应元素值 递增或递减关系，而不是索引值
             while (!stack.isEmpty() && t > T[stack.peek()]) {
                 int top = stack.pop();
                 // KeyPoint 给 stack 中 索引赋值

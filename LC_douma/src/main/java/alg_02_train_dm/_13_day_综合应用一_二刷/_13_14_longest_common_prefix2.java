@@ -27,9 +27,10 @@ public class _13_14_longest_common_prefix2 {
         // KeyPoint 固定写法，i 和行搭配，j 和列搭配
         for (int j = 0; j < cols; j++) {
             char firstChar = strs[0].charAt(j);
-            // 再按照行，逐行比较，从第二行开始 => 表示后面的单词
+            // 再按照行，逐行比较
+            // 从第二行开始 => 表示后面的单词
             for (int i = 1; i < rows; i++) {
-                // 若某行 strs[i] 已经遍历到结尾，即 strs[i].length() == j
+                // 若 j 遍历列过程中，已经到某行 strs[i] 结尾，即 strs[i].length() == j
                 // 或者 其中某一行，有个字符不相同，对其进行截取
                 // => 根据木桶效应，最长公共前缀，只能为最短的字符串
                 if (strs[i].length() == j || strs[i].charAt(j) != firstChar) {

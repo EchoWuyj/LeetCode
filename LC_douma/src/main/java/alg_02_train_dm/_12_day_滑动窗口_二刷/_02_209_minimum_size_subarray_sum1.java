@@ -61,6 +61,7 @@ public class _02_209_minimum_size_subarray_sum1 {
     // 时间复杂度：O(n)
     // 空间复杂度：O(1)
     public int minSubArrayLen2(int target, int[] nums) {
+        // 求最小值，初始值赋值给最大值
         int res = Integer.MAX_VALUE;
         int left = 0, right = 0;
         int windowSum = 0;
@@ -82,6 +83,7 @@ public class _02_209_minimum_size_subarray_sum1 {
             // 移动右边界，扩大窗口
             right++;
         }
+        // 判断
         return res == Integer.MAX_VALUE ? 0 : res;
     }
 }

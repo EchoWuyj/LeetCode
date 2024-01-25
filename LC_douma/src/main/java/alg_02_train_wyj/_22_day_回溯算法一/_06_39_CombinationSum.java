@@ -10,26 +10,25 @@ import java.util.List;
  */
 public class _06_39_CombinationSum {
 
-    List<List<Integer>> res = new ArrayList<>();
-    List<Integer> combinationSum = new ArrayList<>();
-
     public List<List<Integer>> combinationSum(int[] nums, int target) {
+        List<List<Integer>> res = new ArrayList<>();
         if (nums == null || nums.length == 0) return res;
-        dfs(nums, target, 0);
+        List<Integer> path = new ArrayList<>();
+        dfs(nums, target, 0, path, res);
         return res;
     }
 
-    public void dfs(int[] nums, int target, int index) {
+    public void dfs(int[] nums, int target, int index,
+                    List<Integer> path, List<List<Integer>> res) {
         if (target < 0) return;
         if (target == 0) {
-            res.add(new ArrayList<>(combinationSum));
-            return;
+            res.add(new ArrayList<>(path));
         }
 
         for (int i = index; i < nums.length; i++) {
-            combinationSum.add(nums[i]);
-            dfs(nums, target - nums[i], i);
-            combinationSum.remove(combinationSum.size() - 1);
+            path.add(nums[i]);
+            dfs(nums, target - nums[i], i, path, res);
+            path.remove(path.size() - 1);
         }
     }
 }

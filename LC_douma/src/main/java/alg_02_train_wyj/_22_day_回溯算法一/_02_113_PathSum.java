@@ -12,19 +12,22 @@ public class _02_113_PathSum {
     public List<List<Integer>> pathSum(TreeNode root, int target) {
         List<List<Integer>> res = new ArrayList<>();
         List<Integer> path = new ArrayList<>();
-        dfs(root, path, res, target);
+        dfs(root, target, path, res);
         return res;
     }
 
-    public static void dfs(TreeNode node, List<Integer> path, List<List<Integer>> res, int target) {
-        if (node == null) return;
-        path.add(node.val);
-        int curTarget = target - node.val;
-        if (node.left == null && node.right == null && curTarget == 0) {
+    public void dfs(TreeNode root, int target,
+                    List<Integer> path, List<List<Integer>> res) {
+        if (root == null) return;
+        path.add(root.val);
+        target -= root.val;
+        if (root.left == null && root.right == null && target == 0) {
             res.add(new ArrayList<>(path));
         }
-        dfs(node.left, path, res, curTarget);
-        dfs(node.right, path, res, curTarget);
+        dfs(root.left, target, path, res);
+        dfs(root.right, target, path, res);
         path.remove(path.size() - 1);
     }
+
+
 }

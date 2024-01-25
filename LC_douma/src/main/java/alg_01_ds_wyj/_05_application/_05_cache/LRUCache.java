@@ -1,6 +1,7 @@
 package alg_01_ds_wyj._05_application._05_cache;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author Wuyj
@@ -12,13 +13,13 @@ public class LRUCache {
     class Node {
         int key;
         int value;
-        Node prev;
         Node next;
+        Node prev;
     }
 
     Node head;
     Node tail;
-    Map<Integer, Node> cache;
+    Map<Integer, Node> map;
     int capacity;
 
     public LRUCache(int capacity) {
@@ -26,7 +27,7 @@ public class LRUCache {
         tail = new Node();
         head.next = tail;
         tail.prev = head;
-        cache = new HashMap<>();
+        map = new HashMap<>();
         this.capacity = capacity;
     }
 
@@ -38,8 +39,8 @@ public class LRUCache {
     public void delNode(Node node) {
         Node prevNode = node.prev;
         Node nextNode = node.next;
-        prevNode.next = nextNode;
         nextNode.prev = prevNode;
+        prevNode.next = nextNode;
         node.next = null;
         node.prev = null;
     }
@@ -47,35 +48,35 @@ public class LRUCache {
     public void addNodeToHead(Node node) {
         node.next = head.next;
         node.prev = head;
-        head.next.prev = node;
+        head.next.next = node;
         head.next = node;
     }
 
-    public Node delNodeFromTail() {
-        Node lastNode = tail.prev;
-        delNode(lastNode);
-        return lastNode;
+    public Node delTailNode() {
+        Node tailNode = tail.prev;
+        delNode(tailNode);
+        return tailNode;
     }
 
     public int get(int key) {
-        Node node = cache.get(key);
+        Node node = map.get(key);
         if (node == null) return -1;
         delNodeToHead(node);
         return node.value;
     }
 
     public void put(int key, int value) {
-        Node node = cache.get(key);
+        Node node = map.get(key);
         if (node == null) {
-            if (cache.size() == capacity) {
-                Node lastNode = delNodeFromTail();
-                cache.remove(lastNode.key);
+            if (map.size() == capacity) {
+                Node tailNode = delTailNode();
+                map.remove(tailNode.key);
             }
             Node newNode = new Node();
-            newNode.value = value;
             newNode.key = key;
-            cache.put(key, newNode);
+            newNode.value =value;
             addNodeToHead(newNode);
+            map.put(key, newNode);
         } else {
             node.value = value;
             delNodeToHead(node);

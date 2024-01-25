@@ -31,6 +31,7 @@ public class _13_22_GenerateParenthesis3 {
         if (open < n) {
             dfs(n, path + "(", res, open + 1, close);
         }
+
         // close < open => 往右遍历 => path + ")"
         // close = 1，open = 2，(()， 还能添加一个 )
         if (close < open) {

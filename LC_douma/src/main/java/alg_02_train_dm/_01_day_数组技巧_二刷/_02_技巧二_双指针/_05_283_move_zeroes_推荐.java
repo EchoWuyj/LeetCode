@@ -71,8 +71,10 @@ public class _05_283_move_zeroes_推荐 {
         int fast = 0;
         int n = nums.length;
         while (fast < n) {
+            // nums[fast] 不为 0，才去执行 if 逻辑判断
             if (nums[fast] != 0) {
                 // 使用 if 判断，减少交换的次数
+                // => slow 指针 和 fast 指针在同一位置没有必要交换
                 // KeyPoint 注意
                 // 实际上，不加上 if 判断，性能还更好
                 // => 说明'赋值语句'比'比较语句'执行快
@@ -83,6 +85,7 @@ public class _05_283_move_zeroes_推荐 {
                 slow++;
                 fast++;
             } else {
+                // fast 遇到 0，直接跳过
                 fast++;
             }
         }

@@ -6,7 +6,7 @@ package alg_01_ds_dm._01_line._05_algo._05_linkedlist_二刷;
  * @Version 1.0
  */
 
-public class ListNode { // 构建链表节点
+class ListNode { // 构建链表节点
     int val;
     ListNode next;
 

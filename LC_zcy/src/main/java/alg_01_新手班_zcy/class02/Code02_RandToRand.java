@@ -120,8 +120,8 @@ public class Code02_RandToRand {
     //--------------------------------------------------------------
 
     // 定义好的方法,相当于lib里的，不能改！
+    // 实现1-5的随机
     public static int f1() {
-        // 实现1-5的随机
         // 得先实现0-5的随机,再在其基础上+1
         return (int) (Math.random() * 5) + 1;
     }
@@ -136,8 +136,8 @@ public class Code02_RandToRand {
             // do while中的while是针对确定下来的ans进行判断,
             // 不能再去调用f1(),比如 while(f1() ==3),相当于两次调用
         } while (ans == 3);
-        // 1,2返回0
-        // 4,5返回1
+        // 1,2 返回 0
+        // 4,5 返回 1
         return ans < 3 ? 0 : 1;
     }
 
@@ -163,15 +163,18 @@ public class Code02_RandToRand {
         int ans = 0;
         do {
             ans = f3();
-            //
         } while (ans == 7);
         return ans;
     }
 
-    // KeyPoint 题目1 1~7等概率返回一个数字
+    // 1~7 等概率返回一个数字
     public static int g() {
         return f4() + 1;
     }
+
+
+
+
 
     // KeyPoint 题目2(题目1推广)
     //  从a-b随机到c-d随机(a,b,c,d代表抽象数字)

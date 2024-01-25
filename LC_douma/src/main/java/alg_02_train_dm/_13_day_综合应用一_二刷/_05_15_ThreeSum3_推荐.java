@@ -34,7 +34,7 @@ public class _05_15_ThreeSum3_推荐 {
                 int sum = nums[left] + nums[right];
                 if (sum == target) {
                     res.add(Arrays.asList(nums[i], nums[left], nums[right]));
-                    // 找到一组之后，继续往后遍历
+                    // 找到一组之后，继续往后遍历，进行去重
                     // KeyPoint 手动去重-2
                     // 这种方式去重前提条件：数组是有序的，相等的元素靠在一起
                     // 相邻且相等的元素，只记录一次后续再有再相等元素，通过移动 left 和 right 指针，跳过，从而实现去重

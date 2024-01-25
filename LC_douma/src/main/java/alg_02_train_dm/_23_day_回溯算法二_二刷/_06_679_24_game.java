@@ -70,6 +70,7 @@ public class _06_679_24_game {
         if (list.size() == 1) {
             // 实数运算存在误差(相除存在小数)，若在误差范围内，则返回 true
             // 加上 Math.abs，表示在正负误差之内，都是可以接受的
+            // 在 TARGET = 24 上下误差范围之内，都是可以接受的
             return Math.abs(list.get(0) - TARGET) < EPSILON;
         }
 
@@ -87,7 +88,7 @@ public class _06_679_24_game {
 
         for (int num1 = 0; num1 < size; num1++) {
             for (int num2 = 0; num2 < size; num2++) {
-                // num1，num2 不能是同一个数字
+                // num1，num2 不能是同一个位置索引，即同一个数字不能使用两次
                 if (num1 != num2) {
                     // 集合中存储 Double，而不是 double
                     List<Double> subList = new ArrayList<Double>();
@@ -98,11 +99,13 @@ public class _06_679_24_game {
                             subList.add(list.get(k));
                         }
                     }
+
                     // 加减乘除，故循环 4 次
                     // 0,1,2,3 分别对应：加减乘除
                     for (int k = 0; k < 4; k++) {
                         // +，* 满足交换律，0 + 1 = 1 + 0，=> k < 2，
-                        // num1 > num2 时，必然有 num1 < num2 已经计算过了 +，*，相当于'剪枝'
+                        // num1 > num2 时，必然有 num1 < num2 已经计算过了 +，*
+                        // 相当于'剪枝'
                         if (k < 2 && num1 > num2) continue;
 
                         if (k == ADD) {

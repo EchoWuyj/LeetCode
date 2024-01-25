@@ -115,6 +115,7 @@ public class _03_198_house_robber {
     // KeyPoint 方法三 动态规划
     public int rob3(int[] nums) {
         int n = nums.length;
+
         // 使用 dp，存在 dp[i-2]，需要特判，避免越界
         if (n == 1) return nums[0];
 
@@ -125,14 +126,16 @@ public class _03_198_house_robber {
         // 偷 => 最高金额
         dp[0] = nums[0];
         // 偷与不偷中取最高金额
+        // 偷 nums[0] => nums[0]
+        // 不偷 nums[0]，偷 nums[1] => 偷 nums[1]
         dp[1] = Math.max(nums[0], nums[1]);
 
         for (int i = 2; i < n; i++) {
             // dp[0]，dp[1] 已知，想推导出 dp[i]，必然是比 dp[i] 小的
             // 故只能是 dp[i-1]，dp[i-2]，而不是 dp[i+1]，dp[i+2]
             // 逻辑分析
-            // 1.i 节点不偷，不加 nums[i]，则可选择相邻 i-1 节点
-            // 2.i 节点偷，加上 nums[i]，则只能选择 i-2 节点
+            // 1.i 节点不偷，不加 nums[i]，则可选择相邻 i-1 节点，即 dp[i-1]
+            // 2.i 节点偷，加上 nums[i]，则只能选择 i-2 节点，即 dp[i-2]
             // KeyPoint 针对 nums[i] 来判断当前的 dp[i] 状态，使用的是 nums[i]，不是 nums[i-2]
             dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
         }
