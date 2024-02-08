@@ -59,6 +59,9 @@ public class _61_43_multiply_debug {
 
         // 2.bug 在 multiply 主方法中，再去进一步排除
         // 优先进行 codeview，其次是 print，最后是 debug，提高效率
+
+        // 3. 根据输出结果的特征，判断可能出现的 bug
+        // 如：1*2=2，但是测试用例输出结果非常大，则说明 x*y+carry 有问题，再去进一步缩小排查范围
         System.out.println(multiply("3", "5"));
     }
 }

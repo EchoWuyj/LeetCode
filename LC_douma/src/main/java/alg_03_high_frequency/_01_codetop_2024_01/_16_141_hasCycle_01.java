@@ -9,6 +9,9 @@ import java.util.Set;
  * @Version 1.0
  */
 public class _16_141_hasCycle_01 {
+
+    // 环形链表
+    // HashSet
     public boolean hasCycle(ListNode head) {
         // 特判
         if (head == null || head.next == null) return false;
@@ -18,8 +21,10 @@ public class _16_141_hasCycle_01 {
             // add 之前先判断
             if (set.contains(head)) return true;
             set.add(head);
+            // head 移动到下个位置
             head = head.next;
         }
+        // 循环结束都没有找到环，返回 false
         return false;
     }
 }

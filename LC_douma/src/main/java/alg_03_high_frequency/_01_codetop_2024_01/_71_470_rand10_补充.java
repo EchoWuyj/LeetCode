@@ -5,7 +5,7 @@ package alg_03_high_frequency._01_codetop_2024_01;
  * @DateTime 2024-01-17 13:34
  * @Version 1.0
  */
-public class _71_470_rand10_01 {
+public class _71_470_rand10_补充{
 
     // KeyPoint 补充
     // 类似题目：从 1 ~ 5 随机到 1 ~ 7 随机

@@ -11,29 +11,31 @@ import java.util.Deque;
 public class _58_155_MinStack {
 }
 
+// 最小栈
+// 定义两个栈实现
 class MinStack {
-    // 定义两个栈
     Deque<Integer> dataStack;
     Deque<Integer> minStack;
 
     public MinStack() {
-        // 赋值操作，只是引用，不能再有数据类型 Deque<Integer>
+        // 赋值操作：只是给引用赋值，并需要再有数据类型 Deque<Integer>
         dataStack = new ArrayDeque<>();
         minStack = new ArrayDeque<>();
     }
 
     public void push(int val) {
+        // dataStack 压栈
         dataStack.push(val);
-        // minStack 同步更新
-        // 注意：判断条件是 || 的关系，不是 && 的关系
+        // minStack 同步更新，判断条件是 || 的关系，不是 && 的关系
         if (minStack.isEmpty() || val <= minStack.peek()) {
             minStack.push(val);
         }
     }
 
     public void pop() {
-        // 使用 pop 弹出
+        // dataStack 使用 pop 弹出
         int top = dataStack.pop();
+        // minStack 也得顺便判断下，是否需要 pop 弹出
         if (minStack.peek() == top) {
             minStack.pop();
         }

@@ -8,6 +8,7 @@ package alg_03_high_frequency._01_codetop_2024_01;
 public class _78_112_hasPathSum {
     private boolean hasPath = false;
 
+    //
     public boolean hasPathSum(TreeNode root, int target) {
         if (root == null) return false;
         dfs(root, target);

@@ -23,11 +23,13 @@ class MyStack {
     }
 
     public void push(int x) {
-        // 新增元素 x 进入辅助队列
+        // 核心方法
+        // 新增元素 x 进入辅助队列 => 将该元素作为栈顶
         // 记忆：队列辅助，栈为主
         helpQueue.offer(x);
         while (!mainQueue.isEmpty()) {
             // 主队列元素全部进入辅助队列
+            // => 保证主队列元素按照原来顺序作为辅助队列栈底，即栈顶下面的元素
             helpQueue.offer(mainQueue.poll());
         }
 
@@ -38,6 +40,7 @@ class MyStack {
     }
 
     public int pop() {
+        // 主队列元素顺序就是入栈的顺序，故直接 pop 即可
         return mainQueue.poll();
     }
 

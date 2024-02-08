@@ -6,24 +6,35 @@ package alg_03_high_frequency._01_codetop_2024_01;
  * @Version 1.0
  */
 public class _28_143_reorderList {
-    public void reorderList(ListNode head) {
-        if (head == null) return;
-        ListNode mid = getMid(head);
 
-        // 两个链表
+    // 重排链表
+    // 直接模拟
+    public void reorderList(ListNode head) {
+        // 特判
+        if (head == null) return;
+
+        // 1.获取中点
+        // 原链表长度奇数
+        //  _  _   _     _  _
+        //  ↑      ↑     ↑
+        // list1  slow list2
+        ListNode mid = getMid(head);
+        // 分割后的两个链表，list1 长链表，list2 短链表
         ListNode list1 = head;
         ListNode list2 = mid.next;
         mid.next = null;
-        list2 = reverseList(list2);
 
+        // 2.反转链表
+        list2 = reverseList(list2);
+        // 3.合并链表
         mergeList(list1, list2);
     }
 
-    // 获取链表中点
+    // 1.获取链表中点
     public ListNode getMid(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;
-        // fast 先走一步，slow 靠左
+        // fast 先走一步，slow 靠左 => fast 多走一步，slow 少走一步，故 slow 靠左
         // fast 和 slow 相同起点，slow 考右
         while (fast != null && fast.next != null) {
             slow = slow.next;
@@ -32,7 +43,7 @@ public class _28_143_reorderList {
         return slow;
     }
 
-    // 反转链表
+    // 2.反转链表
     public ListNode reverseList(ListNode head) {
         ListNode prev = null;
         ListNode curr = head;
@@ -46,24 +57,27 @@ public class _28_143_reorderList {
         return prev;
     }
 
-    // 合并链表
+    // 3.合并链表
     public void mergeList(ListNode l1, ListNode l2) {
-        // 串联指针
-        ListNode cur1;
-        ListNode cur2;
+        // 定义串联指针
+        ListNode next1;
+        ListNode next2;
 
-        // while 循环判断，必须保证两者都时不为 null 才行
+        // while 循环判断，必须保证两者都同时不为 null
         while (l1 != null && l2 != null) {
-            // 定位下个位置，标记好下个位置
-            cur1 = l1.next;
-            cur2 = l2.next;
+            // 先记录好下个位置
+            next1 = l1.next;
+            next2 = l2.next;
 
+            // l1 串联 l2
             l1.next = l2;
-            // 移动l1
-            l1 = cur1;
+            // 移动 l1 到下个位置
+            l1 = next1;
 
+            // l2 串联 l1
             l2.next = l1;
-            l2 = cur2;
+            // 移动 l2 到下个位置
+            l2 = next2;
         }
     }
 }

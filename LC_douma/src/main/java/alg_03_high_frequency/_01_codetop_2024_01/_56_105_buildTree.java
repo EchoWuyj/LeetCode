@@ -12,8 +12,13 @@ public class _56_105_buildTree {
     private int[] preorder;
     private int[] inorder;
     private int index = 0;
+    // 构建中序序列 Map
+    // key：节点值
+    // value：位置索引
     private Map<Integer, Integer> map;
 
+    // 从前序与中序遍历序列构造二叉树
+    // 深度优先遍历
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         this.preorder = preorder;
         this.inorder = inorder;
@@ -32,11 +37,13 @@ public class _56_105_buildTree {
         if (left > right) return null;
 
         int preValue = preorder[index];
+        // 遍历先序数组指针后移
         index++;
         TreeNode root = new TreeNode(preValue);
         // 通过先序元素，确定在中序的位置索引
         int inIndex = map.get(preValue);
 
+        // 从 inIndex 两则进行递归调用，且不包括 index 本身
         root.left = dfs(left, inIndex - 1);
         root.right = dfs(inIndex + 1, right);
 

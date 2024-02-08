@@ -7,6 +7,8 @@ package alg_03_high_frequency._01_codetop_2024_01;
  */
 public class _65_104_maxDepth {
 
+    // 二叉树的最大深度
+    // 深度优先遍历
     public int maxDepth(TreeNode root) {
         if (root == null) return 0;
         return dfs(root);
@@ -19,6 +21,7 @@ public class _65_104_maxDepth {
         int left = dfs(root.left);
         int right = dfs(root.right);
 
+        // 左右子树的深度 + 根节点
         return 1 + Math.max(left, right);
     }
 }

@@ -7,9 +7,10 @@ package alg_03_high_frequency._01_codetop_2024_01;
  */
 public class _32_124_maxPathSum {
 
-    // 二叉树最大路径和
     private int maxPathSum = Integer.MIN_VALUE;
 
+    // 二叉树最大路径和
+    // 深度优先遍历
     public int maxPathSum(TreeNode root) {
         dfs(root);
         return maxPathSum;
@@ -20,8 +21,9 @@ public class _32_124_maxPathSum {
         // 避免出现负数
         int left = Math.max(dfs(root.left), 0);
         int right = Math.max(dfs(root.right), 0);
+        // 返回之前计算：左子树 + 右子树 + 中间节点值
         maxPathSum = Math.max(maxPathSum, left + right + root.val);
-        // 返回以根节点 + 左右子树其中一个最大值
+        // 左右子树中只能选择一条较大值 + 根节点 => 返回单条路径
         return Math.max(left, right) + root.val;
     }
 }

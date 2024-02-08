@@ -5,7 +5,7 @@ package alg_03_high_frequency._01_codetop_2024_01;
  * @DateTime 2024-01-16 21:42
  * @Version 1.0
  */
-public class _71_470_rand10_02 {
+public class _71_470_rand10 {
 
     // 一个方法 rand10 生成 [1,10] 范围内的均匀随机整数
     public int rand10() {
